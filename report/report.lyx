@@ -3,6 +3,9 @@
 \begin_document
 \begin_header
 \textclass report
+\begin_preamble
+\usepackage[nottoc]{tocbibind}
+\end_preamble
 \use_default_options true
 \language english
 \inputencoding auto
@@ -45,6 +48,42 @@
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{1}
+\end_layout
 
 \end_inset
 
