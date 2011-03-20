@@ -49,40 +49,285 @@ Introduction
 Background
 \end_layout
 
+\begin_layout Standard
+XXX
+\end_layout
+
 \begin_layout Section
 Problem Description
+\end_layout
+
+\begin_layout Standard
+XXX
 \end_layout
 
 \begin_layout Section
 Motivation
 \end_layout
 
-\begin_layout Chapter
-XXX
-\end_layout
-
-\begin_layout Section
+\begin_layout Standard
 XXX
 \end_layout
 
 \begin_layout Chapter
-Implementation
+XXX Methodology
 \end_layout
 
 \begin_layout Section
-NJOY Input Format
+Understanding the Input Format
 \end_layout
 
-\begin_layout Itemize
-Grammar?
+\begin_layout Standard
+XXX
 \end_layout
 
-\begin_layout Itemize
-Lex / YACC?
+\begin_layout Subsection
+Writing a Grammar
+\end_layout
+
+\begin_layout Standard
+XXX
 \end_layout
 
 \begin_layout Section
-Translator
+Lexical Analysis
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Itemize
+Use a lexical analyzer to generate tokens and detect errors?
+\end_layout
+
+\begin_layout Subsection
+Tokens
+\end_layout
+
+\begin_layout Standard
+XXX
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TOKEN
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DESCRIPTION
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EXAMPLE
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+module
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+reconr
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+3.14
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Patterns
+\end_layout
+
+\begin_layout Standard
+XXX should patterns be described?
+\end_layout
+
+\begin_layout Subsection
+Lexemes
+\end_layout
+
+\begin_layout Standard
+XXX should lexemes be described?
+\end_layout
+
+\begin_layout Subsection
+Comments
+\end_layout
+
+\begin_layout Standard
+XXX investigate the possibility to use comments in the input?
+\end_layout
+
+\begin_layout Section
+Syntactic Analysis
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Itemize
+Use a parser generator such as YACC which can detect and report syntax errors?
+\end_layout
+
+\begin_layout Section
+Semantic Analysis
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Itemize
+Enforce a type system?
+\end_layout
+
+\begin_layout Itemize
+Detect and report errors?
+\end_layout
+
+\begin_layout Chapter
+XXX Implementation
+\end_layout
+
+\begin_layout Section
+NJOY Input Format (NIF)
+\end_layout
+
+\begin_layout Itemize
+Grammar Definition?
+\end_layout
+
+\begin_layout Section
+NJOY Input Format Translator (nifty)
+\end_layout
+
+\begin_layout Itemize
+Python Lex?
+\end_layout
+
+\begin_layout Itemize
+Python YACC?
+\end_layout
+
+\begin_layout Subsection
+Code Generation
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Chapter
+XXX Results
+\end_layout
+
+\begin_layout Section
+XXX
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Chapter
+XXX Discussion
+\end_layout
+
+\begin_layout Section
+XXX
+\end_layout
+
+\begin_layout Standard
+XXX
 \end_layout
 
 \begin_layout Chapter
@@ -99,6 +344,10 @@ Future Work
 
 \begin_layout Itemize
 Possible improvements?
+\end_layout
+
+\begin_layout Itemize
+Complete context-free grammar?
 \end_layout
 
 \begin_layout Itemize
