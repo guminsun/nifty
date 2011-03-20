@@ -37,9 +37,19 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Chapter
 Introduction
@@ -70,7 +80,7 @@ XXX
 \end_layout
 
 \begin_layout Chapter
-XXX Methodology
+Methodology
 \end_layout
 
 \begin_layout Section
@@ -78,18 +88,45 @@ Understanding the Input Format
 \end_layout
 
 \begin_layout Standard
-XXX
+XXX Current NJOY Input Format (
+\family typewriter
+CNIF
+\family default
+).
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Writing a Grammar
 \end_layout
 
 \begin_layout Standard
-XXX
+XXX define a grammar for the new input format?
+\end_layout
+
+\begin_layout Subsection
+Scope and Structure
+\end_layout
+
+\begin_layout Itemize
+static scope? only top-level declarations?
+\end_layout
+
+\begin_layout Itemize
+block structure? e.g.
+ 
+\family typewriter
+module { 
+\shape italic
+variable-declarations
+\shape default
+ }
 \end_layout
 
 \begin_layout Section
+Building a Compiler
+\end_layout
+
+\begin_layout Subsection
 Lexical Analysis
 \end_layout
 
@@ -101,16 +138,28 @@ XXX
 Use a lexical analyzer to generate tokens and detect errors?
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Tokens
 \end_layout
 
 \begin_layout Standard
 XXX
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
+\begin_layout Itemize
 
+\family typewriter
+<
+\family default
+\shape italic
+token-name
+\shape default
+, 
+\shape italic
+attribute-value
+\family typewriter
+\shape default
+>
 \end_layout
 
 \begin_layout Standard
@@ -222,7 +271,7 @@ number
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Patterns
 \end_layout
 
@@ -230,7 +279,7 @@ Patterns
 XXX should patterns be described?
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Lexemes
 \end_layout
 
@@ -238,7 +287,7 @@ Lexemes
 XXX should lexemes be described?
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Comments
 \end_layout
 
@@ -246,7 +295,7 @@ Comments
 XXX investigate the possibility to use comments in the input?
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Syntactic Analysis
 \end_layout
 
@@ -258,7 +307,7 @@ XXX
 Use a parser generator such as YACC which can detect and report syntax errors?
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Semantic Analysis
 \end_layout
 
@@ -267,27 +316,68 @@ XXX
 \end_layout
 
 \begin_layout Itemize
-Enforce a type system?
+Enforce a type system? Type and scope rules defined by grammar.
 \end_layout
 
 \begin_layout Itemize
 Detect and report errors?
 \end_layout
 
-\begin_layout Chapter
-XXX Implementation
+\begin_layout Subsection
+Translation Process
 \end_layout
 
-\begin_layout Section
-NJOY Input Format (NIF)
+\begin_layout Standard
+XXX Code generation.
+ No intermediate code necessary.
 \end_layout
 
 \begin_layout Itemize
-Grammar Definition?
+process of translating the 
+\shape italic
+source
+\shape default
+ language (new input format) into the 
+\shape italic
+target
+\shape default
+ language (old input format)?
+\end_layout
+
+\begin_layout Itemize
+detect and report errors?
+\end_layout
+
+\begin_layout Chapter
+Implementation
+\end_layout
+
+\begin_layout Standard
+XXX Python, {functional, object oriented} approach?
 \end_layout
 
 \begin_layout Section
-NJOY Input Format Translator (nifty)
+NJOY Input Format (
+\family typewriter
+NIF
+\family default
+)
+\end_layout
+
+\begin_layout Itemize
+Describe design?
+\end_layout
+
+\begin_layout Itemize
+Grammar Definition File?
+\end_layout
+
+\begin_layout Section
+NJOY Input Format Translator (
+\family typewriter
+nifty
+\family default
+)
 \end_layout
 
 \begin_layout Itemize
@@ -303,11 +393,15 @@ Code Generation
 \end_layout
 
 \begin_layout Standard
-XXX
+XXX generating the 
+\shape italic
+target
+\shape default
+ language instructions?
 \end_layout
 
 \begin_layout Chapter
-XXX Results
+Results
 \end_layout
 
 \begin_layout Section
@@ -319,7 +413,7 @@ XXX
 \end_layout
 
 \begin_layout Chapter
-XXX Discussion
+Discussion
 \end_layout
 
 \begin_layout Section
@@ -355,8 +449,8 @@ GUI?
 \end_layout
 
 \begin_layout Itemize
-Efficient implementation (e.g.
- C)?
+Efficient implementation, e.g.
+ C with pthreads?
 \end_layout
 
 \begin_layout Bibliography
