@@ -84,19 +84,15 @@ Methodology
 \end_layout
 
 \begin_layout Section
-Understanding the Input Format
+Understanding the Current Input Instructions
 \end_layout
 
 \begin_layout Standard
-XXX Current NJOY Input Format (
-\family typewriter
-CNIF
-\family default
-).
+XXX Current input instructions for NJOY.
 \end_layout
 
 \begin_layout Section
-Writing a Grammar
+Designing the New Input Format
 \end_layout
 
 \begin_layout Standard
@@ -104,6 +100,14 @@ XXX define a grammar for the new input format?
 \end_layout
 
 \begin_layout Subsection
+Writing the Grammar
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Subsubsection
 Scope and Structure
 \end_layout
 
@@ -123,7 +127,7 @@ variable-declarations
 \end_layout
 
 \begin_layout Section
-Building a Compiler
+Building the Compiler
 \end_layout
 
 \begin_layout Subsection
@@ -144,12 +148,8 @@ Tokens
 
 \begin_layout Standard
 XXX
-\end_layout
-
-\begin_layout Itemize
-
 \family typewriter
-<
+ <
 \family default
 \shape italic
 token-name
@@ -401,7 +401,7 @@ target
 \end_layout
 
 \begin_layout Chapter
-Results
+Result
 \end_layout
 
 \begin_layout Section
