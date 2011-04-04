@@ -95,9 +95,9 @@ def t_comment(t):
 
 # Error handling.
 def t_error(t):
-    sys.stderr.write("--- Lexical error: illegal character on line %d: %s\n"
+    sys.stderr.write('--- Lexical error: illegal character on line %d: %s\n'
         % (t.lineno, t.value[0]))
-    sys.exit('lexer_error')
+    sys.exit('lexical_error')
 
 ##############################################################################
 
