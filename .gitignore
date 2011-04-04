@@ -1,1 +1,4 @@
+# Ignore the PLY source directory.
 src/ply
+# Ignore .nif files on the top-level.
+/*.nif
