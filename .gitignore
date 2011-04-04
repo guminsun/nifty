@@ -1,4 +1,11 @@
+# Files to ignore on the top-level.
+/*.nif
+/*.out
+/parsetab.py
+/*.pyc
+
 # Ignore the PLY source directory.
 src/ply
-# Ignore .nif files on the top-level.
-/*.nif
+
+# Ignore temporary PLY files.
+src/*.pyc
