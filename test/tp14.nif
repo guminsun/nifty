@@ -1,0 +1,102 @@
+/*****************************************************************************
+ NJOY Test Problem 14:
+
+ acer
+ 20 21 0 31 32
+ 1 0 1/
+ 'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+ 725 0./
+ /
+ /
+ acer
+ 0 31 33 34 35
+ 7 1 2/
+ 'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+ viewr
+ 33 36/
+ stop
+
+*****************************************************************************/
+
+acer
+{
+    /* acer card 1 */
+    card
+    {
+        nendf = 20;
+        npend = 21;
+        ngend = 0;
+        nace = 31;
+        ndir = 32;
+    }
+
+    /* acer card 2 */
+    card
+    {
+        iopt = 1;
+        iprint = 0;
+        ntype = 1;
+        /* suff and nxtra is set to the default values with '/'. */
+    }
+
+    /* acer card 3 */
+    card
+    {
+        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx"
+    }
+
+    /* nxtra = 0 per default -> card 4 is skipped. */
+
+    /* acer card 5, since iopt=1 */
+    card
+    {
+        matd = 725;
+        tempd = 0.;
+    }
+
+    /* acer card 6 and 7 skipped. Set to default values with '/'. */
+}
+
+acer
+{
+    /* acer card 1 */
+    card
+    {
+        nendf = 0;
+        npend = 31;
+        ngend = 33;
+        nace = 34;
+        ndir = 35;
+    }
+
+    /* acer card 2 */
+    card
+    {
+        iopt = 7;
+        iprint = 1;
+        ntype = 2;
+        /* suff and nxtra is set to the default values with '/'. */
+    }
+
+    /* acer card 3 */
+    card
+    {
+        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx"
+    }
+
+    /* nxtra = 0 per default -> card 4 is skipped. */
+
+    /* iopt = 7 -> card 5-11 skipped. */
+}
+
+viewr
+{
+    /* viewr card 1: input (since first value != {0,1}) */
+    card
+    {
+        infile = 33;
+        nps = 36;
+    }
+}
+
+/* The translator appends the 'stop' instruction. */
