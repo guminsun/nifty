@@ -1,8 +1,0 @@
-acer
-{
-    card1
-    {
-        /* Test evil comment below: */
-        /* * / */
-    }
-}
