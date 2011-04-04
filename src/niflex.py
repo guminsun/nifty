@@ -1,33 +1,55 @@
-#
-# Tokenizer draft for the NJOY Input Format (nif).
-#
-
 import sys
+from pprint import pprint as pprint
+
 import ply.lex as lex
 
-# List of token names.
-tokens = (
-    # Modules and cards.
-    'MODULE',
-    'CARD',
+# Reserved words.
+reserved = {
+    # Modules.
+    'acer' : 'ACER',
+    'broadr' : 'BROADR',
+    'ccccr' : 'CCCCR',
+    'covr' : 'COVR',
+    'dftr' : 'DFTR',
+    'errorr' : 'ERRORR',
+    'gaminr' : 'GAMINR',
+    'groupr' : 'GROUPR',
+    'heatr' : 'HEATR',
+    'matxsr' : 'MATXSR',
+    'mixr' : 'MIXR',
+    'moder' : 'MODER',
+    'plotr' : 'PLOTR',
+    'powr' : 'POWR',
+    'purr' : 'PURR',
+    'reconr' : 'RECONR',
+    'resxsr' : 'RESXSR',
+    'thermr' : 'THERMR',
+    'unresr' : 'UNRESR',
+    'wimsr' : 'WIMSR',
+    # Cards.
+    'card' : 'CARD',
+    # Stop.
+    'stop' : 'STOP',
+}
 
+# List of tokens and reserved words.
+tokens = [
     # Assignment.
-    'EQUALS',
+    'ASSIGNMENT',
+
+    # Identifiers.
+    'IDENTIFIER',
 
     # Numbers.
     'NUMBER',
+    # Strings.
+    'STRING',
 
-    # XXX: Operators.
-    'PLUS',
-    'MINUS',
-
-    # Delimeters: { } , . ;
-    'LBRACE',
-    'RBRACE',
-    'COMMA',
-    'PERIOD',
-    'SEMI',
-)
+    # Delimeters: { } ;
+    'LEFT_BRACE',
+    'RIGHT_BRACE',
+    'SEMICOLON',
+] + list(set(reserved.values()))
 
 # Ignore tabs and spaces.
 t_ignore = ' \t'
@@ -35,46 +57,47 @@ t_ignore = ' \t'
 # Newlines.
 def t_newline(t):
     r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+    t.lexer.lineno += t.value.count('\n')
     # No return value. Token (\n) discarded.
 
-# XXX: Use reserved words instead for modules?
-t_MODULE = r'acer'
-
-# XXX: What about reserved words for cards?
-t_CARD = r'card\d+'
-
-# Integers.
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
+# Identifiers and reserved words.
+def t_IDENTIFIER(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    if t.value in reserved:
+        t.type = reserved[t.value]
     return t
 
 # Assignment.
-t_EQUALS = r'='
-
-# XXX: Operators. Not binary ones though.
-t_PLUS = r'\+'
-t_MINUS = r'-'
+t_ASSIGNMENT = r'='
 
 # Delimeters.
-t_LBRACE = r'\{'
-t_RBRACE = r'\}'
-t_COMMA = r','
-t_PERIOD = r'\.'
-t_SEMI = r';'
+t_LEFT_BRACE = r'\{'
+t_RIGHT_BRACE = r'\}'
+t_SEMICOLON = r';'
+
+# Numbers.
+# Description of the regular definition:
+#   number -> optional_sign digits optional_fraction optional_exponent
+t_NUMBER = r'(-|\+)?(\d+)(\.\d*)?(((e|E)(-|\+)?\d+))?'
+
+# Strings.
+# Recognizes strings delimited by '"'.
+t_STRING = r'(\"([^\\\n]|(\\.))*?\")'
 
 # Comments.
+# Recognizes multi-line comments on the form '/* Multi-line comment. */', and
+# single line comments on the form '// Single line comment.'.
 def t_comment(t):
-    r'/\*(.|\n)*?\*/'
+    r'(/\*(.|\n)*?\*/)|(//.*)'
+    # Keep count on newlines. t_newline doesn't match while inside a comment.
     t.lexer.lineno += t.value.count('\n')
     # No return value. Token (comment) discarded.
 
 # Error handling.
 def t_error(t):
-    # Print offending character and skip it.
-    print "Illegal character '%s'" % t.value[0]
-    t.lexer.skip(1)
+    sys.stderr.write("--- Lexical error: illegal character on line %d: %s\n"
+        % (t.lineno, t.value[0]))
+    sys.exit('lexer_error')
 
 ##############################################################################
 
@@ -90,6 +113,4 @@ def stdin2tokens(lexer):
 # Run.
 if __name__=='__main__':
     lexer = lex.lex()
-    for token in stdin2tokens(lexer):
-        print 'Type:', token.type, '\t', 'Value:', token.value, '\t', \
-        'Line:', token.lineno, '\t', 'Pos:', token.lexpos
+    pprint(stdin2tokens(lexer))
