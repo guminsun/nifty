@@ -9,9 +9,9 @@
 \use_default_options true
 \language english
 \inputencoding auto
-\font_roman default
-\font_sans default
-\font_typewriter default
+\font_roman cmr
+\font_sans cmss
+\font_typewriter cmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -99,14 +99,42 @@ Background
 \end_layout
 
 \begin_layout Standard
-XXX
+The NJOY Nuclear Data Processing System 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-2"
+
+\end_inset
+
+ is used to convert Evaluated Nuclear Data Files (ENDF) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-3"
+
+\end_inset
+
+ into different formats, as well as performing operations on the nuclear
+ data.
+ NJOY is currently being used within the MACRO project 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ at the Division of Applied Nuclear Physics, at the Department of Physics
+ and Astronomy at Uppsala University.
 \end_layout
 
 \begin_layout Section
 Problem Description
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
+NJOY input instructions are complex and unreadable
+\end_layout
+
+\begin_layout Itemize
 XXX
 \end_layout
 
@@ -114,7 +142,11 @@ XXX
 Motivation
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
+A user friendly, and readable format
+\end_layout
+
+\begin_layout Itemize
 XXX
 \end_layout
 
@@ -130,12 +162,20 @@ Understanding the Current Input Instructions
 XXX Current input instructions for NJOY.
 \end_layout
 
+\begin_layout Itemize
+Complex
+\end_layout
+
+\begin_layout Itemize
+Strict sequential order
+\end_layout
+
 \begin_layout Section
 Designing the New Input Format
 \end_layout
 
 \begin_layout Standard
-XXX define a grammar for the new input format?
+XXX Define a grammar for the new input format?
 \end_layout
 
 \begin_layout Subsection
@@ -151,11 +191,11 @@ Scope and Structure
 \end_layout
 
 \begin_layout Itemize
-static scope? only top-level declarations?
+Static scope? Only top-level declarations?
 \end_layout
 
 \begin_layout Itemize
-block structure? e.g.
+Block structure? e.g.
  
 \family typewriter
 module { 
@@ -166,7 +206,7 @@ variable-declarations
 \end_layout
 
 \begin_layout Section
-Building the Compiler
+Building the Translator
 \end_layout
 
 \begin_layout Subsection
@@ -179,151 +219,6 @@ XXX
 
 \begin_layout Itemize
 Use a lexical analyzer to generate tokens and detect errors?
-\end_layout
-
-\begin_layout Subsubsection
-Tokens
-\end_layout
-
-\begin_layout Standard
-XXX
-\family typewriter
- <
-\family default
-\shape italic
-token-name
-\shape default
-, 
-\shape italic
-attribute-value
-\family typewriter
-\shape default
->
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features>
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-TOKEN
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-DESCRIPTION
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-EXAMPLE
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-module
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-reconr
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-number
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-3.14
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Patterns
-\end_layout
-
-\begin_layout Standard
-XXX should patterns be described?
-\end_layout
-
-\begin_layout Subsubsection
-Lexemes
-\end_layout
-
-\begin_layout Standard
-XXX should lexemes be described?
 \end_layout
 
 \begin_layout Subsubsection
@@ -480,7 +375,7 @@ Possible improvements?
 \end_layout
 
 \begin_layout Itemize
-Complete context-free grammar?
+Context-free grammar?
 \end_layout
 
 \begin_layout Itemize
@@ -489,7 +384,7 @@ GUI?
 
 \begin_layout Itemize
 Efficient implementation, e.g.
- C with pthreads?
+ C?
 \end_layout
 
 \begin_layout Bibliography
@@ -499,7 +394,63 @@ key "key-2"
 
 \end_inset
 
-XXX
+
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://t2.lanl.gov/codes/njoy99/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.nndc.bnl.gov/endf/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-4"
+
+\end_inset
+
+
+MAssive Computation methodology for Reactor Operations (
+\lang english
+
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.fysast.uu.se/tk/en/content/macro-project
+\end_layout
+
+\end_inset
+
+)
 \end_layout
 
 \end_body
