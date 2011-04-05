@@ -136,9 +136,9 @@ Problem Description
 \end_layout
 
 \begin_layout Standard
-The NJOY input instructions are complex and hard to read compared to a high-leve
-l programming language.
- For example, the following listing is an example of a 
+The NJOY input instructions are complex and hard to read compared to e.g.
+ a high-level programming language.
+ The listing below is a 
 \emph on
 short
 \emph default
@@ -261,10 +261,9 @@ NJOY Test Problem 14
 \end_inset
 
 Without consulting the documentation, one might guess that line 4 and 11
- is some kind of descriptive title, which is correct.
- Users, whom are not familiar with NJOY, would probably not guess that line
- 2 denotes input and output files (each number indicates a specific file)
- which the 
+ are some kind of descriptive titles, which is correct.
+ But it is not obvious that line 2 denotes input and output files (each
+ number indicates a specific file) which the 
 \family typewriter
 acer
 \family default
@@ -275,21 +274,24 @@ e in kelvin.
 \end_layout
 
 \begin_layout Standard
-Even though one can annotate the input instructions with comments, it is
- not an optimal input format.
- Working with larger and more complex jobs easily becomes a daunting task.
+This is not an optimal input format.
+ The input instructions can be annotated with descriptive comments, but
+ even then, working with a large and complex job easily becomes a daunting
+ task.
 \end_layout
 
 \begin_layout Section
-Motivation
+Objective
 \end_layout
 
 \begin_layout Standard
-XXX
+The scope of this work has been to design and implement a more user friendly,
+ and readable input format.
 \end_layout
 
 \begin_layout Itemize
-A user friendly, and readable format
+E.g.
+ denote scope, declaration of variables, et cetera.
 \end_layout
 
 \begin_layout Itemize
