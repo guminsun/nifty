@@ -9,9 +9,9 @@
 \use_default_options true
 \language english
 \inputencoding auto
-\font_roman cmr
-\font_sans cmss
-\font_typewriter cmtt
+\font_roman lmodern
+\font_sans lmss
+\font_typewriter lmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -19,7 +19,7 @@
 \font_tt_scale 100
 
 \graphics default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
 \use_hyperref false
 \papersize default
@@ -106,7 +106,9 @@ key "key-2"
 
 \end_inset
 
- is used to convert Evaluated Nuclear Data Files (ENDF) 
+ is a software package used for nuclear data management.
+ In particular, it is used to convert Evaluated Nuclear Data Files (ENDF)
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-3"
@@ -115,7 +117,10 @@ key "key-3"
 
  into different formats, as well as performing operations on the nuclear
  data.
- NJOY is currently being used within the MACRO project 
+\end_layout
+
+\begin_layout Standard
+NJOY is currently being used within the MACRO project 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -130,16 +135,157 @@ key "key-4"
 Problem Description
 \end_layout
 
-\begin_layout Itemize
-NJOY input instructions are complex and unreadable
+\begin_layout Standard
+The NJOY input instructions are complex and hard to read compared to a high-leve
+l programming language.
+ For example, the following listing is an example of a 
+\emph on
+short
+\emph default
+ and 
+\emph on
+simple
+\emph default
+ NJOY job which illustrates what the input instructions look like.
 \end_layout
 
-\begin_layout Itemize
-XXX
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},numbers=left,numberstyle={\small}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+acer
+\end_layout
+
+\begin_layout Plain Layout
+
+20 21 0 31 32
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0 1/
+\end_layout
+
+\begin_layout Plain Layout
+
+'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+\end_layout
+
+\begin_layout Plain Layout
+
+725 0./
+\end_layout
+
+\begin_layout Plain Layout
+
+/
+\end_layout
+
+\begin_layout Plain Layout
+
+/
+\end_layout
+
+\begin_layout Plain Layout
+
+acer
+\end_layout
+
+\begin_layout Plain Layout
+
+0 31 33 34 35
+\end_layout
+
+\begin_layout Plain Layout
+
+7 1 2/
+\end_layout
+
+\begin_layout Plain Layout
+
+'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+\end_layout
+
+\begin_layout Plain Layout
+
+viewr
+\end_layout
+
+\begin_layout Plain Layout
+
+33 36/
+\end_layout
+
+\begin_layout Plain Layout
+
+stop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NJOY Test Problem 14
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Without consulting the documentation, one might guess that line 4 and 11
+ is some kind of descriptive title, which is correct.
+ Users, whom are not familiar with NJOY, would probably not guess that line
+ 2 denotes input and output files (each number indicates a specific file)
+ which the 
+\family typewriter
+acer
+\family default
+ module will operate on.
+ It is also hard to deduce that the first number on line 5 denotes the material
+ to be processed, and that that the second number denotes the desired temperatur
+e in kelvin.
+\end_layout
+
+\begin_layout Standard
+Even though one can annotate the input instructions with comments, it is
+ not an optimal input format.
+ Working with larger and more complex jobs easily becomes a daunting task.
 \end_layout
 
 \begin_layout Section
 Motivation
+\end_layout
+
+\begin_layout Standard
+XXX
 \end_layout
 
 \begin_layout Itemize
@@ -147,7 +293,7 @@ A user friendly, and readable format
 \end_layout
 
 \begin_layout Itemize
-XXX
+Resemble a high-level programming language?
 \end_layout
 
 \begin_layout Chapter
@@ -168,6 +314,10 @@ Complex
 
 \begin_layout Itemize
 Strict sequential order
+\end_layout
+
+\begin_layout Itemize
+Terminology: input deck, decks of cards
 \end_layout
 
 \begin_layout Section
@@ -209,6 +359,10 @@ variable-declarations
 Building the Translator
 \end_layout
 
+\begin_layout Standard
+XXX Python, UN*X.
+\end_layout
+
 \begin_layout Subsection
 Lexical Analysis
 \end_layout
@@ -226,7 +380,7 @@ Comments
 \end_layout
 
 \begin_layout Standard
-XXX investigate the possibility to use comments in the input?
+XXX Investigate the possibility to use comments in the input?
 \end_layout
 
 \begin_layout Subsection
@@ -239,6 +393,10 @@ XXX
 
 \begin_layout Itemize
 Use a parser generator such as YACC which can detect and report syntax errors?
+\end_layout
+
+\begin_layout Itemize
+Building an AST?
 \end_layout
 
 \begin_layout Subsection
@@ -267,7 +425,7 @@ XXX Code generation.
 \end_layout
 
 \begin_layout Itemize
-process of translating the 
+Process of translating the 
 \shape italic
 source
 \shape default
@@ -279,15 +437,31 @@ target
 \end_layout
 
 \begin_layout Itemize
-detect and report errors?
+Detect and report errors?
 \end_layout
 
-\begin_layout Chapter
-Implementation
+\begin_layout Itemize
+Traverse the AST and output NJOY input instructions.
+\end_layout
+
+\begin_layout Section
+Testing
 \end_layout
 
 \begin_layout Standard
-XXX Python, {functional, object oriented} approach?
+XXX Continuously testing during all phases.
+\end_layout
+
+\begin_layout Itemize
+Compare output from 
+\family typewriter
+nifty
+\family default
+ with expected output.
+\end_layout
+
+\begin_layout Chapter
+Results
 \end_layout
 
 \begin_layout Section
@@ -303,7 +477,7 @@ Describe design?
 \end_layout
 
 \begin_layout Itemize
-Grammar Definition File?
+The Grammar?
 \end_layout
 
 \begin_layout Section
@@ -315,47 +489,57 @@ nifty
 \end_layout
 
 \begin_layout Itemize
-Python Lex?
+PLY
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Lex
 \end_layout
 
 \begin_layout Itemize
-Python YACC?
+YACC
 \end_layout
 
-\begin_layout Subsection
-Code Generation
+\end_deeper
+\begin_layout Itemize
+Translation of AST?
 \end_layout
 
-\begin_layout Standard
-XXX generating the 
-\shape italic
-target
-\shape default
- language instructions?
+\begin_deeper
+\begin_layout Itemize
+Code generation: generating the target language instructions?
 \end_layout
 
-\begin_layout Chapter
-Result
-\end_layout
-
-\begin_layout Section
-XXX
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
+\end_deeper
 \begin_layout Chapter
 Discussion
 \end_layout
 
-\begin_layout Section
-XXX
+\begin_layout Itemize
+Testing not that rigorous.
+ NJOY is a large and complex program, there's a lot of scenarios (e.g.
+ input instructions) that hasn't been tested.
 \end_layout
 
-\begin_layout Standard
-XXX
+\begin_layout Itemize
+Efficiency?
+\end_layout
+
+\begin_layout Itemize
+Answer the 
+\begin_inset Quotes eld
+\end_inset
+
+Why?
+\begin_inset Quotes erd
+\end_inset
+
+ questions.
+\end_layout
+
+\begin_layout Itemize
+Significant findings?
 \end_layout
 
 \begin_layout Chapter
@@ -366,6 +550,41 @@ Conclusion
 Improvement on the existing situation?
 \end_layout
 
+\begin_layout Itemize
+Challenges?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Constructing a decent input format.
+\end_layout
+
+\begin_layout Itemize
+The physics (even if it's not within the scope).
+ Documentation is full of it, kind of.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Usable?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Production: not adviceable.
+ Grammar not verified.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Toy
+\begin_inset Quotes erd
+\end_inset
+
+ translator.
+\end_layout
+
+\end_deeper
 \begin_layout Section
 Future Work
 \end_layout
@@ -379,7 +598,15 @@ Context-free grammar?
 \end_layout
 
 \begin_layout Itemize
-GUI?
+GUI for 
+\family typewriter
+viewr
+\family default
+ and 
+\family typewriter
+plotr
+\family default
+?
 \end_layout
 
 \begin_layout Itemize
@@ -436,10 +663,11 @@ key "key-4"
 
 \end_inset
 
+MAssive Computation methodology for Reactor Operations
+\begin_inset Newline newline
+\end_inset
 
-MAssive Computation methodology for Reactor Operations (
-\lang english
-
+(
 \begin_inset Flex URL
 status open
 
