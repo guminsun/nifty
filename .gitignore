@@ -5,7 +5,7 @@
 /*.pyc
 
 # Ignore the PLY source directory.
-src/ply
+nifty/ply
 
 # Ignore temporary PLY files.
-src/*.pyc
+nifty/*.pyc
