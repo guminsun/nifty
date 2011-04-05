@@ -18,14 +18,80 @@ def p_program(p):
 
 def p_module_list(p):
     '''module_list : module module_list
+                   | STOP
                    | empty'''
-    if p[0] == None:
-        p[0] = ['stop']
     if len(p) == 3:
         p[0] = [p[1]] + p[2]
+    # Append 'stop' as the last instruction to be executed.
+    if p[0] == None:
+        p[0] = ['stop']
 
 def p_module(p):
-    'module : ACER LEFT_BRACE RIGHT_BRACE'
+    'module : module_name LEFT_BRACE card_list RIGHT_BRACE'
+    p[0] = (p[1], p[3])
+
+def p_module_name(p):
+    '''module_name : ACER
+                   | BROADR
+                   | CCCCR
+                   | COVR
+                   | DFTR
+                   | ERRORR
+                   | GAMINR
+                   | GROUPR
+                   | HEATR
+                   | MATXSR
+                   | MIXR
+                   | MODER
+                   | PLOTR
+                   | POWR
+                   | PURR
+                   | RECONR
+                   | RESXSR
+                   | THERMR
+                   | UNRESR
+                   | WIMSR'''
+    p[0] = p[1]
+
+def p_card_list(p):
+    '''card_list : card card_list
+                 | empty'''
+    if len(p) == 3:
+        p[0] = [p[1]] + p[2]
+    if p[0] == None:
+        p[0] = []
+
+def p_card(p):
+    '''card : card_name LEFT_BRACE statement_list RIGHT_BRACE'''
+    p[0] = p[3]
+
+def p_card_name(p):
+    'card_name : CARD'
+    p[0] = p[1]
+
+def p_statement_list(p):
+    '''statement_list : statement statement_list
+                      | empty'''
+    if len(p) == 3:
+        p[0] = [p[1]] + p[2]
+    if p[0] == None:
+        p[0] = []
+
+def p_statement(p):
+    'statement : expression SEMICOLON'
+    p[0] = p[1]
+
+def p_expression(p):
+    'expression : assignment'
+    p[0] = p[1]
+
+def p_assignment(p):
+    'assignment : IDENTIFIER ASSIGNMENT factor'
+    p[0] = p[3]
+
+def p_factor(p):
+    '''factor : NUMBER
+              | STRING'''
     p[0] = p[1]
 
 def p_empty(p):
@@ -49,8 +115,7 @@ def parse(data):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         filename = sys.argv[1]
-    # XXX: Ugly.
+        result = parse(open(filename).read())
     else:
-        filename = '/home/hessman/src/nifty/slask.nif'
-    result = parse(open(filename).read())
+        result = parse(sys.stdin.read())
     pprint(result)
