@@ -102,15 +102,29 @@ def t_error(t):
 ##############################################################################
 
 def stdin2tokens(lexer):
-  lexer.input(sys.stdin.read())
-  token_list = []
-  while True:
-      t = lex.token()
-      if not t: break
-      token_list.append(t)
-  return token_list
+    lexer.input(sys.stdin.read())
+    token_list = []
+    while True:
+        t = lex.token()
+        if not t: break
+        token_list.append(t)
+    return token_list
+
+def file2tokens(filename, lexer):
+    lexer.input(open(filename).read())
+    token_list = []
+    while True:
+        t = lex.token()
+        if not t: break
+        token_list.append(t)
+    return token_list
 
 # Run.
-if __name__=='__main__':
+if __name__ == '__main__':
     lexer = lex.lex()
-    pprint(stdin2tokens(lexer))
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+        result = file2tokens(filename, lexer)
+    else:
+        result = stdin2tokens(lexer)
+    pprint(result)

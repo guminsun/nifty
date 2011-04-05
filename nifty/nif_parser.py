@@ -5,8 +5,8 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 # Get the token map from the lexer.
-import niflex
-tokens = niflex.tokens
+import nif_lexer
+tokens = nif_lexer.tokens
 
 ##############################################################################
 
@@ -107,7 +107,7 @@ def p_error(p):
 ##############################################################################
 
 def parse(data):
-    lexer = lex.lex(module=niflex)
+    lexer = lex.lex(module=nif_lexer)
     parser = yacc.yacc(debug=True)
     # 'tracking' requires extra processing. Turn it off if parsing is slow.
     return parser.parse(data, tracking=True)
