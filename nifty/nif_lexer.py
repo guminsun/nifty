@@ -31,6 +31,18 @@ reserved = {
     'wimsr' : 'WIMSR',
     # Cards.
     'card' : 'CARD',
+    'card_1' : 'CARD_1',
+    'card_2' : 'CARD_2',
+    'card_3' : 'CARD_3',
+    'card_4' : 'CARD_4',
+    'card_5' : 'CARD_5',
+    'card_6' : 'CARD_6',
+    'card_7' : 'CARD_7',
+    'card_8' : 'CARD_8',
+    'card_8a' : 'CARD_8A',
+    'card_9' : 'CARD_9',
+    'card_10' : 'CARD_10',
+    'card_11' : 'CARD_11',
     # Stop.
     'stop' : 'STOP',
 }
