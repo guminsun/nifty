@@ -15,7 +15,7 @@ start = 'program'
 
 def p_program(p):
     'program : module_list'
-    p[0] = p[1]
+    p[0] = make_program(p)
 
 # XXX: Catch 'STOP' just in case since it isn't an illegal instruction when
 #      declared in this scope.
@@ -107,22 +107,34 @@ def p_statement_list(p):
 
 def p_statement(p):
     'statement : expression SEMICOLON'
-    p[0] = make_statement(p[1])
+    p[0] = make_statement(p)
 
 def p_expression(p):
-    'expression : assignment'
-    p[0] = make_expression(p[1])
+    '''
+        expression : assignment
+    '''
+    p[0] = make_expression(p)
 
 def p_assignment(p):
-    'assignment : IDENTIFIER ASSIGNMENT factor'
-    p[0] = make_assignment(p[1], p[2], p[3])
+    '''
+        assignment : IDENTIFIER ASSIGNMENT r_value
+    '''
+    p[0] = make_assignment(p)
 
-def p_factor(p):
+def p_r_value(p):
     '''
-        factor : NUMBER
-               | STRING
+        r_value : number
+                | string
     '''
-    p[0] = p[1]
+    p[0] = make_r_value(p)
+
+def p_number(p):
+    'number : NUMBER'
+    p[0] = make_number(p)
+
+def p_string(p):
+    'string : STRING'
+    p[0] = make_string(p)
 
 def p_empty(p):
     'empty :'
@@ -137,34 +149,59 @@ def p_error(p):
 ##############################################################################
 # Constructors.
 
-def make_module(module_token):
-    return make_module_node(module_token)
-
-def make_module_node(module_token):
+def make_program(p):
     node = dict()
-    node['line_number'] = module_token.lineno(1)
-    node['type'] = module_token[1]
-    node['card_list'] = module_token[3]
+    node['node_type'] = 'program'
+    node['line_number'] = p.lineno(0)
+    node['module_list'] = p[1]
     return node
 
-def make_card(card_token):
-    return make_card_node(card_token)
-
-def make_card_node(card_token):
+def make_module(p):
     node = dict()
-    node['line_number'] = card_token.lineno(1)
-    node['type'] = card_token[1]
-    node['statement_list'] = card_token[3]
+    node['node_type'] = 'module'
+    node['line_number'] = p.lineno(0)
+    node['module_name'] = p[1]
+    node['card_list'] = p[3]
     return node
 
-def make_statement(statement):
-    return statement
+def make_card(p):
+    node = dict()
+    node['node_type'] = 'card'
+    node['line_number'] = p.lineno(0)
+    node['card_name'] = p[1]
+    node['statement_list'] = p[3]
+    return node
 
-def make_expression(expression):
-    return expression
+def make_statement(p):
+    return p[1]
 
-def make_assignment(rval, operator, lval):
-    return (operator, rval, lval)
+def make_expression(p):
+    return p[1]
+
+def make_assignment(p):
+    node = dict()
+    node['line_number'] = p.lineno(2)
+    node['node_type'] = p[2]
+    node['identifier'] = p[1]
+    node['r_value'] = p[3]
+    return node
+
+def make_r_value(p):
+    return p[1]
+
+def make_number(p):
+    node = dict()
+    node['line_number'] = p.lineno(0)
+    node['node_type'] = 'number'
+    node['value'] = p[1]
+    return node
+
+def make_string(p):
+    node = dict()
+    node['line_number'] = p.lineno(0)
+    node['node_type'] = 'string'
+    node['name'] = p[1]
+    return node
 
 ##############################################################################
 # Misc.
