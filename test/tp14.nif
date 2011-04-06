@@ -21,7 +21,7 @@
 acer
 {
     /* acer card 1 */
-    card
+    card_1
     {
         nendf = 20;
         npend = 21;
@@ -31,7 +31,7 @@ acer
     }
 
     /* acer card 2 */
-    card
+    card_2
     {
         iopt = 1;
         iprint = 0;
@@ -40,7 +40,7 @@ acer
     }
 
     /* acer card 3 */
-    card
+    card_3
     {
         hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
     }
@@ -48,7 +48,7 @@ acer
     /* nxtra = 0 per default -> card 4 is skipped. */
 
     /* acer card 5, since iopt=1 */
-    card
+    card_5
     {
         matd = 725;
         tempd = 0.;
@@ -60,7 +60,7 @@ acer
 acer
 {
     /* acer card 1 */
-    card
+    card_1
     {
         nendf = 0;
         npend = 31;
@@ -70,7 +70,7 @@ acer
     }
 
     /* acer card 2 */
-    card
+    card_2
     {
         iopt = 7;
         iprint = 1;
@@ -79,7 +79,7 @@ acer
     }
 
     /* acer card 3 */
-    card
+    card_3
     {
         hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
     }
@@ -92,7 +92,7 @@ acer
 viewr
 {
     /* viewr card 1: input (since first value != {0,1}) */
-    card
+    card_1
     {
         infile = 33;
         nps = 36;
