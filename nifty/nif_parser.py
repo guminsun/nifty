@@ -35,11 +35,13 @@ def p_module_name(p):
                    | BROADR
                    | CCCCR
                    | COVR
-                   | DFTR
+                   | DTFR
                    | ERRORR
                    | GAMINR
+                   | GASPR
                    | GROUPR
                    | HEATR
+                   | LEAPR
                    | MATXSR
                    | MIXR
                    | MODER
@@ -50,6 +52,7 @@ def p_module_name(p):
                    | RESXSR
                    | THERMR
                    | UNRESR
+                   | VIEWR
                    | WIMSR'''
     p[0] = p[1]
 
