@@ -3,9 +3,26 @@ from pprint import pprint as pprint
 
 import ply.lex as lex
 
-# Reserved words.
-reserved = {
-    # Modules.
+##############################################################################
+# Tokens.
+
+reserved_cards = {
+    'card' : 'CARD',
+    'card_1' : 'CARD_1',
+    'card_2' : 'CARD_2',
+    'card_3' : 'CARD_3',
+    'card_4' : 'CARD_4',
+    'card_5' : 'CARD_5',
+    'card_6' : 'CARD_6',
+    'card_7' : 'CARD_7',
+    'card_8' : 'CARD_8',
+    'card_8a' : 'CARD_8A',
+    'card_9' : 'CARD_9',
+    'card_10' : 'CARD_10',
+    'card_11' : 'CARD_11',
+}
+
+reserved_modules = {
     'acer' : 'ACER',
     'broadr' : 'BROADR',
     'ccccr' : 'CCCCR',
@@ -29,25 +46,16 @@ reserved = {
     'unresr' : 'UNRESR',
     'viewr' : 'VIEWR',
     'wimsr' : 'WIMSR',
-    # Cards.
-    'card' : 'CARD',
-    'card_1' : 'CARD_1',
-    'card_2' : 'CARD_2',
-    'card_3' : 'CARD_3',
-    'card_4' : 'CARD_4',
-    'card_5' : 'CARD_5',
-    'card_6' : 'CARD_6',
-    'card_7' : 'CARD_7',
-    'card_8' : 'CARD_8',
-    'card_8a' : 'CARD_8A',
-    'card_9' : 'CARD_9',
-    'card_10' : 'CARD_10',
-    'card_11' : 'CARD_11',
-    # Stop.
+    # XXX: 'stop' is not a module, but it is in the same scope as the modules.
     'stop' : 'STOP',
 }
 
-# List of tokens and reserved words.
+# Reserved words.
+reserved_words = {}
+reserved_words.update(reserved_cards)
+reserved_words.update(reserved_modules)
+
+# List of tokens.
 tokens = [
     # Assignment.
     'ASSIGNMENT',
@@ -64,7 +72,10 @@ tokens = [
     'LEFT_BRACE',
     'RIGHT_BRACE',
     'SEMICOLON',
-] + list(set(reserved.values()))
+] + list(reserved_words.values())
+
+##############################################################################
+# Regular expression rules which recognizes tokens.
 
 # Ignore tabs and spaces.
 t_ignore = ' \t'
@@ -78,8 +89,8 @@ def t_newline(t):
 # Identifiers and reserved words.
 def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    if t.value in reserved:
-        t.type = reserved[t.value]
+    if t.value in reserved_words:
+        t.type = reserved_words[t.value]
     return t
 
 # Assignment.
@@ -96,8 +107,8 @@ t_SEMICOLON = r';'
 t_NUMBER = r'(-|\+)?(\d+)(\.\d*)?(((e|E)(-|\+)?\d+))?'
 
 # Strings.
-# Recognizes strings delimited by '"'.
-t_STRING = r'(\"([^\\\n]|(\\.))*?\")'
+# Recognizes strings delimited by single quotes ("'"), e.g. "'A string.'".
+t_STRING = r'(\'([^\\\n]|(\\.))*?\')'
 
 # Comments.
 # Recognizes multi-line comments on the form '/* Multi-line comment. */', and
@@ -115,6 +126,7 @@ def t_error(t):
     sys.exit('lexical_error')
 
 ##############################################################################
+# Misc.
 
 def stdin2tokens(lexer):
     lexer.input(sys.stdin.read())
@@ -134,7 +146,6 @@ def file2tokens(filename, lexer):
         token_list.append(t)
     return token_list
 
-# Run.
 if __name__ == '__main__':
     lexer = lex.lex()
     if len(sys.argv) > 1:
