@@ -42,7 +42,7 @@ acer
     /* acer card 3 */
     card_3
     {
-        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+        hk = 'proton + 7-n-14 apt la150 njoy99 mcnpx';
     }
 
     /* nxtra = 0 per default -> card 4 is skipped. */
@@ -81,7 +81,7 @@ acer
     /* acer card 3 */
     card_3
     {
-        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+        hk = 'proton + 7-n-14 apt la150 njoy99 mcnpx';
     }
 
     /* nxtra = 0 per default -> card 4 is skipped. */
