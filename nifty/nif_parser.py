@@ -17,6 +17,8 @@ def p_program(p):
     'program : module_list'
     p[0] = p[1]
 
+# XXX: Catch 'STOP' just in case since it isn't an illegal instruction when
+#      declared in this scope.
 def p_module_list(p):
     '''
         module_list : module module_list
@@ -27,11 +29,11 @@ def p_module_list(p):
         p[0] = [p[1]] + p[2]
     # Append 'stop' as the last instruction to be executed.
     if p[0] is None:
-        p[0] = [make_module('stop', None)]
+        p[0] = ['stop']
 
 def p_module(p):
     'module : module_name LEFT_BRACE card_list RIGHT_BRACE'
-    p[0] = make_module(p[1], p[3])
+    p[0] = make_module(p)
 
 def p_module_name(p):
     '''
@@ -73,7 +75,7 @@ def p_card_list(p):
 
 def p_card(p):
     'card : card_name LEFT_BRACE statement_list RIGHT_BRACE'
-    p[0] = p[3]
+    p[0] = make_card(p)
 
 def p_card_name(p):
     '''
@@ -105,15 +107,15 @@ def p_statement_list(p):
 
 def p_statement(p):
     'statement : expression SEMICOLON'
-    p[0] = p[1]
+    p[0] = make_statement(p[1])
 
 def p_expression(p):
     'expression : assignment'
-    p[0] = p[1]
+    p[0] = make_expression(p[1])
 
 def p_assignment(p):
     'assignment : IDENTIFIER ASSIGNMENT factor'
-    p[0] = p[3]
+    p[0] = make_assignment(p[1], p[2], p[3])
 
 def p_factor(p):
     '''
@@ -135,8 +137,34 @@ def p_error(p):
 ##############################################################################
 # Constructors.
 
-def make_module(module, cards):
-  return (module, cards)
+def make_module(module_token):
+    return make_module_node(module_token)
+
+def make_module_node(module_token):
+    node = dict()
+    node['line_number'] = module_token.lineno(1)
+    node['type'] = module_token[1]
+    node['card_list'] = module_token[3]
+    return node
+
+def make_card(card_token):
+    return make_card_node(card_token)
+
+def make_card_node(card_token):
+    node = dict()
+    node['line_number'] = card_token.lineno(1)
+    node['type'] = card_token[1]
+    node['statement_list'] = card_token[3]
+    return node
+
+def make_statement(statement):
+    return statement
+
+def make_expression(expression):
+    return expression
+
+def make_assignment(rval, operator, lval):
+    return (operator, rval, lval)
 
 ##############################################################################
 # Misc.
