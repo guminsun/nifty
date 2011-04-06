@@ -147,19 +147,16 @@ short
 simple
 \emph default
  NJOY job which illustrates what the input instructions look like.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float algorithm
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset listings
-lstparams "basicstyle={\ttfamily},numbers=left,numberstyle={\small}"
+lstparams "basicstyle={\small\ttfamily},numbers=left,numberstyle={\footnotesize}"
 inline false
 status open
 
@@ -252,14 +249,6 @@ NJOY Test Problem 14
 
 \end_inset
 
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
 Without consulting the documentation, one might guess that line 4 and 11
  are some kind of descriptive titles, which is correct.
  But it is not obvious that line 2 denotes input and output files (each
@@ -269,8 +258,8 @@ acer
 \family default
  module will operate on.
  It is also hard to deduce that the first number on line 5 denotes the material
- to be processed, and that that the second number denotes the desired temperatur
-e in kelvin.
+ to be processed, and that the second number denotes the desired temperature
+ in kelvin.
 \end_layout
 
 \begin_layout Standard
