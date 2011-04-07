@@ -26,6 +26,21 @@ reserved_identifiers = {
     # Reserved identifiers for card 1.
     'nendf' : 'IDENTIFIER',
     'npend' : 'IDENTIFIER',
+    # Reserved identifiers for card 2.
+    'tlabel' : 'IDENTIFIER',
+    # Reserved identifiers for card 3.
+    'mat' : 'IDENTIFIER',
+    'ncards' : 'IDENTIFIER',
+    'ngrid' : 'IDENTIFIER',
+    # Reserved identifiers for card 4.
+    'err' : 'IDENTIFIER',
+    'tempr' : 'IDENTIFIER',
+    'errmax' : 'IDENTIFIER',
+    'errint' : 'IDENTIFIER',
+    # Reserved identifiers for card 5.
+    'cards' : 'IDENTIFIER',
+    # Reserved identifiers for card 6.
+    'enode' : 'IDENTIFIER',
 }
 
 reserved_modules = {
