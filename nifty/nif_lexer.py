@@ -107,6 +107,7 @@ def t_newline(t):
 # Handle identifiers and reserved words.
 def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
+    # XXX Check if identifier is a reserved word, otherwise raise an error?
     t.type = reserved_words.get(t.value,"IDENTIFIER")
     return t
 
