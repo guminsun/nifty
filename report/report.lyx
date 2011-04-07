@@ -1,46 +1,73 @@
-#LyX 1.6.9 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
-\textclass report
+\textclass article
 \begin_preamble
 \usepackage[nottoc]{tocbibind}
 \end_preamble
 \use_default_options true
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding auto
-\font_roman lmodern
-\font_sans lmss
-\font_typewriter lmtt
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
+\default_output_format pdf2
+\output_sync 1
+\bibtex_command default
+\index_command default
 \paperfontsize 12
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
 \use_geometry false
 \use_amsmath 1
 \use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine basic
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
@@ -72,6 +99,46 @@ thispagestyle{empty}
 \end_inset
 
 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+[XXX BLANK]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX Line spacing in report?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -90,48 +157,33 @@ setcounter{page}{1}
 
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Section
 Introduction
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Background
 \end_layout
 
 \begin_layout Standard
-The NJOY Nuclear Data Processing System 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-2"
-
-\end_inset
-
- is a software package used for nuclear data management.
+The NJOY Nuclear Data Processing System [1] is a software package used for
+ nuclear data management.
  In particular, it is used to convert Evaluated Nuclear Data Files (ENDF)
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-3"
-
-\end_inset
-
- into different formats, as well as performing operations on the nuclear
+ [2] into different formats, as well as performing operations on the nuclear
  data.
 \end_layout
 
 \begin_layout Standard
-NJOY is currently being used within the MACRO project 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
- at the Division of Applied Nuclear Physics, at the Department of Physics
- and Astronomy at Uppsala University.
+NJOY is currently being used within the MACRO project [3] at the Division
+ of Applied Nuclear Physics, at the Department of Physics and Astronomy
+ at Uppsala University.
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Subsection
 Problem Description
 \end_layout
 
@@ -263,60 +315,94 @@ acer
 \end_layout
 
 \begin_layout Standard
-This is not an optimal input format.
- The input instructions can be annotated with descriptive comments, but
- even then, working with a large and complex job easily becomes a daunting
- task.
+The input instructions can be annotated with descriptive comments, but even
+ then, working with a large and complex job easily becomes a daunting task.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Objective
 \end_layout
 
 \begin_layout Standard
-The scope of this work has been to design and implement a more user friendly,
+The NJOY input instructions are not an optimal input format.
+ The scope of this work has been to design and implement a more user friendly,
  and readable input format.
 \end_layout
 
 \begin_layout Itemize
 E.g.
- denote scope, declaration of variables, et cetera.
+ denote scope, use blocks to group and format statements, declaration of
+ identifiers, et cetera.
 \end_layout
 
 \begin_layout Itemize
-Resemble a high-level programming language?
+It should more or less resemble a high-level programming language.
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Methodology
 \end_layout
 
-\begin_layout Section
-Understanding the Current Input Instructions
+\begin_layout Subsection
+Understanding the NJOY Input Instructions
+\end_layout
+
+\begin_layout Itemize
+Complex.
+\end_layout
+
+\begin_layout Itemize
+The flow between modules, chaining.
+\end_layout
+
+\begin_layout Itemize
+Strict sequential order.
+\end_layout
+
+\begin_layout Itemize
+Comments: $
+\end_layout
+
+\begin_layout Itemize
+Repeatable cards.
+\end_layout
+
+\begin_layout Itemize
+Similarities to control flow statements; some variables declare which cards
+ are present.
+\end_layout
+
+\begin_layout Itemize
+Terminology: input deck, decks of cards, ...
+\end_layout
+
+\begin_layout Subsection
+Designing the New NJOY Input Format
 \end_layout
 
 \begin_layout Standard
-XXX Current input instructions for NJOY.
+XXX Define a grammar for the new NJOY input format.
 \end_layout
 
 \begin_layout Itemize
-Complex
+Influenced by the C programming language.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Why?
 \end_layout
 
-\begin_layout Itemize
-Strict sequential order
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-Terminology: input deck, decks of cards
-\end_layout
 
-\begin_layout Section
-Designing the New Input Format
-\end_layout
-
-\begin_layout Standard
-XXX Define a grammar for the new input format?
 \end_layout
 
 \begin_layout Subsection
@@ -327,16 +413,13 @@ Writing the Grammar
 XXX
 \end_layout
 
-\begin_layout Subsubsection
-Scope and Structure
-\end_layout
-
 \begin_layout Itemize
 Static scope? Only top-level declarations?
 \end_layout
 
 \begin_layout Itemize
-Block structure? e.g.
+Block structure.
+ e.g.
  
 \family typewriter
 module { 
@@ -346,15 +429,35 @@ variable-declarations
  }
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Building the Translator
 \end_layout
 
 \begin_layout Standard
-XXX Python, UN*X.
+XXX Python 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX Why?
 \end_layout
 
-\begin_layout Subsection
+\end_inset
+
+, PLY (compiler compiler) 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX Why? See note in Diary
+\end_layout
+
+\end_inset
+
+, UN*X environment.
+\end_layout
+
+\begin_layout Subsubsection
 Lexical Analysis
 \end_layout
 
@@ -363,18 +466,15 @@ XXX
 \end_layout
 
 \begin_layout Itemize
-Use a lexical analyzer to generate tokens and detect errors?
+Used a lexical analyzer to generate tokens and detect errors.
+ PLY Lex.
+\end_layout
+
+\begin_layout Itemize
+Wrote regular expressions to recognize tokens.
 \end_layout
 
 \begin_layout Subsubsection
-Comments
-\end_layout
-
-\begin_layout Standard
-XXX Investigate the possibility to use comments in the input?
-\end_layout
-
-\begin_layout Subsection
 Syntactic Analysis
 \end_layout
 
@@ -383,14 +483,15 @@ XXX
 \end_layout
 
 \begin_layout Itemize
-Use a parser generator such as YACC which can detect and report syntax errors?
+Used a parser generator such to detect and report syntax errors.
+ PLY YACC.
 \end_layout
 
 \begin_layout Itemize
-Building an AST?
+Constructed an AST to represent the structure of NIF.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Semantic Analysis
 \end_layout
 
@@ -399,20 +500,39 @@ XXX
 \end_layout
 
 \begin_layout Itemize
-Enforce a type system? Type and scope rules defined by grammar.
+Enforced a type system.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+OK: 
+\family typewriter
+nendf = 20;
+\family default
+, not OK: 
+\family typewriter
+nendf = 999;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Determine if the program is semantically correct (i.e.
+ find errors that have to do with the meaning of the program, and not the
+ syntax).
 \end_layout
 
 \begin_layout Itemize
-Detect and report errors?
+Detected and reported errors.
+ E.g.
+ input file was not in the range [20,99].
 \end_layout
 
-\begin_layout Subsection
-Translation Process
+\begin_layout Subsubsection
+Code Generation
 \end_layout
 
 \begin_layout Standard
-XXX Code generation.
- No intermediate code necessary.
+XXX No intermediate code necessary.
 \end_layout
 
 \begin_layout Itemize
@@ -420,22 +540,38 @@ Process of translating the
 \shape italic
 source
 \shape default
- language (new input format) into the 
+ language (NIF) into the 
 \shape italic
 target
 \shape default
- language (old input format)?
+ language (NJOY input instructions).
 \end_layout
 
 \begin_layout Itemize
-Detect and report errors?
+Massage the AST into NJOY input instructions.
 \end_layout
 
 \begin_layout Itemize
-Traverse the AST and output NJOY input instructions.
+Flattened the tree structure.
 \end_layout
 
-\begin_layout Section
+\begin_deeper
+\begin_layout Itemize
+Control flow statements? E.g.
+ for-loop idioms?
+\end_layout
+
+\begin_layout Itemize
+Traversed the AST.
+ Constructed NJOY input instructions by visiting the nodes (DFS algorithm).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Detected and reported errors.
+\end_layout
+
+\begin_layout Subsection
 Testing
 \end_layout
 
@@ -444,18 +580,41 @@ XXX Continuously testing during all phases.
 \end_layout
 
 \begin_layout Itemize
-Compare output from 
-\family typewriter
-nifty
-\family default
- with expected output.
+Unit Testing?
 \end_layout
 
-\begin_layout Chapter
-Results
+\begin_layout Itemize
+Used NJOY test problems as examples 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX Reference to NJOY web?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Compared output from translator with expected output.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
+Results
+\end_layout
+
+\begin_layout Subsection
 NJOY Input Format (
 \family typewriter
 NIF
@@ -467,11 +626,147 @@ NIF
 Describe design?
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Strings and numbers
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 The Grammar?
 \end_layout
 
-\begin_layout Section
+\begin_layout Itemize
+Example.
+ NJOY input instructions vs NIF.
+\end_layout
+
+\begin_layout Itemize
+Modules still needs to be given in the correct, sequential order.
+ The translator cannot guess the users' intention of the job.
+ Needs to be told what to do.
+ Just a translator.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Context-free grammar reference
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+program        ::= module_list
+\end_layout
+
+\begin_layout Plain Layout
+
+module_list    ::= module module_list
+\end_layout
+
+\begin_layout Plain Layout
+
+                 | empty
+\end_layout
+
+\begin_layout Plain Layout
+
+module         ::= MODULE LEFT_BRACE card_list RIGHT_BRACE
+\end_layout
+
+\begin_layout Plain Layout
+
+card_list      ::= card card_list
+\end_layout
+
+\begin_layout Plain Layout
+
+                 | empty
+\end_layout
+
+\begin_layout Plain Layout
+
+card           ::= CARD LEFT_BRACE statement_list RIGHT_BRACE
+\end_layout
+
+\begin_layout Plain Layout
+
+statement_list ::= statement statement_list
+\end_layout
+
+\begin_layout Plain Layout
+
+                 | empty
+\end_layout
+
+\begin_layout Plain Layout
+
+statement      ::= expression SEMICOLON
+\end_layout
+
+\begin_layout Plain Layout
+
+expression     ::= assignment
+\end_layout
+
+\begin_layout Plain Layout
+
+assignment     ::= IDENTIFIER ASSIGNMENT r_value
+\end_layout
+
+\begin_layout Plain Layout
+
+r_value        ::= NUMBER
+\end_layout
+
+\begin_layout Plain Layout
+
+                 | STRING
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NJOY Input Format (NIF) Grammar Definition
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 NJOY Input Format Translator (
 \family typewriter
 nifty
@@ -485,25 +780,79 @@ PLY
 
 \begin_deeper
 \begin_layout Itemize
-Lex
-\end_layout
-
-\begin_layout Itemize
-YACC
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Translation of AST?
+Lexer
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Code generation: generating the target language instructions?
+Reserved words and identifiers.
+ Hardcoded.
+\end_layout
+
+\begin_layout Itemize
+Comments.
+ Multi-line, single line.
+\end_layout
+
+\begin_layout Itemize
+Datatypes: numbers and strings.
 \end_layout
 
 \end_deeper
-\begin_layout Chapter
+\begin_layout Itemize
+Parser
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Description of Abstract Syntax Tree (AST)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+List structure
+\end_layout
+
+\begin_layout Itemize
+Node structure
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Analyzer
+\end_layout
+
+\begin_layout Itemize
+Mangler / Massager
+\end_layout
+
+\begin_layout Itemize
+Translator
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Translation process of AST.
+ Flatten the tree structure.
+\end_layout
+
+\begin_layout Itemize
+Code generation: generating the target language instructions.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Emitter
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Discussion
 \end_layout
 
@@ -511,6 +860,11 @@ Discussion
 Testing not that rigorous.
  NJOY is a large and complex program, there's a lot of scenarios (e.g.
  input instructions) that hasn't been tested.
+\end_layout
+
+\begin_layout Itemize
+Hardcoded words and identifiers.
+ Explain why.
 \end_layout
 
 \begin_layout Itemize
@@ -533,7 +887,14 @@ Why?
 Significant findings?
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Conclusion
 \end_layout
 
@@ -541,6 +902,12 @@ Conclusion
 Improvement on the existing situation?
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Readable?
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 Challenges?
 \end_layout
@@ -576,7 +943,7 @@ Toy
 \end_layout
 
 \end_deeper
-\begin_layout Section
+\begin_layout Subsection
 Future Work
 \end_layout
 
@@ -584,10 +951,25 @@ Future Work
 Possible improvements?
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
-Context-free grammar?
+Recognize more datatypes.
+ E.g.
+ materials, temperatures, etc.
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+Complete context-free grammar?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Expand grammar.
+ More tokens (TEMPERATURE, MATERIAL, etc).
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 GUI for 
 \family typewriter
@@ -605,14 +987,20 @@ Efficient implementation, e.g.
  C?
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-2"
-
+\begin_layout Standard
+\begin_inset Newpage pagebreak
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section*
+References
+\end_layout
+
+\begin_layout Description
+[1] XXX [Online].
+ Available: 
 \begin_inset Flex URL
 status collapsed
 
@@ -626,14 +1014,9 @@ http://t2.lanl.gov/codes/njoy99/
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-3"
-
-\end_inset
-
-
+\begin_layout Description
+[2] XXX [Online].
+ Available: 
 \begin_inset Flex URL
 status collapsed
 
@@ -647,20 +1030,12 @@ http://www.nndc.bnl.gov/endf/
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-4"
-
-\end_inset
-
-MAssive Computation methodology for Reactor Operations
-\begin_inset Newline newline
-\end_inset
-
-(
+\begin_layout Description
+[3] XXX (Use reference to MACRO article instead of this URI.
+ Availability of article?) [Online].
+ Available: 
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -669,7 +1044,7 @@ http://www.fysast.uu.se/tk/en/content/macro-project
 
 \end_inset
 
-)
+
 \end_layout
 
 \end_body
