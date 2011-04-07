@@ -8,51 +8,58 @@ import ply.lex as lex
 
 reserved_cards = {
     'card' : 'CARD',
-    'card_1' : 'CARD_1',
-    'card_2' : 'CARD_2',
-    'card_3' : 'CARD_3',
-    'card_4' : 'CARD_4',
-    'card_5' : 'CARD_5',
-    'card_6' : 'CARD_6',
-    'card_7' : 'CARD_7',
-    'card_8' : 'CARD_8',
-    'card_8a' : 'CARD_8A',
-    'card_9' : 'CARD_9',
-    'card_10' : 'CARD_10',
-    'card_11' : 'CARD_11',
+    'card_1' : 'CARD',
+    'card_2' : 'CARD',
+    'card_3' : 'CARD',
+    'card_4' : 'CARD',
+    'card_5' : 'CARD',
+    'card_6' : 'CARD',
+    'card_7' : 'CARD',
+    'card_8' : 'CARD',
+    'card_8a' : 'CARD',
+    'card_9' : 'CARD',
+    'card_10' : 'CARD',
+    'card_11' : 'CARD',
+}
+
+reserved_identifiers = {
+    # Reserved identifiers for card 1.
+    'nendf' : 'IDENTIFIER',
+    'npend' : 'IDENTIFIER',
 }
 
 reserved_modules = {
-    'acer' : 'ACER',
-    'broadr' : 'BROADR',
-    'ccccr' : 'CCCCR',
-    'covr' : 'COVR',
-    'dtfr' : 'DTFR',
-    'errorr' : 'ERRORR',
-    'gaminr' : 'GAMINR',
-    'gaspr' : 'GASPR',
-    'groupr' : 'GROUPR',
-    'heatr' : 'HEATR',
-    'leapr' : 'LEAPR',
-    'matxsr' : 'MATXSR',
-    'mixr' : 'MIXR',
-    'moder' : 'MODER',
-    'plotr' : 'PLOTR',
-    'powr' : 'POWR',
-    'purr' : 'PURR',
-    'reconr' : 'RECONR',
-    'resxsr' : 'RESXSR',
-    'thermr' : 'THERMR',
-    'unresr' : 'UNRESR',
-    'viewr' : 'VIEWR',
-    'wimsr' : 'WIMSR',
-    # XXX: 'stop' is not a module, but it is in the same scope as the modules.
-    'stop' : 'STOP',
+    'acer' : 'MODULE',
+    'broadr' : 'MODULE',
+    'ccccr' : 'MODULE',
+    'covr' : 'MODULE',
+    'dtfr' : 'MODULE',
+    'errorr' : 'MODULE',
+    'gaminr' : 'MODULE',
+    'gaspr' : 'MODULE',
+    'groupr' : 'MODULE',
+    'heatr' : 'MODULE',
+    'leapr' : 'MODULE',
+    'matxsr' : 'MODULE',
+    'mixr' : 'MODULE',
+    'moder' : 'MODULE',
+    'plotr' : 'MODULE',
+    'powr' : 'MODULE',
+    'purr' : 'MODULE',
+    'reconr' : 'MODULE',
+    'resxsr' : 'MODULE',
+    'thermr' : 'MODULE',
+    'unresr' : 'MODULE',
+    'viewr' : 'MODULE',
+    'wimsr' : 'MODULE',
+    # XXX: 'stop' is not a module, but handled in the same scope.
+    'stop' : 'MODULE',
 }
 
 # Reserved words.
 reserved_words = {}
 reserved_words.update(reserved_cards)
+reserved_words.update(reserved_identifiers)
 reserved_words.update(reserved_modules)
 
 # List of tokens.
@@ -60,37 +67,32 @@ tokens = [
     # Assignment.
     'ASSIGNMENT',
 
-    # Identifiers.
-    'IDENTIFIER',
-
-    # Numbers.
+    # R-values. Numbers and strings.
     'NUMBER',
-    # Strings.
     'STRING',
 
     # Delimeters: { } ;
     'LEFT_BRACE',
     'RIGHT_BRACE',
     'SEMICOLON',
-] + list(reserved_words.values())
+] + list(set(reserved_words.values()))
 
 ##############################################################################
 # Regular expression rules which recognizes tokens.
 
-# Ignore tabs and spaces.
+# Ignore whitespace; tabs and spaces.
 t_ignore = ' \t'
 
-# Newlines.
+# Count newlines for line numbers.
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count('\n')
     # No return value. Token (\n) discarded.
 
-# Identifiers and reserved words.
+# Handle identifiers and reserved words.
 def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    if t.value in reserved_words:
-        t.type = reserved_words[t.value]
+    t.type = reserved_words.get(t.value,"IDENTIFIER")
     return t
 
 # Assignment.

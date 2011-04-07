@@ -17,12 +17,9 @@ def p_program(p):
     'program : module_list'
     p[0] = make_program(p)
 
-# XXX: Catch 'STOP' just in case since it isn't an illegal instruction when
-#      declared in this scope.
 def p_module_list(p):
     '''
         module_list : module module_list
-                    | STOP
                     | empty
     '''
     if len(p) == 3:
@@ -32,36 +29,8 @@ def p_module_list(p):
         p[0] = ['stop']
 
 def p_module(p):
-    'module : module_name LEFT_BRACE card_list RIGHT_BRACE'
+    'module : MODULE LEFT_BRACE card_list RIGHT_BRACE'
     p[0] = make_module(p)
-
-def p_module_name(p):
-    '''
-        module_name : ACER
-                    | BROADR
-                    | CCCCR
-                    | COVR
-                    | DTFR
-                    | ERRORR
-                    | GAMINR
-                    | GASPR
-                    | GROUPR
-                    | HEATR
-                    | LEAPR
-                    | MATXSR
-                    | MIXR
-                    | MODER
-                    | PLOTR
-                    | POWR
-                    | PURR
-                    | RECONR
-                    | RESXSR
-                    | THERMR
-                    | UNRESR
-                    | VIEWR
-                    | WIMSR
-    '''
-    p[0] = p[1]
 
 def p_card_list(p):
     '''
@@ -74,26 +43,8 @@ def p_card_list(p):
         p[0] = []
 
 def p_card(p):
-    'card : card_name LEFT_BRACE statement_list RIGHT_BRACE'
+    'card : CARD LEFT_BRACE statement_list RIGHT_BRACE'
     p[0] = make_card(p)
-
-def p_card_name(p):
-    '''
-        card_name : CARD
-                  | CARD_1
-                  | CARD_2
-                  | CARD_3
-                  | CARD_4
-                  | CARD_5
-                  | CARD_6
-                  | CARD_7
-                  | CARD_8
-                  | CARD_8A
-                  | CARD_9
-                  | CARD_10
-                  | CARD_11
-    '''
-    p[0] = p[1]
 
 def p_statement_list(p):
     '''
@@ -200,7 +151,7 @@ def make_string(p):
     node = dict()
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'string'
-    node['name'] = p[1]
+    node['value'] = p[1]
     return node
 
 ##############################################################################
