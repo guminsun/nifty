@@ -83,7 +83,8 @@ tokens = [
     'ASSIGNMENT',
 
     # R-values. Numbers and strings.
-    'NUMBER',
+    'INTEGER',
+    'FLOAT',
     'STRING',
 
     # Delimeters: { } ;
@@ -119,10 +120,13 @@ t_LEFT_BRACE = r'\{'
 t_RIGHT_BRACE = r'\}'
 t_SEMICOLON = r';'
 
-# Numbers.
+# Integers. Signed or unsigned.
+t_INTEGER = r'(-|\+)?\d+'
+
+# Floats.
 # Description of the regular definition:
-#   number -> optional_sign digits optional_fraction optional_exponent
-t_NUMBER = r'(-|\+)?(\d+)(\.\d*)?(((e|E)(-|\+)?\d+))?'
+#   float -> optional_sign digits optional_exponent
+t_FLOAT = r'(-|\+)?(\d+)(\.\d*)(((e|E)(-|\+)?\d+))?'
 
 # Strings.
 # Recognizes strings delimited by single quotes ("'"), e.g. "'A string.'".
@@ -139,8 +143,8 @@ def t_comment(t):
 
 # Error handling.
 def t_error(t):
-    sys.stderr.write('--- Lexical error on line %d, illegal character%s\n'
-        % (t.value[0], t.lineno))
+    sys.stderr.write('--- Lexical error on line %d, illegal character %s\n'
+        % (t.lineno, t.value[0]))
     sys.exit('lexical_error')
 
 ##############################################################################

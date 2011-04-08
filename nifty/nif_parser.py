@@ -80,8 +80,17 @@ def p_r_value(p):
     p[0] = make_r_value(p)
 
 def p_number(p):
-    'number : NUMBER'
-    p[0] = make_number(p)
+    '''
+        number : FLOAT
+               | INTEGER
+    '''
+    if isinstance(eval(p[1]), float):
+        p[0] = make_float(p)
+    elif isinstance(eval(p[1]), int):
+        p[0] = make_integer(p)
+    else:
+        sys.stderr.write('--- analyzer XXX: illegal number?\n')
+        sys.exit('syntax_error')
 
 def p_string(p):
     'string : STRING'
@@ -148,11 +157,18 @@ def make_assignment(p):
 def make_r_value(p):
     return p[1]
 
-def make_number(p):
+def make_float(p):
     node = dict()
     node['line_number'] = p.lineno(0)
-    node['node_type'] = 'number'
+    node['node_type'] = 'float'
     # XXX: eval vs the NJOY input float format?
+    node['value'] = eval(p[1])
+    return node
+
+def make_integer(p):
+    node = dict()
+    node['line_number'] = p.lineno(0)
+    node['node_type'] = 'integer'
     node['value'] = eval(p[1])
     return node
 
