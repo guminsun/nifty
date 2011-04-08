@@ -26,7 +26,7 @@ def p_module_list(p):
         p[0] = [p[1]] + p[2]
     # Append 'stop' as the last instruction to be executed.
     if p[0] is None:
-        p[0] = ['stop']
+        p[0] = [make_stop(p)]
 
 def p_module(p):
     'module : MODULE LEFT_BRACE card_list RIGHT_BRACE'
@@ -107,6 +107,14 @@ def make_program(p):
     node['module_list'] = p[1]
     return node
 
+def make_stop(p):
+    node = dict()
+    node['node_type'] = 'module'
+    node['line_number'] = p.lineno(0)
+    node['module_name'] = 'stop'
+    node['card_list'] = None
+    return node
+
 def make_module(p):
     node = dict()
     node['node_type'] = 'module'
@@ -144,14 +152,15 @@ def make_number(p):
     node = dict()
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'number'
-    node['value'] = p[1]
+    # XXX: eval vs the NJOY input float format?
+    node['value'] = eval(p[1])
     return node
 
 def make_string(p):
     node = dict()
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'string'
-    node['value'] = p[1]
+    node['value'] = eval(p[1])
     return node
 
 ##############################################################################
