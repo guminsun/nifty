@@ -93,7 +93,7 @@ def p_empty(p):
 
 def p_error(p):
     if p is not None:
-        sys.stderr.write('--- Syntax error: unexpected token on line %d: %s\n'
+        sys.stderr.write('--- Syntax error on line %d, unexpected token %s\n'
             % (p.lineno, p))
     sys.exit('syntax_error')
 
