@@ -1,4 +1,5 @@
 import sys
+from copy import deepcopy as deepcopy
 from pprint import pprint as pprint
 
 import nif_parser
@@ -7,45 +8,41 @@ import nif_parser
 # Analyzer.
 
 def analyze(ast):
-    analyze_program(ast)
+    new_ast = deepcopy(ast)
+    return analyze_program(ast, new_ast)
+
+def analyze_program(program, ast):
+    module_list = program['module_list']
+    return analyze_module_list(module_list, ast)
+
+def analyze_module_list(module_list, ast):
+    for module in module_list:
+        ast = analyze_module(module, ast)
     return ast
 
-def analyze_program(program):
-    module_list = program['module_list']
-    analyze_module_list(module_list)
-    # XXX
-    return None
-
-def analyze_module_list(module_list):
-    for module in module_list:
-        analyze_module(module)
-    # XXX
-    return None
-
-def analyze_module(module):
+def analyze_module(module, ast):
     # XXX: Fix big ugly switch.
     if module['module_name'] == 'stop':
-        return None
+        pass
     elif module['module_name'] == 'reconr':
-        analyze_reconr(module)
+        ast = analyze_reconr(module, ast)
     else:
         print '--- analyzer: XXX not implemented yet:', module['module_name']
-        return None
-    # XXX
-    return None
+    return ast
 
-def analyze_reconr(module):
+def analyze_reconr(module, ast):
     card_list = module['card_list']
-    analyze_reconr_card_list(card_list)
-    # XXX
-    return None
+    return analyze_reconr_card_list(card_list, ast)
 
-def analyze_reconr_card_list(card_list):
+def analyze_reconr_card_list(card_list, ast):
+    # Cards which must be unique (e.g. not defined more than once).
+    unique_card_list = ['card_1']
+    must_be_unique(unique_card_list, card_list)
     # XXX: Need to handle more than one card of the same type.
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
     # XXX
-    return None
+    return ast
 
 def analyze_reconr_card_1(card_1):
     statement_list = card_1['statement_list']
@@ -93,7 +90,6 @@ def analyze_reconr_card_1(card_1):
 ##############################################################################
 # Helpers.
 
-
 ### Getter helpers.
 
 def get_card(card, card_list):
@@ -138,6 +134,18 @@ def is_assignment(expr):
 def not_defined(node):
     '''Return True if 'node' is None, else False.'''
     return node is None
+
+### Rules.
+def must_be_unique(unique_card_list, card_list):
+    for u in unique_card_list:
+        n = 0
+        for c in card_list:
+            if c['card_name'] == u:
+                n += 1
+            if n > 1:
+                # Found more than one instance of a unique card.
+                msg = '\'' + c['card_name'] + '\' previously declared.'
+                semantic_error(msg, c)
 
 ### Misc helpers.
 
