@@ -41,6 +41,7 @@ def analyze_reconr(module):
     return None
 
 def analyze_reconr_card_list(card_list):
+    # XXX: Need to handle more than one card of the same type.
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
     # XXX
