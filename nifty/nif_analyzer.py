@@ -35,11 +35,14 @@ def analyze_reconr(module, ast):
     return analyze_reconr_card_list(card_list, ast)
 
 def analyze_reconr_card_list(card_list, ast):
-    # Cards which must be unique (e.g. not defined more than once).
+    # Check for cards which must be unique (e.g. not defined more than once).
     unique_card_list = ['card_1']
     must_be_unique(unique_card_list, card_list)
     # XXX: Need to handle more than one card of the same type.
     card = get_card('card_1', card_list)
+    if not_defined(card):
+        msg = '\'card_1\' not defined in module \'reconr\'.'
+        semantic_error(msg, None)
     analyze_reconr_card_1(card)
     # XXX
     return ast
