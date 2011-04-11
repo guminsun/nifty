@@ -129,12 +129,14 @@ t_INTEGER = r'(-|\+)?\d+'
 t_FLOAT = r'(-|\+)?(\d+)(\.\d*)(((e|E)(-|\+)?\d+))?'
 
 # Strings.
-# Recognizes strings delimited by single quotes ("'"), e.g. "'A string.'".
-t_STRING = r'(\'([^\\\n]|(\\.))*?\')'
+# Recognizes strings delimited by double quotes ("), e.g. "A string.".
+t_STRING = r'(\"([^\\\n]|(\\.))*?\")'
 
 # Comments.
-# Recognizes multi-line comments on the form '/* Multi-line comment. */', and
-# single line comments on the form '// Single line comment.'.
+# Recognizes multi-line comments on the form:
+#   /* Multi-line comment. */
+# and single line comments on the form:
+#   // Single line comment.
 def t_comment(t):
     r'(/\*(.|\n)*?\*/)|(//.*)'
     # Keep count on newlines. t_newline doesn't match while inside a comment.
