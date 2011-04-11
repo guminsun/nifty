@@ -1,20 +1,20 @@
 /*****************************************************************************
  NJOY Test Problem 14:
 
- acer
- 20 21 0 31 32
- 1 0 1/
- 'proton + 7-n-14 apt la150 njoy99 mcnpx'/
- 725 0./
- /
- /
- acer
- 0 31 33 34 35
- 7 1 2/
- 'proton + 7-n-14 apt la150 njoy99 mcnpx'/
- viewr
- 33 36/
- stop
+    acer
+    20 21 0 31 32
+    1 0 1/
+    'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+    725 0./
+    /
+    /
+    acer
+    0 31 33 34 35
+    7 1 2/
+    'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+    viewr
+    33 36/
+    stop
 
 *****************************************************************************/
 
@@ -42,7 +42,7 @@ acer
     /* acer card 3 */
     card_3
     {
-        hk = 'proton + 7-n-14 apt la150 njoy99 mcnpx';
+        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
     }
 
     /* nxtra = 0 per default -> card 4 is skipped. */
@@ -81,7 +81,7 @@ acer
     /* acer card 3 */
     card_3
     {
-        hk = 'proton + 7-n-14 apt la150 njoy99 mcnpx';
+        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
     }
 
     /* nxtra = 0 per default -> card 4 is skipped. */
