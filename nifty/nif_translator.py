@@ -27,7 +27,24 @@ def translate_module(module):
     return module_name, instructions
 
 def translate_card_list(card_list):
-    []
+    instructions = list()
+    for card in card_list:
+        instructions.append(translate_card(card))
+    return instructions
+
+def translate_card(card):
+    statement_list = card['statement_list']
+    instructions = translate_statement_list(statement_list)
+    return instructions
+
+def translate_statement_list(statement_list):
+    instructions = list()
+    for statement in statement_list:
+        instructions.append(translate_statement(statement))
+    return instructions
+
+def translate_statement(statement):
+    return None
 
 ##############################################################################
 # Misc.
