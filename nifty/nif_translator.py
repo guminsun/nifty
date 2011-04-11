@@ -44,7 +44,19 @@ def translate_statement_list(statement_list):
     return instructions
 
 def translate_statement(statement):
-    return None
+    if statement['node_type'] == '=':
+        return translate_assignment(statement)
+    else:
+        print('--- translator: statement not implemented yet:',
+              statement['node_type'])
+        return None
+
+def translate_assignment(statement):
+    r_value = statement['r_value']
+    return translate_r_value(r_value)
+
+def translate_r_value(r_value):
+    return r_value['value']
 
 ##############################################################################
 # Misc.
