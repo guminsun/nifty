@@ -91,6 +91,20 @@ def analyze_reconr_card_1(card_1):
     return None
 
 ##############################################################################
+# Semantic rules.
+
+def must_be_unique(unique_card_list, card_list):
+    for u in unique_card_list:
+        n = 0
+        for c in card_list:
+            if c['card_name'] == u:
+                n += 1
+            if n > 1:
+                # Found more than one instance of a unique card.
+                msg = '\'' + c['card_name'] + '\' previously declared.'
+                semantic_error(msg, c)
+
+##############################################################################
 # Helpers.
 
 ### Getter helpers.
@@ -137,18 +151,6 @@ def is_assignment(expr):
 def not_defined(node):
     '''Return True if 'node' is None, else False.'''
     return node is None
-
-### Rules.
-def must_be_unique(unique_card_list, card_list):
-    for u in unique_card_list:
-        n = 0
-        for c in card_list:
-            if c['card_name'] == u:
-                n += 1
-            if n > 1:
-                # Found more than one instance of a unique card.
-                msg = '\'' + c['card_name'] + '\' previously declared.'
-                semantic_error(msg, c)
 
 ### Misc helpers.
 
