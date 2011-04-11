@@ -1,11 +1,14 @@
-# Files to ignore on the top-level.
-/*.nif
-/*.out
-/parsetab.py
-/*.pyc
+*.pyc
+*.pyo
+*.swp
+*.out
 
-# Ignore the PLY source directory.
+/*.nif
+parsetab.py
+
+build/
+dist/
 nifty/ply
 
-# Ignore temporary PLY files.
-nifty/*.pyc
+.DS_Store
+*~
