@@ -47,7 +47,7 @@ def translate_statement(statement):
     if statement['node_type'] == '=':
         return translate_assignment(statement)
     else:
-        print('--- translator: statement not implemented yet:',
+        print('--- translator: XXX statement not implemented yet:',
               statement['node_type'])
         return None
 
