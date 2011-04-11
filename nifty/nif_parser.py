@@ -121,7 +121,7 @@ def make_stop(p):
     node['node_type'] = 'module'
     node['line_number'] = p.lineno(0)
     node['module_name'] = 'stop'
-    node['card_list'] = list()
+    node['card_list'] = []
     return node
 
 def make_module(p):
