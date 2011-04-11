@@ -11,8 +11,8 @@ def analyze(ast):
     return ast
 
 def analyze_program(program):
-    modules = program['module_list']
-    analyze_module_list(modules)
+    module_list = program['module_list']
+    analyze_module_list(module_list)
     # XXX
     return None
 
