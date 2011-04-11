@@ -8,11 +8,26 @@ import nif_parser
 # Translator.
 
 def translate(ast):
-    env = dict()
-    translate_program(ast, env)
+    return translate_program(ast)
 
-def translate_program(ast, env):
-    return []
+def translate_program(program):
+    module_list = program['module_list']
+    return translate_module_list(module_list)
+
+def translate_module_list(module_list):
+    instructions = list()
+    for module in module_list:
+        instructions.append(translate_module(module))
+    return instructions
+
+def translate_module(module):
+    module_name = module['module_name']
+    card_list = module['card_list']
+    instructions = translate_card_list(card_list)
+    return module_name, instructions
+
+def translate_card_list(card_list):
+    []
 
 ##############################################################################
 # Misc.
