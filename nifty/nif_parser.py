@@ -161,8 +161,7 @@ def make_float(p):
     node = dict()
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'float'
-    # XXX: eval vs the NJOY input float format?
-    node['value'] = eval(p[1])
+    node['value'] = p[1]
     return node
 
 def make_integer(p):
