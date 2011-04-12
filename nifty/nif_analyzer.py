@@ -52,6 +52,10 @@ def analyze_reconr_card_list(card_list, ast):
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
 
+    card = get_card('card_2', card_list)
+    if not_defined(card):
+        insert_card(make_card(2, ''), card_list)
+
     # XXX
     return ast
 
@@ -176,13 +180,25 @@ def not_defined(node):
 def sort_card_lists(program):
     module_list = program['module_list']
     for module in module_list:
-        sort_card_list(module)
+        sort_card_list(module['card_list'])
     return program
 
-def sort_card_list(module):
-    card_list = module['card_list']
+def sort_card_list(card_list):
     # XXX: Ugly assumption that the card nodes will be sorted on 'card_id'.
     return card_list.sort()
+
+def make_card(id_digit, id_alpha):
+    card = dict()
+    card['node_type'] = 'card'
+    card['line_number'] = None
+    card['card_id'] = (id_digit, id_alpha)
+    card['card_name'] = 'card_' + str(id_digit) + id_alpha
+    card['statement_list'] = list()
+    return card
+
+def insert_card(card, card_list):
+    card_list.append(card)
+    return sort_card_list(card_list)
 
 # XXX: Better to raise an exception and catch on a higher level?
 def semantic_error(msg, node):
