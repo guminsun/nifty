@@ -177,4 +177,5 @@ if __name__ == '__main__':
         result = file2tokens(filename, lexer)
     else:
         result = stdin2tokens(lexer)
+    print '--- nifty lexer output:'
     pprint(result)

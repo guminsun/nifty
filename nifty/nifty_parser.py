@@ -208,4 +208,5 @@ if __name__ == '__main__':
         result = parse(open(filename).read())
     else:
         result = parse(sys.stdin.read())
+    print '--- nifty parser output:'
     pprint(result)

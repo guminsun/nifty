@@ -240,5 +240,5 @@ if __name__ == '__main__':
     else:
         ast = nifty_parser.parse(sys.stdin.read())
     ast = analyze(ast)
-    print '--- analyzer: XXX AST:'
+    print '--- nifty analyzer output:'
     pprint(ast)
