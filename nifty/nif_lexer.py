@@ -126,7 +126,7 @@ t_INTEGER = r'(-|\+)?\d+'
 # Floats.
 # Description of the regular definition:
 #   float -> optional_sign digits optional_exponent
-t_FLOAT = r'(-|\+)?(\d+)(\.\d*)(((e|E)(-|\+)?\d+))?'
+t_FLOAT = r'(-|\+)?(\d*)(\.\d*)(((e|E)(-|\+)?\d+))?'
 
 # Strings.
 # Recognizes strings delimited by double quotes ("), e.g. "A string.".
