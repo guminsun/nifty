@@ -197,6 +197,7 @@ def make_card(id_digit, id_alpha):
     return card
 
 def insert_card(card, card_list):
+    '''Insert 'card' in 'card_list'. Return 'card_list' sorted.'''
     card_list.append(card)
     return sort_card_list(card_list)
 
