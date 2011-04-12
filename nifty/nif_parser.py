@@ -136,9 +136,24 @@ def make_card(p):
     node = dict()
     node['node_type'] = 'card'
     node['line_number'] = p.lineno(0)
+    node['card_id'] = make_card_id(p[1])
     node['card_name'] = p[1]
     node['statement_list'] = p[3]
     return node
+
+def make_card_id(card_name):
+    id_alpha = ''
+    id_digit = ''
+    # XXX: Handle 'card'.
+    if len(card_name) < 5:
+        return None
+    card_id = card_name[5:]
+    for i in card_id:
+        if i.isdigit():
+            id_digit += i
+        if i.isalpha():
+            id_alpha += i
+    return int(id_digit), id_alpha
 
 def make_statement(p):
     return p[1]
