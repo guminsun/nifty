@@ -72,3 +72,434 @@
     stop
 
 *****************************************************************************/
+
+moder
+{
+    card_1
+    {
+        nin = 21;
+        nout = -21;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+    }
+
+    card_2
+    {
+        tlabel =  "pendf tape for c-nat from endf/b tape 511";
+    }
+
+    card_3
+    {
+        mat = 1306;
+        ncards = 3;
+    }
+
+    card_4
+    {
+        err = .005;
+    }
+
+    card_5
+    {
+        tlabel = "6-c-nat from tape 511";
+    }
+
+    card_5
+    {
+        tlabel = "processed by the njoy nuclear data processing system";
+    }
+
+    card_5
+    {
+        tlabel = "see original endf/b-v tape for details of evaluation";
+    }
+
+    /* Card 6 skipped since ngrid defaults to 0 in first card 3 */
+
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -22;
+        nout = -23;
+    }
+
+    card_2
+    {
+        mat1 = 1306;
+        ntemp2 = 1;
+    }
+
+    card_3
+    {
+        errthn = .005;
+    }
+
+    card_4
+    {
+        temp2 = 300.;
+    }
+
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+heatr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -23;
+        nout = -22;
+    }
+
+    card_2
+    {
+        matd = 1306;
+        npk = 1;
+    }
+
+    card_3
+    {
+        mtk = 444;
+    }
+
+    /* Card 4, 5, and 5a are skipped since nqa defaults to 0 in card 2. */
+}
+
+thermr
+{
+    card_1
+    {
+        nendf = 0;
+        nin = -22;
+        nout = -24;
+    }
+
+    card_2
+    {
+        matde = 0;
+        matdp = 1306;
+        nbin = 8;
+        ntemp = 1;
+        iinc = 1;
+        icoh = 0;
+        natom = 1;
+        mtref = 221;
+        iprint = 0;
+    }
+
+    card_3
+    {
+        tempr = 300.;
+    }
+
+    card_4
+    {
+        tol = .05;
+        emax = 1.2;
+    }
+}
+
+thermr
+{
+    card_1
+    {
+        nendf = 26;
+        nin = -24;
+        nout = -23;
+    }
+
+    card_2
+    {
+        matde = 1065;
+        matdp = 1306;
+        nbin = 8;
+        ntemp = 1;
+        iinc = 4;
+        icoh = 1;
+        natom = 1;
+        mtref = 229;
+        iprint = 0;
+    }
+
+    card_3
+    {
+        tempr = 300.;
+    }
+
+    card_4
+    {
+        tol = .05;
+        emax = 1.2;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -23;
+        ngout1 = 0;
+        ngout2 = -24;
+    }
+
+    card_2
+    {
+        matb = 1306;
+        ign = 3;
+        igg = 3;
+        iwt = 3;
+        lord = 3;
+        ntemp = 1;
+        nsigz = 1;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        title = "carbon in graphite";
+    }
+
+    card_4
+    {
+        temp = 300;
+    }
+
+    card_5
+    {
+        sigz = 1.e10;
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 4;
+        mtname = "inelastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 4;
+        mtname = "inelastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 51;
+        mtname = "discrete inelastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = -68;
+        mtname = "continued";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 91;
+        mtname = "continuum inelastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "n,g";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 103;
+        mtname = "(n,p)";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 104;
+        mtname = "(n,d)";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 107;
+        mtname = "(n,a)";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 221;
+        mtname = "free thermal scattering";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 229;
+        mtname = "graphite inelastic thermal scattering";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 230;
+        mtname = "graphite elastic thermal scattering";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 251;
+        mtname = "mubar";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 252;
+        mtname = "xi";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 253;
+        mtname = "gamma";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 301;
+        mtname = "total heat production";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 444;
+        mtname = "total damage energy production";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 51;
+        mtname = "discrete inelastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = -68;
+        mtname = "continued";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 91;
+        mtname = "continuum inelastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 221;
+        mtname = "free thermal scattering";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 229;
+        mtname = "graphite inelastic thermal scattering";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 230;
+        mtname = "graphite elastic thermal scattering";
+    }
+
+    card_9
+    {
+        mfd = 17;
+        mtd = 51;
+        mtname = "inelastic gamma production";
+    }
+
+    card_9
+    {
+        mfd = 16;
+        mtd = 102;
+        mtname = "capture gamma production";
+    }
+
+    card_9
+    {
+        mfd = 0;
+    }
+
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+moder
+{
+    card_1
+    {
+        nin = -23;
+        nout = 25;
+    }
+}
