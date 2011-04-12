@@ -1,8 +1,8 @@
 import sys
 from pprint import pprint as pprint
 
-import nif_analyzer
-import nif_parser
+import nifty_analyzer
+import nifty_parser
 
 ##############################################################################
 # Translator.
@@ -64,10 +64,10 @@ def translate_r_value(r_value):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         filename = sys.argv[1]
-        ast = nif_parser.parse(open(filename).read())
+        ast = nifty_parser.parse(open(filename).read())
     else:
-        ast = nif_parser.parse(sys.stdin.read())
-    ast = nif_analyzer.analyze(ast)
+        ast = nifty_parser.parse(sys.stdin.read())
+    ast = nifty_analyzer.analyze(ast)
     instructions = translate(ast)
     print '--- translator output:'
     pprint(instructions)

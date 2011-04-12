@@ -5,8 +5,8 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 # Get the token map from the lexer.
-import nif_lexer
-tokens = nif_lexer.tokens
+import nifty_lexer
+tokens = nifty_lexer.tokens
 
 ##############################################################################
 # Grammar rules.
@@ -197,7 +197,7 @@ def make_string(p):
 # Misc.
 
 def parse(data):
-    lexer = lex.lex(module=nif_lexer)
+    lexer = lex.lex(module=nifty_lexer)
     parser = yacc.yacc(debug=True)
     # 'tracking' requires extra processing. Turn it off if parsing is slow.
     return parser.parse(data, tracking=True)

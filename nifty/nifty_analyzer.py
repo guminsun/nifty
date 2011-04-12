@@ -1,7 +1,7 @@
 import sys
 from pprint import pprint as pprint
 
-import nif_parser
+import nifty_parser
 
 ##############################################################################
 # Analyzer.
@@ -62,7 +62,7 @@ def analyze_reconr_card_list(card_list, ast):
 
 def analyze_reconr_card_1(card_1):
     statement_list = card_1['statement_list']
-    
+
     # XXX: Neat to construct a list of identifiers which must be defined and
     #      check whether they are defined or not?
 
@@ -84,7 +84,7 @@ def analyze_reconr_card_1(card_1):
         (nendf_value not in range(-99, -19))):
         error_msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
         semantic_error(error_msg, nendf)
-    
+
     npend = get_identifier('npend', statement_list)
     # npend must be defined. Translator cannot guess unit numbers.
     if not_defined(npend):
@@ -133,7 +133,7 @@ def card_must_be_unique(unique_card_list, card_list, module_name):
                 n += 1
             if n > 1:
                 # Found more than one instance of 'u' in card_list.
-                msg = ('\'' + c['card_name'] + 
+                msg = ('\'' + c['card_name'] +
                        '\' declared more than once in module \'' +
                        module_name + '\'.')
                 semantic_error(msg, c)
@@ -236,9 +236,9 @@ def semantic_error(msg, node):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         filename = sys.argv[1]
-        ast = nif_parser.parse(open(filename).read())
+        ast = nifty_parser.parse(open(filename).read())
     else:
-        ast = nif_parser.parse(sys.stdin.read())
+        ast = nifty_parser.parse(sys.stdin.read())
     ast = analyze(ast)
     print '--- analyzer: XXX AST:'
     pprint(ast)
