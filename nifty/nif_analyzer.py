@@ -181,7 +181,7 @@ def sort_card_lists(program):
 
 def sort_card_list(module):
     card_list = module['card_list']
-    # XXX: Ugly assumption that the card nodes are sorted on 'card_id'.
+    # XXX: Ugly assumption that the card nodes will be sorted on 'card_id'.
     return card_list.sort()
 
 # XXX: Better to raise an exception and catch on a higher level?
