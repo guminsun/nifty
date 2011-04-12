@@ -7,55 +7,45 @@ import nifty_parser
 # Analyzer.
 
 def analyze(ast):
-    # XXX: Cannot bluntly sort the card lists.
-    #ast = sort_card_lists(ast)
-    return analyze_program(ast)
+    analyze_program(ast)
+    return ast
 
 def analyze_program(program):
     module_list = program['module_list']
-    return analyze_module_list(module_list, program)
+    analyze_module_list(module_list)
 
-def analyze_module_list(module_list, ast):
+def analyze_module_list(module_list):
     for module in module_list:
-        ast = analyze_module(module, ast)
-    return ast
+        analyze_module(module)
 
-def analyze_module(module, ast):
+def analyze_module(module):
     # XXX: Fix big ugly switch.
     if module['module_name'] == 'stop':
         pass
     elif module['module_name'] == 'reconr':
-        ast = analyze_reconr(module, ast)
+        analyze_reconr(module)
     else:
         print '--- analyzer: XXX not implemented yet:', module['module_name']
-    return ast
 
-def analyze_reconr(module, ast):
+def analyze_reconr(module):
     card_list = module['card_list']
-    return analyze_reconr_card_list(card_list, ast)
+    analyze_reconr_card_list(card_list)
 
-def analyze_reconr_card_list(card_list, ast):
-    reconr_card_list = ['card_1', 'card_2', 'card_3', 'card_3', 'card_4',
-                        'card_5', 'card_6']
-
+def analyze_reconr_card_list(card_list):
     # Check for cards that must be defined.
-    # XXX: More cards? According to documentation:
+    # XXX: According to documentation:
     #   "cards 3, 4, 5, 6 must be input for each material desired"
     # ... but in the last example on http://t2.lanl.gov/njoy/reco02.html
     # card 6 is not part of the input?
     must_be_defined = ['card_1', 'card_3', 'card_4', 'card_5', 'card_6']
-    card_must_be_defined(must_be_defined, card_list, 'reconr')
+    cards_must_be_defined(must_be_defined, card_list, 'reconr')
 
     # Check for cards that must be unique (e.g. not defined more than once).
     unique_card_list = ['card_1', 'card_2', 'card_4', 'card_5', 'card_6']
-    card_must_be_unique(unique_card_list, card_list, 'reconr')
+    cards_must_be_unique(unique_card_list, card_list, 'reconr')
 
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
-
-    card = get_card('card_2', card_list)
-    if not_defined(card):
-        insert_card(make_card(2, ''), card_list)
 
     # XXX
     return ast
@@ -110,11 +100,11 @@ def analyze_reconr_card_1(card_1):
 ##############################################################################
 # Semantic rules.
 
-def card_must_be_defined(must_be_defined, card_list, module_name):
+def cards_must_be_defined(must_be_defined, card_list, module_name):
     found = False
     for m in must_be_defined:
-        for c in card_list:
-            if c['card_name'] == m:
+        for card in card_list:
+            if card['card_name'] == m:
                 found = True
                 break
             else:
@@ -125,18 +115,18 @@ def card_must_be_defined(must_be_defined, card_list, module_name):
                    module_name + '\'.')
             semantic_error(msg, None)
 
-def card_must_be_unique(unique_card_list, card_list, module_name):
-    for u in unique_card_list:
+def cards_must_be_unique(unique_card_list, card_list, module_name):
+    for unique in unique_card_list:
         n = 0
-        for c in card_list:
-            if c['card_name'] == u:
+        for card in card_list:
+            if card['card_name'] == unique:
                 n += 1
             if n > 1:
-                # Found more than one instance of 'u' in card_list.
-                msg = ('\'' + c['card_name'] +
+                # Found more than one instance of 'unique' in card_list.
+                msg = ('\'' + card['card_name'] +
                        '\' declared more than once in module \'' +
                        module_name + '\'.')
-                semantic_error(msg, c)
+                semantic_error(msg, card)
 
 ##############################################################################
 # Helpers.
@@ -187,35 +177,6 @@ def not_defined(node):
     return node is None
 
 ### Misc helpers.
-
-def sort_card_lists(program):
-    module_list = program['module_list']
-    for module in module_list:
-        sort_card_list(module['card_list'])
-    return program
-
-def sort_card_list(card_list):
-    # XXX: Ugly assumption that the card nodes will be sorted on 'card_id'.
-    return card_list.sort()
-
-def make_card(id_digit, id_alpha):
-    card = dict()
-    card['node_type'] = 'card'
-    card['line_number'] = None
-    card['card_id'] = (id_digit, id_alpha)
-    card['card_name'] = 'card_' + str(id_digit) + id_alpha
-    card['statement_list'] = list()
-    return card
-
-def insert_card(card, card_list):
-    index = 0
-    for c in card_list:
-        if c['card_id'] < card['card_id']:
-            index += 1
-        else:
-            break
-    card_list.insert(index, card)
-    return card_list
 
 # XXX: Better to raise an exception and catch on a higher level?
 def semantic_error(msg, node):
