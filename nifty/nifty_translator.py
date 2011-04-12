@@ -2,6 +2,7 @@ import sys
 from pprint import pprint as pprint
 
 import nifty_analyzer
+import nifty_organizer
 import nifty_parser
 
 ##############################################################################
@@ -68,6 +69,7 @@ if __name__ == '__main__':
     else:
         ast = nifty_parser.parse(sys.stdin.read())
     ast = nifty_analyzer.analyze(ast)
+    ast = nifty_organizer.organize(ast)
     instructions = translate(ast)
-    print '--- translator output:'
+    print '--- nifty translator output:'
     pprint(instructions)
