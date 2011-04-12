@@ -43,11 +43,11 @@ def analyze_reconr_card_list(card_list, ast):
     #   "cards 3, 4, 5, 6 must be input for each material desired"
     # ... but in the last example on http://t2.lanl.gov/njoy/reco02.html
     # card 6 is not part of the input?
-    must_be_defined = ['card_1']
+    must_be_defined = ['card_1', 'card_3', 'card_4', 'card_5', 'card_6']
     card_must_be_defined(must_be_defined, card_list, 'reconr')
 
     # Check for cards that must be unique (e.g. not defined more than once).
-    unique_card_list = ['card_1', 'card_2']
+    unique_card_list = ['card_1', 'card_2', 'card_4', 'card_5', 'card_6']
     card_must_be_unique(unique_card_list, card_list, 'reconr')
 
     card = get_card('card_1', card_list)
@@ -69,7 +69,9 @@ def analyze_reconr_card_1(card_1):
     nendf = get_identifier('nendf', statement_list)
     # nendf must be defined. Translator cannot guess unit numbers.
     if not_defined(nendf):
-        semantic_error('identifier "nendf" not defined.', nendf)
+        msg = ('identifier \'nendf\' not defined in \'card_1\', module ' +
+               '\'reconr\'.')
+        semantic_error(msg, nendf)
 
     nendf_value = get_value(get_r_value(nendf))
     # The nendf unit number must be an integer.
@@ -86,7 +88,9 @@ def analyze_reconr_card_1(card_1):
     npend = get_identifier('npend', statement_list)
     # npend must be defined. Translator cannot guess unit numbers.
     if not_defined(npend):
-        semantic_error('identifier "npend" not defined.', npend)
+        msg = ('identifier \'npend\' not defined in \'card_1\', module ' +
+               '\'reconr\'.')
+        semantic_error(msg, npend)
 
     npend_value = get_value(get_r_value(npend))
     # The npend unit number must be an integer.
@@ -107,13 +111,19 @@ def analyze_reconr_card_1(card_1):
 # Semantic rules.
 
 def card_must_be_defined(must_be_defined, card_list, module_name):
+    found = False
     for m in must_be_defined:
         for c in card_list:
             if c['card_name'] == m:
-                return 'ok'
-        # 'm' not defined.
-        msg = '\'' + m + '\' not defined in module \'' + module_name + '\'.'
-        semantic_error(msg, None)
+                found = True
+                break
+            else:
+                found = False
+        if not found:
+            # 'm' not defined.
+            msg = ('\'' + m + '\' not defined in module \'' +
+                   module_name + '\'.')
+            semantic_error(msg, None)
 
 def card_must_be_unique(unique_card_list, card_list, module_name):
     for u in unique_card_list:
