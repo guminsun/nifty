@@ -1,5 +1,4 @@
 import sys
-from copy import deepcopy as deepcopy
 from pprint import pprint as pprint
 
 import nif_parser
@@ -8,12 +7,12 @@ import nif_parser
 # Analyzer.
 
 def analyze(ast):
-    new_ast = deepcopy(ast)
-    return analyze_program(ast, new_ast)
+    ast = sort_card_lists(ast)
+    return analyze_program(ast)
 
-def analyze_program(program, ast):
+def analyze_program(program):
     module_list = program['module_list']
-    return analyze_module_list(module_list, ast)
+    return analyze_module_list(module_list, program)
 
 def analyze_module_list(module_list, ast):
     for module in module_list:
@@ -173,6 +172,17 @@ def not_defined(node):
     return node is None
 
 ### Misc helpers.
+
+def sort_card_lists(program):
+    module_list = program['module_list']
+    for module in module_list:
+        sort_card_list(module)
+    return program
+
+def sort_card_list(module):
+    card_list = module['card_list']
+    # XXX: Ugly assumption that the card nodes are sorted on 'card_id'.
+    return card_list.sort()
 
 # XXX: Better to raise an exception and catch on a higher level?
 def semantic_error(msg, node):
