@@ -7,7 +7,8 @@ import nif_parser
 # Analyzer.
 
 def analyze(ast):
-    ast = sort_card_lists(ast)
+    # XXX: Cannot bluntly sort the card lists.
+    #ast = sort_card_lists(ast)
     return analyze_program(ast)
 
 def analyze_program(program):
@@ -197,9 +198,14 @@ def make_card(id_digit, id_alpha):
     return card
 
 def insert_card(card, card_list):
-    '''Insert 'card' in 'card_list'. Return 'card_list' sorted.'''
-    card_list.append(card)
-    return sort_card_list(card_list)
+    index = 0
+    for c in card_list:
+        if c['card_id'] < card['card_id']:
+            index += 1
+        else:
+            break
+    card_list.insert(index, card)
+    return card_list
 
 # XXX: Better to raise an exception and catch on a higher level?
 def semantic_error(msg, node):
