@@ -36,16 +36,12 @@ def analyze_reconr_card_list(card_list):
     # XXX: card_6 must be defined if ngrid > 0 in card 3.
     must_be_defined = ['card_1', 'card_3', 'card_4', 'card_5']
     cards_must_be_defined(must_be_defined, card_list, 'reconr')
-
     # Check for cards that must be unique (e.g. not defined more than once).
     unique_card_list = ['card_1', 'card_2', 'card_4', 'card_6']
     cards_must_be_unique(unique_card_list, card_list, 'reconr')
-
+    # Analyze individual cards.
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
-
-    # XXX
-    return ast
 
 def analyze_reconr_card_1(card_1):
     statement_list = card_1['statement_list']
