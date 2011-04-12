@@ -35,15 +35,24 @@ def analyze_reconr(module, ast):
     return analyze_reconr_card_list(card_list, ast)
 
 def analyze_reconr_card_list(card_list, ast):
-    # Check for cards which must be unique (e.g. not defined more than once).
-    unique_card_list = ['card_1']
-    must_be_unique(unique_card_list, card_list)
-    # XXX: Need to handle more than one card of the same type.
+    reconr_card_list = ['card_1', 'card_2', 'card_3', 'card_3', 'card_4',
+                        'card_5', 'card_6']
+
+    # Check for cards that must be defined.
+    # XXX: More cards? According to documentation:
+    #   "cards 3, 4, 5, 6 must be input for each material desired"
+    # ... but in the last example on http://t2.lanl.gov/njoy/reco02.html
+    # card 6 is not part of the input?
+    must_be_defined = ['card_1']
+    card_must_be_defined(must_be_defined, card_list, 'reconr')
+
+    # Check for cards that must be unique (e.g. not defined more than once).
+    unique_card_list = ['card_1', 'card_2']
+    card_must_be_unique(unique_card_list, card_list, 'reconr')
+
     card = get_card('card_1', card_list)
-    if not_defined(card):
-        msg = '\'card_1\' not defined in module \'reconr\'.'
-        semantic_error(msg, None)
     analyze_reconr_card_1(card)
+
     # XXX
     return ast
 
@@ -57,7 +66,7 @@ def analyze_reconr_card_1(card_1):
     # nendf must be defined. Translator cannot guess unit numbers.
     if not_defined(nendf):
         semantic_error('identifier "nendf" not defined.', nendf)
-    
+
     nendf_value = get_value(get_r_value(nendf))
     # The nendf unit number must be an integer.
     if not isinstance(nendf_value, int):
@@ -93,15 +102,26 @@ def analyze_reconr_card_1(card_1):
 ##############################################################################
 # Semantic rules.
 
-def must_be_unique(unique_card_list, card_list):
+def card_must_be_defined(must_be_defined, card_list, module_name):
+    for m in must_be_defined:
+        for c in card_list:
+            if c['card_name'] == m:
+                return 'ok'
+        # 'm' not defined.
+        msg = '\'' + m + '\' not defined in module \'' + module_name + '\'.'
+        semantic_error(msg, None)
+
+def card_must_be_unique(unique_card_list, card_list, module_name):
     for u in unique_card_list:
         n = 0
         for c in card_list:
             if c['card_name'] == u:
                 n += 1
             if n > 1:
-                # Found more than one instance of a unique card.
-                msg = '\'' + c['card_name'] + '\' previously declared.'
+                # Found more than one instance of 'u' in card_list.
+                msg = ('\'' + c['card_name'] + 
+                       '\' declared more than once in module \'' +
+                       module_name + '\'.')
                 semantic_error(msg, c)
 
 ##############################################################################
