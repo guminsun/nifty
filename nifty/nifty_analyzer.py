@@ -77,7 +77,7 @@ def analyze_reconr_card_1(card_1):
         msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
         semantic_error(msg, nendf)
 
-    # The nendf unit number must in [20,99], or [-99,-20] for binary.
+    # The nendf unit number must be in [20,99], or [-99,-20] for binary.
     if ((nendf_value not in range(20, 100)) and
         (nendf_value not in range(-99, -19))):
         msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
@@ -97,7 +97,7 @@ def analyze_reconr_card_1(card_1):
         msg = 'illegal npend unit number (' + str(npend_value) + ').'
         semantic_error(msg, nendf)
 
-    # The npend unit number must in [20,99], or [-99,-20] for binary.
+    # The npend unit number must be in [20,99], or [-99,-20] for binary.
     if ((npend_value not in range(20, 100)) and
         (npend_value not in range(-99, -19))):
         msg = 'illegal npend unit number (' + str(npend_value) + ').'
