@@ -1,12 +1,12 @@
 import sys
-from pprint import pprint as pprint
+from pprint import pprint
 
 import ply.lex as lex
 import ply.yacc as yacc
 
-# Get the token map from the lexer.
-import nifty_lexer
-tokens = nifty_lexer.tokens
+from nifty.lexer import nifty_lexer
+# Get the token map from the nifty lexer.
+from nifty.lexer.nifty_lexer import tokens
 
 ##############################################################################
 # Grammar rules.
@@ -89,7 +89,7 @@ def p_number(p):
     elif isinstance(eval(p[1]), int):
         p[0] = make_integer(p)
     else:
-        sys.stderr.write('--- analyzer XXX: illegal number?\n')
+        sys.stderr.write('--- parser XXX: illegal number?\n')
         sys.exit('syntax_error')
 
 def p_string(p):
@@ -194,7 +194,7 @@ def make_string(p):
     return node
 
 ##############################################################################
-# Misc.
+# Driver.
 
 def parse(data):
     lexer = lex.lex(module=nifty_lexer)
