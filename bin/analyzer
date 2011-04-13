@@ -1,0 +1,28 @@
+#! /usr/bin/env python
+
+import os, sys
+from pprint import pprint
+
+analyzer_dir = os.path.dirname(__file__)     # bin/analyzer
+nifty_top = os.path.split(analyzer_dir)[0]   # ../
+nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
+
+if os.path.isdir(nifty_dir):
+    sys.path.insert(0, nifty_top)
+
+from nifty.analyzer.nifty_analyzer import analyze
+from nifty.organizer.nifty_organizer import organize
+from nifty.parser.nifty_parser import parse
+
+def main():
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+        ast = parse(open(filename).read())
+    else:
+        ast = parse(sys.stdin.read())
+    ast = organize(ast)
+    ast = analyze(ast)
+    pprint(ast)
+
+if __name__ == '__main__':
+    main()

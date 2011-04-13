@@ -1,7 +1,4 @@
 import sys
-from pprint import pprint as pprint
-
-import nifty_parser
 
 ##############################################################################
 # Analyzer.
@@ -350,16 +347,3 @@ def semantic_error(msg, node):
         line = None
     sys.stderr.write('--- Semantic error on line %s, %s\n' % (line, msg))
     sys.exit('semantic_error')
-
-##############################################################################
-# Misc.
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        ast = nifty_parser.parse(open(filename).read())
-    else:
-        ast = nifty_parser.parse(sys.stdin.read())
-    ast = analyze(ast)
-    print '--- nifty analyzer output:'
-    pprint(ast)
