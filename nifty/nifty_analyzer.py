@@ -36,12 +36,14 @@ def analyze_reconr(module):
     return 'ok'
 
 def analyze_reconr_card_list(card_list):
-    # Check for cards that must be defined.
-    must_be_defined = ['card_1', 'card_3', 'card_4', 'card_5']
+    # Check for cards that always must be defined.
+    # XXX: Card 2 should be defined as well, but the nifty organizer will take
+    # care of it?
+    must_be_defined = ['card_1', 'card_3', 'card_4']
     cards_must_be_defined(must_be_defined, card_list, 'reconr')
 
     # Check for cards that must be unique (e.g. not defined more than once).
-    unique_card_list = ['card_1', 'card_2', 'card_4', 'card_6']
+    unique_card_list = ['card_1', 'card_2', 'card_4']
     cards_must_be_unique(unique_card_list, card_list, 'reconr')
 
     card = get_card('card_1', card_list)
@@ -59,8 +61,14 @@ def analyze_reconr_card_list(card_list):
 
     card = get_card('card_4', card_list)
     analyze_reconr_card_4(card)
-    
-    # XXX: card_6 must be defined if ngrid > 0 in card 3.
+
+    # XXX: card_5 must be defined 'ncards' times (see card 3).
+    card = get_card('card_5', card_list)
+    analyze_reconr_card_5(card)
+
+    # XXX: card_6 must be defined 'ngrid' times (see card 3).
+    card = get_card('card_6', card_list)
+    analyze_reconr_card_6(card)
 
     return 'ok'
 
@@ -161,6 +169,31 @@ def analyze_reconr_card_4(card_4):
     identifier_must_be_defined(err, 'err', card_4, 'reconr')
     return 'ok'
 
+def analyze_reconr_card_5(card_5):
+    ''' Return 'ok' if 'card_5' is semantically correct.
+
+        Precondition: 'card_5' is a card node from the reconr module with 
+                      card_id = (5, '').
+    '''
+    statement_list = card_5['statement_list']
+
+    cards = get_identifier('cards', statement_list)
+    identifier_must_be_defined(cards, 'cards', card_5, 'reconr')
+    cards_value = get_value(get_r_value(cards))
+    value_must_be_string(cards_value, cards)
+    return 'ok'
+
+def analyze_reconr_card_6(card_6):
+    ''' Return 'ok' if 'card_6' is semantically correct.
+
+        Precondition: 'card_6' is a card node from the reconr module with 
+                      card_id = (6, '').
+    '''
+    statement_list = card_6['statement_list']
+    enode = get_identifier('enode', statement_list)
+    identifier_must_be_defined(enode, 'enode', card_6, 'reconr')
+    return 'ok'
+
 ##############################################################################
 # Semantic rules.
 
@@ -206,6 +239,13 @@ def value_must_be_int(value, node):
     if not isinstance(value, int):
         msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
                'must be an integer.')
+        semantic_error(msg, node)
+    return 'ok'
+
+def value_must_be_string(value, node):
+    if not isinstance(value, str):
+        msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
+               'must be a string.')
         semantic_error(msg, node)
     return 'ok'
 
