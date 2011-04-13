@@ -1,7 +1,4 @@
 import sys
-from pprint import pprint as pprint
-
-import ply.lex as lex
 
 ##############################################################################
 # Tokens.
@@ -148,34 +145,3 @@ def t_error(t):
     sys.stderr.write('--- Lexical error on line %d, illegal character %s\n'
         % (t.lineno, t.value[0]))
     sys.exit('lexical_error')
-
-##############################################################################
-# Misc.
-
-def stdin2tokens(lexer):
-    lexer.input(sys.stdin.read())
-    token_list = []
-    while True:
-        t = lex.token()
-        if not t: break
-        token_list.append(t)
-    return token_list
-
-def file2tokens(filename, lexer):
-    lexer.input(open(filename).read())
-    token_list = []
-    while True:
-        t = lex.token()
-        if not t: break
-        token_list.append(t)
-    return token_list
-
-if __name__ == '__main__':
-    lexer = lex.lex()
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        result = file2tokens(filename, lexer)
-    else:
-        result = stdin2tokens(lexer)
-    print '--- nifty lexer output:'
-    pprint(result)
