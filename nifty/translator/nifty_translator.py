@@ -1,9 +1,4 @@
 import sys
-from pprint import pprint as pprint
-
-import nifty_analyzer
-import nifty_organizer
-import nifty_parser
 
 ##############################################################################
 # Translator.
@@ -58,18 +53,3 @@ def translate_assignment(statement):
 
 def translate_r_value(r_value):
     return r_value['value']
-
-##############################################################################
-# Misc.
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        ast = nifty_parser.parse(open(filename).read())
-    else:
-        ast = nifty_parser.parse(sys.stdin.read())
-    ast = nifty_analyzer.analyze(ast)
-    ast = nifty_organizer.organize(ast)
-    instructions = translate(ast)
-    print '--- nifty translator output:'
-    pprint(instructions)
