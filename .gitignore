@@ -1,14 +1,14 @@
+*.out
 *.pyc
 *.pyo
 *.swp
-*.out
 
 /*.nif
 parsetab.py
 
 build/
 dist/
-nifty/ply
+ply/
 
 .DS_Store
 *~
