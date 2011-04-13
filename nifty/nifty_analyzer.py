@@ -56,6 +56,9 @@ def analyze_reconr_card_list(card_list):
 
     card = get_card('card_3', card_list)
     analyze_reconr_card_3(card)
+
+    card = get_card('card_4', card_list)
+    analyze_reconr_card_4(card)
     
     # XXX: card_6 must be defined if ngrid > 0 in card 3.
 
@@ -145,6 +148,17 @@ def analyze_reconr_card_3(card_3):
         ngrid_value = get_value(get_r_value(ngrid))
         value_must_be_int(ngrid_value, ngrid)
 
+    return 'ok'
+
+def analyze_reconr_card_4(card_4):
+    ''' Return 'ok' if 'card_4' is semantically correct.
+
+        Precondition: 'card_4' is a card node from the reconr module with 
+                      card_id = (4, '').
+    '''
+    statement_list = card_4['statement_list']
+    err = get_identifier('err', statement_list)
+    identifier_must_be_defined(err, 'err', card_4, 'reconr')
     return 'ok'
 
 ##############################################################################
