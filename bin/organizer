@@ -10,8 +10,8 @@ nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
 if os.path.isdir(nifty_dir):
     sys.path.insert(0, nifty_top)
 
-from nifty.parser.nifty_parser import parse
 from nifty.organizer.nifty_organizer import organize
+from nifty.parser.nifty_parser import parse
 
 def main():
     if len(sys.argv) > 1:
