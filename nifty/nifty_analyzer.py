@@ -37,20 +37,28 @@ def analyze_reconr(module):
 
 def analyze_reconr_card_list(card_list):
     # Check for cards that must be defined.
-    # XXX: card_6 must be defined if ngrid > 0 in card 3.
     must_be_defined = ['card_1', 'card_3', 'card_4', 'card_5']
     cards_must_be_defined(must_be_defined, card_list, 'reconr')
+
     # Check for cards that must be unique (e.g. not defined more than once).
     unique_card_list = ['card_1', 'card_2', 'card_4', 'card_6']
     cards_must_be_unique(unique_card_list, card_list, 'reconr')
-    # Analyze individual cards.
+
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
+
     card = get_card('card_2', card_list)
+    # Card 2 does not have to be defined.
     if not_defined(card):
         pass
     else:
         analyze_reconr_card_2(card)
+
+    card = get_card('card_3', card_list)
+    analyze_reconr_card_3(card)
+    
+    # XXX: card_6 must be defined if ngrid > 0 in card 3.
+
     return 'ok'
 
 def analyze_reconr_card_1(card_1):
@@ -66,16 +74,11 @@ def analyze_reconr_card_1(card_1):
 
     nendf = get_identifier('nendf', statement_list)
     # nendf must be defined. Translator cannot guess unit numbers.
-    if not_defined(nendf):
-        msg = ('identifier \'nendf\' not defined in \'card_1\', module ' +
-               '\'reconr\'.')
-        semantic_error(msg, nendf)
+    identifier_must_be_defined(nendf, 'nendf', card_1, 'reconr')
 
     nendf_value = get_value(get_r_value(nendf))
     # The nendf unit number must be an integer.
-    if not isinstance(nendf_value, int):
-        msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
-        semantic_error(msg, nendf)
+    value_must_be_int(nendf_value, 'nendf', nendf)
 
     # The nendf unit number must be in [20,99], or [-99,-20] for binary.
     if ((nendf_value not in range(20, 100)) and
@@ -85,17 +88,11 @@ def analyze_reconr_card_1(card_1):
 
     npend = get_identifier('npend', statement_list)
     # npend must be defined. Translator cannot guess unit numbers.
-    if not_defined(npend):
-        msg = ('identifier \'npend\' not defined in \'card_1\', module ' +
-               '\'reconr\'.')
-        semantic_error(msg, npend)
+    identifier_must_be_defined(npend, 'npend', card_1, 'reconr')
 
     npend_value = get_value(get_r_value(npend))
-
     # The npend unit number must be an integer.
-    if not isinstance(npend_value, int):
-        msg = 'illegal npend unit number (' + str(npend_value) + ').'
-        semantic_error(msg, nendf)
+    value_must_be_int(npend_value, 'npend', npend)
 
     # The npend unit number must be in [20,99], or [-99,-20] for binary.
     if ((npend_value not in range(20, 100)) and
@@ -123,6 +120,18 @@ def analyze_reconr_card_2(card_2):
             semantic_error(msg, tlabel)
     return 'ok'
 
+def analyze_reconr_card_3(card_3):
+    ''' Return 'ok' if 'card_3' is semantically correct.
+
+        Precondition: 'card_3' is a card node from the reconr module with 
+                      card_id = (3, '').
+    '''
+    statement_list = card_3['statement_list']
+    mat = get_identifier('mat', statement_list)
+    identifier_must_be_defined(mat, 'mat', card_3, 'reconr')
+
+    return 'ok'
+
 ##############################################################################
 # Semantic rules.
 
@@ -140,6 +149,7 @@ def cards_must_be_defined(must_be_defined, card_list, module_name):
             msg = ('\'' + m + '\' not defined in module \'' +
                    module_name + '\'.')
             semantic_error(msg, None)
+    return 'ok'
 
 def cards_must_be_unique(unique_card_list, card_list, module_name):
     for unique in unique_card_list:
@@ -153,6 +163,22 @@ def cards_must_be_unique(unique_card_list, card_list, module_name):
                        '\' declared more than once in module \'' +
                        module_name + '\'.')
                 semantic_error(msg, card)
+    return 'ok'
+
+def identifier_must_be_defined(id, id_name, card_node, module_name):
+    if id is None:
+        msg = ('identifier \'' + id_name + '\' not defined in \'' +
+               card_node['card_name'] + '\', module \'' +
+               module_name + '\'.')
+        semantic_error(msg, card_node)
+    return 'ok'
+
+def value_must_be_int(value, id_name, node):
+    if not isinstance(value, int):
+        msg = ('\'' + id_name + '\' (value: ' + str(value) + ') must be an ' +
+               'integer.')
+        semantic_error(msg, node)
+    return 'ok'
 
 ##############################################################################
 # Helpers.
