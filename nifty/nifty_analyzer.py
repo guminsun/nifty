@@ -13,10 +13,12 @@ def analyze(ast):
 def analyze_program(program):
     module_list = program['module_list']
     analyze_module_list(module_list)
+    return 'ok'
 
 def analyze_module_list(module_list):
     for module in module_list:
         analyze_module(module)
+    return 'ok'
 
 def analyze_module(module):
     # XXX: Fix big ugly switch.
@@ -26,10 +28,12 @@ def analyze_module(module):
         analyze_reconr(module)
     else:
         print '--- analyzer: XXX not implemented yet:', module['module_name']
+    return 'ok'
 
 def analyze_reconr(module):
     card_list = module['card_list']
     analyze_reconr_card_list(card_list)
+    return 'ok'
 
 def analyze_reconr_card_list(card_list):
     # Check for cards that must be defined.
@@ -42,8 +46,19 @@ def analyze_reconr_card_list(card_list):
     # Analyze individual cards.
     card = get_card('card_1', card_list)
     analyze_reconr_card_1(card)
+    card = get_card('card_2', card_list)
+    if not_defined(card):
+        pass
+    else:
+        analyze_reconr_card_2(card)
+    return 'ok'
 
 def analyze_reconr_card_1(card_1):
+    ''' Return 'ok' if 'card_1' is semantically correct.
+        
+        Precondition: 'card_1' is a card node from the reconr module with 
+                      card_id = (1, '').
+    '''
     statement_list = card_1['statement_list']
 
     # XXX: Neat to construct a list of identifiers which must be defined and
@@ -59,14 +74,14 @@ def analyze_reconr_card_1(card_1):
     nendf_value = get_value(get_r_value(nendf))
     # The nendf unit number must be an integer.
     if not isinstance(nendf_value, int):
-        error_msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
-        semantic_error(error_msg, nendf)
+        msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
+        semantic_error(msg, nendf)
 
     # The nendf unit number must in [20,99], or [-99,-20] for binary.
     if ((nendf_value not in range(20, 100)) and
         (nendf_value not in range(-99, -19))):
-        error_msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
-        semantic_error(error_msg, nendf)
+        msg = 'illegal nendf unit number (' + str(nendf_value) + ').'
+        semantic_error(msg, nendf)
 
     npend = get_identifier('npend', statement_list)
     # npend must be defined. Translator cannot guess unit numbers.
@@ -76,19 +91,34 @@ def analyze_reconr_card_1(card_1):
         semantic_error(msg, npend)
 
     npend_value = get_value(get_r_value(npend))
+
     # The npend unit number must be an integer.
     if not isinstance(npend_value, int):
-        error_msg = 'illegal npend unit number (' + str(npend_value) + ').'
-        semantic_error(error_msg, nendf)
+        msg = 'illegal npend unit number (' + str(npend_value) + ').'
+        semantic_error(msg, nendf)
 
     # The npend unit number must in [20,99], or [-99,-20] for binary.
     if ((npend_value not in range(20, 100)) and
         (npend_value not in range(-99, -19))):
-        error_msg = 'illegal npend unit number (' + str(npend_value) + ').'
-        semantic_error(error_msg, nendf)
+        msg = 'illegal npend unit number (' + str(npend_value) + ').'
+        semantic_error(msg, nendf)
 
-    # XXX
-    return None
+    return 'ok'
+
+def analyze_reconr_card_2(card_2):
+    ''' Return 'ok' if 'card_2' is semantically correct.
+        
+        Precondition: 'card_2' is a card node from the reconr module with 
+                      card_id = (2, '').
+    '''
+    statement_list = card_2['statement_list']
+    tlabel = get_identifier('tlabel', statement_list)
+    tlabel_value = get_value(get_r_value(tlabel))
+    if len(tlabel_value) > 66:
+        msg = ('label exceeds 66 character length in \'card_2\', module ' +
+               '\'reconr\'.')
+        semantic_error(msg, tlabel)
+    return 'ok'
 
 ##############################################################################
 # Semantic rules.
