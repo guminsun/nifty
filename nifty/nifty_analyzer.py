@@ -32,43 +32,70 @@ def analyze_module(module):
 
 def analyze_reconr(module):
     card_list = module['card_list']
-    analyze_reconr_card_list(card_list)
+    analyze_reconr_card_list(card_list, module)
     return 'ok'
 
-def analyze_reconr_card_list(card_list):
+def analyze_reconr_card_list(card_list, module):
     # Check for cards that always must be defined.
-    # XXX: Card 2 should be defined as well, but the nifty organizer will take
-    # care of it?
-    must_be_defined = ['card_1', 'card_3', 'card_4']
-    cards_must_be_defined(must_be_defined, card_list, 'reconr')
+    must_be_defined = ['card_1', 'card_2', 'card_3', 'card_4']
+    cards_must_be_defined(must_be_defined, card_list, module)
 
     # Check for cards that must be unique (e.g. not defined more than once).
     unique_card_list = ['card_1', 'card_2', 'card_4']
-    cards_must_be_unique(unique_card_list, card_list, 'reconr')
+    cards_must_be_unique(unique_card_list, card_list, module)
 
-    card = get_card('card_1', card_list)
-    analyze_reconr_card_1(card)
+    card_1 = get_card('card_1', card_list)
+    analyze_reconr_card_1(card_1)
 
-    card = get_card('card_2', card_list)
-    # Card 2 does not have to be defined.
-    if not_defined(card):
-        pass
-    else:
-        analyze_reconr_card_2(card)
+    card_2 = get_card('card_2', card_list)
+    analyze_reconr_card_2(card_2)
 
-    card = get_card('card_3', card_list)
-    analyze_reconr_card_3(card)
+    # Cards 3, 4, 5, 6 must be input for each material desired.
+    cards_3 = get_cards('card_3', card_list)
+    for card_3 in cards_3:
+        analyze_reconr_card_3(card_3)
+        card_3_statement_list = card_3['statement_list']
+        
+        # Break loop if mat = 0, which indicates termination of execution.
+        mat = get_identifier('mat', card_3_statement_list)
+        mat_value = get_value(get_r_value(mat))
+        if mat_value == 0:
+            break
 
-    card = get_card('card_4', card_list)
-    analyze_reconr_card_4(card)
+        card_4 = get_card('card_4', card_list)
+        analyze_reconr_card_4(card_4)
 
-    # XXX: card_5 must be defined 'ncards' times (see card 3).
-    card = get_card('card_5', card_list)
-    analyze_reconr_card_5(card)
+        # card_5 must be defined 'ncards' times for each card_3 (see card 3).
+        ncards = get_identifier('ncards', card_3_statement_list)
+        if not_defined(ncards):
+            ncards_value = 0
+        else:
+            ncards_value = get_value(get_r_value(ncards))
+        cards_5 = get_cards('card_5', card_list)
+        if len(cards_5) != ncards_value:
+            # Number of card_5 does not match ncards definition in card 3. 
+            msg = ('\'card_5\' declared ' + str(len(cards_5)) + ' time(s) ' + 
+                   'while \'ncards\' is set to ' + str(ncards_value) +
+                   ' in \'card_3\', module \'reconr\'.')
+            semantic_error(msg, module)
+        for card_5 in cards_5:
+            analyze_reconr_card_5(card_5)
 
-    # XXX: card_6 must be defined 'ngrid' times (see card 3).
-    card = get_card('card_6', card_list)
-    analyze_reconr_card_6(card)
+        # card_6 must be defined 'ngrid' times for each card_3 (see card 3).
+        ngrid = get_identifier('ngrid', card_3_statement_list)
+        if not_defined(ngrid):
+            ngrid_value = 0
+        else:
+            ngrid_value = get_value(get_r_value(ngrid))
+        cards_6 = get_cards('card_6', card_list)
+        if len(cards_6) != ngrid_value:
+            # Number of card_6 does not match ncards definition in card 3. 
+            msg = ('\'card_6\' declared ' + str(len(cards_6)) + ' time(s) ' + 
+                   'while \'ngrid\' is set to ' + str(ngrid_value) +
+                   ' in \'card_3\', module \'reconr\'.')
+            semantic_error(msg, module)
+        for card_6 in cards_6:
+            analyze_reconr_card_6(card_6)
 
     return 'ok'
 
@@ -125,6 +152,7 @@ def analyze_reconr_card_2(card_2):
         pass
     else:
         tlabel_value = get_value(get_r_value(tlabel))
+        # At most 66 characters are allowed in labels.
         if len(tlabel_value) > 66:
             msg = ('label exceeds 66 character length in \'card_2\',' +
                    'module \'reconr\'.')
@@ -197,7 +225,7 @@ def analyze_reconr_card_6(card_6):
 ##############################################################################
 # Semantic rules.
 
-def cards_must_be_defined(must_be_defined, card_list, module_name):
+def cards_must_be_defined(must_be_defined, card_list, module):
     found = False
     for m in must_be_defined:
         for card in card_list:
@@ -209,11 +237,11 @@ def cards_must_be_defined(must_be_defined, card_list, module_name):
         if not found:
             # 'm' not defined.
             msg = ('\'' + m + '\' not defined in module \'' +
-                   module_name + '\'.')
-            semantic_error(msg, None)
+                   module['module_name'] + '\'.')
+            semantic_error(msg, module)
     return 'ok'
 
-def cards_must_be_unique(unique_card_list, card_list, module_name):
+def cards_must_be_unique(unique_card_list, card_list, module):
     for unique in unique_card_list:
         n = 0
         for card in card_list:
@@ -223,7 +251,7 @@ def cards_must_be_unique(unique_card_list, card_list, module_name):
                 # Found more than one instance of 'unique' in card_list.
                 msg = ('\'' + card['card_name'] +
                        '\' declared more than once in module \'' +
-                       module_name + '\'.')
+                       module['module_name'] + '\'.')
                 semantic_error(msg, card)
     return 'ok'
 
@@ -262,6 +290,17 @@ def get_card(card, card_list):
         if c['card_name'] == card:
             return c
     return None
+
+def get_cards(card_name, card_list):
+    '''
+        Return a list of card nodes with card name 'card_name' if 'card_name'
+        is in 'card_list'.
+    '''
+    cards = list()
+    for c in card_list:
+        if c['card_name'] == card_name:
+            cards.append(c)
+    return cards
 
 def get_identifier(id, statement_list):
     '''
