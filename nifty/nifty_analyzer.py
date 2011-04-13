@@ -113,11 +113,14 @@ def analyze_reconr_card_2(card_2):
     '''
     statement_list = card_2['statement_list']
     tlabel = get_identifier('tlabel', statement_list)
-    tlabel_value = get_value(get_r_value(tlabel))
-    if len(tlabel_value) > 66:
-        msg = ('label exceeds 66 character length in \'card_2\', module ' +
-               '\'reconr\'.')
-        semantic_error(msg, tlabel)
+    if not_defined(tlabel):
+        pass
+    else:
+        tlabel_value = get_value(get_r_value(tlabel))
+        if len(tlabel_value) > 66:
+            msg = ('label exceeds 66 character length in \'card_2\', module ' +
+                   '\'reconr\'.')
+            semantic_error(msg, tlabel)
     return 'ok'
 
 ##############################################################################
