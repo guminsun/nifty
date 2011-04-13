@@ -78,7 +78,7 @@ def analyze_reconr_card_1(card_1):
 
     nendf_value = get_value(get_r_value(nendf))
     # The nendf unit number must be an integer.
-    value_must_be_int(nendf_value, 'nendf', nendf)
+    value_must_be_int(nendf_value, nendf)
 
     # The nendf unit number must be in [20,99], or [-99,-20] for binary.
     if ((nendf_value not in range(20, 100)) and
@@ -92,7 +92,7 @@ def analyze_reconr_card_1(card_1):
 
     npend_value = get_value(get_r_value(npend))
     # The npend unit number must be an integer.
-    value_must_be_int(npend_value, 'npend', npend)
+    value_must_be_int(npend_value, npend)
 
     # The npend unit number must be in [20,99], or [-99,-20] for binary.
     if ((npend_value not in range(20, 100)) and
@@ -127,8 +127,23 @@ def analyze_reconr_card_3(card_3):
                       card_id = (3, '').
     '''
     statement_list = card_3['statement_list']
+
     mat = get_identifier('mat', statement_list)
     identifier_must_be_defined(mat, 'mat', card_3, 'reconr')
+
+    ncards = get_identifier('ncards', statement_list)
+    if not_defined(ncards):
+        pass
+    else:
+        ncards_value = get_value(get_r_value(ncards))
+        value_must_be_int(ncards_value, ncards)
+
+    ngrid = get_identifier('ngrid', statement_list)
+    if not_defined(ngrid):
+        pass
+    else:
+        ngrid_value = get_value(get_r_value(ngrid))
+        value_must_be_int(ngrid_value, ngrid)
 
     return 'ok'
 
@@ -173,10 +188,10 @@ def identifier_must_be_defined(id, id_name, card_node, module_name):
         semantic_error(msg, card_node)
     return 'ok'
 
-def value_must_be_int(value, id_name, node):
+def value_must_be_int(value, node):
     if not isinstance(value, int):
-        msg = ('\'' + id_name + '\' (value: ' + str(value) + ') must be an ' +
-               'integer.')
+        msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
+               'must be an integer.')
         semantic_error(msg, node)
     return 'ok'
 
