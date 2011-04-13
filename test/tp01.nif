@@ -108,17 +108,17 @@ reconr
 
     card_5
     {
-        tlabel = "6-c-nat from tape 511";
+        cards = "6-c-nat from tape 511";
     }
 
     card_5
     {
-        tlabel = "processed by the njoy nuclear data processing system";
+        cards = "processed by the njoy nuclear data processing system";
     }
 
     card_5
     {
-        tlabel = "see original endf/b-v tape for details of evaluation";
+        cards = "see original endf/b-v tape for details of evaluation";
     }
 
     /* Card 6 skipped since ngrid defaults to 0 in first card 3 */
