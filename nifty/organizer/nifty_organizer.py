@@ -1,5 +1,3 @@
-import sys
-
 ##############################################################################
 # Organizer. To put together into an orderly, functional, structured whole.
 
