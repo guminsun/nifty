@@ -77,7 +77,7 @@ moder
 {
     card_1
     {
-        nin = 21;
+        nin = 20;
         nout = -21;
     }
 }
