@@ -50,4 +50,6 @@ def translate_assignment(statement):
     return translate_r_value(r_value)
 
 def translate_r_value(r_value):
-    return r_value['value']
+    node_type = r_value['node_type']
+    value = r_value['value']
+    return (node_type, value)
