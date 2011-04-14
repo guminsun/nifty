@@ -20,23 +20,75 @@ reserved_cards = {
 }
 
 reserved_identifiers = {
-    # Reserved identifiers for card 1.
+    ##########################################################################
+    # acer
+    # Reserved identifiers for acer card 1.
     'nendf' : 'IDENTIFIER',
     'npend' : 'IDENTIFIER',
-    # Reserved identifiers for card 2.
+    'ngend' : 'IDENTIFIER',
+    'nace' : 'IDENTIFIER',
+    'ndir' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 2.
+    'iopt' : 'IDENTIFIER',
+    'iprint' : 'IDENTIFIER',
+    'ntype' : 'IDENTIFIER',
+    'suff' : 'IDENTIFIER',
+    'nxtra' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 3.
+    'hk' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 4.
+    'iz' : 'IDENTIFIER',
+    'aw' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 5.
+    'matd' : 'IDENTIFIER',
+    'tempd' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 6.
+    'err' : 'IDENTIFIER',
+    'iopp' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 7.
+    'thin_1' : 'IDENTIFIER',
+    'thin_2' : 'IDENTIFIER',
+    'thin_3' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 8.
+    'matd' : 'IDENTIFIER',
+    'tempd' : 'IDENTIFIER',
+    'tname' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 8a.
+    'iza01' : 'IDENTIFIER',
+    'iza02' : 'IDENTIFIER',
+    'iza03' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 9.
+    'mti' : 'IDENTIFIER',
+    'nbint' : 'IDENTIFIER',
+    'mte' : 'IDENTIFIER',
+    'ielas' : 'IDENTIFIER',
+    'nmix' : 'IDENTIFIER',
+    'emax' : 'IDENTIFIER',
+    'iwt' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 10.
+    'matd' : 'IDENTIFIER',
+    'tempd' : 'IDENTIFIER',
+    # Reserved identifiers for acer card 11.
+    'matd' : 'IDENTIFIER',
+    ##########################################################################
+    # reconr
+    # Reserved identifiers for reconr card 1.
+    'nendf' : 'IDENTIFIER',
+    'npend' : 'IDENTIFIER',
+    # Reserved identifiers for reconr card 2.
     'tlabel' : 'IDENTIFIER',
-    # Reserved identifiers for card 3.
+    # Reserved identifiers for reconr card 3.
     'mat' : 'IDENTIFIER',
     'ncards' : 'IDENTIFIER',
     'ngrid' : 'IDENTIFIER',
-    # Reserved identifiers for card 4.
+    # Reserved identifiers for reconr card 4.
     'err' : 'IDENTIFIER',
     'tempr' : 'IDENTIFIER',
     'errmax' : 'IDENTIFIER',
     'errint' : 'IDENTIFIER',
-    # Reserved identifiers for card 5.
+    # Reserved identifiers for reconr card 5.
     'cards' : 'IDENTIFIER',
-    # Reserved identifiers for card 6.
+    # Reserved identifiers for reconr card 6.
     'enode' : 'IDENTIFIER',
 }
 
