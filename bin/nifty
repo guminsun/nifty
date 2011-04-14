@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 import os, sys
-from pprint import pprint
 
 nifty_exe_dir = os.path.dirname(__file__)    # bin/nifty
 nifty_top = os.path.split(nifty_exe_dir)[0]  # ../
@@ -26,7 +25,7 @@ def main():
     ast = analyze(ast)
     instructions = translate(ast)
     instructions = emit(instructions)
-    pprint(instructions)
+    print instructions
 
 if __name__ == '__main__':
     main()
