@@ -42,7 +42,7 @@ def analyze_module_list(module_list):
     return 'ok'
 
 def analyze_module(module):
-    module_analyzers = {
+    analyzer_functions = {
         'acer' : analyze_acer,
         #'broadr' : analyze_broadr,
         #'ccccr' : analyze_ccccr,
@@ -72,7 +72,7 @@ def analyze_module(module):
         pass
     else:
         try:
-            analyzer_function = module_analyzers[module_name]
+            analyzer_function = analyzer_functions[module_name]
             analyzer_function(module)
         except KeyError:
             msg = ('--- nifty_analyzer: XXX not implemented yet: ' +
