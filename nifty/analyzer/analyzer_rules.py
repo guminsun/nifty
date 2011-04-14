@@ -1,5 +1,7 @@
 import sys
 
+import analyzer_helpers as helper
+
 ##############################################################################
 # Semantic rules.
 
@@ -33,8 +35,16 @@ def cards_must_be_unique(unique_card_list, card_list, module):
                 semantic_error(msg, card)
     return 'ok'
 
-def identifier_must_be_defined(id, id_name, card_node, module_name):
-    if id is None:
+def identifiers_must_be_defined(must_be_defined, card_node, module):
+    for id_name in must_be_defined:
+        identifier = helper.get_identifier(id_name,
+                                           card_node['statement_list'])
+        identifier_must_be_defined(identifier, id_name, card_node,
+                                   module['module_name'])
+    return 'ok'
+
+def identifier_must_be_defined(identifier, id_name, card_node, module_name):
+    if identifier is None:
         msg = ('identifier \'' + id_name + '\' not defined in \'' +
                card_node['card_name'] + '\', module \'' +
                module_name + '\'.')
