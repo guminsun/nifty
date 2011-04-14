@@ -1,7 +1,28 @@
 import sys
 
 from analyze_acer import analyze_acer
+#from analyze_broadr import analyze_broadr
+#from analyze_ccccr import analyze_ccccr
+#from analyze_covr import analyze_covr
+#from analyze_dtfr import analyze_dtfr
+#from analyze_errorr import analyze_errorr
+#from analyze_gaminr import analyze_gaminr
+#from analyze_gaspr import analyze_gaspr
+#from analyze_groupr import analyze_groupr
+#from analyze_heatr import analyze_heatr
+#from analyze_leapr import analyze_leapr
+#from analyze_matxsr import analyze_matxsr
+#from analyze_mixr import analyze_mixr
+#from analyze_moder import analyze_moder
+#from analyze_plotr import analyze_plotr
+#from analyze_powr import analyze_powr
+#from analyze_purr import analyze_purr
 from analyze_reconr import analyze_reconr
+#from analyze_resxsr import analyze_resxsr
+#from analyze_thermr import analyze_thermr
+#from analyze_unresr import analyze_unresr
+#from analyze_viewr import analyze_viewr
+#from analyze_wimsr import analyze_wimsr
 
 ##############################################################################
 # Analyzer.
@@ -51,8 +72,8 @@ def analyze_module(module):
         pass
     else:
         try:
-            analyze = module_analyzers[module_name]
-            analyze(module)
+            analyzer_function = module_analyzers[module_name]
+            analyzer_function(module)
         except KeyError:
             msg = ('--- nifty_analyzer: XXX not implemented yet: ' +
                    module_name)
