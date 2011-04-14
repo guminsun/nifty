@@ -51,17 +51,33 @@ def identifier_must_be_defined(identifier, id_name, card_node, module_name):
         semantic_error(msg, card_node)
     return 'ok'
 
-def value_must_be_int(value, node):
+def identifier_must_be_int(node):
+    value = helper.get_value(helper.get_r_value(node))
     if not isinstance(value, int):
         msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
                'must be an integer.')
         semantic_error(msg, node)
     return 'ok'
 
-def value_must_be_string(value, node):
+def identifier_must_be_string(node):
+    value = helper.get_value(helper.get_r_value(node))
     if not isinstance(value, str):
         msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
                'must be a string.')
+        semantic_error(msg, node)
+    return 'ok'
+
+def identifier_must_be_unit_number(node):
+    value = helper.get_value(helper.get_r_value(node))
+    # Make sure it's an int before continuing.
+    identifier_must_be_int(node)
+    # A unit number must be in [20,99], or [-99,-20] for binary, or 0 (zero)
+    # to which denotes no unit.
+    if ((value not in range(20, 100)) and
+        (value not in range(-99, -19)) and
+        (value != 0)):
+        msg = ('\'' + node['identifier'] + '\' illegal unit number (' +
+               str(value) + ').')
         semantic_error(msg, node)
     return 'ok'
 
