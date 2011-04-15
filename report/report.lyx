@@ -96,7 +96,7 @@ thispagestyle{empty}
 
 \begin_layout Standard
 \begin_inset Note Comment
-status collapsed
+status open
 
 \begin_layout Plain Layout
 XXX Line spacing in report?
@@ -356,33 +356,226 @@ Methodology
 Understanding the NJOY Input Instructions
 \end_layout
 
-\begin_layout Itemize
-Complex.
+\begin_layout Standard
+The NJOY input instructions [4] had to be understood in order to design
+ the new input format.
+\end_layout
+
+\begin_layout Standard
+The NJOY program is composed by a set of modules.
+ The modules are independent programs which performs a specific task.
+ The modules uses input and output files, specified by the input instructions,
+ to communicate with each other.
+ Data flows from one module to another through a chain of files.
+ As such, the NJOY input instructions is a sequential listing of instructions
+ to be carried out by the NJOY program, and its execution order is of outermost
+ importance.
+\end_layout
+
+\begin_layout Standard
+The following grammar
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+XXX: describe grammar?
+\end_layout
+
+\end_inset
+
+ [5], describe a general outline of what the NJOY input instructions look
+ like
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Note that this grammar is by no means intended to be a complete, nor correct,
+ grammar definition of the NJOY input instructions.
+ Its purpose is solely illustrational.
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+program       ::= module_list
+\end_layout
+
+\begin_layout Plain Layout
+
+module_list   ::= module NEWLINE module_list
+\end_layout
+
+\begin_layout Plain Layout
+
+                | STOP
+\end_layout
+
+\begin_layout Plain Layout
+
+module        ::= MODULE_NAME NEWLINE card_list
+\end_layout
+
+\begin_layout Plain Layout
+
+card_list     ::= card NEWLINE card_list
+\end_layout
+
+\begin_layout Plain Layout
+
+                | card NEWLINE
+\end_layout
+
+\begin_layout Plain Layout
+
+card          ::= variable_list
+\end_layout
+
+\begin_layout Plain Layout
+
+variable_list ::= variable SPACE variable_list opt_slash
+\end_layout
+
+\begin_layout Plain Layout
+
+                | variable optional_slash
+\end_layout
+
+\begin_layout Plain Layout
+
+                | SLASH
+\end_layout
+
+\begin_layout Plain Layout
+
+variable      ::= VARIABLE
+\end_layout
+
+\begin_layout Plain Layout
+
+opt_slash     ::= SLASH
+\end_layout
+
+\begin_layout Plain Layout
+
+                | EMPTY
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+General structure of the NJOY input instructions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The start symbol is 
+\family typewriter
+program
+\family default
+.
+ Keywords and special symbols are capitalized.
+
+\family typewriter
+ EMPTY
+\family default
+ denotes the empty string.
+ 
+\family typewriter
+STOP
+\family default
+ denotes the stop instruction.
+ 
+\family typewriter
+MODULE_NAME
+\family default
+ indicates a module name, such as 
+\family typewriter
+acer
+\family default
+ or 
+\family typewriter
+reconr
+\family default
+.
+ 
+\family typewriter
+NEWLINE
+\family default
+, 
+\family typewriter
+SLASH
+\family default
+, and 
+\family typewriter
+SPACE
+\family default
+ denotes a newline, a slash and a blank space, respectively.
+ 
+\family typewriter
+VARIABLE
+\family default
+ indicates a variable declaration, such as numerical quantities or strings.
+\end_layout
+
+\begin_layout Standard
+As indicated by the grammar, each declaration of a module and card is always
+ suffixed by a newline.
+ A variable list is separated by spaces (or by commas, but it is less frequently
+ used).
+ Comments are available and prefixed by 
+\family typewriter
+$
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+XXX input sample file here.
 \end_layout
 
 \begin_layout Itemize
-The flow between modules, chaining.
+XXX: Repeatable cards.
 \end_layout
 
 \begin_layout Itemize
-Strict sequential order.
+XXX: Similarities to control flow statements; some variables declare which
+ cards are present.
 \end_layout
 
 \begin_layout Itemize
-Comments: $
-\end_layout
-
-\begin_layout Itemize
-Repeatable cards.
-\end_layout
-
-\begin_layout Itemize
-Similarities to control flow statements; some variables declare which cards
- are present.
-\end_layout
-
-\begin_layout Itemize
-Terminology: input deck, decks of cards, ...
+XXX: Terminology: input deck, decks of cards, ...
 \end_layout
 
 \begin_layout Subsection
@@ -688,7 +881,7 @@ module_list    ::= module module_list
 
 \begin_layout Plain Layout
 
-                 | empty
+                 | EMPTY
 \end_layout
 
 \begin_layout Plain Layout
@@ -703,7 +896,7 @@ card_list      ::= card card_list
 
 \begin_layout Plain Layout
 
-                 | empty
+                 | EMPTY
 \end_layout
 
 \begin_layout Plain Layout
@@ -718,7 +911,7 @@ statement_list ::= statement statement_list
 
 \begin_layout Plain Layout
 
-                 | empty
+                 | EMPTY
 \end_layout
 
 \begin_layout Plain Layout
@@ -771,6 +964,14 @@ NJOY Input Format (NIF) Grammar Definition
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Keywords and special symbols are capitalized, 
+\family typewriter
+EMPTY
+\family default
+ denotes the empty string.
 \end_layout
 
 \begin_layout Subsection
@@ -973,20 +1174,20 @@ Complete context-free grammar?
 \begin_deeper
 \begin_layout Itemize
 Expand grammar.
- More tokens (TEMPERATURE, MATERIAL, etc).
+ More tokens (
+\family typewriter
+TEMPERATURE
+\family default
+, 
+\family typewriter
+MATERIAL
+\family default
+, etc).
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-GUI for 
-\family typewriter
-viewr
-\family default
- and 
-\family typewriter
-plotr
-\family default
-?
+GUI editor?
 \end_layout
 
 \begin_layout Itemize
@@ -1032,7 +1233,7 @@ Los Alamos Nat.
 [2] XXX [Online].
  Available: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1059,6 +1260,34 @@ http://www.fysast.uu.se/tk/en/content/macro-project
 \end_inset
 
 
+\end_layout
+
+\begin_layout Description
+[4] XXX 
+\begin_inset Quotes eld
+\end_inset
+
+User Input for NJOY99, updated through version 364
+\begin_inset Quotes erd
+\end_inset
+
+ [Online].
+ Available: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://t2.lanl.gov/codes/njoy99/Userinp.364
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+[5] XXX Dragon book, grammar chapter.
 \end_layout
 
 \end_body
