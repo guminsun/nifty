@@ -5,51 +5,52 @@ import analyzer_helpers as helper
 ##############################################################################
 # Semantic rules.
 
-def cards_must_be_defined(must_be_defined, card_list, module):
-    found = False
-    for m in must_be_defined:
-        for card in card_list:
-            if card['card_name'] == m:
-                found = True
-                break
-            else:
-                found = False
-        if not found:
-            # 'm' not defined.
-            msg = ('\'' + m + '\' not defined in module \'' +
-                   module['module_name'] + '\'.')
-            semantic_error(msg, module)
-    return 'ok'
+def cards_must_be_defined(must_be_defined, module_node):
+    cards = list()
+    for card_name in must_be_defined:
+        c = card_must_be_defined(card_name, module_node)
+        cards.append(c)
+    return cards
 
-def cards_must_be_unique(unique_card_list, card_list, module):
-    for unique in unique_card_list:
-        n = 0
-        for card in card_list:
-            if card['card_name'] == unique:
-                n += 1
-            if n > 1:
-                # Found more than one instance of 'unique' in card_list.
-                msg = ('\'' + card['card_name'] +
-                       '\' declared more than once in module \'' +
-                       module['module_name'] + '\'.')
-                semantic_error(msg, card)
-    return 'ok'
+def card_must_be_defined(card_name, module_node):
+    card_node = helper.get_card(card_name, module_node)
+    if card_node is None:
+        msg = ('card \'' + card_name + '\' not defined in \'' +
+               '\', module \'' + module_node['module_name'] + '\'.')
+        semantic_error(msg, module_node)
+    return card_node
 
-def identifiers_must_be_defined(must_be_defined, card_node, module):
+def cards_must_be_unique(unique_card_list, module_node):
+    for card_name in unique_card_list:
+        cards = helper.get_cards(card_name, module_node)
+        card_must_be_unique(card_name, module_node)
+    return cards
+
+def card_must_be_unique(card_name, module_node):
+    card_node = helper.get_card(card_name, module_node)
+    cards = helper.get_cards(card_name, module_node)
+    if len(cards) > 1:
+        # Found more than one instance of 'card_name' in 'cards'.
+        msg = ('card \'' + card_name + '\' declared more than ' +
+               'once in module \'' + module_node['module_name'] + '\'.')
+        semantic_error(msg, card_node)
+    return card_node
+
+def identifiers_must_be_defined(must_be_defined, card_node, module_node):
+    id_node_list = list()
     for id_name in must_be_defined:
-        identifier = helper.get_identifier(id_name,
-                                           card_node['statement_list'])
-        identifier_must_be_defined(identifier, id_name, card_node,
-                                   module['module_name'])
-    return 'ok'
+        id_node = identifier_must_be_defined(id_name, card_node, module_node)
+        id_node_list.append(id_node)
+    return id_node_list
 
-def identifier_must_be_defined(identifier, id_name, card_node, module_name):
-    if identifier is None:
+def identifier_must_be_defined(id_name, card_node, module_node):
+    id_node = helper.get_identifier(id_name, card_node)
+    if id_node is None:
         msg = ('identifier \'' + id_name + '\' not defined in \'' +
                card_node['card_name'] + '\', module \'' +
-               module_name + '\'.')
+               module_node['module_name'] + '\'.')
         semantic_error(msg, card_node)
-    return 'ok'
+    return id_node
 
 def identifier_must_be_int(node):
     value = helper.get_value(helper.get_r_value(node))
@@ -57,7 +58,7 @@ def identifier_must_be_int(node):
         msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
                'must be an integer.')
         semantic_error(msg, node)
-    return 'ok'
+    return value
 
 def identifier_must_be_string(node):
     value = helper.get_value(helper.get_r_value(node))
@@ -65,7 +66,7 @@ def identifier_must_be_string(node):
         msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
                'must be a string.')
         semantic_error(msg, node)
-    return 'ok'
+    return value
 
 def identifier_must_be_unit_number(node):
     value = helper.get_value(helper.get_r_value(node))
@@ -79,7 +80,7 @@ def identifier_must_be_unit_number(node):
         msg = ('\'' + node['identifier'] + '\' illegal unit number (' +
                str(value) + ').')
         semantic_error(msg, node)
-    return 'ok'
+    return value
 
 ##############################################################################
 # Error handling.

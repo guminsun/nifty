@@ -14,33 +14,37 @@ def not_defined(node):
 ##############################################################################
 # Getter helpers.
 
-def get_card(card, card_list):
+def get_card(card_name, module_node):
     '''
-        Return card node of 'card' if 'card' is in 'card_list', else None.
+        Return card node of 'card_name' if 'card_name' is in "module_node"'s
+        card list, else None.
     '''
+    card_list = module_node['card_list']
     for c in card_list:
-        if c['card_name'] == card:
+        if c['card_name'] == card_name:
             return c
     return None
 
-def get_cards(card_name, card_list):
+def get_cards(card_name, module_node):
     '''
         Return a list of card nodes with card name 'card_name' if 'card_name'
         is in 'card_list'.
     '''
     cards = list()
+    card_list = module_node['card_list']
     for c in card_list:
         if c['card_name'] == card_name:
             cards.append(c)
     return cards
 
-def get_identifier(id, statement_list):
+def get_identifier(id_name, card_node):
     '''
-        Return identifier node of 'id' if 'id' is in 'statement_list',
-        else None.
+        Return identifier node of 'id_name' if 'id_name' is defined in 
+        "card_node"'s statement list, else None.
     '''
+    statement_list = card_node['statement_list']
     for expression in statement_list:
-        if is_assignment(expression) and expression['identifier'] == id:
+        if is_assignment(expression) and expression['identifier'] == id_name:
             return expression
     return None
 
