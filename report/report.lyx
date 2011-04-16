@@ -91,7 +91,10 @@ thispagestyle{empty}
 \align center
 
 \family typewriter
-[XXX BLANK]
+\begin_inset space ~
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -363,9 +366,17 @@ Designing the New NJOY Input Format
 \end_layout
 
 \begin_layout Standard
-The new NJOY Input Format (NIF) was designed on the basis of the extracted
- information from the input instructions.
- A grammar definition was chosen to represent NIF.
+The new NJOY Input Format (NIF) was based on the analysis of the input instructi
+ons.
+ The syntax definition, which is a description of the proper form of programs,
+ of NIF was specified in a notation called context-free grammar 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -377,7 +388,7 @@ The translator, which is supposed to translate NIF into NJOY input instructions,
  was written in the Python programming language 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-6"
 
 \end_inset
 
@@ -388,11 +399,12 @@ key "key-5"
 The PLY 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-6"
+key "key-7"
 
 \end_inset
 
- tools was used to generate a lexer and a parser for the NIF grammar.
+ tools, PLY Lex and PLY Yacc, was used to generate a lexical analyzer (lexer)
+ and a syntactical analyzer (parser) for the NIF grammar.
 \end_layout
 
 \begin_layout Subsection
@@ -400,8 +412,8 @@ Testing
 \end_layout
 
 \begin_layout Standard
-Testing was applied continuously during all phases of the design and implementat
-ion.
+Testing was carried out continuously during all phases of the design and
+ implementation.
  The NJOY test problems
 \begin_inset Note Comment
 status open
@@ -417,6 +429,10 @@ XXX Reference to NJOY web?
 
 \begin_layout Itemize
 Python Unit Testing?
+\end_layout
+
+\begin_layout Itemize
+Test plan?
 \end_layout
 
 \begin_layout Itemize
@@ -449,40 +465,7 @@ NIF
 \end_layout
 
 \begin_layout Itemize
-Describe design?
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Strings and numbers
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 The Grammar Definition?
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Static scope? Only top-level declarations?
-\end_layout
-
-\begin_layout Itemize
-Block structure.
- e.g.
- 
-\family typewriter
-module { 
-\shape italic
-variable-declarations
-\shape default
- }
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Example.
- NJOY input instructions vs NIF.
 \end_layout
 
 \begin_layout Standard
@@ -603,6 +586,14 @@ NJOY Input Format (NIF) Grammar Definition
 
 \end_layout
 
+\begin_layout Plain Layout
+Keywords and special symbols are capitalized, 
+\family typewriter
+EMPTY
+\family default
+ denotes the empty string.
+\end_layout
+
 \end_inset
 
 
@@ -637,14 +628,6 @@ XXX E.g.
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Keywords and special symbols are capitalized, 
-\family typewriter
-EMPTY
-\family default
- denotes the empty string.
 \end_layout
 
 \begin_layout Subsection
@@ -814,11 +797,11 @@ Node structure
 
 \end_deeper
 \begin_layout Itemize
-Analyzer
+Organizer
 \end_layout
 
 \begin_layout Itemize
-Mangler / Massager
+Analyzer
 \end_layout
 
 \begin_layout Itemize
@@ -835,11 +818,21 @@ Translation process of AST.
 Code generation: generating the target language instructions.
 \end_layout
 
+\begin_layout Itemize
+Describe structure which is the result of the translator.
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 Emitter
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Translator result is converted to a string.
+\end_layout
+
+\end_deeper
 \begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
@@ -1034,7 +1027,9 @@ key "key-1"
 
 \end_inset
 
-Mcfarlane, R.E.,
+R.
+ E.
+ MacFarlane,
 \shape italic
  
 \shape default
@@ -1063,19 +1058,30 @@ key "key-2"
 
 \end_inset
 
-ENDF XXX [Online].
- Available: 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-http://www.nndc.bnl.gov/endf/
-\end_layout
-
+M.
+ B.
+ Chadwick 
+\shape italic
+et al.
+\shape default
+, 
+\begin_inset Quotes eld
 \end_inset
 
+ENDF/B-VII.0: Next Generation Evaluated Nuclear Data Library for Nuclear
+ Science and Technology,
+\begin_inset Quotes erd
+\end_inset
 
+ 
+\shape italic
+Nuclear Data Sheets
+\shape default
+, vol.
+ 107, no.
+ 12, pp.
+ 2931-3060, Dec.
+ 2006.
 \end_layout
 
 \begin_layout Bibliography
@@ -1085,20 +1091,25 @@ key "key-3"
 
 \end_inset
 
-XXX (Use reference to MACRO article instead of this URI.
- Availability of article?) [Online].
- Available: 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-http://www.fysast.uu.se/tk/en/content/macro-project
-\end_layout
-
+C.
+ Gustavsson 
+\shape italic
+et al.
+\shape default
+, 
+\begin_inset Quotes eld
 \end_inset
 
+Massive Computation Methodology for Reactor Operation (MACRO),
+\begin_inset Quotes erd
+\end_inset
 
+ in 
+\shape italic
+European Nuclear Conference
+\shape default
+, 2010 © European Nuclear Society.
+ ISBN: 978-92-95064-09-6
 \end_layout
 
 \begin_layout Bibliography
@@ -1108,14 +1119,17 @@ key "key-4"
 
 \end_inset
 
-XXX 
-\begin_inset Quotes eld
-\end_inset
-
+A.
+ C.
+ Kahler and R.
+ E.
+ MacFarlane.
+ (2010, Mar.
+ 31).
+ 
+\shape italic
 User Input for NJOY99, updated through version 364
-\begin_inset Quotes erd
-\end_inset
-
+\shape default
  [Online].
  Available: 
 \begin_inset Flex URL
@@ -1138,7 +1152,51 @@ key "key-5"
 
 \end_inset
 
-XXX Python v2.7.1 documentation [Online].
+A.
+ V.
+ Aho 
+\shape italic
+et al.
+\shape default
+, 
+\begin_inset Quotes eld
+\end_inset
+
+A Simple Syntax-Directed Translator
+\begin_inset Quotes erd
+\end_inset
+
+ in 
+\shape italic
+Compilers: Principles, Techniques, & Tools
+\shape default
+, Second Edition.
+ Boston: Pearson Educ., 2006, ch.
+ 2, sec.
+ 2.1, pp.
+ 40-47.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-6"
+
+\end_inset
+
+F.
+ L.
+ Drake, Jr., 
+\shape italic
+et al
+\shape default
+.
+ (2011, Apr.
+ 16) 
+\shape italic
+Python v2.7.1 documentation
+\shape default
+ [Online].
  Available: 
 \begin_inset Flex URL
 status collapsed
@@ -1156,19 +1214,27 @@ http://docs.python.org/
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-key "key-6"
+key "key-7"
 
 \end_inset
 
-XXX Beazley, David.
- PLY (Python Lex-Yacc) [Online].
+D.
+ M.
+ Beazley.
+ (2011, Apr.
+ 16).
+ 
+\shape italic
+PLY (Python Lex-Yacc)
+\shape default
+ [Online].
  Available: 
 \begin_inset Flex URL
 status collapsed
 
 \begin_layout Plain Layout
 
-http://www.dabeaz.com/ply/
+http://www.dabeaz.com/ply/ply.html
 \end_layout
 
 \end_inset
