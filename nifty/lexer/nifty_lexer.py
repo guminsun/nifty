@@ -7,7 +7,9 @@ reserved_cards = {
     'card' : 'CARD',
     'card_1' : 'CARD',
     'card_2' : 'CARD',
+    'card_2a' : 'CARD',
     'card_3' : 'CARD',
+    'card_3a' : 'CARD',
     'card_4' : 'CARD',
     'card_5' : 'CARD',
     'card_6' : 'CARD',
@@ -17,6 +19,8 @@ reserved_cards = {
     'card_9' : 'CARD',
     'card_10' : 'CARD',
     'card_11' : 'CARD',
+    'card_12a' : 'CARD',
+    'card_12b' : 'CARD',
 }
 
 reserved_identifiers = {
@@ -173,9 +177,7 @@ t_SEMICOLON = r';'
 t_INTEGER = r'(-|\+)?\d+'
 
 # Floats.
-# Description of the regular definition:
-#   float -> optional_sign digits optional_exponent
-t_FLOAT = r'(-|\+)?(\d*)(\.\d*)(((e|E)(-|\+)?\d+))?'
+t_FLOAT = r'(-|\+)?(\d*)(\.?\d+)(((e|E)(-|\+)?\d+))?'
 
 # Strings.
 # Recognizes strings delimited by double quotes ("), e.g. "A string.".
