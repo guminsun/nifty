@@ -177,7 +177,9 @@ t_SEMICOLON = r';'
 t_INTEGER = r'(-|\+)?\d+'
 
 # Floats.
-t_FLOAT = r'(-|\+)?(\d*)(\.?\d+)(((e|E)(-|\+)?\d+))?'
+# optional_sign optional_digits optional_dot digits optional_(exponent optional_sign digits)
+t_FLOAT = r'[-+]?\d*\.?\d+([eE][-+]?\d+)?'
+
 
 # Strings.
 # Recognizes strings delimited by double quotes ("), e.g. "A string.".
