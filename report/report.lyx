@@ -452,25 +452,59 @@ material
  could be represented as tokens of the form
 \end_layout
 
-\begin_layout Standard
-\align center
+\begin_layout Description
 
 \family typewriter
-<IDENTIFIER, material>
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ <IDENTIFIER, material>
+\family default
+,
 \end_layout
 
-\begin_layout Standard
-\align center
+\begin_layout Description
 
 \family typewriter
-<ASSIGNMENT, =>
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ <ASSIGNMENT, =>
+\family default
+, and
 \end_layout
 
-\begin_layout Standard
-\align center
+\begin_layout Description
 
 \family typewriter
-<INTEGER, 725>
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ <INTEGER, 725>
 \end_layout
 
 \begin_layout Standard
@@ -807,6 +841,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="10" columns="3">
 <features>
@@ -814,7 +849,7 @@ status open
 <column alignment="left" valignment="top" width="0">
 <column alignment="left" valignment="top" width="0">
 <row>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -823,7 +858,7 @@ TOKEN
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -832,7 +867,7 @@ DESCRIPTION
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
