@@ -151,7 +151,7 @@ broadr
 
     card_4
     {
-        temp2 = 300.;
+        temp2 = 300; /* Trade-off: definition does not allow trailing dots. */
     }
 
     card_5
@@ -207,7 +207,7 @@ thermr
 
     card_3
     {
-        tempr = 300.;
+        tempr = 300; /* Trade-off: definition does not allow trailing dots. */
     }
 
     card_4
@@ -241,7 +241,7 @@ thermr
 
     card_3
     {
-        tempr = 300.;
+        tempr = 300; /* Trade-off: definition does not allow trailing dots. */
     }
 
     card_4
@@ -285,7 +285,7 @@ groupr
 
     card_5
     {
-        sigz = 1.e10;
+        sigz = 1e10; /* Trade-off: definition does not allow trailing dots. */
     }
 
     card_9

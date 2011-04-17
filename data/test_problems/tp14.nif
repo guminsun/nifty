@@ -51,7 +51,7 @@ acer
     card_5
     {
         matd = 725;
-        tempd = 0.;
+        tempd = 0; /* Trade-off: definition does not allow trailing dots. */
     }
 
     /* acer card 6 and 7 skipped. Set to default values with '/'. */
