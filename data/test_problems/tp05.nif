@@ -1,0 +1,124 @@
+/*****************************************************************************
+ NJOY Test Problem 05:
+
+    moder
+    30 -31
+    moder
+    -31 -32
+    errorr
+    -31 -32 0 -33/
+    1306 19 2 1/
+    0 0
+    0 33/
+    1
+    1e-5 2e7/
+    covr
+    -33 0 34/
+    1/
+    /
+    /
+    1306/
+    viewr
+    34 35/
+    stop
+
+*****************************************************************************/
+
+moder
+{
+    card_1
+    {
+        nin = 30;
+        nout = -31;
+    }
+}
+
+moder
+{
+    card_1
+    {
+        nin = -31;
+        nout = -32;
+    }
+}
+
+errorr
+{
+    card_1
+    {
+        nendf = -31;
+        npend = -32;
+        ngout = 0;
+        nout = -33;
+    }
+
+    card_2
+    {
+        matd = 1306;
+        ign = 19;
+        iwt = 2;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        mprint = 0;
+        tempin = 0;
+    }
+
+    /* Test problem 05 is using a file of the endf-5 format (iverf=5) */
+
+    card_7
+    {
+        iread = 0;
+        mfcov = 33;
+    }
+
+    card_12a
+    {
+        ngn = 1;
+    }
+
+    card_12b
+    {
+        egn = 1e-5;
+        egn = 2e7;
+    }
+}
+
+covr
+{
+    card_1
+    {
+        nin = -33;
+        nout = 0;
+        nplot = 34;
+    }
+
+    card_2
+    {
+        icolor = 1;
+    }
+
+    card_2a
+    {
+    }
+
+    card_3a
+    {
+    }
+
+    card_4
+    {
+        mat = 1306;
+    }
+}
+
+viewr
+{
+    card_1
+    {
+        infile = 34;
+        nps = 35;
+    }
+}
