@@ -311,7 +311,7 @@ The NJOY input instructions is not an optimal input format.
 In order to make the new input format useable with NJOY, it has to be translated
  into the original input instructions.
  As such, the scope of this work also included developing an accompanying
- translator to the input format.
+ translator for the input format.
 \end_layout
 
 \begin_layout Standard
@@ -330,15 +330,15 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In the following subsections, the principles and techniques used to construct
- translators in 
+In the following subsections, the principles and techniques for constructing
+ a translator presented in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
 
 \end_inset
 
-, which was applicable to the scope of this work, is described.
+, is described.
 \end_layout
 
 \begin_layout Standard
@@ -382,7 +382,7 @@ The syntax definition of NIF was specified in a notation called context-free
  grammar 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-6"
 
 \end_inset
 
@@ -403,7 +403,7 @@ material = 725
 \end_layout
 
 \begin_layout Standard
-which can be expressed as the production
+which can be expressed in a context-free grammar as the production
 \end_layout
 
 \begin_layout Standard
@@ -418,7 +418,7 @@ where
 \family typewriter
 r_value
 \family default
- is a production which express the structure of the assignable values.
+ is a another production, expressing the structure of the assignable values.
 \end_layout
 
 \begin_layout Subsection
@@ -426,14 +426,30 @@ Building the Translator
 \end_layout
 
 \begin_layout Standard
-The NJOY Input Format Translator, 
-\family typewriter
-nifty
-\family default
-, which is supposed to translate NIF into NJOY input instructions, was construct
-ed using compiler techniques and tools.
- The translator was written in the Python programming language [XXX reference,
- update references below], in an Un*x environment.
+The translator, which is supposed to translate NIF into NJOY input instructions,
+ was partly constructed using a lexical-analyzer generator 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-7"
+
+\end_inset
+
+ and a parser generator 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-8"
+
+\end_inset
+
+.
+ The translator was written in the Python programming language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+, in an Un*x environment.
 \end_layout
 
 \begin_layout Subsubsection
@@ -445,7 +461,7 @@ Lexical analysis is the process of dividing the source program (e.g.
  NIF) into sequences of characters, called tokens 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-6"
+key "key-10"
 
 \end_inset
 
@@ -529,7 +545,7 @@ material
 PLY Lex 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-7"
+key "key-11"
 
 \end_inset
 
@@ -539,7 +555,7 @@ key "key-7"
  of regular expressions 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-8"
+key "key-12"
 
 \end_inset
 
@@ -556,7 +572,7 @@ Syntax analysis is the process of creating a tree-like representation, an
  analyzer 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-9"
+key "key-13"
 
 \end_inset
 
@@ -568,7 +584,7 @@ key "key-9"
 PLY Yacc 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-7"
+key "key-11"
 
 \end_inset
 
@@ -1759,40 +1775,6 @@ key "key-7"
 
 \end_inset
 
-F.
- L.
- Drake, Jr., 
-\shape italic
-et al
-\shape default
-.
- (2011, Apr.
- 16) 
-\shape italic
-Python v2.7.1 documentation
-\shape default
- [Online].
- Available: 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-http://docs.python.org/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-8"
-
-\end_inset
-
 A.
  V.
  Aho 
@@ -1814,8 +1796,40 @@ Compilers: Principles, Techniques, & Tools
 , Second Edition.
  Boston: Pearson Educ., 2007, ch.
  3, sec.
- 3.1, pp.
- 109-114.
+ 3.5, pp.
+ 140-146.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-8"
+
+\end_inset
+
+A.
+ V.
+ Aho 
+\shape italic
+et al.
+\shape default
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Syntax Analysis
+\begin_inset Quotes erd
+\end_inset
+
+ in 
+\shape italic
+Compilers: Principles, Techniques, & Tools
+\shape default
+, Second Edition.
+ Boston: Pearson Educ., 2007, ch.
+ 4, sec.
+ 4.9, pp.
+ 287-297.
 \end_layout
 
 \begin_layout Bibliography
@@ -1825,14 +1839,17 @@ key "key-9"
 
 \end_inset
 
-D.
- M.
- Beazley.
- (2011, Apr.
- 16).
- 
+F.
+ L.
+ Drake, Jr., 
 \shape italic
-PLY (Python Lex-Yacc)
+et al
+\shape default
+.
+ (2011, Apr.
+ 16) 
+\shape italic
+Python v2.7.1 documentation
 \shape default
  [Online].
  Available: 
@@ -1841,7 +1858,7 @@ status collapsed
 
 \begin_layout Plain Layout
 
-http://www.dabeaz.com/ply/ply.html
+http://docs.python.org/
 \end_layout
 
 \end_inset
@@ -1877,6 +1894,69 @@ Compilers: Principles, Techniques, & Tools
 , Second Edition.
  Boston: Pearson Educ., 2007, ch.
  3, sec.
+ 3.1, pp.
+ 109-114.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-11"
+
+\end_inset
+
+D.
+ M.
+ Beazley.
+ (2011, Apr.
+ 16).
+ 
+\shape italic
+PLY (Python Lex-Yacc)
+\shape default
+ [Online].
+ Available: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.dabeaz.com/ply/ply.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-12"
+
+\end_inset
+
+A.
+ V.
+ Aho 
+\shape italic
+et al.
+\shape default
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Lexical Analysis
+\begin_inset Quotes erd
+\end_inset
+
+ in 
+\shape italic
+Compilers: Principles, Techniques, & Tools
+\shape default
+, Second Edition.
+ Boston: Pearson Educ., 2007, ch.
+ 3, sec.
  3.3, pp.
  116-124.
 \end_layout
@@ -1884,7 +1964,7 @@ Compilers: Principles, Techniques, & Tools
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-key "key-11"
+key "key-13"
 
 \end_inset
 
