@@ -29,6 +29,9 @@ def analyze_acer_card_list(module):
     card_4 = helper.get_card('card_4', module)
     analyze_acer_card_4(card_2, card_4, module)
 
+    card_5 = helper.get_card('card_5', module)
+    analyze_acer_card_5(card_2, card_5, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -137,7 +140,9 @@ def analyze_acer_card_4(card_2, card_4, module):
         nxtra_r_value = helper.get_value(helper.get_r_value(nxtra_node))
 
     if nxtra_r_value > 0:
-        rule.card_must_be_defined('card_4', module)
+        msg = ('expected \'card_4\' since nxtra=' + str(nxtra_r_value) +
+               'in \'card_2\'')
+        rule.card_must_be_defined('card_4', module, msg)
         analyze_acer_card_4_iz(nxtra_r_value, card_4, module)
         analyze_acer_card_4_aw(nxtra_r_value, card_4, module)
     else:
@@ -166,4 +171,27 @@ def analyze_acer_card_4_aw(nxtra_r_value, card_4, module):
                ' time(s) in \'card_4\' while \'nxtra\' is set to ' +
                str(nxtra_r_value) + ' in \'card_2\', module \'acer\'.')
         rule.semantic_error(msg, card_4)
+    return 'ok'
+
+def analyze_acer_card_5(card_2, card_5, module):
+    # Note that card 5 should only be defined if iopt=1 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 1:
+        msg = ('expected \'card_5\' since iopt=' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_5', module, msg)
+        analyze_acer_card_5_matd(card_5, module)
+        analyze_acer_card_5_tempd(card_5, module)
+    else:
+        msg = 'since iopt=' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_5', module, msg)
+    return 'ok'
+
+def analyze_acer_card_5_matd(card_5, module):
+    rule.identifier_must_be_defined('matd', card_5, module)
+    return 'ok'
+
+def analyze_acer_card_5_tempd(card_5, module):
+    rule.identifier_must_be_defined('tempd', card_5, module)
     return 'ok'
