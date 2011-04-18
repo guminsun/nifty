@@ -59,11 +59,15 @@ def identifier_must_be_int(node):
         semantic_error(msg, node)
     return value
 
-def identifier_must_be_string(node):
-    value = helper.get_value(helper.get_r_value(node))
+def identifier_must_be_string(id_node, card_node, module_node):
+    value = helper.get_value(helper.get_r_value(id_node))
     if not isinstance(value, str):
-        msg = ('\'' + node['identifier'] + '\' not defined as a string.')
-        semantic_error(msg, node)
+        id_name = id_node['identifier']
+        card_name = card_node['card_name']
+        module_name = module_node['module_name']
+        msg = ('identifier \'' + id_name + '\' not defined as a string in ' +
+               '\'' + card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, id_node)
     return value
 
 def identifier_must_be_unit_number(node):
@@ -80,8 +84,19 @@ def identifier_must_be_unit_number(node):
         semantic_error(msg, node)
     return value
 
-def identifier_must_be_in_range(node, range1, range2=None):
-    pass
+def identifier_string_must_not_exceed_length(id_node, max_length, card_node,
+                                             module_node):
+    # Make sure it's a string before continuing.
+    string = identifier_must_be_string(id_node, card_node, module_node)
+    if len(string) > max_length:
+        id_name = id_node['identifier']
+        card_name = card_node['card_name']
+        module_name = module_node['module_name']
+        msg = ('identifier \'' + id_name + '\' exceeds the ' +
+               str(max_length) + ' character length in \'' + card_name +
+               '\', module ' + '\'' + module_name + '\'.')
+        semantic_error(msg, id_node)
+    return 'ok'
 
 ##############################################################################
 # Error handling.
