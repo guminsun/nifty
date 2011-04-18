@@ -55,16 +55,14 @@ def identifier_must_be_defined(id_name, card_node, module_node):
 def identifier_must_be_int(node):
     value = helper.get_value(helper.get_r_value(node))
     if not isinstance(value, int):
-        msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
-               'must be an integer.')
+        msg = ('\'' + node['identifier'] + '\' not defined as an integer.')
         semantic_error(msg, node)
     return value
 
 def identifier_must_be_string(node):
     value = helper.get_value(helper.get_r_value(node))
     if not isinstance(value, str):
-        msg = ('\'' + node['identifier'] + '\' (value: ' + str(value) + ') ' + 
-               'must be a string.')
+        msg = ('\'' + node['identifier'] + '\' not defined as a string.')
         semantic_error(msg, node)
     return value
 
