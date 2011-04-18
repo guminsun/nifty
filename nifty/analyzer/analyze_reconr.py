@@ -86,31 +86,34 @@ def analyze_reconr_card_2(card_2, module):
     if helper.not_defined(tlabel):
         pass
     else:
+        tlabel_value = rule.identifier_must_be_string(tlabel)
         # XXX: Add a function which checks that the allowed length is not
         #      exceeded?
-        tlabel_value = helper.get_value(helper.get_r_value(tlabel))
         # At most 66 characters are allowed in labels.
         if len(tlabel_value) > 66:
-            msg = ('label exceeds 66 character length in \'card_2\',' +
-                   'module \'reconr\'.')
+            msg = ('\'tlabel\' exceeds the 66 character length in ' + 
+                   '\'card_2\', module \'reconr\'.')
             rule.semantic_error(msg, tlabel)
     return 'ok'
 
 def analyze_reconr_card_3(card_3, module):
-    must_be_defined = ['mat']
-    rule.identifiers_must_be_defined(must_be_defined, card_3, module)
+    rule.identifier_must_be_defined('mat', card_3, module)
 
     ncards = helper.get_identifier('ncards', card_3)
     if helper.not_defined(ncards):
         pass
     else:
         rule.identifier_must_be_int(ncards)
+        # XXX: check if ncards is positive, negative number of cards is not a
+        #      proper input.
 
     ngrid = helper.get_identifier('ngrid', card_3)
     if helper.not_defined(ngrid):
         pass
     else:
         rule.identifier_must_be_int(ngrid)
+        # XXX: check if ngrid is positive, negative number of grids is not a
+        #      proper input.
 
     return 'ok'
 
