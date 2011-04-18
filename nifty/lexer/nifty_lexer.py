@@ -174,12 +174,13 @@ t_RIGHT_BRACE = r'\}'
 t_SEMICOLON = r';'
 
 # Integers. Signed or unsigned.
-t_INTEGER = r'(-|\+)?\d+'
+t_INTEGER = r'[-+]?\d+'
 
-# Floats.
-# optional_sign optional_digits optional_dot digits optional_(exponent optional_sign digits)
-t_FLOAT = r'[-+]?\d*\.?\d+([eE][-+]?\d+)?'
-
+# C-style floats. Signed or unsigned.
+#    optional_sign digits dot digits optional_(exponent optional_sign digits)
+# or,
+#    optional_sign digits exponent optional_sign digits
+t_FLOAT = r'[-+]?((\d+)(\.\d+)([eE][-+]?(\d+))? | (\d+)[eE][-+]?(\d+))'
 
 # Strings.
 # Recognizes strings delimited by double quotes ("), e.g. "A string.".

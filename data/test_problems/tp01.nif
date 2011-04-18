@@ -71,6 +71,10 @@
     -23 25
     stop
 
+Note the difference between e.g. the declaration of temperatures;  "300." is
+declared as "300".
+tol defined as ".005" needs to be declared as "0.005".
+
 *****************************************************************************/
 
 moder
@@ -103,7 +107,7 @@ reconr
 
     card_4
     {
-        err = .005;
+        err = 0.005; // Use C-style floats.
     }
 
     card_5
@@ -146,12 +150,12 @@ broadr
 
     card_3
     {
-        errthn = .005;
+        errthn = 0.005; // Use C-style floats.
     }
 
     card_4
     {
-        temp2 = 300; /* Trade-off: definition does not allow trailing dots. */
+        temp2 = 300; // Use C-style floats.
     }
 
     card_5
@@ -207,12 +211,12 @@ thermr
 
     card_3
     {
-        tempr = 300; /* Trade-off: definition does not allow trailing dots. */
+        tempr = 300; // Use C-style floats.
     }
 
     card_4
     {
-        tol = .05;
+        tol = 0.05; // Use C-style floats.
         emax = 1.2;
     }
 }
@@ -241,12 +245,12 @@ thermr
 
     card_3
     {
-        tempr = 300; /* Trade-off: definition does not allow trailing dots. */
+        tempr = 300; // Use C-style floats.
     }
 
     card_4
     {
-        tol = .05;
+        tol = 0.05; // Use C-style floats.
         emax = 1.2;
     }
 }
@@ -285,7 +289,7 @@ groupr
 
     card_5
     {
-        sigz = 1e10; /* Trade-off: definition does not allow trailing dots. */
+        sigz = 1e10; // No trailing dots. Use C-style floats.
     }
 
     card_9
