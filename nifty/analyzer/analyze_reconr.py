@@ -24,6 +24,9 @@ def analyze_reconr_card_list(module):
     analyze_reconr_card_2(card_2, module)
 
     # XXX: Needs serious cleaning.
+    # XXX: This is probably not correct either. Need to loop through all
+    # card 4, 5, and 6 in a similar manner to card 3?
+    #
     # Cards 3, 4, 5, 6 must be input for each material desired.
     cards_3 = helper.get_cards('card_3', module)
     for card_3 in cards_3:
