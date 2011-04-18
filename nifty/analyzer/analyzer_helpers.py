@@ -48,6 +48,18 @@ def get_identifier(id_name, card_node):
             return expression
     return None
 
+def get_identifiers(id_name, card_node):
+    '''
+        Return a list of identifier nodes with identifier name 'id_name' if
+        'id_name' is defined in "card_node"'s statement list.
+    '''
+    identifiers = list()
+    statement_list = card_node['statement_list']
+    for expression in statement_list:
+        if is_assignment(expression) and expression['identifier'] == id_name:
+            identifiers.append(expression)
+    return identifiers
+
 def get_r_value(assignment):
     '''
         Return the r_value node of the 'assignment' node.
