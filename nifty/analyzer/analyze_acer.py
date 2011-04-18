@@ -35,19 +35,33 @@ def analyze_acer_card_1(card_1, module):
 
 def analyze_acer_card_2(card_2, module):
     analyze_acer_card_2_iopt(card_2, module)
+    analyze_acer_card_2_iprint(card_2, module)
     return 'ok'
 
 def analyze_acer_card_2_iopt(card_2, module):
-    must_be_defined = ['iopt']
     iopt_node = rule.identifier_must_be_defined('iopt', card_2, module)
     rule.identifier_must_be_int(iopt_node)
     # XXX: Ugly.
     iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
     if ((iopt_r_value not in range(1, 6)) and
-        (iopt_r_value not in range(-6, 0)) and
+        (iopt_r_value not in range(-5, 0)) and
         (iopt_r_value not in range(7, 9)) and
         (iopt_r_value not in range(-8, -6))):
         msg = ('illegal run option in \'card_2\', module \'acer\': ' +
                iopt_node['identifier'] + ' = ' + str(iopt_r_value))
         rule.semantic_error(msg, iopt_node)
-    return iopt_r_value
+    return iopt_node
+
+def analyze_acer_card_2_iprint(card_2, module):
+    iprint_node = helper.get_identifier('iprint', card_2)
+    if helper.not_defined(iprint_node):
+        return 'ok'
+    else:
+        rule.identifier_must_be_int(iprint_node)
+        iprint_r_value = helper.get_value(helper.get_r_value(iprint_node))
+        if iprint_r_value not in range(0,2):
+            msg = ('illegal print control in \'card_2\', module \'acer\': ' +
+                   iprint_node['identifier'] + ' = ' + str(iprint_r_value) +
+                   ', expected 0 for min or 1 for max (default=1).')
+            rule.semantic_error(msg, iprint_node)
+    return 'ok'
