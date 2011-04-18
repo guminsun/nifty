@@ -26,6 +26,9 @@ def analyze_acer_card_list(module):
     card_3 = helper.get_card('card_3', module)
     analyze_acer_card_3(card_3, module)
 
+    card_4 = helper.get_card('card_4', module)
+    analyze_acer_card_4(card_2, card_4, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -122,4 +125,47 @@ def analyze_acer_card_3_hk(card_3, module):
     hk_node = rule.identifier_must_be_defined('hk', card_3, module)
     hk_r_value = rule.identifier_must_be_string(hk_node, card_3, module)
     rule.identifier_string_must_not_exceed_length(hk_node, 70, card_3, module)
+    return 'ok'
+
+def analyze_acer_card_4(card_2, card_4, module):
+    # Note that card 4 should only be defined if nxtra > 0 in card_2.
+    nxtra_node = helper.get_identifier('nxtra', card_2)
+    if helper.not_defined(nxtra_node):
+        # If nxtra is not defined, then the default value is 0.
+        nxtra_r_value = 0
+    else:
+        nxtra_r_value = helper.get_value(helper.get_r_value(nxtra_node))
+
+    if nxtra_r_value > 0:
+        rule.card_must_be_defined('card_4', module)
+    else:
+        # Supply message of why the card shouldn't be defined.
+        msg = 'since nxtra=' + str(nxtra_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_4', module, msg)
+
+    analyze_acer_card_4_iz(nxtra_r_value, card_4, module)
+    analyze_acer_card_4_aw(nxtra_r_value, card_4, module)
+
+    return 'ok'
+
+def analyze_acer_card_4_iz(nxtra_r_value, card_4, module):
+    iz_node_list = helper.get_identifiers('iz', card_4)
+    if len(iz_node_list) != nxtra_r_value:
+        # The number of iz values does not match the nxtra value defined in
+        # card 2.
+        msg = ('identifier \'iz\' declared ' + str(len(iz_node_list)) +
+               ' time(s) in \'card_4\' while \'nxtra\' is set to ' +
+               str(nxtra_r_value) + ' in \'card_2\', module \'acer\'.')
+        rule.semantic_error(msg, card_4)
+    return 'ok'
+
+def analyze_acer_card_4_aw(nxtra_r_value, card_4, module):
+    aw_node_list = helper.get_identifiers('aw', card_4)
+    if len(aw_node_list) != nxtra_r_value:
+        # The number of aw values does not match the nxtra value defined in
+        # card 2.
+        msg = ('identifier \'aw\' declared ' + str(len(aw_node_list)) +
+               ' time(s) in \'card_4\' while \'nxtra\' is set to ' +
+               str(nxtra_r_value) + ' in \'card_2\', module \'acer\'.')
+        rule.semantic_error(msg, card_4)
     return 'ok'
