@@ -8,15 +8,16 @@ import analyzer_helpers as helper
 def cards_must_be_defined(must_be_defined, module_node):
     cards = list()
     for card_name in must_be_defined:
-        c = card_must_be_defined(card_name, module_node)
+        msg = ('i.e. expected a declaration of \'' + card_name + '\'')
+        c = card_must_be_defined(card_name, module_node, msg)
         cards.append(c)
     return cards
 
-def card_must_be_defined(card_name, module_node):
+def card_must_be_defined(card_name, module_node, msg):
     card_node = helper.get_card(card_name, module_node)
     if card_node is None:
         msg = ('card \'' + card_name + '\' not defined in module \'' +
-               module_node['module_name'] + '\'.')
+               module_node['module_name'] + '\' (' + msg + ').')
         semantic_error(msg, module_node)
     return card_node
 
