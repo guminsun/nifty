@@ -86,7 +86,7 @@ def analyze_reconr_card_2(card_2, module):
     if helper.not_defined(tlabel):
         pass
     else:
-        tlabel_value = rule.identifier_must_be_string(tlabel)
+        tlabel_value = rule.identifier_must_be_string(tlabel, card_2, module)
         # XXX: Add a function which checks that the allowed length is not
         #      exceeded?
         # At most 66 characters are allowed in labels.
@@ -123,7 +123,7 @@ def analyze_reconr_card_4(card_4, module):
 
 def analyze_reconr_card_5(card_5, module):
     cards = rule.identifier_must_be_defined('cards', card_5, module)
-    rule.identifier_must_be_string(cards)
+    rule.identifier_must_be_string(cards, card_5, module)
     return 'ok'
 
 def analyze_reconr_card_6(card_6, module):
