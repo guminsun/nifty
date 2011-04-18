@@ -36,6 +36,9 @@ def analyze_acer_card_1(card_1, module):
 def analyze_acer_card_2(card_2, module):
     analyze_acer_card_2_iopt(card_2, module)
     analyze_acer_card_2_iprint(card_2, module)
+    analyze_acer_card_2_ntype(card_2, module)
+    analyze_acer_card_2_suff(card_2, module)
+    analyze_acer_card_2_nxtra(card_2, module)
     return 'ok'
 
 def analyze_acer_card_2_iopt(card_2, module):
@@ -64,4 +67,46 @@ def analyze_acer_card_2_iprint(card_2, module):
                    iprint_node['identifier'] + ' = ' + str(iprint_r_value) +
                    ', expected 0 for min or 1 for max (default=1).')
             rule.semantic_error(msg, iprint_node)
+    return 'ok'
+
+def analyze_acer_card_2_ntype(card_2, module):
+    ntype_node = helper.get_identifier('ntype', card_2)
+    if helper.not_defined(ntype_node):
+        return 'ok'
+    else:
+        rule.identifier_must_be_int(ntype_node)
+        ntype_r_value = helper.get_value(helper.get_r_value(ntype_node))
+        if ntype_r_value not in range(1,4):
+            msg = ('illegal ace output type in \'card_2\', module \'acer\': ' +
+                   ntype_node['identifier'] + ' = ' + str(ntype_r_value) +
+                   ', expected 1, 2, or 3 (default=1).')
+            rule.semantic_error(msg, ntype_node)
+    return 'ok'
+
+def analyze_acer_card_2_suff(card_2, module):
+    suff_node = helper.get_identifier('suff', card_2)
+    if helper.not_defined(suff_node):
+        return 'ok'
+    else:
+        # XXX: Check if suff_r_value is a float? Not sure it must be a float
+        #      though. Pass for now.
+        pass
+    return 'ok'
+
+def analyze_acer_card_2_nxtra(card_2, module):
+    nxtra_node = helper.get_identifier('nxtra', card_2)
+    if helper.not_defined(nxtra_node):
+        return 'ok'
+    else:
+        rule.identifier_must_be_int(nxtra_node)
+        nxtra_r_value = helper.get_value(helper.get_r_value(nxtra_node))
+        # nxtra defines the number of iz,aw pairs to read in (default=0), a
+        # negative value does not make sense.
+        if nxtra_r_value < 0:
+            msg = ('the number of iz,aw pairs to read in is negative in ' + 
+                   '\'card_2\', module \'acer\': ' +
+                   nxtra_node['identifier'] + ' = ' + str(nxtra_r_value) +
+                   ', expected a non-negative value (default=0).')
+            rule.semantic_error(msg, nxtra_node)
+        pass
     return 'ok'
