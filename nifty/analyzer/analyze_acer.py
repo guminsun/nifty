@@ -138,13 +138,12 @@ def analyze_acer_card_4(card_2, card_4, module):
 
     if nxtra_r_value > 0:
         rule.card_must_be_defined('card_4', module)
+        analyze_acer_card_4_iz(nxtra_r_value, card_4, module)
+        analyze_acer_card_4_aw(nxtra_r_value, card_4, module)
     else:
         # Supply message of why the card shouldn't be defined.
         msg = 'since nxtra=' + str(nxtra_r_value) + ' in \'card_2\''
         rule.card_must_not_be_defined('card_4', module, msg)
-
-    analyze_acer_card_4_iz(nxtra_r_value, card_4, module)
-    analyze_acer_card_4_aw(nxtra_r_value, card_4, module)
 
     return 'ok'
 
