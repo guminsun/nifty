@@ -69,9 +69,9 @@ def identifier_must_be_string(node):
     return value
 
 def identifier_must_be_unit_number(node):
-    value = helper.get_value(helper.get_r_value(node))
     # Make sure it's an int before continuing.
     identifier_must_be_int(node)
+    value = helper.get_value(helper.get_r_value(node))
     # A unit number must be in [20,99], or [-99,-20] for binary, or 0 (zero)
     # to which denotes no unit.
     if ((value not in range(20, 100)) and
@@ -81,6 +81,9 @@ def identifier_must_be_unit_number(node):
                str(value) + ').')
         semantic_error(msg, node)
     return value
+
+def identifier_must_be_in_range(node, range1, range2=None):
+    pass
 
 ##############################################################################
 # Error handling.
