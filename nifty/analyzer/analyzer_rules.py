@@ -15,9 +15,17 @@ def cards_must_be_defined(must_be_defined, module_node):
 def card_must_be_defined(card_name, module_node):
     card_node = helper.get_card(card_name, module_node)
     if card_node is None:
-        msg = ('card \'' + card_name + '\' not defined in \'' +
-               '\', module \'' + module_node['module_name'] + '\'.')
+        msg = ('card \'' + card_name + '\' not defined in module \'' +
+               module_node['module_name'] + '\'.')
         semantic_error(msg, module_node)
+    return card_node
+
+def card_must_not_be_defined(card_name, module_node, msg):
+    card_node = helper.get_card(card_name, module_node)
+    if card_node is not None:
+        msg = ('card \'' + card_name + '\' should not be defined in module ' +
+               '\'' + module_node['module_name'] + '\' (' + msg + ').')
+        semantic_error(msg, card_node)
     return card_node
 
 def cards_must_be_unique(unique_card_list, module_node):
