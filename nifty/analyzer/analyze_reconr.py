@@ -73,11 +73,6 @@ def analyze_reconr_card_list(module):
     return 'ok'
 
 def analyze_reconr_card_1(card_1, module):
-    ''' Return 'ok' if 'card_1' is semantically correct.
-        
-        Precondition: 'card_1' is a card node from the reconr module with 
-                      card_id = (1, '').
-    '''
     must_be_defined = ['nendf', 'npend']
     for id_name in must_be_defined:
         rule.identifier_must_be_defined(id_name, card_1, module)
@@ -87,11 +82,6 @@ def analyze_reconr_card_1(card_1, module):
     return 'ok'
 
 def analyze_reconr_card_2(card_2, module):
-    ''' Return 'ok' if 'card_2' is semantically correct.
-        
-        Precondition: 'card_2' is a card node from the reconr module with 
-                      card_id = (2, '').
-    '''
     tlabel = helper.get_identifier('tlabel', card_2)
     if helper.not_defined(tlabel):
         pass
@@ -107,11 +97,6 @@ def analyze_reconr_card_2(card_2, module):
     return 'ok'
 
 def analyze_reconr_card_3(card_3, module):
-    ''' Return 'ok' if 'card_3' is semantically correct.
-
-        Precondition: 'card_3' is a card node from the reconr module with 
-                      card_id = (3, '').
-    '''
     must_be_defined = ['mat']
     rule.identifiers_must_be_defined(must_be_defined, card_3, module)
 
@@ -130,29 +115,14 @@ def analyze_reconr_card_3(card_3, module):
     return 'ok'
 
 def analyze_reconr_card_4(card_4, module):
-    ''' Return 'ok' if 'card_4' is semantically correct.
-
-        Precondition: 'card_4' is a card node from the reconr module with 
-                      card_id = (4, '').
-    '''
     rule.identifier_must_be_defined('err', card_4, module)
     return 'ok'
 
 def analyze_reconr_card_5(card_5, module):
-    ''' Return 'ok' if 'card_5' is semantically correct.
-
-        Precondition: 'card_5' is a card node from the reconr module with 
-                      card_id = (5, '').
-    '''
     cards = rule.identifier_must_be_defined('cards', card_5, module)
     rule.identifier_must_be_string(cards)
     return 'ok'
 
 def analyze_reconr_card_6(card_6, module):
-    ''' Return 'ok' if 'card_6' is semantically correct.
-
-        Precondition: 'card_6' is a card node from the reconr module with 
-                      card_id = (6, '').
-    '''
     rule.identifier_must_be_defined('enode', card_6, module)
     return 'ok'
