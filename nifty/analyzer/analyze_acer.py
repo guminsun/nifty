@@ -23,6 +23,9 @@ def analyze_acer_card_list(module):
     card_2 = helper.get_card('card_2', module)
     analyze_acer_card_2(card_2, module)
 
+    card_3 = helper.get_card('card_3', module)
+    analyze_acer_card_3(card_3, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -109,4 +112,14 @@ def analyze_acer_card_2_nxtra(card_2, module):
                    ', expected a non-negative value (default=0).')
             rule.semantic_error(msg, nxtra_node)
         pass
+    return 'ok'
+
+def analyze_acer_card_3(card_3, module):
+    analyze_acer_card_3_hk(card_3, module)
+    return 'ok'
+
+def analyze_acer_card_3_hk(card_3, module):
+    hk_node = rule.identifier_must_be_defined('hk', card_3, module)
+    hk_r_value = rule.identifier_must_be_string(hk_node, card_3, module)
+    rule.identifier_string_must_not_exceed_length(hk_node, 70, card_3, module)
     return 'ok'
