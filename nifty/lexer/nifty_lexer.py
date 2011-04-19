@@ -50,9 +50,9 @@ reserved_identifiers = {
     'err' : 'IDENTIFIER',
     'iopp' : 'IDENTIFIER',
     # Reserved identifiers for acer card 7.
-    'thin_1' : 'IDENTIFIER',
-    'thin_2' : 'IDENTIFIER',
-    'thin_3' : 'IDENTIFIER',
+    'thin01' : 'IDENTIFIER',
+    'thin02' : 'IDENTIFIER',
+    'thin03' : 'IDENTIFIER',
     # Reserved identifiers for acer card 8.
     'matd' : 'IDENTIFIER',
     'tempd' : 'IDENTIFIER',
