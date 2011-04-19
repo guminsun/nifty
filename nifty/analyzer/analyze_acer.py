@@ -2,7 +2,7 @@ import analyzer_helpers as helper
 import analyzer_rules as rule
 
 ##############################################################################
-# Analyze acer. Checks if acer is semantically correct.
+# Analyze acer. Checks if acer is somewhat semantically correct.
 
 def analyze_acer(module):
     analyze_acer_card_list(module)
@@ -31,6 +31,12 @@ def analyze_acer_card_list(module):
 
     card_5 = helper.get_card('card_5', module)
     analyze_acer_card_5(card_2, card_5, module)
+
+    card_6 = helper.get_card('card_6', module)
+    analyze_acer_card_6(card_2, card_6, module)
+
+    card_7 = helper.get_card('card_7', module)
+    analyze_acer_card_7(card_2, card_7, module)
 
     return 'ok'
 
@@ -74,7 +80,7 @@ def analyze_acer_card_2_iprint(card_2, module):
         if iprint_r_value not in range(0,2):
             msg = ('illegal print control in \'card_2\', module \'acer\': ' +
                    iprint_node['identifier'] + ' = ' + str(iprint_r_value) +
-                   ', expected 0 for min or 1 for max (default=1).')
+                   ', expected 0 for min or 1 for max (default = 1).')
             rule.semantic_error(msg, iprint_node)
     return 'ok'
 
@@ -88,7 +94,7 @@ def analyze_acer_card_2_ntype(card_2, module):
         if ntype_r_value not in range(1,4):
             msg = ('illegal ace output type in \'card_2\', module \'acer\': ' +
                    ntype_node['identifier'] + ' = ' + str(ntype_r_value) +
-                   ', expected 1, 2, or 3 (default=1).')
+                   ', expected 1, 2, or 3 (default = 1).')
             rule.semantic_error(msg, ntype_node)
     return 'ok'
 
@@ -115,7 +121,7 @@ def analyze_acer_card_2_nxtra(card_2, module):
             msg = ('the number of iz,aw pairs to read in is negative in ' + 
                    '\'card_2\', module \'acer\': ' +
                    nxtra_node['identifier'] + ' = ' + str(nxtra_r_value) +
-                   ', expected a non-negative value (default=0).')
+                   ', expected a non-negative value (default = 0).')
             rule.semantic_error(msg, nxtra_node)
         pass
     return 'ok'
@@ -140,14 +146,14 @@ def analyze_acer_card_4(card_2, card_4, module):
         nxtra_r_value = helper.get_value(helper.get_r_value(nxtra_node))
 
     if nxtra_r_value > 0:
-        msg = ('expected \'card_4\' since nxtra=' + str(nxtra_r_value) +
+        msg = ('expected \'card_4\' since nxtra = ' + str(nxtra_r_value) +
                'in \'card_2\'')
         rule.card_must_be_defined('card_4', module, msg)
         analyze_acer_card_4_iz(nxtra_r_value, card_4, module)
         analyze_acer_card_4_aw(nxtra_r_value, card_4, module)
     else:
         # Supply message of why the card shouldn't be defined.
-        msg = 'since nxtra=' + str(nxtra_r_value) + ' in \'card_2\''
+        msg = 'since nxtra = ' + str(nxtra_r_value) + ' in \'card_2\''
         rule.card_must_not_be_defined('card_4', module, msg)
     return 'ok'
 
@@ -157,7 +163,7 @@ def analyze_acer_card_4_iz(nxtra_r_value, card_4, module):
         # The number of iz values does not match the nxtra value defined in
         # card 2.
         msg = ('identifier \'iz\' declared ' + str(len(iz_node_list)) +
-               ' time(s) in \'card_4\' while \'nxtra\' is set to ' +
+               ' time(s) in \'card_4\' while \'nxtra\' = ' +
                str(nxtra_r_value) + ' in \'card_2\', module \'acer\'.')
         rule.semantic_error(msg, card_4)
     return 'ok'
@@ -174,17 +180,19 @@ def analyze_acer_card_4_aw(nxtra_r_value, card_4, module):
     return 'ok'
 
 def analyze_acer_card_5(card_2, card_5, module):
-    # Note that card 5 should only be defined if iopt=1 in card_2.
+    # Note that card 5 should only be defined if iopt = 1 in card_2.
     iopt_node = helper.get_identifier('iopt', card_2)
     iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
     if iopt_r_value == 1:
-        msg = ('expected \'card_5\' since iopt=' + str(iopt_r_value) +
+        # Prepare a descriptive message if card_5 is not defined.
+        msg = ('expected \'card_5\' since iopt = ' + str(iopt_r_value) +
                ' in \'card_2\'')
         rule.card_must_be_defined('card_5', module, msg)
         analyze_acer_card_5_matd(card_5, module)
         analyze_acer_card_5_tempd(card_5, module)
     else:
-        msg = 'since iopt=' + str(iopt_r_value) + ' in \'card_2\''
+        # Prepare a descriptive message of why card_5 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
         rule.card_must_not_be_defined('card_5', module, msg)
     return 'ok'
 
@@ -195,3 +203,78 @@ def analyze_acer_card_5_matd(card_5, module):
 def analyze_acer_card_5_tempd(card_5, module):
     rule.identifier_must_be_defined('tempd', card_5, module)
     return 'ok'
+
+def analyze_acer_card_6(card_2, card_6, module):
+    # Note that card 6 should only be defined if iopt = 1 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 1:
+        # Prepare a descriptive message if card_6 is not defined.
+        msg = ('expected \'card_6\' since iopt = ' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_6', module, msg)
+        analyze_acer_card_6_newfor(card_6, module)
+        analyze_acer_card_6_iopp(card_6, module)
+    else:
+        # Prepare a descriptive message of why card_6 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_5', module, msg)
+    return 'ok'
+
+def analyze_acer_card_6_newfor(card_6, module):
+    newfor_node = helper.get_identifier('newfor', card_6)
+    if helper.not_defined(newfor_node):
+        return 'ok'
+    else:
+        rule.identifier_must_be_int(newfor_node)
+        newfor_r_value = helper.get_value(helper.get_r_value(newfor_node))
+        if newfor_r_value not in range(0,2):
+            msg = ('illegal value in \'card_6\', module \'acer\': ' +
+                   newfor_node['identifier'] + ' = ' + str(newfor_r_value) +
+                   ', expected 0 or 1 (default = 1).')
+            rule.semantic_error(msg, newfor_node)
+    return 'ok'
+
+def analyze_acer_card_6_iopp(card_6, module):
+    iopp_node = helper.get_identifier('iopp', card_6)
+    if helper.not_defined(iopp_node):
+        return 'ok'
+    else:
+        rule.identifier_must_be_int(iopp_node)
+        iopp_r_value = helper.get_value(helper.get_r_value(iopp_node))
+        if iopp_r_value not in range(0,2):
+            msg = ('illegal value in \'card_6\', module \'acer\': ' +
+                   iopp_node['identifier'] + ' = ' + str(iopp_r_value) +
+                   ', expected 0 or 1 (default = 1).')
+            rule.semantic_error(msg, iopp_node)
+    return 'ok'
+
+def analyze_acer_card_7(card_2, card_7, module):
+    # Note that card 7 should only be defined if iopt = 1 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 1:
+        # Prepare a descriptive message if card_7 is not defined.
+        msg = ('expected \'card_7\' since iopt = ' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_7', module, msg)
+        analyze_acer_card_7_thin01(card_7, module)
+        analyze_acer_card_7_thin02(card_7, module)
+        analyze_acer_card_7_thin03(card_7, module)
+    else:
+        # Prepare a descriptive message of why card_7 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_7', module, msg)
+    return 'ok'
+
+def analyze_acer_card_7_thin01(card_7, module):
+    # XXX: Which type (int, float)? Specific range?
+    pass
+
+def analyze_acer_card_7_thin02(card_7, module):
+    # XXX: Which type (int, float)? Specific range?
+    pass
+
+def analyze_acer_card_7_thin03(card_7, module):
+    # XXX: Which type (int, float)? Specific range?
+    pass
