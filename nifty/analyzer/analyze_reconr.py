@@ -90,13 +90,7 @@ def analyze_reconr_card_2(card_2, module):
         pass
     else:
         tlabel_value = rule.identifier_must_be_string(tlabel, card_2, module)
-        # XXX: Add a function which checks that the allowed length is not
-        #      exceeded?
-        # At most 66 characters are allowed in labels.
-        if len(tlabel_value) > 66:
-            msg = ('\'tlabel\' exceeds the 66 character length in ' +
-                   '\'card_2\', module \'reconr\'.')
-            rule.semantic_error(msg, tlabel)
+        identifier_string_must_not_exceed_length(tlabel, 66, card_2, module)
     return 'ok'
 
 def analyze_reconr_card_3(card_3, module):
@@ -121,7 +115,8 @@ def analyze_reconr_card_3(card_3, module):
     return 'ok'
 
 def analyze_reconr_card_4(card_4, module):
-    rule.identifier_must_be_defined('err', card_4, module)
+    err_node = rule.identifier_must_be_defined('err', card_4, module)
+    rule.identifier_must_be_float(err_node)
     return 'ok'
 
 def analyze_reconr_card_5(card_5, module):
