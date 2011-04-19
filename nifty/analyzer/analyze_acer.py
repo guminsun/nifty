@@ -44,6 +44,9 @@ def analyze_acer_card_list(module):
     card_8a = helper.get_card('card_8a', module)
     analyze_acer_card_8a(card_2, card_8a, module)
 
+    card_9 = helper.get_card('card_9', module)
+    analyze_acer_card_9(card_2, card_9, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -355,4 +358,47 @@ def analyze_acer_card_8a_iza02(card_8a, module):
 def analyze_acer_card_8a_iza03(card_8a, module):
     # iza03 does not have to be defined. Defaults to 0.
     # XXX: Must be an integer? Pass for now.
+    pass
+
+def analyze_acer_card_9(card_2, card_9, module):
+    # Note that card 9 should only be defined if iopt = 2 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 2:
+        # Prepare a descriptive message if card_9 is not defined.
+        msg = ('expected \'card_9\' since iopt = ' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_9', module, msg)
+        analyze_acer_card_9_mti(card_9, module)
+        analyze_acer_card_9_nbint(card_9, module)
+        analyze_acer_card_9_mte(card_9, module)
+        analyze_acer_card_9_ielas(card_9, module)
+        analyze_acer_card_9_nmix(card_9, module)
+        analyze_acer_card_9_emax(card_9, module)
+        analyze_acer_card_9_iwt(card_9, module)
+    else:
+        # Prepare a descriptive message of why card_9 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_9', module, msg)
+    return 'ok'
+
+def analyze_acer_card_9_mti(card_9, module):
+    pass
+
+def analyze_acer_card_9_nbint(card_9, module):
+    pass
+
+def analyze_acer_card_9_mte(card_9, module):
+    pass
+
+def analyze_acer_card_9_ielas(card_9, module):
+    pass
+
+def analyze_acer_card_9_nmix(card_9, module):
+    pass
+
+def analyze_acer_card_9_emax(card_9, module):
+    pass
+
+def analyze_acer_card_9_iwt(card_9, module):
     pass
