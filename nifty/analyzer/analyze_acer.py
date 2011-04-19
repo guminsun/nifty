@@ -41,6 +41,9 @@ def analyze_acer_card_list(module):
     card_8 = helper.get_card('card_8', module)
     analyze_acer_card_8(card_2, card_8, module)
 
+    card_8a = helper.get_card('card_8a', module)
+    analyze_acer_card_8a(card_2, card_8a, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -320,3 +323,36 @@ def analyze_acer_card_8_tname(card_8, module):
         rule.identifier_string_must_not_exceed_length(tname_node, 6, card_8,
                                                       module)
     return 'ok'
+
+def analyze_acer_card_8a(card_2, card_8a, module):
+    # Note that card 8a should only be defined if iopt = 2 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 2:
+        # Prepare a descriptive message if card_8a is not defined.
+        msg = ('expected \'card_8a\' since iopt = ' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_8a', module, msg)
+        analyze_acer_card_8a_iza01(card_8a, module)
+        analyze_acer_card_8a_iza02(card_8a, module)
+        analyze_acer_card_8a_iza03(card_8a, module)
+    else:
+        # Prepare a descriptive message of why card_8 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_8', module, msg)
+    return 'ok'
+
+def analyze_acer_card_8a_iza01(card_8a, module):
+    # XXX: Must be an integer? Ignore for now.
+    rule.identifier_must_be_defined('iza01', card_8a, module)
+    return 'ok'
+
+def analyze_acer_card_8a_iza02(card_8a, module):
+    # iza02 does not have to be defined. Defaults to 0.
+    # XXX: Must be an integer? Pass for now.
+    pass
+
+def analyze_acer_card_8a_iza03(card_8a, module):
+    # iza03 does not have to be defined. Defaults to 0.
+    # XXX: Must be an integer? Pass for now.
+    pass
