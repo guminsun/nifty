@@ -204,8 +204,9 @@ def analyze_acer_card_5_matd(card_5, module):
     return 'ok'
 
 def analyze_acer_card_5_tempd(card_5, module):
-    rule.identifier_must_be_defined('tempd', card_5, module)
-    return 'ok'
+    # XXX: tempd must not be defined. Temperature defaults to 300.
+    # Pass for now.
+    pass
 
 def analyze_acer_card_6(card_2, card_6, module):
     # Note that card 6 should only be defined if iopt = 1 in card_2.
@@ -301,10 +302,21 @@ def analyze_acer_card_8(card_2, card_8, module):
     return 'ok'
 
 def analyze_acer_card_8_matd(card_8, module):
-    pass
+    rule.identifier_must_be_defined('matd', card_8, module)
+    return 'ok'
 
 def analyze_acer_card_8_tempd(card_8, module):
+    # XXX: Temperature does not have to be defined. Defaults to 300.
+    # Pass for now.
     pass
 
 def analyze_acer_card_8_tname(card_8, module):
-    pass
+    # Thermal zaid name (6 characters max, default = za).
+    tname_node = helper.get_identifier('tname', card_8)
+    if helper.not_defined(tname_node):
+        return 'ok'
+    else:
+        rule.identifier_must_be_string(tname_node, card_8, module)
+        rule.identifier_string_must_not_exceed_length(tname_node, 6, card_8,
+                                                      module)
+    return 'ok'
