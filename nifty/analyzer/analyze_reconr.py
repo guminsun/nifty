@@ -2,7 +2,7 @@ import analyzer_helpers as helper
 import analyzer_rules as rule
 
 ##############################################################################
-# Analyze reconr.
+# Analyze reconr. Checks if reconr is somewhat semantically correct.
 
 def analyze_reconr(module):
     analyze_reconr_card_list(module)
@@ -31,7 +31,7 @@ def analyze_reconr_card_list(module):
     cards_3 = helper.get_cards('card_3', module)
     for card_3 in cards_3:
         analyze_reconr_card_3(card_3, module)
-        
+
         # Break loop if mat = 0, which indicates termination of execution.
         mat = helper.get_identifier('mat', card_3)
         mat_value = helper.get_value(helper.get_r_value(mat))
@@ -49,8 +49,8 @@ def analyze_reconr_card_list(module):
             ncards_value = helper.get_value(helper.get_r_value(ncards))
         cards_5 = helper.get_cards('card_5', module)
         if len(cards_5) != ncards_value:
-            # Number of card_5 does not match ncards definition in card 3. 
-            msg = ('\'card_5\' declared ' + str(len(cards_5)) + ' time(s) ' + 
+            # Number of card_5 does not match ncards definition in card 3.
+            msg = ('\'card_5\' declared ' + str(len(cards_5)) + ' time(s) ' +
                    'while \'ncards\' is set to ' + str(ncards_value) +
                    ' in \'card_3\', module \'reconr\'.')
             rule.semantic_error(msg, module)
@@ -65,8 +65,8 @@ def analyze_reconr_card_list(module):
             ngrid_value = helper.get_value(helper.get_r_value(ngrid))
         cards_6 = helper.get_cards('card_6', module)
         if len(cards_6) != ngrid_value:
-            # Number of card_6 does not match ncards definition in card 3. 
-            msg = ('\'card_6\' declared ' + str(len(cards_6)) + ' time(s) ' + 
+            # Number of card_6 does not match ncards definition in card 3.
+            msg = ('\'card_6\' declared ' + str(len(cards_6)) + ' time(s) ' +
                    'while \'ngrid\' is set to ' + str(ngrid_value) +
                    ' in \'card_3\', module \'reconr\'.')
             rule.semantic_error(msg, module)
@@ -94,7 +94,7 @@ def analyze_reconr_card_2(card_2, module):
         #      exceeded?
         # At most 66 characters are allowed in labels.
         if len(tlabel_value) > 66:
-            msg = ('\'tlabel\' exceeds the 66 character length in ' + 
+            msg = ('\'tlabel\' exceeds the 66 character length in ' +
                    '\'card_2\', module \'reconr\'.')
             rule.semantic_error(msg, tlabel)
     return 'ok'

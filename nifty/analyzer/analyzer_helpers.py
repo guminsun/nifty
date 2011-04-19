@@ -1,11 +1,11 @@
 ##############################################################################
 # Boolean helpers.
 
-def is_assignment(expr):
+def is_assignment(expression_node):
     '''
-        Return True if 'expr' is an assignment node, else False.
+        Return True if 'expression_node' is an assignment node, else False.
     '''
-    return expr['node_type'] == '='
+    return get_node_type(expression_node) == '='
 
 def not_defined(node):
     '''Return True if 'node' is None, else False.'''
@@ -14,6 +14,12 @@ def not_defined(node):
 ##############################################################################
 # Getter helpers.
 
+def get_array_name(id_node):
+    '''
+        Return the name of the identifier 'id_node'.
+    '''
+    return id_node['name']
+
 def get_card(card_name, module_node):
     '''
         Return card node of 'card_name' if 'card_name' is in "module_node"'s
@@ -21,7 +27,7 @@ def get_card(card_name, module_node):
     '''
     card_list = module_node['card_list']
     for c in card_list:
-        if c['card_name'] == card_name:
+        if get_card_name(c) == card_name:
             return c
     return None
 
@@ -33,18 +39,26 @@ def get_cards(card_name, module_node):
     cards = list()
     card_list = module_node['card_list']
     for c in card_list:
-        if c['card_name'] == card_name:
+        if get_card_name(c) == card_name:
             cards.append(c)
     return cards
 
+def get_card_name(card_node):
+    '''
+        Return the name of the card 'card_node'.
+    '''
+    return card_node['card_name']
+
 def get_identifier(id_name, card_node):
     '''
-        Return identifier node of 'id_name' if 'id_name' is defined in 
+        Return identifier node of 'id_name' if 'id_name' is defined in
         "card_node"'s statement list, else None.
     '''
     statement_list = card_node['statement_list']
     for expression in statement_list:
-        if is_assignment(expression) and expression['identifier'] == id_name:
+        expression_l_value = get_l_value(expression)
+        expression_id_name = get_identifier_name(expression_l_value)
+        if is_assignment(expression) and expression_id_name == id_name:
             return expression
     return None
 
@@ -56,15 +70,35 @@ def get_identifiers(id_name, card_node):
     identifiers = list()
     statement_list = card_node['statement_list']
     for expression in statement_list:
-        if is_assignment(expression) and expression['identifier'] == id_name:
+        expression_l_value = get_l_value(expression)
+        expression_id_name = get_identifier_name(expression_l_value)
+        if is_assignment(expression) and expression_id_name == id_name:
             identifiers.append(expression)
     return identifiers
 
-def get_r_value(assignment):
+def get_identifier_name(id_node):
     '''
-        Return the r_value node of the 'assignment' node.
+        Return the name of the identifier 'id_node'.
     '''
-    return assignment['r_value']
+    return id_node['name']
+
+def get_l_value(assignment_node):
+    '''
+        Return the l_value node of 'assignment_node'.
+    '''
+    return assignment_node['l_value']
+
+def get_node_type(node):
+    '''
+        Return the node type of of 'node'.
+    '''
+    return node['node_type']
+
+def get_r_value(assignment_node):
+    '''
+        Return the r_value node of 'assignment_node'.
+    '''
+    return assignment_node['r_value']
 
 def get_value(r_value):
     '''
