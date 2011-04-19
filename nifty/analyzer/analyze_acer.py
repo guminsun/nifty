@@ -50,6 +50,9 @@ def analyze_acer_card_list(module):
     card_10 = helper.get_card('card_10', module)
     analyze_acer_card_10(card_2, card_10, module)
 
+    card_11 = helper.get_card('card_11', module)
+    analyze_acer_card_11(card_2, card_11, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -439,7 +442,23 @@ def analyze_acer_card_10(card_2, card_10, module):
         rule.analyze_identifier_matd(card_10, module)
         rule.analyze_identifier_tempd(card_10, module)
     else:
-        # Prepare a descriptive message of why card_9 should not defined.
+        # Prepare a descriptive message of why card_10 should not defined.
         msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
-        rule.card_must_not_be_defined('card_9', module, msg)
+        rule.card_must_not_be_defined('card_10', module, msg)
+    return 'ok'
+
+def analyze_acer_card_11(card_2, card_11, module):
+    # Note that card 11 should only be defined if iopt = 4 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 4:
+        # Prepare a descriptive message if card_10 is not defined.
+        msg = ('expected \'card_11\' since iopt = ' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_11', module, msg)
+        rule.analyze_identifier_matd(card_11, module)
+    else:
+        # Prepare a descriptive message of why card_11 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_11', module, msg)
     return 'ok'
