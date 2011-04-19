@@ -140,9 +140,11 @@ tokens = [
     'FLOAT',
     'STRING',
 
-    # Delimeters: { } ;
+    # Delimeters: { } [ ] ;
     'LEFT_BRACE',
     'RIGHT_BRACE',
+    'LEFT_BRACKET',
+    'RIGHT_BRACKET',
     'SEMICOLON',
 ] + list(set(reserved_words.values()))
 
@@ -171,6 +173,8 @@ t_ASSIGNMENT = r'='
 # Delimeters.
 t_LEFT_BRACE = r'\{'
 t_RIGHT_BRACE = r'\}'
+t_LEFT_BRACKET = r'\['
+t_RIGHT_BRACKET = r'\]'
 t_SEMICOLON = r';'
 
 # Integers. Signed or unsigned.

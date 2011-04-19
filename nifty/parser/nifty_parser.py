@@ -62,15 +62,24 @@ def p_statement(p):
 
 def p_expression(p):
     '''
-        expression : assignment
-    '''
-    p[0] = make_expression(p)
-
-def p_assignment(p):
-    '''
-        assignment : IDENTIFIER ASSIGNMENT r_value
+        expression : l_value ASSIGNMENT r_value
     '''
     p[0] = make_assignment(p)
+
+def p_l_value(p):
+    '''
+        l_value : array
+                | identifier
+    '''
+    p[0] = make_l_value(p)
+
+def p_array(p):
+    'array : IDENTIFIER LEFT_BRACKET INTEGER RIGHT_BRACKET'
+    p[0] = make_array(p)
+
+def p_identifier(p):
+    'identifier : IDENTIFIER'
+    p[0] = make_identifier(p)
 
 def p_r_value(p):
     '''
@@ -89,8 +98,7 @@ def p_number(p):
     elif isinstance(eval(p[1]), int):
         p[0] = make_integer(p)
     else:
-        sys.stderr.write('--- parser XXX: illegal number?\n')
-        sys.exit('syntax_error')
+        p_error(p)
 
 def p_string(p):
     'string : STRING'
@@ -158,25 +166,40 @@ def make_card_id(card_name):
 def make_statement(p):
     return p[1]
 
-def make_expression(p):
-    return p[1]
-
 def make_assignment(p):
     node = dict()
     node['line_number'] = p.lineno(2)
     node['node_type'] = p[2]
-    node['identifier'] = p[1]
+    node['l_value'] = p[1]
     node['r_value'] = p[3]
     return node
 
+def make_l_value(p):
+    return p[1]
+
 def make_r_value(p):
     return p[1]
+
+def make_array(p):
+    node = dict()
+    node['line_number'] = p.lineno(0)
+    node['node_type'] = 'array'
+    node['name'] = p[1]
+    node['index'] = p[3]
+    return node
 
 def make_float(p):
     node = dict()
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'float'
     node['value'] = p[1]
+    return node
+
+def make_identifier(p):
+    node = dict()
+    node['line_number'] = p.lineno(0)
+    node['node_type'] = 'identifier'
+    node['name'] = p[1]
     return node
 
 def make_integer(p):
