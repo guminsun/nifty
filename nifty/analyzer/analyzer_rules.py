@@ -3,6 +3,18 @@ import sys
 import analyzer_helpers as helper
 
 ##############################################################################
+# Misc. analyzer helper rules.
+
+def analyze_identifier_matd(card_node, module_node):
+    identifier_must_be_defined('matd', card_node, module_node)
+    return 'ok'
+
+def analyze_identifier_tempd(card_node, module_node):
+    # XXX: Temperature does not have to be defined. Defaults to 300.
+    # Pass for now.
+    pass
+
+##############################################################################
 # Semantic rules.
 
 def cards_must_be_defined(must_be_defined, module_node):

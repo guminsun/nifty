@@ -47,6 +47,9 @@ def analyze_acer_card_list(module):
     card_9 = helper.get_card('card_9', module)
     analyze_acer_card_9(card_2, card_9, module)
 
+    card_10 = helper.get_card('card_10', module)
+    analyze_acer_card_10(card_2, card_10, module)
+
     return 'ok'
 
 def analyze_acer_card_1(card_1, module):
@@ -196,22 +199,13 @@ def analyze_acer_card_5(card_2, card_5, module):
         msg = ('expected \'card_5\' since iopt = ' + str(iopt_r_value) +
                ' in \'card_2\'')
         rule.card_must_be_defined('card_5', module, msg)
-        analyze_acer_card_5_matd(card_5, module)
-        analyze_acer_card_5_tempd(card_5, module)
+        rule.analyze_identifier_matd(card_5, module)
+        rule.analyze_identifier_tempd(card_5, module)
     else:
         # Prepare a descriptive message of why card_5 should not defined.
         msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
         rule.card_must_not_be_defined('card_5', module, msg)
     return 'ok'
-
-def analyze_acer_card_5_matd(card_5, module):
-    rule.identifier_must_be_defined('matd', card_5, module)
-    return 'ok'
-
-def analyze_acer_card_5_tempd(card_5, module):
-    # XXX: tempd must not be defined. Temperature defaults to 300.
-    # Pass for now.
-    pass
 
 def analyze_acer_card_6(card_2, card_6, module):
     # Note that card 6 should only be defined if iopt = 1 in card_2.
@@ -297,23 +291,14 @@ def analyze_acer_card_8(card_2, card_8, module):
         msg = ('expected \'card_8\' since iopt = ' + str(iopt_r_value) +
                ' in \'card_2\'')
         rule.card_must_be_defined('card_8', module, msg)
-        analyze_acer_card_8_matd(card_8, module)
-        analyze_acer_card_8_tempd(card_8, module)
+        rule.analyze_identifier_matd(card_8, module)
+        rule.analyze_identifier_tempd(card_8, module)
         analyze_acer_card_8_tname(card_8, module)
     else:
         # Prepare a descriptive message of why card_8 should not defined.
         msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
         rule.card_must_not_be_defined('card_8', module, msg)
     return 'ok'
-
-def analyze_acer_card_8_matd(card_8, module):
-    rule.identifier_must_be_defined('matd', card_8, module)
-    return 'ok'
-
-def analyze_acer_card_8_tempd(card_8, module):
-    # XXX: Temperature does not have to be defined. Defaults to 300.
-    # Pass for now.
-    pass
 
 def analyze_acer_card_8_tname(card_8, module):
     # Thermal zaid name (6 characters max, default = za).
@@ -442,4 +427,19 @@ def analyze_acer_card_9_iwt(card_9, module):
     # Pass for now.
     pass
 
-
+def analyze_acer_card_10(card_2, card_10, module):
+    # Note that card 10 should only be defined if iopt = 3 in card_2.
+    iopt_node = helper.get_identifier('iopt', card_2)
+    iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
+    if iopt_r_value == 3:
+        # Prepare a descriptive message if card_10 is not defined.
+        msg = ('expected \'card_10\' since iopt = ' + str(iopt_r_value) +
+               ' in \'card_2\'')
+        rule.card_must_be_defined('card_10', module, msg)
+        rule.analyze_identifier_matd(card_10, module)
+        rule.analyze_identifier_tempd(card_10, module)
+    else:
+        # Prepare a descriptive message of why card_9 should not defined.
+        msg = 'since iopt = ' + str(iopt_r_value) + ' in \'card_2\''
+        rule.card_must_not_be_defined('card_9', module, msg)
+    return 'ok'
