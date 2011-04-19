@@ -448,11 +448,11 @@ def analyze_acer_card_10(card_2, card_10, module):
     return 'ok'
 
 def analyze_acer_card_11(card_2, card_11, module):
-    # Note that card 11 should only be defined if iopt = 4 in card_2.
+    # Note that card 11 should only be defined if iopt = 4 or 5 in card_2.
     iopt_node = helper.get_identifier('iopt', card_2)
     iopt_r_value = helper.get_value(helper.get_r_value(iopt_node))
-    if iopt_r_value == 4:
-        # Prepare a descriptive message if card_10 is not defined.
+    if iopt_r_value in range(4,6):
+        # Prepare a descriptive message if card_11 is not defined.
         msg = ('expected \'card_11\' since iopt = ' + str(iopt_r_value) +
                ' in \'card_2\'')
         rule.card_must_be_defined('card_11', module, msg)
