@@ -55,6 +55,8 @@ acer
     }
 
     /* acer card 6 and 7 skipped. Set to default values with '/'. */
+    card_6 {}
+    card_7 {}
 }
 
 acer
@@ -99,6 +101,6 @@ viewr
     }
 }
 
-/* The translator appends the 'stop' instruction, no neep to explicitly 
+/* The translator appends the 'stop' instruction, no neep to explicitly
    declare it.
  */
