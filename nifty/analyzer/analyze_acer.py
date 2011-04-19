@@ -132,7 +132,6 @@ def analyze_acer_card_2_nxtra(card_2, module):
                    nxtra_node['identifier'] + ' = ' + str(nxtra_r_value) +
                    ', expected a non-negative value (default = 0).')
             rule.semantic_error(msg, nxtra_node)
-        pass
     return 'ok'
 
 def analyze_acer_card_3(card_3, module):
@@ -383,22 +382,64 @@ def analyze_acer_card_9(card_2, card_9, module):
     return 'ok'
 
 def analyze_acer_card_9_mti(card_9, module):
-    pass
+    # XXX: Type of mti? Ignore for now.
+    mti_node = rule.identifier_must_be_defined('mti', card_9, module)
+    return 'ok'
 
 def analyze_acer_card_9_nbint(card_9, module):
-    pass
+    nbint_node = rule.identifier_must_be_defined('nbint', card_9, module)
+    nbint_r_value = rule.identifier_must_be_int(nbint_node)
+    # nbint defines the number of bins for incoherent scattering, therefore, 
+    # a negative value does not make sense:
+    if nbint_r_value < 0:
+        msg = ('the number of bins for incoherent scattering is negative ' + 
+               'in \'card_9\', module \'acer\': ' + nbint_node['identifier'] +
+               ' = ' + str(nbint_r_value) +
+               ', expected a non-negative value.')
+        rule.semantic_error(msg, nbint_node)    
+    return 'ok'
 
 def analyze_acer_card_9_mte(card_9, module):
-    pass
+    # XXX: Type of mte? Ignore for now.
+    mte_node = rule.identifier_must_be_defined('mte', card_9, module)
+    return 'ok'
 
 def analyze_acer_card_9_ielas(card_9, module):
-    pass
+    # ielas = 0 denotes coherent elastic, ielas = 1 denotes incoherent elastic
+    ielas_node = rule.identifier_must_be_defined('ielas', card_9, module)
+    ielas_r_value = rule.identifier_must_be_int(ielas_node)
+    if ielas_r_value not in range(0,2):
+        msg = ('illegal value in \'card_9\', module \'acer\': ' +
+               ielas_node['identifier'] + ' = ' + str(ielas_r_value) +
+               ', expected 0 or 1.')
+        rule.semantic_error(msg, ielas_node)
+    return 'ok'
 
 def analyze_acer_card_9_nmix(card_9, module):
-    pass
+    # nmix specifies the number of atom types in mixed moderator.
+    # nmix does not have to be defined, defaults to 1.
+    nmix_node = helper.get_identifier('nmix', card_9)
+    if helper.not_defined(nmix_node):
+        return 'ok'
+    else:
+        nmix_r_value = rule.identifier_must_be_int(nmix_node)
+    return 'ok'
 
 def analyze_acer_card_9_emax(card_9, module):
+    # emax specifies maximum energy for thermal treatment (ev).
+    # emax does not have to be defined, defaults to 1000.0 (determined from
+    # mf3, mti).
+    # XXX: Type must be float? Ignore for now and just pass along.
     pass
 
 def analyze_acer_card_9_iwt(card_9, module):
+    # The first iwt value specifies the weighting option, the second iwt value
+    # specifies whether it's variable (0), constant (1) or tabulated (2).
+    # The second value does not have to be defined, defaults to 0 (variable).
+    # XXX: Add the ability to specify e.g. 
+    #   iwt[0] = weighting_option;
+    #   iwt[1] = 0;
+    # Pass for now.
     pass
+
+
