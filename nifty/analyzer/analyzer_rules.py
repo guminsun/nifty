@@ -1,6 +1,6 @@
 import sys
 
-import analyzer_helpers as helper
+from nifty.env import nifty_helpers as helper
 
 ##############################################################################
 # Misc. analyzer helper rules.
