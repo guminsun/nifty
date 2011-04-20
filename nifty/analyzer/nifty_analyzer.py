@@ -34,12 +34,12 @@ def analyze(ast):
 def analyze_program(program):
     module_list = program['module_list']
     analyze_module_list(module_list)
-    return 'ok'
+    return program
 
 def analyze_module_list(module_list):
     for module in module_list:
         analyze_module(module)
-    return 'ok'
+    return module_list
 
 def analyze_module(module):
     analyzer_function = analyze_dummy
@@ -70,7 +70,7 @@ def analyze_module(module):
     }
     module_name = module['module_name']
     if module_name == 'stop':
-        return 'ok'
+        return module
     else:
         try:
             analyzer_function = analyzer_functions[module_name]
@@ -79,7 +79,7 @@ def analyze_module(module):
                    module_name)
             print msg
     analyzer_function(module)
-    return 'ok'
+    return module
 
 def analyze_dummy(module):
     pass
