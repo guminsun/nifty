@@ -60,12 +60,12 @@ def analyze_reconr_card_list(module):
             ncards_r_value = 0
         else:
             ncards_r_value = helper.get_value(helper.get_r_value(ncards_node))
+        c5_start = i*ncards_r_value
+        c5_end = c5_start+ncards_r_value
         if ncards_r_value > 0:
             # XXX: Check that the number of cards are correct? Assume they are
             #      for now.
             # Extract the correct card_5(s) to analyze.
-            c5_start = i*ncards_r_value
-            c5_end = c5_start+ncards_r_value
             for j in range(c5_start, c5_end):
                 # XXX: Ugly. 'card_list_5[j]' must be defined.
                 try:
@@ -76,10 +76,11 @@ def analyze_reconr_card_list(module):
                            '\'' + helper.get_module_name(module) + '\'.')
                     rule.semantic_error(msg, card_list_3[i])
         else:
-            msg = ('unexpected definition of card \'card_5\' in module \'' +
-                   helper.get_module_name(module) + '\' (since ncards = ' +
-                   str(ncards_r_value) + ' in \'card_3\').')
-            rule.semantic_error(msg, card_list_3[i])
+            if len(card_list_5) > c5_start:
+                msg = ('unexpected definition of card \'card_5\' in module \'' +
+                       helper.get_module_name(module) + '\' (since ncards = ' +
+                       str(ncards_r_value) + ' in \'card_3\').')
+                rule.semantic_error(msg, card_list_3[i])
 
         # XXX: Ugly.
         # Note that card_6 should only be defined if ngrid > 0 in card_3.
@@ -88,12 +89,12 @@ def analyze_reconr_card_list(module):
             ngrid_r_value = 0
         else:
             ngrid_r_value = helper.get_value(helper.get_r_value(ngrid_node))
+        c6_start = i*ngrid_r_value
+        c6_end = c6_start+ngrid_r_value
         if ngrid_r_value > 0:
             # XXX: Check that the number of cards are correct? Assume they are
             #      for now.
             # Extract the correct card_6(s) to analyze.
-            c6_start = i*ngrid_r_value
-            c6_end = c6_start+ngrid_r_value
             for j in range(c6_start, c6_end):
                 # XXX: Ugly. 'card_list_6[j]' must be defined.
                 try:
@@ -104,10 +105,11 @@ def analyze_reconr_card_list(module):
                            '\'' + helper.get_module_name(module) + '\'.')
                     rule.semantic_error(msg, card_list_3[i])
         else:
-            msg = ('unexpected definition of card \'card_6\' in module \'' +
-                   helper.get_module_name(module) + '\' (since ngrid = ' +
-                   str(ngrid_r_value) + ' in \'card_3\').')
-            rule.semantic_error(msg, card_list_3[i])
+            if len(card_list_6) > c6_start:
+                msg = ('unexpected definition of card \'card_6\' in module \'' +
+                       helper.get_module_name(module) + '\' (since ngrid = ' +
+                       str(ngrid_r_value) + ' in \'card_3\').')
+                rule.semantic_error(msg, card_list_3[i])
 
     return module
 
