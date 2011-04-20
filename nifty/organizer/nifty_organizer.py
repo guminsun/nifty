@@ -1,3 +1,5 @@
+from nifty.env import nifty_helpers as helper
+
 from organize_acer import organize_acer
 #from organize_broadr import organize_broadr
 #from organize_ccccr import organize_ccccr
@@ -29,7 +31,7 @@ def organize(ast):
     return organize_program(ast)
 
 def organize_program(program):
-    module_list = program['module_list']
+    module_list = helper.get_module_list(program)
     organize_module_list(module_list)
     return program
 
@@ -65,7 +67,7 @@ def organize_module(module):
         #'viewr' : organize_viewr,
         #'wimsr' : organize_wimsr,
     }
-    module_name = module['module_name']
+    module_name = helper.get_module_name(module)
     if module_name == 'stop':
         # Nothing to organize.
         return module
@@ -81,26 +83,3 @@ def organize_module(module):
 
 def organize_dummy(module):
     pass
-
-##############################################################################
-# Helpers.
-
-def sort_card_lists(program):
-    module_list = program['module_list']
-    for module in module_list:
-        sort_card_list(module['card_list'])
-    return program
-
-def sort_card_list(card_list):
-    # XXX: Ugly assumption that the card nodes will be sorted on 'card_id'.
-    return card_list.sort()
-
-def insert_card(card, card_list):
-    index = 0
-    for c in card_list:
-        if c['card_id'] < card['card_id']:
-            index += 1
-        else:
-            break
-    card_list.insert(index, card)
-    return card_list
