@@ -1,4 +1,4 @@
-from nifty.env import nifty_helpers as helper
+from nifty.environment import helpers as helper
 
 from organize_acer import organize_acer
 #from organize_broadr import organize_broadr

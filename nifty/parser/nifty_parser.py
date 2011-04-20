@@ -8,7 +8,7 @@ from nifty.lexer import nifty_lexer
 # Get the token map from the nifty lexer.
 from nifty.lexer.nifty_lexer import tokens
 
-from nifty.env import nifty_ast as ast
+from nifty.environment import ast as ast
 
 ##############################################################################
 # Grammar rules.

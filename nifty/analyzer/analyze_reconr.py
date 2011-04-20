@@ -1,4 +1,4 @@
-from nifty.env import nifty_helpers as helper
+from nifty.environment import helpers as helper
 import analyzer_rules as rule
 
 ##############################################################################
