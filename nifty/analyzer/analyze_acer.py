@@ -80,8 +80,10 @@ def analyze_acer_card_2_iopt(card_2, module):
         (iopt_r_value not in range(-5, 0)) and
         (iopt_r_value not in range(7, 9)) and
         (iopt_r_value not in range(-8, -6))):
+        iopt_l_value = helper.get_l_value(iopt_node)
+        iopt_id_name = helper.get_identifier_name(iopt_l_value)
         msg = ('illegal run option in \'card_2\', module \'acer\': ' +
-               iopt_node['identifier'] + ' = ' + str(iopt_r_value))
+               iopt_id_name + ' = ' + str(iopt_r_value))
         rule.semantic_error(msg, iopt_node)
     return iopt_node
 
@@ -93,8 +95,10 @@ def analyze_acer_card_2_iprint(card_2, module):
         rule.identifier_must_be_int(iprint_node)
         iprint_r_value = helper.get_value(helper.get_r_value(iprint_node))
         if iprint_r_value not in range(0,2):
+            iprint_l_value = helper.get_l_value(iprint_node)
+            iprint_id_name = helper.get_identifier_name(iprint_l_value)
             msg = ('illegal print control in \'card_2\', module \'acer\': ' +
-                   iprint_node['identifier'] + ' = ' + str(iprint_r_value) +
+                   iprint_id_name + ' = ' + str(iprint_r_value) +
                    ', expected 0 for min or 1 for max (default = 1).')
             rule.semantic_error(msg, iprint_node)
     return iprint_node
@@ -107,8 +111,10 @@ def analyze_acer_card_2_ntype(card_2, module):
         rule.identifier_must_be_int(ntype_node)
         ntype_r_value = helper.get_value(helper.get_r_value(ntype_node))
         if ntype_r_value not in range(1,4):
+            ntype_l_value = helper.get_l_value(ntype_node)
+            ntype_id_name = helper.get_identifier_name(iprint_l_value)
             msg = ('illegal ace output type in \'card_2\', module \'acer\': ' +
-                   ntype_node['identifier'] + ' = ' + str(ntype_r_value) +
+                   ntype_id_name + ' = ' + str(ntype_r_value) +
                    ', expected 1, 2, or 3 (default = 1).')
             rule.semantic_error(msg, ntype_node)
     return ntype_node
@@ -133,9 +139,11 @@ def analyze_acer_card_2_nxtra(card_2, module):
         # nxtra defines the number of iz,aw pairs to read in (default=0), a
         # negative value does not make sense.
         if nxtra_r_value < 0:
+            nxtra_l_value = helper.get_l_value(nxtra_node)
+            nxtra_id_name = helper.get_identifier_name(nxtra_l_value)
             msg = ('the number of iz,aw pairs to read in is negative in ' + 
                    '\'card_2\', module \'acer\': ' +
-                   nxtra_node['identifier'] + ' = ' + str(nxtra_r_value) +
+                   nxtra_id_name + ' = ' + str(nxtra_r_value) +
                    ', expected a non-negative value (default = 0).')
             rule.semantic_error(msg, nxtra_node)
     return nxtra_node
@@ -235,8 +243,10 @@ def analyze_acer_card_6_newfor(card_6, module):
         rule.identifier_must_be_int(newfor_node)
         newfor_r_value = helper.get_value(helper.get_r_value(newfor_node))
         if newfor_r_value not in range(0,2):
+            newfor_l_value = helper.get_l_value(newfor_node)
+            newfor_id_name = helper.get_identifier_name(newfor_l_value)
             msg = ('illegal value in \'card_6\', module \'acer\': ' +
-                   newfor_node['identifier'] + ' = ' + str(newfor_r_value) +
+                   newfor_id_name + ' = ' + str(newfor_r_value) +
                    ', expected 0 or 1 (default = 1).')
             rule.semantic_error(msg, newfor_node)
     return newfor_node
@@ -249,8 +259,10 @@ def analyze_acer_card_6_iopp(card_6, module):
         rule.identifier_must_be_int(iopp_node)
         iopp_r_value = helper.get_value(helper.get_r_value(iopp_node))
         if iopp_r_value not in range(0,2):
+            iopp_l_value = helper.get_l_value(iopp_node)
+            iopp_id_name = helper.get_identifier_name(iopp_l_value)
             msg = ('illegal value in \'card_6\', module \'acer\': ' +
-                   iopp_node['identifier'] + ' = ' + str(iopp_r_value) +
+                   iopp_id_name + ' = ' + str(iopp_r_value) +
                    ', expected 0 or 1 (default = 1).')
             rule.semantic_error(msg, iopp_node)
     return iopp_node
@@ -380,10 +392,11 @@ def analyze_acer_card_9_nbint(card_9, module):
     # nbint defines the number of bins for incoherent scattering, therefore, 
     # a negative value does not make sense:
     if nbint_r_value < 0:
+        nbint_l_value = helper.get_l_value(nbint_node)
+        nbint_id_name = helper.get_identifier_name(nbint_l_value)
         msg = ('the number of bins for incoherent scattering is negative ' + 
-               'in \'card_9\', module \'acer\': ' + nbint_node['identifier'] +
-               ' = ' + str(nbint_r_value) +
-               ', expected a non-negative value.')
+               'in \'card_9\', module \'acer\': ' + nbint_id_name + ' = ' +
+               str(nbint_r_value) + ', expected a non-negative value.')
         rule.semantic_error(msg, nbint_node)    
     return nbint_node
 
@@ -397,8 +410,10 @@ def analyze_acer_card_9_ielas(card_9, module):
     ielas_node = rule.identifier_must_be_defined('ielas', card_9, module)
     ielas_r_value = rule.identifier_must_be_int(ielas_node)
     if ielas_r_value not in range(0,2):
+        ielas_l_value = helper.get_l_value(ielas_node)
+        ielas_id_name = helper.get_identifier_name(ielas_l_value)
         msg = ('illegal value in \'card_9\', module \'acer\': ' +
-               ielas_node['identifier'] + ' = ' + str(ielas_r_value) +
+               ielas_id_name + ' = ' + str(ielas_r_value) +
                ', expected 0 or 1.')
         rule.semantic_error(msg, ielas_node)
     return ielas_node
