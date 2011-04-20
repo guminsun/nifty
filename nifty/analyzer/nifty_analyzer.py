@@ -1,5 +1,3 @@
-import sys
-
 from analyze_acer import analyze_acer
 #from analyze_broadr import analyze_broadr
 #from analyze_ccccr import analyze_ccccr
