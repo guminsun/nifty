@@ -26,7 +26,7 @@ def analyze_reconr_card_list(module):
     card_list_3 = helper.get_cards('card_3', module)
     card_list_4 = helper.get_cards('card_4', module)
     card_list_5 = helper.get_cards('card_5', module)
-    # XXX: card_list_6 = helper.get_cards('card_6', module)
+    card_list_6 = helper.get_cards('card_6', module)
 
     # Cards 4 must be input for each material desired (card 3), make a simple
     # check to see if the number of cards is a 1:1 ratio. Note that the last
@@ -61,22 +61,55 @@ def analyze_reconr_card_list(module):
         else:
             ncards_r_value = helper.get_value(helper.get_r_value(ncards_node))
         if ncards_r_value > 0:
-            # Extract the correct card_5 to analyze.
-            for j in range(ncards_r_value):
-                i5 = j*(i+1)
-                # XXX: Ugly. Card 'i5' must be defined.
+            # XXX: Check that the number of cards are correct? Assume they are
+            #      for now.
+            # Extract the correct card_5(s) to analyze.
+            c5_start = i*ncards_r_value
+            c5_end = c5_start+ncards_r_value
+            for j in range(c5_start, c5_end):
+                # XXX: Ugly. 'card_list_5[j]' must be defined.
                 try:
-                    analyze_reconr_card_5(card_list_5[i5], module)
+                    analyze_reconr_card_5(card_list_5[j], module)
                 except:
                     msg = ('expected a \'card_5\' since ncards = ' +
                            str(ncards_r_value) + ' in \'card_3\', module ' +
                            '\'' + helper.get_module_name(module) + '\'.')
                     rule.semantic_error(msg, card_list_3[i])
         else:
-            msg = 'since ncards = ' + str(ncards_r_value) + ' in \'card_3\''
-            rule.card_must_not_be_defined('card_5', module, msg)
+            msg = ('unexpected definition of card \'card_5\' in module \'' +
+                   helper.get_module_name(module) + '\' (since ncards = ' +
+                   str(ncards_r_value) + ' in \'card_3\').')
+            rule.semantic_error(msg, card_list_3[i])
 
-    return 'ok'
+        # XXX: Ugly.
+        # Note that card_6 should only be defined if ngrid > 0 in card_3.
+        ngrid_node = helper.get_identifier('ngrid', card_list_3[i])
+        if helper.not_defined(ngrid_node):
+            ngrid_r_value = 0
+        else:
+            ngrid_r_value = helper.get_value(helper.get_r_value(ngrid_node))
+        if ngrid_r_value > 0:
+            # XXX: Check that the number of cards are correct? Assume they are
+            #      for now.
+            # Extract the correct card_6(s) to analyze.
+            c6_start = i*ngrid_r_value
+            c6_end = c6_start+ngrid_r_value
+            for j in range(c6_start, c6_end):
+                # XXX: Ugly. 'card_list_6[j]' must be defined.
+                try:
+                    analyze_reconr_card_6(card_list_6[j], module)
+                except:
+                    msg = ('expected a \'card_6\' since ngrid = ' +
+                           str(ngrid_r_value) + ' in \'card_3\', module ' +
+                           '\'' + helper.get_module_name(module) + '\'.')
+                    rule.semantic_error(msg, card_list_3[i])
+        else:
+            msg = ('unexpected definition of card \'card_6\' in module \'' +
+                   helper.get_module_name(module) + '\' (since ngrid = ' +
+                   str(ngrid_r_value) + ' in \'card_3\').')
+            rule.semantic_error(msg, card_list_3[i])
+
+    return module
 
 def analyze_reconr_card_1(card_1, module):
     must_be_defined = ['nendf', 'npend']
