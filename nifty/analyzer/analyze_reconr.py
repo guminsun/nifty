@@ -23,63 +23,34 @@ def analyze_reconr_card_list(module):
     card_2 = helper.get_card('card_2', module)
     analyze_reconr_card_2(card_2, module)
 
-    # XXX: Needs serious cleaning.
-    # XXX: This is probably not correct either. Need to loop through all
-    # card 4, 5, and 6 in a similar manner to card 3?
-    #
-    # Cards 3, 4, 5, 6 must be input for each material desired.
-    cards_3 = helper.get_cards('card_3', module)
+    card_list_3 = helper.get_cards('card_3', module)
+    card_list_4 = helper.get_cards('card_4', module)
+    # XXX: card_list_5 = helper.get_cards('card_5', module)
+    # XXX: card_list_6 = helper.get_cards('card_6', module)
 
-    # XXX: length of 4, 5, 6 must match length of 3.
-    cards_4 = helper.get_cards('card_4', module)
-    cards_5 = helper.get_cards('card_5', module)
-    cards_6 = helper.get_cards('card_6', module)
+    # Cards 4 must be input for each material desired (card 3), make a simple
+    # check to see if the number of cards is a 1:1 ratio. Note that the last
+    # card_3, where mat = 0, should not be considered.
+    cards_3_len = len(card_list_3)-1
+    rule.number_of_cards_must_be(cards_3_len, 'card_4', 'card_3', module)
 
-    number_of_card_3 = len(cards_3)
-    for i in range(number_of_card_3):
-        print i
-        analyze_reconr_card_3(cards_3[i], module)
+    for i in range(len(card_list_3)):
+        # Assuming that the AST is organized. I.e. that the cards and 
+        # variables are declared in the correct order.
+        # For example, card_list_4[i] is the card_4 which maps to the card_3
+        # in card_list_3[i].
+        # XXX: Could make a check that the last card_3 in 'card_list_3' indeed
+        # has a mat value equal to 0.
 
-        ## Break loop if mat = 0, which indicates termination of execution.
-        #mat = helper.get_identifier('mat', card_3)
-        #mat_value = helper.get_value(helper.get_r_value(mat))
-        #if mat_value == 0:
-        #    break
+        analyze_reconr_card_3(card_list_3[i], module)
+        # Skip the last card_3 in 'card_list_3'. I.e. break loop if mat = 0,
+        # which indicates termination of execution.
+        mat_node = helper.get_identifier('mat', card_list_3[i])
+        mat_r_value = helper.get_value(helper.get_r_value(mat_node))
+        if mat_r_value == 0:
+            break
 
-        #card_4 = helper.get_card('card_4', module)
-        #analyze_reconr_card_4(card_4, module)
-        #
-        ## card_5 must be defined 'ncards' times for each card_3 (see card 3).
-        #ncards = helper.get_identifier('ncards', card_3)
-        #if helper.not_defined(ncards):
-        #    ncards_value = 0
-        #else:
-        #    ncards_value = helper.get_value(helper.get_r_value(ncards))
-        #cards_5 = helper.get_cards('card_5', module)
-        #if len(cards_5) != ncards_value:
-        #    # Number of card_5 does not match ncards definition in card 3.
-        #    msg = ('\'card_5\' declared ' + str(len(cards_5)) + ' time(s) ' +
-        #           'while \'ncards\' is set to ' + str(ncards_value) +
-        #           ' in \'card_3\', module \'reconr\'.')
-        #    rule.semantic_error(msg, module)
-        #for card_5 in cards_5:
-        #    analyze_reconr_card_5(card_5, module)
-        #
-        ## card_6 must be defined 'ngrid' times for each card_3 (see card 3).
-        #ngrid = helper.get_identifier('ngrid', card_3)
-        #if helper.not_defined(ngrid):
-        #    ngrid_value = 0
-        #else:
-        #    ngrid_value = helper.get_value(helper.get_r_value(ngrid))
-        #cards_6 = helper.get_cards('card_6', module)
-        #if len(cards_6) != ngrid_value:
-        #    # Number of card_6 does not match ncards definition in card 3.
-        #    msg = ('\'card_6\' declared ' + str(len(cards_6)) + ' time(s) ' +
-        #           'while \'ngrid\' is set to ' + str(ngrid_value) +
-        #           ' in \'card_3\', module \'reconr\'.')
-        #    rule.semantic_error(msg, module)
-        #for card_6 in cards_6:
-        #    analyze_reconr_card_6(card_6, module)
+        analyze_reconr_card_4(card_list_4[i], module)
 
     return 'ok'
 
@@ -90,51 +61,62 @@ def analyze_reconr_card_1(card_1, module):
         id_node = helper.get_identifier(id_name, card_1)
         rule.identifier_must_be_int(id_node)
         rule.identifier_must_be_unit_number(id_node)
-    return 'ok'
+    return card_1
 
 def analyze_reconr_card_2(card_2, module):
-    tlabel = helper.get_identifier('tlabel', card_2)
-    if helper.not_defined(tlabel):
-        pass
-    else:
-        tlabel_value = rule.identifier_must_be_string(tlabel, card_2, module)
-        rule.identifier_string_must_not_exceed_length(tlabel, 66, card_2,
-                                                      module)
-    return 'ok'
+    analyze_reconr_card_2_tlabel(card_2, module)
+    return card_2
+
+def analyze_reconr_card_2_tlabel(card_2, module):
+    tlabel = rule.identifier_must_be_defined('tlabel', card_2, module)
+    rule.identifier_must_be_string(tlabel, card_2, module)
+    rule.identifier_string_must_not_exceed_length(tlabel, 66, card_2, module)
+    return tlabel
 
 def analyze_reconr_card_3(card_3, module):
-    rule.identifier_must_be_defined('mat', card_3, module)
+    analyze_reconr_card_3_mat(card_3, module)
+    analyze_reconr_card_3_ncards(card_3, module)
+    analyze_reconr_card_3_ngrid(card_3, module)
+    return card_3
 
-    ncards = helper.get_identifier('ncards', card_3)
-    if helper.not_defined(ncards):
-        pass
+def analyze_reconr_card_3_mat(card_3, module):
+    mat_node = rule.identifier_must_be_defined('mat', card_3, module)
+    return mat_node
+
+def analyze_reconr_card_3_ncards(card_3, module):
+    # ncards does not have to be defined, defaults to 0.
+    ncards_node = helper.get_identifier('ncards', card_3)
+    if helper.not_defined(ncards_node):
+        return ncards_node
     else:
-        rule.identifier_must_be_int(ncards)
-        # XXX: check if ncards is positive, negative number of cards is not a
+        rule.identifier_must_be_int(ncards_node)
+        # XXX: Check if ncards is positive, negative number of cards is not a
         #      proper input.
+    return ncards_node
 
-    ngrid = helper.get_identifier('ngrid', card_3)
-    if helper.not_defined(ngrid):
-        pass
+def analyze_reconr_card_3_ngrid(card_3, module):
+    # ngrid does not have to be defined, defaults to 0.
+    ngrid_node = helper.get_identifier('ngrid', card_3)
+    if helper.not_defined(ngrid_node):
+        return ngrid_node
     else:
-        rule.identifier_must_be_int(ngrid)
-        # XXX: check if ngrid is positive, negative number of grids is not a
+        rule.identifier_must_be_int(ngrid_node)
+        # XXX: Check if ngrid is positive, negative number of grids is not a
         #      proper input.
-
-    return 'ok'
+    return ngrid_node
 
 def analyze_reconr_card_4(card_4, module):
     err_node = rule.identifier_must_be_defined('err', card_4, module)
     rule.identifier_must_be_float(err_node)
     # XXX: Check tempr, errmax, errint if they are defined.
-    return 'ok'
+    return card_4
 
 def analyze_reconr_card_5(card_5, module):
     # XXX: Check that the number of cards's corresponds to the ncards value
     #      defined in card_3
-    return 'ok'
+    return card_5
 
 def analyze_reconr_card_6(card_6, module):
     # XXX: Check that the number of enode's corresponds to the ngrid value
     #      defined in card_3
-    return 'ok'
+    return card_6

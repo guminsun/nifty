@@ -57,6 +57,22 @@ def card_must_be_unique(card_name, module_node):
         semantic_error(msg, card_node)
     return card_node
 
+def number_of_cards_must_be(number, card_name_1, card_name_2, module):
+    '''
+        Return 'ok' if the number of cards for 'card_name_1' is equal to
+        'number', else a semantic error indicating the ratio mismatch.
+    '''
+    card_list_1 = helper.get_cards(card_name_1, module)
+    card_len_1 = len(card_list_1)
+    if card_len_1 != number:
+        module_name = helper.get_module_name(module)
+        msg = ('in module \'' + module_name + '\': card \'' + card_name_1 + 
+               '\' is declared ' + str(card_len_1) + ' time(s) while card \'' +
+               card_name_2 + '\' has been ' + 'declared ' + str(number) +
+               ' time(s), expected a 1:1 ratio.')
+        semantic_error(msg, module)
+    return 'ok'
+
 def identifiers_must_be_defined(must_be_defined, card_node, module_node):
     id_node_list = list()
     for id_name in must_be_defined:
@@ -75,7 +91,7 @@ def identifier_must_be_defined(id_name, card_node, module_node):
 
 def identifier_must_be_float(node):
     value = helper.get_value(helper.get_r_value(node))
-    if not isinstance(value, float):
+    if not isinstance(eval(str(value)), float):
         id_name = helper.get_identifier_name(helper.get_l_value(node))
         msg = ('identifier \'' + id_name + '\' not defined as a float.')
         semantic_error(msg, node)

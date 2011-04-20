@@ -89,6 +89,12 @@ def get_l_value(assignment_node):
     '''
     return assignment_node['l_value']
 
+def get_module_name(module_node):
+    '''
+        Return name of 'module_node'.
+    '''
+    return module_node['module_name']
+
 def get_node_type(node):
     '''
         Return node type of 'node'.
