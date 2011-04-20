@@ -98,7 +98,8 @@ def analyze_reconr_card_2(card_2, module):
         pass
     else:
         tlabel_value = rule.identifier_must_be_string(tlabel, card_2, module)
-        identifier_string_must_not_exceed_length(tlabel, 66, card_2, module)
+        rule.identifier_string_must_not_exceed_length(tlabel, 66, card_2,
+                                                      module)
     return 'ok'
 
 def analyze_reconr_card_3(card_3, module):

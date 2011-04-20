@@ -42,6 +42,7 @@ def analyze_module_list(module_list):
     return 'ok'
 
 def analyze_module(module):
+    analyzer_function = analyze_dummy
     analyzer_functions = {
         'acer' : analyze_acer,
         #'broadr' : analyze_broadr,
@@ -79,3 +80,6 @@ def analyze_module(module):
             print msg
     analyzer_function(module)
     return 'ok'
+
+def analyze_dummy(module):
+    pass
