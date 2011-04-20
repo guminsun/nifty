@@ -14,7 +14,7 @@ def analyze_reconr_card_list(module):
     rule.cards_must_be_defined(must_be_defined, module)
 
     # Check for cards that must be unique (e.g. not defined more than once).
-    unique_card_list = ['card_1', 'card_2', 'card_4']
+    unique_card_list = ['card_1', 'card_2']
     rule.cards_must_be_unique(unique_card_list, module)
 
     card_1 = helper.get_card('card_1', module)
@@ -25,7 +25,7 @@ def analyze_reconr_card_list(module):
 
     card_list_3 = helper.get_cards('card_3', module)
     card_list_4 = helper.get_cards('card_4', module)
-    # XXX: card_list_5 = helper.get_cards('card_5', module)
+    card_list_5 = helper.get_cards('card_5', module)
     # XXX: card_list_6 = helper.get_cards('card_6', module)
 
     # Cards 4 must be input for each material desired (card 3), make a simple
@@ -34,6 +34,7 @@ def analyze_reconr_card_list(module):
     cards_3_len = len(card_list_3)-1
     rule.number_of_cards_must_be(cards_3_len, 'card_4', 'card_3', module)
 
+    # XXX: Ugly.
     for i in range(len(card_list_3)):
         # Assuming that the AST is organized. I.e. that the cards and 
         # variables are declared in the correct order.
@@ -51,6 +52,29 @@ def analyze_reconr_card_list(module):
             break
 
         analyze_reconr_card_4(card_list_4[i], module)
+
+        # XXX: Ugly.
+        # Note that card_5 should only be defined if ncards > 0 in card_3.
+        ncards_node = helper.get_identifier('ncards', card_list_3[i])
+        if helper.not_defined(ncards_node):
+            ncards_r_value = 0
+        else:
+            ncards_r_value = helper.get_value(helper.get_r_value(ncards_node))
+        if ncards_r_value > 0:
+            # Extract the correct card_5 to analyze.
+            for j in range(ncards_r_value):
+                i5 = j*(i+1)
+                # XXX: Ugly. Card 'i5' must be defined.
+                try:
+                    analyze_reconr_card_5(card_list_5[i5], module)
+                except:
+                    msg = ('expected a \'card_5\' since ncards = ' +
+                           str(ncards_r_value) + ' in \'card_3\', module ' +
+                           '\'' + helper.get_module_name(module) + '\'.')
+                    rule.semantic_error(msg, card_list_3[i])
+        else:
+            msg = 'since ncards = ' + str(ncards_r_value) + ' in \'card_3\''
+            rule.card_must_not_be_defined('card_5', module, msg)
 
     return 'ok'
 
@@ -112,9 +136,12 @@ def analyze_reconr_card_4(card_4, module):
     return card_4
 
 def analyze_reconr_card_5(card_5, module):
-    # XXX: Check that the number of cards's corresponds to the ncards value
-    #      defined in card_3
+    analyze_reconr_card_5_cards(card_5, module)
     return card_5
+
+def analyze_reconr_card_5_cards(card_5, module):
+    cards_node = rule.identifier_must_be_defined('cards', card_5, module)
+    rule.identifier_must_be_string(cards_node, card_5, module)
 
 def analyze_reconr_card_6(card_6, module):
     # XXX: Check that the number of enode's corresponds to the ngrid value
