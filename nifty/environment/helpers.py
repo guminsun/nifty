@@ -1,4 +1,12 @@
 ##############################################################################
+# Identifier map. Used to lookup valid identifier names.
+
+identifier_map = {
+    'nendf' : ['nendf', 'endf_input_tape'],
+    'npend' : ['npend', 'pendf_input_tape'],
+}
+
+##############################################################################
 # Boolean helpers.
 
 def is_assignment(expression_node):
@@ -49,18 +57,30 @@ def get_card_name(card_node):
     '''
     return card_node['card_name']
 
-def get_identifier(id_name, card_node):
+def get_identifier(reserved_id_name, card_node):
     '''
-        Return identifier node of 'id_name' if 'id_name' is defined in
-        "card_node"'s statement list, else None.
+        Return identifier node of 'reserved_id_name' if 'reserved_id_name' is
+        defined in "card_node"'s statement list, else None.
     '''
     statement_list = get_statement_list(card_node)
-    for expression in statement_list:
-        expression_l_value = get_l_value(expression)
-        expression_id_name = get_identifier_name(expression_l_value)
-        if is_assignment(expression) and expression_id_name == id_name:
-            return expression
+    for expr in statement_list:
+        expr_lval = get_l_value(expr)
+        expr_id_name = get_identifier_name(expr_lval)
+        if (is_assignment(expr) and
+            has_valid_name(expr_id_name, reserved_id_name)):
+            return expr
     return None
+
+def has_valid_name(name_to_validate, reserved_id_name):
+    '''
+        Return True if 'name_to_validate' is a valid, possible alternative, 
+        name for 'reserved_id_name', else False.
+    '''
+    id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
+    if isinstance(id_name_value, list):
+        return name_to_validate in id_name_value
+    else:
+        return name_to_validate == reserved_id_name
 
 def get_identifiers(id_name, card_node):
     '''
