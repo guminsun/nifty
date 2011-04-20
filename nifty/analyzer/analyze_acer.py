@@ -6,7 +6,7 @@ import analyzer_rules as rule
 
 def analyze_acer(module):
     analyze_acer_card_list(module)
-    return 'ok'
+    return module
 
 def analyze_acer_card_list(module):
     # Check for cards that always must be defined.
