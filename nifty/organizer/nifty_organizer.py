@@ -32,12 +32,13 @@ def organize(ast):
 
 def organize_program(program):
     module_list = helper.get_module_list(program)
-    organize_module_list(module_list)
+    module_list = organize_module_list(module_list)
+    program = helper.set_module_list(module_list, program)
     return program
 
 def organize_module_list(module_list):
     for module in module_list:
-        organize_module(module)
+        module = organize_module(module)
     return module_list
 
 def organize_module(module):
@@ -78,8 +79,7 @@ def organize_module(module):
             msg = ('--- nifty_organizer: XXX not implemented yet: ' +
                    module_name)
             print msg
-    organizer_function(module)
-    return module
+    return organizer_function(module)
 
 def organize_dummy(module):
-    pass
+    return module
