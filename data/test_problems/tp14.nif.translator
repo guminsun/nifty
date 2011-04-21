@@ -1,0 +1,30 @@
+--- organize_acer: XXX not implemented yet: card_2
+--- organize_acer: XXX not implemented yet: card_3
+--- organize_acer: XXX not implemented yet: card_5
+--- organize_acer: XXX not implemented yet: card_6
+--- organize_acer: XXX not implemented yet: card_7
+--- organize_acer: XXX not implemented yet: card_2
+--- organize_acer: XXX not implemented yet: card_3
+--- nifty_organizer: XXX not implemented yet: viewr
+--- nifty_analyzer: XXX not implemented yet: viewr
+[('acer',
+  [[('integer', 20),
+    ('integer', 21),
+    ('integer', 0),
+    ('integer', 31),
+    ('integer', 32)],
+   [('integer', 1), ('integer', 0), ('integer', 1)],
+   [('string', 'proton + 7-n-14 apt la150 njoy99 mcnpx')],
+   [('integer', 725), ('integer', 0)],
+   [],
+   []]),
+ ('acer',
+  [[('integer', 0),
+    ('integer', 31),
+    ('integer', 33),
+    ('integer', 34),
+    ('integer', 35)],
+   [('integer', 7), ('integer', 1), ('integer', 2)],
+   [('string', 'proton + 7-n-14 apt la150 njoy99 mcnpx')]]),
+ ('viewr', [[('integer', 33), ('integer', 36)]]),
+ ('stop', [])]
