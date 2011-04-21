@@ -1,34 +1,38 @@
-from nifty.environment import helpers as helper
+from nifty.environment import helpers as env
+import organizer_helpers as helper
 
 ##############################################################################
 # Organize acer. Put together into an orderly, functional, structured whole.
 
 def organize_acer(module):
-    card_list = helper.get_card_list(module)
-    organize_acer_card_list(card_list, module)
+    card_list = env.get_card_list(module)
+    card_list = organize_acer_card_list(card_list)
+    module = env.set_card_list(card_list, module)
     return module
 
-def organize_acer_card_list(card_list, module):
+def organize_acer_card_list(card_list):
     for card in card_list:
-        organize_card(card)
+        card = organize_card(card)
     return card_list
 
 def organize_card(card):
-    organizer_function = organizer_function_dummy
+    organizer_function = card_dummy
     card_functions = {
         'card_1' : organize_card_1,
     }
-    card_name = helper.get_card_name(card)
+    card_name = env.get_card_name(card)
     try:
         organizer_function = card_functions[card_name]
     except KeyError:
         msg = ('--- organize_acer: XXX not implemented yet: ' + card_name)
         print msg
-    organizer_function(card)
+    return organizer_function(card)
+
+def card_dummy(card):
     return card
 
-def organizer_function_dummy(card):
-    pass
-
 def organize_card_1(card):
-    pass
+    ordered_id_names = ['nendf', 'npend', 'ngend', 'nace', 'ndir']
+    statement_list = helper.sort_statement_list(ordered_id_names, card)
+    card = env.set_statement_list(statement_list, card)
+    return card
