@@ -9,8 +9,8 @@ def sort_statement_list(ordered_id_names, card):
         list has been sorted according to the order of the corresponding
         identifier names in 'ordered_id_names'.
 
-        Use this function to sort statement lists where all identifiers must
-        be provided.
+        Use this function to sort statement lists where all identifiers have
+        been defined.
 
         For example, if ordered_id_names = ['one', 'two'] and
         card['statement_list'] = ['two', 'one'] then
