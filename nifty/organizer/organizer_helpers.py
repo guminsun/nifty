@@ -5,16 +5,16 @@ from nifty.environment import helpers as env
 
 def sort_statement_list(ordered_id_names, card):
     '''
-        Return a statement list where all identifiers in 'card's statement
-        list has been sorted according to the order of the corresponding
-        identifier names in 'ordered_id_names'.
+        Return a new statement list where the identifiers in 'card's statement
+        list is sorted. The identifiers are sorted according to the order
+        they appear in 'ordered_id_names'.
 
-        Use this function to sort statement lists where all identifiers have
+        Use this function to sort a statement list where all identifiers have
         been defined.
 
         For example, if ordered_id_names = ['one', 'two'] and
         card['statement_list'] = ['two', 'one'] then
-        statement_list = ['one', 'two'] will be returned.
+        new_statement_list = ['one', 'two'] will be returned.
 
         If the number of defined identifiers in the card's statement list are
         more than the number of names given in 'ordered_id_names', then the
