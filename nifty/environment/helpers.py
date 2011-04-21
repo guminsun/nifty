@@ -1,6 +1,7 @@
 import sys
 
-# Get the identifier map of valid identifier names, for get_identifier_name.
+# Get the identifier map of valid identifier names. The map is used in the
+# functions 'get_identifier_name' and 'is_valid_name'.
 from settings import identifier_map
 
 ##############################################################################
@@ -63,9 +64,21 @@ def get_identifier(reserved_id_name, card_node):
     for expr in statement_list:
         expr_lval = get_l_value(expr)
         expr_id_name = get_identifier_name(expr_lval)
-        if is_assignment(expr) and expr_id_name == reserved_id_name:
+        if (is_assignment(expr) and
+            is_valid_name(expr_id_name, reserved_id_name)):
             return expr
     return None
+
+def is_valid_name(name_to_validate, reserved_id_name):
+    '''
+        Return True if 'name_to_validate' is a valid, possible alternative,
+        name for 'reserved_id_name', else False.
+    '''
+    id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
+    if isinstance(id_name_value, list):
+        return name_to_validate in id_name_value
+    else:
+        return name_to_validate == reserved_id_name
 
 def get_identifiers(id_name, card_node):
     '''
@@ -135,6 +148,21 @@ def get_value(r_value):
         Return value of 'r_value'.
     '''
     return r_value['value']
+
+##############################################################################
+# Setter helpers.
+
+def set_module_list(module_list, program):
+    program['module_list'] = module_list
+    return program
+
+def set_card_list(card_list, module):
+    module['card_list'] = card_list
+    return module
+
+def set_statement_list(statement_list, card):
+    card['statement_list'] = statement_list
+    return card
 
 ##############################################################################
 # Error handling.
