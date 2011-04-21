@@ -13,6 +13,17 @@ def is_assignment(expression_node):
     '''
     return get_node_type(expression_node) == '='
 
+def is_valid_name(name_to_validate, reserved_id_name):
+    '''
+        Return True if 'name_to_validate' is a valid, possible alternative,
+        name for 'reserved_id_name', else False.
+    '''
+    id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
+    if isinstance(id_name_value, list):
+        return name_to_validate in id_name_value
+    else:
+        return name_to_validate == reserved_id_name
+
 def not_defined(node):
     '''Return True if 'node' is None, else False.'''
     return node is None
@@ -68,17 +79,6 @@ def get_identifier(reserved_id_name, card_node):
             is_valid_name(expr_id_name, reserved_id_name)):
             return expr
     return None
-
-def is_valid_name(name_to_validate, reserved_id_name):
-    '''
-        Return True if 'name_to_validate' is a valid, possible alternative,
-        name for 'reserved_id_name', else False.
-    '''
-    id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
-    if isinstance(id_name_value, list):
-        return name_to_validate in id_name_value
-    else:
-        return name_to_validate == reserved_id_name
 
 def get_identifiers(id_name, card_node):
     '''
