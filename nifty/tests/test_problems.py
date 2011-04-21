@@ -151,6 +151,42 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
+    def test_tp14_analyzer(self):
+        infile = get_test_problem('tp14')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp14_emitter(self):
+        infile = get_test_problem('tp14')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_tp14_lexer(self):
+        infile = get_test_problem('tp14')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp14_organizer(self):
+        infile = get_test_problem('tp14')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp14_parser(self):
+        infile = get_test_problem('tp14')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_tp14_translator(self):
+        infile = get_test_problem('tp14')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
 ##############################################################################
 # Helpers.
 
@@ -235,6 +271,12 @@ def suite():
         'test_tp13_organizer',
         'test_tp13_parser',
         'test_tp13_translator',
+        'test_tp14_analyzer',
+        'test_tp14_emitter',
+        'test_tp14_lexer',
+        'test_tp14_organizer',
+        'test_tp14_parser',
+        'test_tp14_translator',
     ]
     return unittest.TestSuite(map(ProblemTestCase, tests))
 
