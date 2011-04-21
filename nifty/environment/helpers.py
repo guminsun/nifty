@@ -73,7 +73,7 @@ def get_identifier(reserved_id_name, card_node):
 
 def has_valid_name(name_to_validate, reserved_id_name):
     '''
-        Return True if 'name_to_validate' is a valid, possible alternative, 
+        Return True if 'name_to_validate' is a valid, possible alternative,
         name for 'reserved_id_name', else False.
     '''
     id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
