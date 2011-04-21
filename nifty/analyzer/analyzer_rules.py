@@ -66,7 +66,7 @@ def number_of_cards_must_be(number, card_name_1, card_name_2, module):
     card_len_1 = len(card_list_1)
     if card_len_1 != number:
         module_name = helper.get_module_name(module)
-        msg = ('in module \'' + module_name + '\': card \'' + card_name_1 + 
+        msg = ('in module \'' + module_name + '\': card \'' + card_name_1 +
                '\' is declared ' + str(card_len_1) + ' time(s) while card \'' +
                card_name_2 + '\' has been ' + 'declared ' + str(number) +
                ' time(s), expected a 1:1 ratio.')
@@ -157,5 +157,5 @@ def semantic_error(msg, node):
     # Catch None. E.g. in case of undefined identifier.
     except TypeError:
         line = None
-    sys.stderr.write('--- Semantic error on line %s, %s\n' % (line, msg))
+    print('--- Semantic error on line %s, %s' % (line, msg))
     sys.exit('semantic_error')

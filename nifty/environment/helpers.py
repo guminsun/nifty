@@ -1,10 +1,7 @@
-##############################################################################
-# Identifier map. Used to lookup valid identifier names.
+import sys
 
-identifier_map = {
-    'nendf' : ['nendf', 'endf_input_tape'],
-    'npend' : ['npend', 'pendf_input_tape'],
-}
+# Get the identifier map of valid identifier names, for get_identifier_name.
+from settings import identifier_map
 
 ##############################################################################
 # Boolean helpers.
@@ -66,21 +63,9 @@ def get_identifier(reserved_id_name, card_node):
     for expr in statement_list:
         expr_lval = get_l_value(expr)
         expr_id_name = get_identifier_name(expr_lval)
-        if (is_assignment(expr) and
-            has_valid_name(expr_id_name, reserved_id_name)):
+        if is_assignment(expr) and expr_id_name == reserved_id_name:
             return expr
     return None
-
-def has_valid_name(name_to_validate, reserved_id_name):
-    '''
-        Return True if 'name_to_validate' is a valid, possible alternative,
-        name for 'reserved_id_name', else False.
-    '''
-    id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
-    if isinstance(id_name_value, list):
-        return name_to_validate in id_name_value
-    else:
-        return name_to_validate == reserved_id_name
 
 def get_identifiers(id_name, card_node):
     '''
@@ -99,9 +84,15 @@ def get_identifiers(id_name, card_node):
 
 def get_identifier_name(id_node):
     '''
-        Return name of the identifier 'id_node'.
+        Return name of the identifier 'id_node', if it is an valid name, else
+        report an error.
     '''
-    return id_node['name']
+    valid_id_names = [i for sub in identifier_map.values() for i in sub]
+    if id_node['name'] in valid_id_names:
+        return id_node['name']
+    else:
+        msg = '\'' + id_node['name'] + '\' is not a valid identifier name.'
+        semantic_error(msg, id_node)
 
 def get_l_value(assignment_node):
     '''
@@ -144,3 +135,18 @@ def get_value(r_value):
         Return value of 'r_value'.
     '''
     return r_value['value']
+
+##############################################################################
+# Error handling.
+
+def semantic_error(msg, node):
+    try:
+        line = node['line_number']
+    # Catch nodes which doesn't have the key 'line_number' defined.
+    except KeyError:
+        line = None
+    # Catch None. E.g. in case of undefined identifier.
+    except TypeError:
+        line = None
+    print('--- Semantic error on line %s, %s' % (line, msg))
+    sys.exit('semantic_error')
