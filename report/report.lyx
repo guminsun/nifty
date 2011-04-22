@@ -330,7 +330,7 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In the following subsections, the principles and techniques for constructing
+In the following subsections, principles and techniques for constructing
  a translator presented in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -712,12 +712,12 @@ module_list    ::= module module_list
 
 \begin_layout Plain Layout
 
-                 | EMPTY
+                 | empty
 \end_layout
 
 \begin_layout Plain Layout
 
-module         ::= MODULE LEFT_BRACE card_list RIGHT_BRACE
+module         ::= MODULE "{" card_list "}"
 \end_layout
 
 \begin_layout Plain Layout
@@ -727,12 +727,12 @@ card_list      ::= card card_list
 
 \begin_layout Plain Layout
 
-                 | EMPTY
+                 | empty
 \end_layout
 
 \begin_layout Plain Layout
 
-card           ::= CARD LEFT_BRACE statement_list RIGHT_BRACE
+card           ::= CARD "{" statement_list "}"
 \end_layout
 
 \begin_layout Plain Layout
@@ -742,27 +742,52 @@ statement_list ::= statement statement_list
 
 \begin_layout Plain Layout
 
-                 | EMPTY
+                 | empty
 \end_layout
 
 \begin_layout Plain Layout
 
-statement      ::= expression SEMICOLON
+statement      ::= expression ";"
 \end_layout
 
 \begin_layout Plain Layout
 
-expression     ::= assignment
+expression     ::= l_value "=" r_value
 \end_layout
 
 \begin_layout Plain Layout
 
-assignment     ::= IDENTIFIER ASSIGNMENT r_value
+l_value        ::= array
 \end_layout
 
 \begin_layout Plain Layout
 
-r_value        ::= FLOAT
+                 | identifier
+\end_layout
+
+\begin_layout Plain Layout
+
+r_value        ::= number
+\end_layout
+
+\begin_layout Plain Layout
+
+                 | string 
+\end_layout
+
+\begin_layout Plain Layout
+
+array          ::= IDENTIFIER "[" INTEGER "]"
+\end_layout
+
+\begin_layout Plain Layout
+
+identifier     ::= IDENTIFIER
+\end_layout
+
+\begin_layout Plain Layout
+
+number         ::= FLOAT
 \end_layout
 
 \begin_layout Plain Layout
@@ -772,7 +797,7 @@ r_value        ::= FLOAT
 
 \begin_layout Plain Layout
 
-                 | STRING
+string         ::= STRING
 \end_layout
 
 \end_inset
@@ -793,9 +818,24 @@ NJOY Input Format (NIF) Grammar Definition
 \end_layout
 
 \begin_layout Plain Layout
-Keywords and special symbols are capitalized, 
+The start symbol is 
 \family typewriter
-EMPTY
+program
+\family default
+.
+ The capitalized terminals, such as 
+\family typewriter
+MODULE
+\family default
+ and 
+\family typewriter
+CARD
+\family default
+, are token classes specified by the lexer.
+ Special symbols are denoted within double quotes.
+ 
+\family typewriter
+empty
 \family default
  denotes the empty string.
 \end_layout
