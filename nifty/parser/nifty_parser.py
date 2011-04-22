@@ -1,14 +1,13 @@
 import sys
 from pprint import pprint
 
-import ply.lex as lex
-import ply.yacc as yacc
+from ply import lex
+from ply import yacc
 
+from nifty.environment import ast
 from nifty.lexer import nifty_lexer
-# Get the token map from the nifty lexer.
+# Get the token map from the nifty lexer. Required by PLY Yacc.
 from nifty.lexer.nifty_lexer import tokens
-
-from nifty.environment import ast as ast
 
 ##############################################################################
 # Grammar rules.
@@ -112,8 +111,8 @@ def p_empty(p):
 
 def p_error(p):
     if p is not None:
-        sys.stderr.write('--- Syntax error on line %d, unexpected token %s\n'
-            % (p.lineno, p))
+        print('--- Syntax error on line %d, unexpected token \'%s\''
+              % (p.lineno, p.value))
     sys.exit('syntax_error')
 
 ##############################################################################
@@ -131,5 +130,4 @@ if __name__ == '__main__':
         result = parse(open(filename).read())
     else:
         result = parse(sys.stdin.read())
-    print '--- nifty parser output:'
     pprint(result)

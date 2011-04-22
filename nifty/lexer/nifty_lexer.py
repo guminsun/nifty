@@ -23,79 +23,6 @@ reserved_cards = {
     'card_12b' : 'CARD',
 }
 
-reserved_identifiers = {
-    ##########################################################################
-    # acer
-    # Reserved identifiers for acer card 1.
-    'nendf' : 'IDENTIFIER',
-    'npend' : 'IDENTIFIER',
-    'ngend' : 'IDENTIFIER',
-    'nace' : 'IDENTIFIER',
-    'ndir' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 2.
-    'iopt' : 'IDENTIFIER',
-    'iprint' : 'IDENTIFIER',
-    'ntype' : 'IDENTIFIER',
-    'suff' : 'IDENTIFIER',
-    'nxtra' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 3.
-    'hk' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 4.
-    'iz' : 'IDENTIFIER',
-    'aw' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 5.
-    'matd' : 'IDENTIFIER',
-    'tempd' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 6.
-    'err' : 'IDENTIFIER',
-    'iopp' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 7.
-    'thin01' : 'IDENTIFIER',
-    'thin02' : 'IDENTIFIER',
-    'thin03' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 8.
-    'matd' : 'IDENTIFIER',
-    'tempd' : 'IDENTIFIER',
-    'tname' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 8a.
-    'iza01' : 'IDENTIFIER',
-    'iza02' : 'IDENTIFIER',
-    'iza03' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 9.
-    'mti' : 'IDENTIFIER',
-    'nbint' : 'IDENTIFIER',
-    'mte' : 'IDENTIFIER',
-    'ielas' : 'IDENTIFIER',
-    'nmix' : 'IDENTIFIER',
-    'emax' : 'IDENTIFIER',
-    'iwt' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 10.
-    'matd' : 'IDENTIFIER',
-    'tempd' : 'IDENTIFIER',
-    # Reserved identifiers for acer card 11.
-    'matd' : 'IDENTIFIER',
-    ##########################################################################
-    # reconr
-    # Reserved identifiers for reconr card 1.
-    'nendf' : 'IDENTIFIER',
-    'npend' : 'IDENTIFIER',
-    # Reserved identifiers for reconr card 2.
-    'tlabel' : 'IDENTIFIER',
-    # Reserved identifiers for reconr card 3.
-    'mat' : 'IDENTIFIER',
-    'ncards' : 'IDENTIFIER',
-    'ngrid' : 'IDENTIFIER',
-    # Reserved identifiers for reconr card 4.
-    'err' : 'IDENTIFIER',
-    'tempr' : 'IDENTIFIER',
-    'errmax' : 'IDENTIFIER',
-    'errint' : 'IDENTIFIER',
-    # Reserved identifiers for reconr card 5.
-    'cards' : 'IDENTIFIER',
-    # Reserved identifiers for reconr card 6.
-    'enode' : 'IDENTIFIER',
-}
-
 reserved_modules = {
     'acer' : 'MODULE',
     'broadr' : 'MODULE',
@@ -127,19 +54,16 @@ reserved_modules = {
 # Reserved words.
 reserved_words = {}
 reserved_words.update(reserved_cards)
-reserved_words.update(reserved_identifiers)
 reserved_words.update(reserved_modules)
 
 # List of tokens.
 tokens = [
-    # Assignment.
+    'IDENTIFIER',
     'ASSIGNMENT',
-
     # R-values. Numbers and strings.
     'INTEGER',
     'FLOAT',
     'STRING',
-
     # Delimeters: { } [ ] ;
     'LEFT_BRACE',
     'RIGHT_BRACE',
@@ -163,7 +87,6 @@ def t_newline(t):
 # Handle identifiers and reserved words.
 def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    # XXX Check if identifier is a reserved word, otherwise raise an error?
     t.type = reserved_words.get(t.value,"IDENTIFIER")
     return t
 
@@ -203,6 +126,6 @@ def t_comment(t):
 
 # Error handling.
 def t_error(t):
-    sys.stderr.write('--- Lexical error on line %d, illegal character %s\n'
-        % (t.lineno, t.value[0]))
+    print('--- Lexical error on line %d, illegal character \'%s\''
+          % (t.lineno, t.value[0]))
     sys.exit('lexical_error')
