@@ -917,34 +917,21 @@ The structure of the grammar is simple.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX E.g.
- denote scope, use blocks to group and format statements, declaration of
- identifiers, et cetera.
- It should more or less resemble a high-level programming language.
-\end_layout
-
-\end_inset
-
-
+For example, consider the program in algorithm xxx which is written in the
+ NJOY input instructions format.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX E.g.
- denote scope, use blocks to group and format statements, declaration of
- identifiers, et cetera.
+XXX insert test problem xxx here.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+Algorithm xxx illustrates an equivalent representation of algorithm xxx
+ written in NIF.
+\end_layout
 
-
+\begin_layout Standard
+XXX insert NIF translation of test problem here.
 \end_layout
 
 \begin_layout Subsection
@@ -1531,6 +1518,51 @@ The NIF grammar has been designed with simplicity in mind, such that the
  grammar and the translator can be expanded with ease.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX E.g.
+ denote scope, use blocks to group and format statements, declaration of
+ identifiers, et cetera.
+ It should more or less resemble a high-level programming language.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX E.g.
+ denote scope, use blocks to group and format statements, declaration of
+ identifiers, et cetera.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Influenced by the C programming language.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Why?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 Testing not that rigorous.
  NJOY is a large and complex program, there's a lot of scenarios (e.g.
@@ -1559,20 +1591,6 @@ XXX Why PLY? See note in Diary
 
 .
  Easy and fast.
-\end_layout
-
-\begin_layout Itemize
-Influenced by the C programming language.
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-Why?
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
