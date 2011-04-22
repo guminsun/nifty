@@ -743,8 +743,8 @@ NIF
 \end_layout
 
 \begin_layout Standard
-Algorithm 2 is a context-free grammar definition which describes the NJOY
- Input Format (NIF).
+The resulting NJOY Input Format (NIF) is illustrated as a context-free grammar
+ definition in algorithm 2.
 \end_layout
 
 \begin_layout Standard
@@ -877,7 +877,12 @@ NJOY Input Format (NIF) Grammar Definition
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The start symbol is 
 \family typewriter
 program
@@ -900,9 +905,15 @@ empty
  denotes the empty string.
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+The structure of the grammar is simple.
+ A program in NIF is a listing of modules.
+ Each module is composed by a set of cards.
+ A card is a placeholder for a listing of statements.
+ Each statement is an expression and an expression is a declaration of an
+ array or identifier.
+ An array or identifier can be declared to hold the value of either a float,
+ integer or a string.
 \end_layout
 
 \begin_layout Standard
@@ -1511,6 +1522,15 @@ Translator result is converted to a string.
 Discussion
 \end_layout
 
+\begin_layout Subsection
+NJOY Input Format (NIF)
+\end_layout
+
+\begin_layout Standard
+The NIF grammar has been designed with simplicity in mind, such that the
+ grammar and the translator can be expanded with ease.
+\end_layout
+
 \begin_layout Itemize
 Testing not that rigorous.
  NJOY is a large and complex program, there's a lot of scenarios (e.g.
@@ -1588,7 +1608,7 @@ Significant findings?
 \end_layout
 
 \begin_layout Section
-Conclusion
+Conclusions
 \end_layout
 
 \begin_layout Itemize
