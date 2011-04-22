@@ -831,7 +831,7 @@ MODULE
 \family typewriter
 CARD
 \family default
-, are token classes specified by the lexer.
+, are token classes specified by the lexer (see section 3.2.1).
  Special symbols are denoted within double quotes.
  
 \family typewriter
@@ -846,7 +846,64 @@ empty
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX E.g.
+ denote scope, use blocks to group and format statements, declaration of
+ identifiers, et cetera.
+ It should more or less resemble a high-level programming language.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+XXX E.g.
+ denote scope, use blocks to group and format statements, declaration of
+ identifiers, et cetera.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+NJOY Input Format Translator (
+\family typewriter
+nifty
+\family default
+)
+\end_layout
+
+\begin_layout Subsubsection
+Lexical Analysis
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
+\begin_layout Itemize
+Used a lexical analyzer to generate tokens and detect errors.
+ PLY Lex.
+\end_layout
+
+\begin_layout Itemize
+Wrote regular expressions to recognize tokens.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float table
+placement H
 wide false
 sideways false
 status open
@@ -1200,69 +1257,9 @@ NIF Tokens
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX E.g.
- denote scope, use blocks to group and format statements, declaration of
- identifiers, et cetera.
- It should more or less resemble a high-level programming language.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX E.g.
- denote scope, use blocks to group and format statements, declaration of
- identifiers, et cetera.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-NJOY Input Format Translator (
-\family typewriter
-nifty
-\family default
-)
-\end_layout
-
-\begin_layout Subsubsection
-Lexical Analysis
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
-\begin_layout Itemize
-Used a lexical analyzer to generate tokens and detect errors.
- PLY Lex.
-\end_layout
-
-\begin_layout Itemize
-Wrote regular expressions to recognize tokens.
 \end_layout
 
 \begin_layout Subsubsection
