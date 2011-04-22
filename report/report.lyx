@@ -654,7 +654,10 @@ key "key-14"
 .
  Type checking is a part of the semantic analysis where the translator checks
  that each operator has valid operands.
- For example, the variable 
+\end_layout
+
+\begin_layout Standard
+For example, the variable 
 \family typewriter
 hk
 \family default
