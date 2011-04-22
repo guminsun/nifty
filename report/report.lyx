@@ -309,9 +309,9 @@ The NJOY input instructions is not an optimal input format.
 
 \begin_layout Standard
 In order to make the new input format useable with NJOY, it has to be translated
- into the original input instructions.
+ into the original NJOY input instructions.
  As such, the scope of this work also included developing an accompanying
- translator for the input format.
+ translator to the new input format.
 \end_layout
 
 \begin_layout Standard
@@ -330,7 +330,20 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In the following subsections, principles and techniques for constructing
+As stated in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+, a translator (
+\shape italic
+compiler
+\shape default
+) is a program that can read a program in one language and translate it
+ into an equivalent program in another language.
+ In the following subsections, principles and techniques for constructing
  a translator presented in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -342,8 +355,18 @@ key "key-4"
 \end_layout
 
 \begin_layout Standard
-Methods such as lexical analysis, syntax analysis, semantic analysis and
- code generation has been used throughout this work.
+In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+, the translation process is described as a sequence of phases.
+ Each phase inspects and transforms a representation of the source program
+ to another.
+ Phases such as lexical analysis, syntax analysis, and semantic analysis
+ has been used throughout this work.
 \end_layout
 
 \begin_layout Subsection
@@ -392,7 +415,11 @@ key "key-6"
 \end_layout
 
 \begin_layout Standard
-For instance, the declaration of an identifier can have the form
+For instance, the assignment (
+\shape italic
+declaration
+\shape default
+) of an identifier can have the form
 \end_layout
 
 \begin_layout Standard
@@ -431,7 +458,7 @@ l_value
 r_value
 \family default
  are other productions expressing the structure of the left and right hand
- side, respectively.
+ side of the assignment, respectively.
 \end_layout
 
 \begin_layout Subsection
@@ -562,8 +589,7 @@ key "key-11"
 
 \end_inset
 
-, a derivation of the Lex tool, was used to generate a lexical analyzer
- (lexer) for NIF.
+ was used to generate a lexical analyzer (lexer) for NIF.
  The method of identifying the NIF tokens was implemented by using the notation
  of regular expressions 
 \begin_inset CommandInset citation
@@ -590,7 +616,8 @@ key "key-13"
 \end_inset
 
 .
- The AST is used to describe the grammatical structure of the source program.
+ The syntax tree is used to describe the grammatical structure of the source
+ program.
 \end_layout
 
 \begin_layout Standard
@@ -601,9 +628,9 @@ key "key-11"
 
 \end_inset
 
-, a derivation of the Yacc tool, was used to generate a syntax analyzer
- (parser) for the grammar definition of NIF.
- The method of building the AST was implemented by using the facilities
+ was used to generate a syntax analyzer (parser) for the grammar definition
+ of NIF.
+ The method of building the syntax tree was implemented by using the facilities
  provided by the PLY tools.
 \end_layout
 
@@ -612,26 +639,50 @@ Semantic Analysis
 \end_layout
 
 \begin_layout Standard
-Semantic analysis is the process of checking the AST for errors that have
- to do with the meaning of the program.
- [XXX: reference]
+Semantic analysis is the process of checking the syntax tree for errors
+ that have to do with the 
+\shape italic
+meaning
+\shape default
+ of the program 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-14"
+
+\end_inset
+
+.
+ Type checking is a part of the semantic analysis where the translator checks
+ that each operator has valid operands.
+ For example, the variable 
+\family typewriter
+hk
+\family default
+ in card 3, module 
+\family typewriter
+acer
+\family default
+ must be declared as a string and must not exceed 70 characters in length
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+.
+ The translator should report an error if this is violated.
+ Such as when 
+\family typewriter
+hk
+\family default
+ has been declared as an integer, or when the string contains more than
+ 70 characters.
 \end_layout
 
 \begin_layout Standard
-XXX Method for type checking?
-\end_layout
-
-\begin_layout Subsubsection
-Code Generation
-\end_layout
-
-\begin_layout Standard
-A code generator was written in order to map the AST into NJOY input instruction
-s.
-\end_layout
-
-\begin_layout Standard
-XXX
+The semantic analyzer was implemented by hand, using the information retrieved
+ during the analysis of the NJOY input instructions.
 \end_layout
 
 \begin_layout Subsection
@@ -1289,7 +1340,7 @@ Used a parser generator such to detect and report syntax errors.
 \end_layout
 
 \begin_layout Itemize
-Constructed an AST to represent the structure of NIF.
+Constructed an syntax tree to represent the structure of NIF.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1333,7 +1384,7 @@ Code Generation
 \end_layout
 
 \begin_layout Standard
-XXX No intermediate code necessary.
+XXX
 \end_layout
 
 \begin_layout Itemize
@@ -1349,7 +1400,7 @@ target
 \end_layout
 
 \begin_layout Itemize
-Massage the AST into NJOY input instructions.
+Massage the syntax tree into NJOY input instructions.
 \end_layout
 
 \begin_layout Itemize
@@ -1363,7 +1414,7 @@ Control flow statements? E.g.
 \end_layout
 
 \begin_layout Itemize
-Traversed the AST.
+Traversed the syntax tree.
  Constructed NJOY input instructions by visiting the nodes (DFS algorithm).
 \end_layout
 
@@ -1430,7 +1481,7 @@ Translator
 
 \begin_deeper
 \begin_layout Itemize
-Translation process of AST.
+Translation process of syntax tree.
  Flatten the tree structure.
 \end_layout
 
@@ -2041,6 +2092,38 @@ Compilers: Principles, Techniques, & Tools
  4, sec.
  4.1, pp.
  192-196.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-14"
+
+\end_inset
+
+A.
+ V.
+ Aho 
+\shape italic
+et al.
+\shape default
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Introduction
+\begin_inset Quotes erd
+\end_inset
+
+ in 
+\shape italic
+Compilers: Principles, Techniques, & Tools
+\shape default
+, Second Edition.
+ Boston: Pearson Educ., 2007, ch.
+ 1, sec.
+ 1.2, pp.
+ 8-9.
 \end_layout
 
 \end_body
