@@ -410,15 +410,28 @@ which can be expressed in a context-free grammar as the production
 \align center
 
 \family typewriter
-assignment ::= IDENTIFIER ASSIGNMENT r_value
+expression ::= l_value 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+ r_value
 \end_layout
 
 \begin_layout Standard
 where 
 \family typewriter
+l_value
+\family default
+ and 
+\family typewriter
 r_value
 \family default
- is a another production, expressing the structure of the assignable values.
+ are other productions expressing the structure of the left and right hand
+ side, respectively.
 \end_layout
 
 \begin_layout Subsection
