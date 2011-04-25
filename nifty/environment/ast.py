@@ -72,7 +72,7 @@ def make_array(p):
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'array'
     node['name'] = p[1]
-    node['index'] = p[3]
+    node['index'] = eval(p[3])
     return node
 
 def make_float(p):
