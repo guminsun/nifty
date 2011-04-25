@@ -11,12 +11,28 @@ Expected output.
 Organizer
 ---------
 Insert and set default values for identifiers.
+acer
+    iz,aw pairs. Order of pairs. Ouputted correct?
+    Define pairs as:
+        iz[0] = 111;
+        aw[0] = 111;
 
+        iz[1] = 222;
+        aw[1] = 222;
+Sort arrays and variables with multiple values. See e.g. reconr card 5.
 
 Analyzer
 --------
 acer
     iz,aw pairs. Order of pairs. Ouputted correct?
+    Define pairs as:
+        iz[0] = 111;
+        aw[0] = 111;
+
+        iz[1] = 222;
+        aw[1] = 222;
+    Must they be outputted as comma-separated pairs?
+
 heatr
 groupr
 broadr
