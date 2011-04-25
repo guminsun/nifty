@@ -1,22 +1,15 @@
---- organize_acer: XXX not implemented yet: card_2
---- organize_acer: XXX not implemented yet: card_3
---- organize_acer: XXX not implemented yet: card_5
---- organize_acer: XXX not implemented yet: card_6
---- organize_acer: XXX not implemented yet: card_7
---- organize_acer: XXX not implemented yet: card_2
---- organize_acer: XXX not implemented yet: card_3
 --- nifty_organizer: XXX not implemented yet: viewr
 --- nifty_analyzer: XXX not implemented yet: viewr
 acer
 20 21 0 31 32/
-1 0 1/
+1 0 1 0.0 0/
 'proton + 7-n-14 apt la150 njoy99 mcnpx'/
 725 0/
-/
+1 1/
 /
 acer
 0 31 33 34 35/
-7 1 2/
+7 1 2 0.0 0/
 'proton + 7-n-14 apt la150 njoy99 mcnpx'/
 viewr
 33 36/

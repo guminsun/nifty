@@ -4,13 +4,6 @@
 --- nifty_organizer: XXX not implemented yet: heatr
 --- nifty_organizer: XXX not implemented yet: gaspr
 --- nifty_organizer: XXX not implemented yet: moder
---- organize_acer: XXX not implemented yet: card_2
---- organize_acer: XXX not implemented yet: card_3
---- organize_acer: XXX not implemented yet: card_5
---- organize_acer: XXX not implemented yet: card_6
---- organize_acer: XXX not implemented yet: card_7
---- organize_acer: XXX not implemented yet: card_2
---- organize_acer: XXX not implemented yet: card_3
 --- nifty_organizer: XXX not implemented yet: viewr
 --- nifty_analyzer: XXX not implemented yet: moder
 --- nifty_analyzer: XXX not implemented yet: broadr
@@ -54,10 +47,14 @@
     ('integer', 0),
     ('integer', 26),
     ('integer', 27)],
-   [('integer', 1), ('integer', 0), ('integer', 1)],
+   [('integer', 1),
+    ('integer', 0),
+    ('integer', 1),
+    ('float', '0.0'),
+    ('integer', 0)],
    [('string', '28-ni-61a endf-vi.1 njoy99')],
    [('integer', 2834), ('integer', 300)],
-   [],
+   [('integer', 1), ('integer', 1)],
    []]),
  ('acer',
   [[('integer', 0),
@@ -65,7 +62,11 @@
     ('integer', 33),
     ('integer', 34),
     ('integer', 35)],
-   [('integer', 7), ('integer', 1), ('integer', 2)],
+   [('integer', 7),
+    ('integer', 1),
+    ('integer', 2),
+    ('float', '0.0'),
+    ('integer', 0)],
    [('string', '28-ni-61a endf-vi.1 njoy99')]]),
  ('viewr', [[('integer', 33), ('integer', 36)]]),
  ('stop', [])]

@@ -4,13 +4,6 @@
 --- nifty_organizer: XXX not implemented yet: heatr
 --- nifty_organizer: XXX not implemented yet: gaspr
 --- nifty_organizer: XXX not implemented yet: moder
---- organize_acer: XXX not implemented yet: card_2
---- organize_acer: XXX not implemented yet: card_3
---- organize_acer: XXX not implemented yet: card_5
---- organize_acer: XXX not implemented yet: card_6
---- organize_acer: XXX not implemented yet: card_7
---- organize_acer: XXX not implemented yet: card_2
---- organize_acer: XXX not implemented yet: card_3
 --- nifty_organizer: XXX not implemented yet: viewr
 --- nifty_analyzer: XXX not implemented yet: moder
 --- nifty_analyzer: XXX not implemented yet: broadr
@@ -43,14 +36,14 @@ moder
 -25 28/
 acer
 -21 -25 0 26 27/
-1 0 1/
+1 0 1 0.0 0/
 '28-ni-61a endf-vi.1 njoy99'/
 2834 300/
-/
+1 1/
 /
 acer
 0 26 33 34 35/
-7 1 2/
+7 1 2 0.0 0/
 '28-ni-61a endf-vi.1 njoy99'/
 viewr
 33 36/
