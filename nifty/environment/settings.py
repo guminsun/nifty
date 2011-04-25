@@ -27,6 +27,7 @@ identifier_map = {
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
     'nendf' : ['nendf', 'endf_input_tape'],
+    'newfor' : ['newfor'],
     'ndir' : ['ndir'],
     'ngend' : ['ngend'],
     'ngrid' : ['ngrid'],
