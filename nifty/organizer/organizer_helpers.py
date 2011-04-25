@@ -54,6 +54,8 @@ def sort_statement_list(ordered_id_names, card):
         return card
     new_statement_list = list()
     for id_name in ordered_id_names:
+        # XXX: Special case to sort arrays; e.g. variables with multiple
+        # values. Handle multiple variables w/o arrays as well?
         node = env.get_identifier(id_name, card)
         if env.not_defined(node):
             # All identifiers must be defined. Return the original statement
