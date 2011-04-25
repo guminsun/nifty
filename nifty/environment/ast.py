@@ -79,6 +79,8 @@ def make_float(p):
     node = dict()
     node['line_number'] = p.lineno(0)
     node['node_type'] = 'float'
+    # Floats are encapsulated as strings to preserve the float in its original
+    # form. For example, Python would evaluate '3e2' to '300.0'.
     node['value'] = p[1]
     return node
 
