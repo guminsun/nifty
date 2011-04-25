@@ -1526,54 +1526,6 @@ status open
 XXX E.g.
  denote scope, use blocks to group and format statements, declaration of
  identifiers, et cetera.
- It should more or less resemble a high-level programming language.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX E.g.
- denote scope, use blocks to group and format statements, declaration of
- identifiers, et cetera.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Influenced by the C programming language.
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-Why?
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Testing not that rigorous.
- NJOY is a large and complex program, there's a lot of scenarios (e.g.
- input instructions) that hasn't been tested.
-\end_layout
-
-\begin_layout Itemize
-Modules still needs to be given in the correct, sequential order.
- The translator cannot guess the users' intention of the job.
- Needs to be told what to do.
- Just a translator.
 \end_layout
 
 \begin_layout Itemize
@@ -1594,8 +1546,56 @@ XXX Why PLY? See note in Diary
 \end_layout
 
 \begin_layout Itemize
+Influenced by the C programming language.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Why?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 Hard coded words and identifiers.
  Explain why.
+\end_layout
+
+\begin_layout Itemize
+Modules still needs to be given in the correct, sequential order.
+ The translator cannot guess the users' intention of the job.
+ Needs to be told what to do.
+ Just a translator.
+\end_layout
+
+\begin_layout Itemize
+Cards still needs to be given in the correct, sequential order.
+ For example, see NJOY Test Problem 01.
+ The translator cannot guess the order of card 5 in module reconr.
+ The translator needs to be told what to do, after all, it is just a simple
+ translator.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+XXX
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Itemize
+Testing not that rigorous.
+ NJOY is a large and complex program, there's a lot of scenarios (e.g.
+ input instructions) that hasn't been tested.
 \end_layout
 
 \begin_layout Itemize
@@ -1616,6 +1616,11 @@ Why?
 
 \begin_layout Itemize
 Significant findings?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
