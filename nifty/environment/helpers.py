@@ -1,4 +1,5 @@
 import sys
+from copy import deepcopy
 
 # Get the identifier map of valid identifier names. The map is used in the
 # functions 'get_identifier_name' and 'is_valid_name'.
@@ -174,6 +175,12 @@ def get_statement_list(card_node):
     '''
     return card_node['statement_list']
 
+def get_original_statement_list(card_node):
+    '''
+        Return original statement list of 'card_node'.
+    '''
+    return card_node['original_statement_list']
+
 def get_value(r_value):
     '''
         Return value of 'r_value'.
@@ -193,6 +200,11 @@ def set_card_list(card_list, module):
 
 def set_statement_list(statement_list, card):
     card['statement_list'] = statement_list
+    return card
+
+def save_statement_list(statement_list, card):
+    original_statement_list = deepcopy(statement_list)
+    card['original_statement_list'] = original_statement_list
     return card
 
 ##############################################################################
