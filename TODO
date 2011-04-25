@@ -12,12 +12,6 @@ Organizer
 ---------
 Insert and set default values for identifiers.
 
-Insert missing cards. What about the order?
-    - "arrange_cards"? e.g. if mat=0 in card_3, put it last?
-    - Introduce a reserved keyword to terminate a run.
-    - Upon seeing card_4, insert a card_3 with mat = 0.
-See tp01 for order of cards.
-
 
 Analyzer
 --------
@@ -49,7 +43,10 @@ Usage
 
 Executeable binary
 ------------------
+XXX
 
 
 GUI Editor
 ----------
+XXX
+
