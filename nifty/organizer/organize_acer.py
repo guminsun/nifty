@@ -73,11 +73,12 @@ def organize_card_4(card, module):
     if env.not_defined(nxtra_node):
         return card
     nxtra_value = env.get_value(env.get_r_value(nxtra_node))
+    # Construct iz,aw pairs as an ordered list to feed organize_statement_list
     ordered_id_names = list()
     for i in range(nxtra_value):
         ordered_id_names.append(('iz', i))
         ordered_id_names.append(('aw', i))
-    print ordered_id_names
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_5(card, module):
     default_values = [('tempd', None, 300)]
