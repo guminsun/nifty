@@ -15,7 +15,7 @@ from organize_acer import organize_acer
 #from organize_mixr import organize_mixr
 #from organize_moder import organize_moder
 #from organize_plotr import organize_plotr
-#from organize_powr import aorganie_powr
+#from organize_powr import organize_powr
 #from organize_purr import organize_purr
 #from organize_reconr import organize_reconr
 #from organize_resxsr import organize_resxsr
