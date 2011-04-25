@@ -16,6 +16,7 @@ def organize_default_values(default_values, card):
         since this function knows nothing about the order of the identifiers.
     '''
     statement_list = env.get_statement_list(card)
+    card = env.save_statement_list(statement_list, card)
     for id_index_value in default_values:
         id_name = id_index_value[0]
         id_index = id_index_value[1]
@@ -55,6 +56,10 @@ def organize_statement_list(ordered_id_names, card):
     # identifiers, then return the original statement list such that the
     # analyzer can report any semantical errors.
     if len(ordered_id_names) < len(statement_list):
+        if 'original_statement_list' in card:
+            original_statement_list = env.get_original_statement_list(card)
+            card = env.set_statement_list(original_statement_list, card)
+            del card['original_statement_list']
         return card
     new_statement_list = list()
     for name_index_pair in ordered_id_names:
@@ -67,9 +72,16 @@ def organize_statement_list(ordered_id_names, card):
         if env.not_defined(node):
             # All identifiers must be defined. Return the original statement
             # list such that the analyzer can report any semantical errors.
+            if 'original_statement_list' in card:
+                original_statement_list = env.get_original_statement_list(card)
+                card = env.set_statement_list(original_statement_list, card)
+                del card['original_statement_list']
             return card
         else:
             new_statement_list.append(node)
+    # So far so good, remove original statement list to save space.
+    if 'original_statement_list' in card:
+        del card['original_statement_list']
     return env.set_statement_list(new_statement_list, card)
 
 ##############################################################################
