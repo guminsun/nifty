@@ -33,7 +33,6 @@ def organize(ast):
 def organize_program(program):
     module_list = helper.get_module_list(program)
     module_list = organize_module_list(module_list)
-    program = helper.set_module_list(module_list, program)
     return program
 
 def organize_module_list(module_list):
