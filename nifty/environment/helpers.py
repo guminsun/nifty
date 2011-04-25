@@ -7,11 +7,17 @@ from settings import identifier_map
 ##############################################################################
 # Boolean helpers.
 
-def is_assignment(expression_node):
+def is_array(node):
     '''
-        Return True if 'expression_node' is an assignment node, else False.
+        Return True if 'node' is an array node, else False.
     '''
-    return get_node_type(expression_node) == '='
+    return get_node_type(node) == 'array'
+
+def is_assignment(node):
+    '''
+        Return True if 'node' is an assignment node, else False.
+    '''
+    return get_node_type(node) == '='
 
 def is_valid_name(name_to_validate, reserved_id_name):
     '''
@@ -30,6 +36,31 @@ def not_defined(node):
 
 ##############################################################################
 # Getter helpers.
+
+def get_array(reserved_id_name, index, card_node):
+    '''
+        Return array node of 'reserved_id_name' with array index 'index' if 
+        it is defined in "card_node"'s statement list, else None.
+    '''
+    statement_list = get_statement_list(card_node)
+    for expr in statement_list:
+        expr_lval = get_l_value(expr)
+        expr_id_name = get_identifier_name(expr_lval)
+        if (is_assignment(expr) and
+            is_array(expr_lval) and
+            is_valid_name(expr_id_name, reserved_id_name) and
+            (get_array_index(expr_lval) == index)):
+            return expr
+    return None
+
+def get_array_index(node):
+    '''
+        Return array index if 'node' is an array node, else None.
+    '''
+    if is_array(node):
+        return node['index']
+    else:
+        return None
 
 def get_card(card_name, module_node):
     '''
