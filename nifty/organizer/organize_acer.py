@@ -46,14 +46,14 @@ def card_dummy(card):
 
 def organize_card_1(card):
     ordered_id_names = ['nendf', 'npend', 'ngend', 'nace', 'ndir']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_2(card):
     default_values = [('iprint', 1), ('ntype', 1), ('suff', 0.00),
                       ('nxtra', 0)]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['iopt', 'iprint', 'ntype', 'suff', 'nxtra']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_3(card):
     # No need to organize card 3; it only contains one variable which has no
@@ -70,45 +70,45 @@ def organize_card_4(card):
 
 def organize_card_5(card):
     default_values = [('tempd', 300)]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['matd', 'tempd']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_6(card):
     default_values = [('newfor', 1), ('iopp', 1)]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['newfor', 'iopp']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_7(card):
     # XXX: Treat as an array?
     ordered_id_names = ['thin01', 'thin02', 'thin03']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_8(card):
     default_values = [('tempd', 300), ('tname', 'za')]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['matd', 'tempd', 'tname']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_8a(card):
     # XXX: Treat as an array?
     default_values = [('iza02', 0), ('iza03', 0)]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['iza01', 'iza02', 'iza03']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_9(card):
     default_values = [('nmix', 1), ('emax', 1000.0), ('iwt', 1)]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['mti', 'nbint', 'mte', 'ielas', 'nmix', 'emax', 'iwt']
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_10(card):
     default_values = [('tempd', 300)]
-    card = helper.insert_default_values(default_values, card)
+    card = helper.organize_default_values(default_values, card)
     ordered_id_names = ['matd', 'tempd',]
-    return helper.sort_statement_list(ordered_id_names, card)
+    return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_11(card):
     # No need to organize card 11; it only contains one variable which has no

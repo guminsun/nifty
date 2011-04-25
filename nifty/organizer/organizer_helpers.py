@@ -4,7 +4,7 @@ from nifty.environment import helpers as env
 ##############################################################################
 # Organizer helpers.
 
-def insert_default_values(default_values, card):
+def organize_default_values(default_values, card):
     '''
         Return 'card' where the identifiers in default_values (and the
         corresponding values) have been added to the cards statement list if
@@ -25,7 +25,7 @@ def insert_default_values(default_values, card):
             statement_list.append(node)
     return card
 
-def sort_statement_list(ordered_id_names, card):
+def organize_statement_list(ordered_id_names, card):
     '''
         Return 'card' where the identifiers in the cards statement list is
         sorted. The identifiers are sorted according to the order they appear
