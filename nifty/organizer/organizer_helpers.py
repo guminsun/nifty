@@ -16,13 +16,17 @@ def organize_default_values(default_values, card):
         since this function knows nothing about the order of the identifiers.
     '''
     statement_list = env.get_statement_list(card)
-    for id_value_pair in default_values:
-        id_name = id_value_pair[0]
-        id_value = id_value_pair[1]
-        id_node = env.get_identifier(id_name, card)
+    for id_index_value in default_values:
+        id_name = id_index_value[0]
+        id_index = id_index_value[1]
+        id_value = id_index_value[2]
+        if id_index is None:
+            id_node = env.get_identifier(id_name, card)
+        else:
+            id_node = env.get_array(id_name, id_index, card)
         if env.not_defined(id_node):
-            node = make_assignment(id_name, id_value)
-            statement_list.append(node)
+            expr_node = make_assignment(id_name, id_index, id_value)
+            statement_list.append(expr_node)
     return card
 
 def organize_statement_list(ordered_id_names, card):
@@ -53,14 +57,17 @@ def organize_statement_list(ordered_id_names, card):
     if len(ordered_id_names) < len(statement_list):
         return card
     new_statement_list = list()
-    for id_name in ordered_id_names:
-        # XXX: Special case to sort arrays; e.g. variables with multiple
-        # values. Handle multiple variables w/o arrays as well?
-        node = env.get_identifier(id_name, card)
+    for name_index_pair in ordered_id_names:
+        id_name = name_index_pair[0]
+        id_index = name_index_pair[1]
+        if id_index is None:
+            node = env.get_identifier(id_name, card)
+        else:
+            node = env.get_array(id_name, id_index, card)
         if env.not_defined(node):
             # All identifiers must be defined. Return the original statement
             # list such that the analyzer can report any semantical errors.
-            return statement_list
+            return card
         else:
             new_statement_list.append(node)
     return env.set_statement_list(new_statement_list, card)
@@ -68,19 +75,22 @@ def organize_statement_list(ordered_id_names, card):
 ##############################################################################
 # Constructors for assignment nodes.
 
-def make_assignment(id_name, id_value):
+def make_assignment(id_name, id_index, id_value):
     node = dict()
     node['line_number'] = None
     node['node_type'] = '='
-    node['l_value'] = make_l_value(id_name)
+    node['l_value'] = make_l_value(id_name, id_index)
     node['r_value'] = make_r_value(id_value)
     return node
 
-def make_l_value(id_name):
+def make_l_value(id_name, id_index):
     node = dict()
     node['line_number'] = None
-    # XXX: What about arrays?
-    node['node_type'] = 'identifier'
+    if id_index is None:
+        node['node_type'] = 'identifier'
+    else:
+        node['node_type'] = 'array'
+        node['index'] = id_index
     node['name'] = id_name
     return node
 
