@@ -1,0 +1,303 @@
+/*****************************************************************************
+ NJOY Test Problem 08:
+
+    moder
+    20 -21
+    reconr
+    -21 -22
+    'pendf tape for endf/b-vi.1 28-ni-61a'/
+    2834 1 0 /
+    .01/
+    '28-ni-61a from endf/b-vi.1 t124 (hetrick,fu;ornl)'/
+    0/
+    broadr
+    -21 -22 -23
+    2834 1/
+    .01/
+    300/
+    0/
+    heatr
+    -21 -23 -24/
+    2834 6 0 1 0 2/
+    302 303 304 402 443 444
+    moder
+    -24 28
+    groupr
+    -21 -24 0 -22
+    2834 3 3 9 4 1 1 1
+    'ni61a endf/b-vi.1 30x12'/
+    300
+    1e10
+    3/
+    3 251 'mubar'/
+    3 252 'xi'/
+    3 253 'gamma'/
+    3 259 '1/v'/
+    6/
+    16/
+    0/
+    0/
+    acer
+    -21 -24 0 25 26
+    1 1 1/
+    '28-ni-61a from endf-vi.1'/
+    2834 300./
+    0/
+    /
+    stop
+
+Source: http://t2.lanl.gov/codes/njoy99/in08.dat
+
+*****************************************************************************/
+
+moder
+{
+    card_1
+    {
+        nin = 20;
+        nout = -21;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+    }
+
+    card_2
+    {
+        tlabel = "pendf tape for endf/b-vi.1 28-ni-61a";
+    }
+
+    card_3
+    {
+        mat = 2834;
+        ncards = 1;
+        ngrid = 0;
+    }
+
+    card_4
+    {
+        /* Note C-style float compared to the original declaration above. */
+        err = 0.01;
+    }
+
+    card_5
+    {
+        cards = "28-ni-61a from endf/b-vi.1 t124 (hetrick,fu;ornl)";
+    }
+
+    /* Terminate execution of reconr with mat = 0 as usual. */
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -22;
+        nout = -23;
+    }
+
+    card_2
+    {
+        mat1 = 2834;
+        ntemp2 = 1;
+    }
+
+    card_3
+    {
+        errthn = 0.01;
+    }
+
+    card_4
+    {
+        temp2[0] = 300;
+    }
+
+    /* Terminate execution of broadr with mat1 = 0 as usual. */
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+heatr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -23;
+        nout = -24;
+        /* nplot not supplied, defaulted to 0? */
+    }
+
+    card_2
+    {
+        matd = 2834;
+        npk = 6;
+        nqa = 0;
+        ntemp = 1;
+        local = 0;
+        iprint = 2;
+    }
+
+    card_3
+    {
+        mtk[0] = 302;
+        mtk[1] = 303;
+        mtk[2] = 304;
+        mtk[3] = 402;
+        mtk[4] = 443;
+        mtk[5] = 444;
+    }
+}
+
+moder
+{
+    card_1
+    {
+        nin = -24;
+        nout = 28;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -24;
+        ngout1 = 0;
+        ngout2 = -22;
+    }
+
+    card_2
+    {
+        matb = 2834;
+        ign = 3;
+        igg = 3;
+        iwt = 9;
+        lord = 4;
+        ntemp = 1;
+        nsigz = 1;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        title = "ni61a endf/b-vi.1 30x12";
+    }
+
+    card_4
+    {
+        temp = 300;
+    }
+
+    card_5
+    {
+        sigz = 1e10; // No trailing dots. Use C-style floats.
+    }
+
+    card_9
+    {
+        mfd = 3;
+        /* mtd and mtname does not have to be supplied? */
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 251;
+        mtname = "mubar";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 252;
+        mtname = "xi";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 253;
+        mtname = "gamma";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 259;
+        mtname = "1/v";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        /* mtd and mtname does not have to be supplied? */
+    }
+
+    card_9
+    {
+        mfd = 16;
+        /* mtd and mtname does not have to be supplied? */
+    }
+
+    /* Terminate temperature/material with mfd = 0 as usual. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr run with matd = 0 as usual. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+acer
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -24;
+        ngend = 0;
+        nace = 25;
+        ndir = 26;
+    }
+
+    card_2
+    {
+        iopt = 1;
+        iprint = 1;
+        ntype = 1;
+    }
+
+    card_3
+    {
+        hk = "28-ni-61a from endf-vi.1";
+    }
+
+    card_5
+    {
+        matd = 2834;
+        tempd = 300.0;
+    }
+
+    card_6
+    {
+        newfor = 0;
+    }
+
+    card_7 {}
+}
