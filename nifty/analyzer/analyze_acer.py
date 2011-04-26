@@ -178,7 +178,7 @@ def analyze_acer_card_2_nxtra(nxtra_node, card_2, module):
         if nxtra_r_value < 0:
             nxtra_l_value = env.get_l_value(nxtra_node)
             nxtra_id_name = env.get_identifier_name(nxtra_l_value)
-            msg = ('the number of iz,aw pairs to read in is negative in ' + 
+            msg = ('the number of iz,aw pairs to read in is negative in ' +
                    '\'card_2\', module \'acer\': ' +
                    nxtra_id_name + ' = ' + str(nxtra_r_value) +
                    ', expected a non-negative value (default = 0).')
@@ -486,15 +486,15 @@ def analyze_acer_card_9_nbint(nbint_node, card_9, module):
     rule.identifier_must_be_defined(('nbint', None), nbint_node, card_9,
                                     module)
     nbint_r_value = rule.identifier_must_be_int(nbint_node)
-    # nbint defines the number of bins for incoherent scattering, therefore, 
+    # nbint defines the number of bins for incoherent scattering, therefore,
     # a negative value does not make sense:
     if nbint_r_value < 0:
         nbint_l_value = env.get_l_value(nbint_node)
         nbint_id_name = env.get_identifier_name(nbint_l_value)
-        msg = ('the number of bins for incoherent scattering is negative ' + 
+        msg = ('the number of bins for incoherent scattering is negative ' +
                'in \'card_9\', module \'acer\': ' + nbint_id_name + ' = ' +
                str(nbint_r_value) + ', expected a non-negative value.')
-        rule.semantic_error(msg, nbint_node)    
+        rule.semantic_error(msg, nbint_node)
     return nbint_node
 
 def analyze_acer_card_9_mte(mte_node, card_9, module):
@@ -540,14 +540,21 @@ def analyze_acer_card_9_emax(emax_node, card_9, module):
     return emax_node
 
 def analyze_acer_card_9_iwt(iwt_node, card_9, module):
-    # The first iwt value specifies the weighting option, the second iwt value
-    # specifies whether it's variable (0), constant (1) or tabulated (2).
-    # The second value does not have to be defined, defaults to 0 (variable).
+    # The iwt value specifies the weighting option. It's either variable (0),
+    # constant (1) or tabulated (2). Defaults to 0 (variable).
     if env.not_defined(iwt_node):
         return iwt_node
     else:
         rule.identifier_must_be_defined(('iwt', None), iwt_node, card_9,
                                         module)
+        iwt_r_value = rule.identifier_must_be_int(iwt_node)
+        if iwt_r_value not in range(0,3):
+            iwt_l_value = env.get_l_value(iwt_node)
+            iwt_id_name = env.get_identifier_name(iwt_l_value)
+            msg = ('illegal weighting option in \'card_9\', module ' +
+                   '\'acer\': ' + iwt_id_name + ' = ' + str(iwt_r_value) +
+                   ', expected 0, 1 or 2 (default = 0).')
+            rule.semantic_error(msg, iwt_node)
     return iwt_node
 
 def analyze_acer_card_10(card_2, card_10, module):
