@@ -23,6 +23,9 @@ Sort arrays and variables with multiple values. See e.g. dtfr card 4,5.
 
 Analyzer
 --------
+Check each identifier in statement_list in order to determine if it belongs
+there. Check length of statement_list.
+
 acer
     iz,aw pairs. Order of pairs. Ouputted correct?
     Define pairs as:
@@ -45,9 +48,6 @@ plotr
 viewr
 
 rest
-
-Check each identifier in statement_list in order to determine if it belongs
-there. Check length of statement_list.
 
 
 README
