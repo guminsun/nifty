@@ -20,6 +20,18 @@ def is_assignment(node):
     '''
     return get_node_type(node) == '='
 
+def is_even(number):
+    '''
+        Return True if 'number' is even, else False.
+    '''
+    return (not number & 1)
+
+def is_identifier(node):
+    '''
+        Return True if 'node' is an identifier node, else False.
+    '''
+    return get_node_type(node) == 'identifier'
+
 def is_valid_name(name_to_validate, reserved_id_name):
     '''
         Return True if 'name_to_validate' is a valid, possible alternative,
@@ -157,6 +169,15 @@ def get_module_name(module_node):
     '''
     return module_node['module_name']
 
+def next(iterator):
+    '''
+        Return next node in 'iterator' if there is one, else None.
+    '''
+    try:
+        return iterator.next()
+    except StopIteration:
+        return None
+
 def get_node_type(node):
     '''
         Return node type of 'node'.
@@ -168,6 +189,13 @@ def get_r_value(assignment_node):
         Return r-value node of 'assignment_node'.
     '''
     return assignment_node['r_value']
+
+def get_statement_iterator(card_node):
+    '''
+        Return an iterator for 'card_node's statement list.
+    '''
+    statement_list = get_statement_list(card_node)
+    return iter(statement_list)
 
 def get_statement_list(card_node):
     '''
