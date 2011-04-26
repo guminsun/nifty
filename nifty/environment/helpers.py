@@ -52,7 +52,7 @@ def not_defined(node):
 
 def get_array(reserved_id_name, index, card_node):
     '''
-        Return array node of 'reserved_id_name' with array index 'index' if 
+        Return array node of 'reserved_id_name' with array index 'index' if
         it is defined in "card_node"'s statement list, else None.
     '''
     statement_list = get_statement_list(card_node)
@@ -169,20 +169,17 @@ def get_module_name(module_node):
     '''
     return module_node['module_name']
 
-def next(iterator):
-    '''
-        Return next node in 'iterator' if there is one, else None.
-    '''
-    try:
-        return iterator.next()
-    except StopIteration:
-        return None
-
 def get_node_type(node):
     '''
         Return node type of 'node'.
     '''
     return node['node_type']
+
+def get_original_statement_list(card_node):
+    '''
+        Return original statement list of 'card_node'.
+    '''
+    return card_node['original_statement_list']
 
 def get_r_value(assignment_node):
     '''
@@ -190,24 +187,11 @@ def get_r_value(assignment_node):
     '''
     return assignment_node['r_value']
 
-def get_statement_iterator(card_node):
-    '''
-        Return an iterator for 'card_node's statement list.
-    '''
-    statement_list = get_statement_list(card_node)
-    return iter(statement_list)
-
 def get_statement_list(card_node):
     '''
         Return statement list of 'card_node'.
     '''
     return card_node['statement_list']
-
-def get_original_statement_list(card_node):
-    '''
-        Return original statement list of 'card_node'.
-    '''
-    return card_node['original_statement_list']
 
 def get_value(r_value):
     '''
@@ -234,6 +218,25 @@ def save_statement_list(statement_list, card):
     original_statement_list = deepcopy(statement_list)
     card['original_statement_list'] = original_statement_list
     return card
+
+##############################################################################
+# Misc. helpers.
+
+def get_statement_iterator(card_node):
+    '''
+        Return an iterator for 'card_node's statement list.
+    '''
+    statement_list = get_statement_list(card_node)
+    return iter(statement_list)
+
+def next(iterator):
+    '''
+        Return next node in 'iterator' if there is one, else None.
+    '''
+    try:
+        return iterator.next()
+    except StopIteration:
+        return None
 
 ##############################################################################
 # Error handling.
