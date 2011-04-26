@@ -7,6 +7,8 @@ class ProblemTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
+### NJOY Test Problems
+
     def test_tp01_analyzer(self):
         infile = get_test_problem('tp01')
         outfile = infile + analyzer_suffix()
@@ -187,16 +189,57 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
+    def test_yatp01_analyzer(self):
+        infile = get_test_problem('yatp01')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+### Yet Another Test Problem
+
+    def test_yatp01_emitter(self):
+        infile = get_test_problem('yatp01')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_yatp01_lexer(self):
+        infile = get_test_problem('yatp01')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_yatp01_organizer(self):
+        infile = get_test_problem('yatp01')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_yatp01_parser(self):
+        infile = get_test_problem('yatp01')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_yatp01_translator(self):
+        infile = get_test_problem('yatp01')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
 ##############################################################################
 # Helpers.
 
 def get_test_problem(tp):
     test_problems = {
+        # NJOY Test Problems
         'tp01' : 'data/test_problems/tp01.nif',
         'tp03' : 'data/test_problems/tp03.nif',
         'tp05' : 'data/test_problems/tp05.nif',
         'tp13' : 'data/test_problems/tp13.nif',
         'tp14' : 'data/test_problems/tp14.nif',
+        # Yet Another Test Problem
+        'yatp01' : 'data/test_problems/yatp01.nif',
     }
     return test_problems[tp]
 
@@ -247,6 +290,7 @@ def run(infile, outfile, function):
 
 def suite():
     tests = [
+        # NJOY Test Problems
         'test_tp01_analyzer',
         'test_tp01_emitter',
         'test_tp01_lexer',
@@ -277,6 +321,13 @@ def suite():
         'test_tp14_organizer',
         'test_tp14_parser',
         'test_tp14_translator',
+        # Yet Another Test Problem
+        'test_yatp01_analyzer',
+        'test_yatp01_emitter',
+        'test_yatp01_lexer',
+        'test_yatp01_organizer',
+        'test_yatp01_parser',
+        'test_yatp01_translator',
     ]
     return unittest.TestSuite(map(ProblemTestCase, tests))
 
