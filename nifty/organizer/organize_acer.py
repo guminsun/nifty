@@ -93,7 +93,7 @@ def organize_card_6(card, module):
     return helper.organize_statement_list(ordered_id_names, card)
 
 def organize_card_7(card, module):
-    # XXX: Treat as an array?
+    # XXX: Treat as an array? What about default values?
     ordered_id_names = [('thin01', None), ('thin02', None), ('thin03', None)]
     return helper.organize_statement_list(ordered_id_names, card)
 
