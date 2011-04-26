@@ -8,20 +8,12 @@ Tests
 -----
 Expected output.
 
+
 Organizer
 ---------
-Insert and set default values for identifiers.
-acer
-    iz,aw pairs. Order of pairs. Ouputted correct?
-    Define pairs as:
-        iz[0] = 111;
-        aw[0] = 111;
-
-        iz[1] = 222;
-        aw[1] = 222;
-    What about iwt? One or two values? See analyze_acer_card_9_iwt and check the guide.
 
 Sort arrays and variables with multiple values. See e.g. dtfr card 4,5.
+
 
 Analyzer
 --------
@@ -29,9 +21,6 @@ Check each identifier in statement_list in order to determine if it belongs
 there. Check length of statement_list.
 
 acer
-    iz,aw pairs. Order of pairs. Must they be outputted as comma-separated pairs?
-    iwt , two values? see analyze_acer_card_9_iwt, check the guide
-
 heatr
 groupr
 broadr
@@ -44,6 +33,16 @@ plotr
 viewr
 
 rest
+
+
+Translator
+----------
+acer : iz,aw pairs. Must they be outputted as comma-separated pairs?
+
+
+Emitter
+-------
+acer : iz,aw pairs. Must they be outputted as comma-separated pairs?
 
 
 README
@@ -61,4 +60,3 @@ XXX
 GUI Editor
 ----------
 XXX
-
