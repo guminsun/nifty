@@ -1,0 +1,46 @@
+--- nifty_organizer: XXX not implemented yet: moder
+--- nifty_organizer: XXX not implemented yet: reconr
+--- nifty_organizer: XXX not implemented yet: heatr
+--- nifty_organizer: XXX not implemented yet: broadr
+--- nifty_organizer: XXX not implemented yet: groupr
+--- nifty_analyzer: XXX not implemented yet: moder
+--- nifty_analyzer: XXX not implemented yet: reconr
+--- nifty_analyzer: XXX not implemented yet: heatr
+--- nifty_analyzer: XXX not implemented yet: broadr
+--- nifty_analyzer: XXX not implemented yet: groupr
+moder
+20 -21/
+reconr
+-21 -22/
+'PENDF format'/
+8225/
+0.01/
+/
+/
+0/
+heatr
+-21 -22 -23/
+8225/
+broadr
+-21 -23 -24/
+8225 1/
+0.005/
+300/
+0/
+groupr
+-21 -24 0 -25/
+8225 14 0 2 2 1 1/
+'GROUPR output'/
+300/
+1.0e10/
+3 2 'description'/
+0/
+0/
+acer
+-21 -24 -25 26 27/
+1/
+'ACER output'/
+8225 300/
+1 1/
+/
+stop
