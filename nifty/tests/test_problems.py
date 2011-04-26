@@ -117,6 +117,42 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
+    def test_tp10_analyzer(self):
+        infile = get_test_problem('tp10')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp10_emitter(self):
+        infile = get_test_problem('tp10')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_tp10_lexer(self):
+        infile = get_test_problem('tp10')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp10_organizer(self):
+        infile = get_test_problem('tp10')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp10_parser(self):
+        infile = get_test_problem('tp10')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_tp10_translator(self):
+        infile = get_test_problem('tp10')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
     def test_tp13_analyzer(self):
         infile = get_test_problem('tp13')
         outfile = infile + analyzer_suffix()
@@ -189,44 +225,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
-    def test_yatp01_analyzer(self):
-        infile = get_test_problem('yatp01')
-        outfile = infile + analyzer_suffix()
-        return_code = run(infile, outfile, analyzer())
-        self.assertEqual(return_code, 0)
-
-### Yet Another Test Problem
-
-    def test_yatp01_emitter(self):
-        infile = get_test_problem('yatp01')
-        outfile = infile + emitter_suffix()
-        return_code = run(infile, outfile, emitter())
-        self.assertEqual(return_code, 0)
-
-    def test_yatp01_lexer(self):
-        infile = get_test_problem('yatp01')
-        outfile = infile + lexer_suffix()
-        return_code = run(infile, outfile, lexer())
-        self.assertEqual(return_code, 0)
-
-    def test_yatp01_organizer(self):
-        infile = get_test_problem('yatp01')
-        outfile = infile + organizer_suffix()
-        return_code = run(infile, outfile, organizer())
-        self.assertEqual(return_code, 0)
-
-    def test_yatp01_parser(self):
-        infile = get_test_problem('yatp01')
-        outfile = infile + parser_suffix()
-        return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_yatp01_translator(self):
-        infile = get_test_problem('yatp01')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
 ##############################################################################
 # Helpers.
 
@@ -236,10 +234,9 @@ def get_test_problem(tp):
         'tp01' : 'data/test_problems/tp01.nif',
         'tp03' : 'data/test_problems/tp03.nif',
         'tp05' : 'data/test_problems/tp05.nif',
+        'tp10' : 'data/test_problems/tp10.nif',
         'tp13' : 'data/test_problems/tp13.nif',
         'tp14' : 'data/test_problems/tp14.nif',
-        # Yet Another Test Problem
-        'yatp01' : 'data/test_problems/yatp01.nif',
     }
     return test_problems[tp]
 
@@ -309,6 +306,12 @@ def suite():
         'test_tp05_organizer',
         'test_tp05_parser',
         'test_tp05_translator',
+        'test_tp10_analyzer',
+        'test_tp10_emitter',
+        'test_tp10_lexer',
+        'test_tp10_organizer',
+        'test_tp10_parser',
+        'test_tp10_translator',
         'test_tp13_analyzer',
         'test_tp13_emitter',
         'test_tp13_lexer',
@@ -321,13 +324,6 @@ def suite():
         'test_tp14_organizer',
         'test_tp14_parser',
         'test_tp14_translator',
-        # Yet Another Test Problem
-        'test_yatp01_analyzer',
-        'test_yatp01_emitter',
-        'test_yatp01_lexer',
-        'test_yatp01_organizer',
-        'test_yatp01_parser',
-        'test_yatp01_translator',
     ]
     return unittest.TestSuite(map(ProblemTestCase, tests))
 
