@@ -11,28 +11,33 @@ Expected output.
 
 Organizer
 ---------
-
 Sort arrays and variables with multiple values. See e.g. dtfr card 4,5.
 
 
 Analyzer
 --------
-Check each identifier in statement_list in order to determine if it belongs
-there. Check length of statement_list.
+acer:
+    Kind of finished. Needs cleaning.
 
-acer
-heatr
-groupr
-broadr
-reconr
-thermr
-covr
-errorr
+heatr: XXX
 
-plotr
-viewr
+groupr: XXX
 
-rest
+broadr: XXX
+
+reconr: Ugly. Need serious cleaning.
+
+thermr: XXX
+
+covr: XXX
+
+errorr: XXX
+
+plotr: XXX
+
+viewr: XXX
+
+rest: ZZZ
 
 
 Translator
@@ -59,4 +64,4 @@ XXX
 
 GUI Editor
 ----------
-XXX
+ZZZ
