@@ -9,14 +9,26 @@ def organize_default_values(default_values, card):
         Return 'card' where the identifiers in default_values (and the
         corresponding values) have been added to the cards statement list if
         they were not already defined.
+        If the cards statement list is empty then no default values are
+        inserted.
 
         Use this function to set the default values of identifiers in a cards
-        statement list.
+        statement list. 
+        Don't use this function for cards which are used to terminate
+        {temperatures, materials, modules}.
+
         Make sure to sort the cards statement list with 'sort_statement_list'
-        since this function knows nothing about the order of the identifiers.
+        afterwards since this function knows nothing about the order of the
+        identifiers.
     '''
     statement_list = env.get_statement_list(card)
+    # Don't insert default values for empty cards. This will help keep the
+    # output file as uncluttered as possible.
+    if len(statement_list) == 0:
+        return card
+    # Save the original statement list for rollbacks.
     card = env.save_statement_list(statement_list, card)
+    # Insert default values if the identifiers haven't been defined.
     for id_index_value in default_values:
         id_name = id_index_value[0]
         id_index = id_index_value[1]
