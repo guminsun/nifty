@@ -9,7 +9,7 @@
    [('integer', 1), ('integer', 0), ('integer', 1)],
    [('string', 'proton + 7-n-14 apt la150 njoy99 mcnpx')],
    [('integer', 725), ('integer', 0)],
-   [('integer', 1), ('integer', 1)],
+   [],
    []]),
  ('acer',
   [[('integer', 0),

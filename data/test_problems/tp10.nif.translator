@@ -67,7 +67,7 @@
    [('integer', 1)],
    [('string', 'njoy test problem 10')],
    [('integer', 1050), ('float', '300.0')],
-   [('integer', 1), ('integer', 1)],
+   [],
    []]),
  ('moder', [[('integer', -25), ('integer', 28)]]),
  ('stop', [])]
