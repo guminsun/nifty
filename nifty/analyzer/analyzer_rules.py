@@ -1,5 +1,6 @@
 import sys
 
+from nifty.environment.exceptions import semantic_error
 from nifty.environment import helpers as env
 
 ##############################################################################
@@ -187,18 +188,3 @@ def number_of_cards_must_be(number, card_name_1, card_name_2, module):
                ' time(s), expected a 1:1 ratio.')
         semantic_error(msg, module)
     return number
-
-##############################################################################
-# Error handling.
-
-def semantic_error(msg, node):
-    try:
-        line = node['line_number']
-    # Catch nodes which doesn't have the key 'line_number' defined.
-    except KeyError:
-        line = None
-    # Catch None. E.g. in case of undefined identifier.
-    except TypeError:
-        line = None
-    print('--- Semantic error on line %s, %s' % (line, msg))
-    sys.exit('semantic_error')

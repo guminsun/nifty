@@ -1,6 +1,7 @@
 import sys
 from copy import deepcopy
 
+from exceptions import semantic_error
 # Get the identifier map of valid identifier names. The map is used in the
 # functions 'get_identifier_name' and 'is_valid_name'.
 from settings import identifier_map
@@ -237,18 +238,3 @@ def next(iterator):
         return iterator.next()
     except StopIteration:
         return None
-
-##############################################################################
-# Error handling.
-
-def semantic_error(msg, node):
-    try:
-        line = node['line_number']
-    # Catch nodes which doesn't have the key 'line_number' defined.
-    except KeyError:
-        line = None
-    # Catch None. E.g. in case of undefined identifier.
-    except TypeError:
-        line = None
-    print('--- Semantic error on line %s, %s' % (line, msg))
-    sys.exit('semantic_error')

@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os, sys
+from optparse import OptionParser
 from pprint import pprint
 
 parser_dir = os.path.dirname(__file__)       # bin/parser
@@ -10,15 +11,33 @@ nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
 if os.path.isdir(nifty_dir):
     sys.path.insert(0, nifty_top)
 
+from nifty.environment.exceptions import SyntaxError
 from nifty.parser.nifty_parser import parse
 
 def main():
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        ast = parse(open(filename).read())
+    usage = '%prog [input_file] [output_file]'
+    arg_parser = OptionParser(usage)
+    (options, args) = arg_parser.parse_args()
+
+    if len(args) == 0:
+        input_file = sys.stdin
+        output_file = sys.stdout
+    elif len(args) == 1:
+        input_file = open(args[0])
+        output_file = sys.stdout
+    elif len(args) == 2:
+        input_file = open(args[0])
+        output_file = open(args[1], 'w')
     else:
-        ast = parse(sys.stdin.read())
-    pprint(ast)
+        arg_parser.error('incorrect number of arguments')
+    
+    ast = ''
+    try:
+        ast = parse(input_file.read())
+    except SyntaxError, syntax_error:
+        output_file.write(eval(str(syntax_error)) + '\n')
+        sys.exit('syntax_error')
+    pprint(ast, output_file)
 
 if __name__ == '__main__':
     main()
