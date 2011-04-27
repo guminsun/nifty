@@ -331,6 +331,42 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
+    def test_tp17_analyzer(self):
+        infile = get_test_problem('tp17')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp17_emitter(self):
+        infile = get_test_problem('tp17')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_tp17_lexer(self):
+        infile = get_test_problem('tp17')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp17_organizer(self):
+        infile = get_test_problem('tp17')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp17_parser(self):
+        infile = get_test_problem('tp17')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_tp17_translator(self):
+        infile = get_test_problem('tp17')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
 ##############################################################################
 # Helpers.
 
@@ -345,6 +381,7 @@ def get_test_problem(tp):
         'tp10' : 'data/test_problems/tp10.nif',
         'tp13' : 'data/test_problems/tp13.nif',
         'tp14' : 'data/test_problems/tp14.nif',
+        'tp17' : 'data/test_problems/tp17.nif',
     }
     return test_problems[tp]
 
@@ -449,6 +486,12 @@ def suite():
         'test_tp14_organizer',
         'test_tp14_parser',
         'test_tp14_translator',
+        'test_tp17_analyzer',
+        'test_tp17_emitter',
+        'test_tp17_lexer',
+        'test_tp17_organizer',
+        'test_tp17_parser',
+        'test_tp17_translator',
     ]
     return unittest.TestSuite(map(ProblemTestCase, tests))
 
