@@ -1,0 +1,583 @@
+/*****************************************************************************
+ NJOY Test Problem 17:
+
+    reconr
+    21 41 /
+    'processing jendl-3.3 238u.'
+    9237 0 0 /
+    0.001 /
+    0 /
+    broadr
+    21 41 31 /
+    9237 1 0 0 0 /
+    0.001 /
+    300. /
+    0 /
+    reconr
+    22 42 /
+    'processing jendl-3.3 235u.'
+    9228 0 0 /
+    0.001 /
+    0 /
+    broadr
+    22 42 32 /
+    9228 1 0 0 0 /
+    0.001 /
+    300. /
+    0 /
+    reconr
+    23 43 /
+    'processing jendl-3.3 239pu.'
+    9437 0 0 /
+    0.001 /
+    0 /
+    broadr
+    23 43 33 /
+    9437 1 0 0 0 /
+    0.001 /
+    300. /
+    0 /
+    groupr
+    21 31 0 91 /
+    9237 3 0 6 1 1 1 0 /
+    'u-238' /
+    300. /
+    1.0e10 /
+    3 /
+    3 251 'mubar' /
+    3 252 'xi' /
+    3 452 'nu' /
+    3 455 'nu' /
+    3 456 'nu' /
+    5 18  'xi' /
+    0 /
+    0 /
+    groupr
+    22 32 0 92 /
+    9228 3 0 6 1 1 1 0 /
+    'u-235' /
+    300. /
+    1.0e10 /
+    3 /
+    0 /
+    0 /
+    groupr
+    23 33 0 93 /
+    9437 3 0 6 1 1 1 0 /
+    'pu-239' /
+    300. /
+    1.0e10 /
+    3 /
+    0 /
+    0 /
+    moder
+    2 99 /
+    'merge u235, u-238 and pu-239' /
+    92  9228 /
+    91  9237 /
+    93  9437 /
+    0 /
+    errorr
+    21 0 99 26 0 0 /
+    9237 3 6 1 /
+    2 33 1 1 -1 /
+    9228 18 /
+    9437 18 /
+    0 /
+    stop
+
+Source: http://t2.lanl.gov/codes/njoy99/in17.dat
+
+*****************************************************************************/
+
+reconr
+{
+    card_1
+    {
+        nendf = 21; 
+        npend = 41;
+    }
+
+    card_2
+    {
+        tlabel = "processing jendl-3.3 238u.";
+    }
+
+    card_3
+    {
+        mat = 9237;
+        ncards = 0;
+        ngrid = 0;
+    }
+
+    card_4
+    {
+        err = 0.001;
+    }
+
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = 21;
+        nin = 41;
+        nout = 31;
+    }
+
+    card_2
+    {
+        mat1 = 9237;
+        ntemp2 = 1;
+        istart = 0;
+        istrap = 0;
+        temp1 = 0;
+    }
+
+    card_3
+    {
+        errthn = 0.001;
+    }
+
+    card_4
+    {
+        temp2[0] = 300.0;
+    }
+
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = 22; 
+        npend = 42;
+    }
+
+    card_2
+    {
+        tlabel = "processing jendl-3.3 235u.";
+    }
+
+    card_3
+    {
+        mat = 9228;
+        ncards = 0;
+        ngrid = 0;
+    }
+
+    card_4
+    {
+        err = 0.001;
+    }
+
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = 22;
+        nin = 42;
+        nout = 32;
+    }
+
+    card_2
+    {
+        mat1 = 9228;
+        ntemp2 = 1;
+        istart = 0;
+        istrap = 0;
+        temp1 = 0;
+    }
+
+    card_3
+    {
+        errthn = 0.001;
+    }
+
+    card_4
+    {
+        temp2[0] = 300.0;
+    }
+
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = 23; 
+        npend = 43;
+    }
+
+    card_2
+    {
+        tlabel = "processing jendl-3.3 239pu.";
+    }
+
+    card_3
+    {
+        mat = 9437;
+        ncards = 0;
+        ngrid = 0;
+    }
+
+    card_4
+    {
+        err = 0.001;
+    }
+
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = 23;
+        nin = 43;
+        nout = 33;
+    }
+
+    card_2
+    {
+        mat1 = 9437;
+        ntemp2 = 1;
+        istart = 0;
+        istrap = 0;
+        temp1 = 0;
+    }
+
+    card_3
+    {
+        errthn = 0.001;
+    }
+
+    card_4
+    {
+        temp2[0] = 300.0;
+    }
+
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = 21;
+        npend = 31;
+        ngout1 = 0;
+        ngout2 = 91;
+    }
+
+    card_2
+    {
+        matb = 9237;
+        ign = 3;
+        igg = 0;
+        iwt = 6;
+        lord = 1;
+        ntemp = 1;
+        nsigz = 1;
+        iprint = 0;
+    }
+
+    card_3
+    {
+        title = "u-238";
+    }
+
+    card_4
+    {
+        temp = 300.0;
+    }
+
+    card_5
+    {
+        sigz = 1.0e10; // No trailing dots. Use C-style floats.
+    }
+
+    card_9
+    {
+        mfd = 3;
+        /* mtd and mtname does not have to be supplied? */
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 251;
+        mtname = "mubar";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 252;
+        mtname = "xi";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 452;
+        mtname = "nu";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 455;
+        mtname = "nu";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 456;
+        mtname = "nu";
+    }
+
+    card_9
+    {
+        mfd = 5;
+        mtd = 18;
+        mtname = "xi";
+    }
+
+    /* Terminate temperature/material with mfd = 0 as usual. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr run with matd = 0 as usual. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = 22;
+        npend = 32;
+        ngout1 = 0;
+        ngout2 = 92;
+    }
+
+    card_2
+    {
+        matb = 9228;
+        ign = 3;
+        igg = 0;
+        iwt = 6;
+        lord = 1;
+        ntemp = 1;
+        nsigz = 1;
+        iprint = 0;
+    }
+
+    card_3
+    {
+        title = "u-235";
+    }
+
+    card_4
+    {
+        temp = 300.0;
+    }
+
+    card_5
+    {
+        sigz = 1.0e10; // No trailing dots. Use C-style floats.
+    }
+
+    card_9
+    {
+        mfd = 3;
+        /* mtd and mtname does not have to be supplied? */
+    }
+
+    /* Terminate temperature/material with mfd = 0 as usual. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr run with matd = 0 as usual. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = 23;
+        npend = 33;
+        ngout1 = 0;
+        ngout2 = 93;
+    }
+
+    card_2
+    {
+        matb = 9437;
+        ign = 3;
+        igg = 0;
+        iwt = 6;
+        lord = 1;
+        ntemp = 1;
+        nsigz = 1;
+        iprint = 0;
+    }
+
+    card_3
+    {
+        title = "pu-239";
+    }
+
+    card_4
+    {
+        temp = 300.0;
+    }
+
+    card_5
+    {
+        sigz = 1.0e10; // No trailing dots. Use C-style floats.
+    }
+
+    card_9
+    {
+        mfd = 3;
+        /* mtd and mtname does not have to be supplied? */
+    }
+
+    /* Terminate temperature/material with mfd = 0 as usual. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr run with matd = 0 as usual. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+moder
+{
+    card_1
+    {
+        nin = 2;
+        nout = 99;
+    }
+
+    card_2
+    {
+        tpid = "merge u235, u-238 and pu-239";
+    }
+
+    card_3
+    {
+        nin = 92;
+        matd = 9228;
+    }
+
+    card_3
+    {
+        nin = 91;
+        matd = 9237;
+    }
+
+    card_3
+    {
+        nin = 93;
+        matd = 9437;
+    }
+
+    /* Terminate moder by setting nin = 0. */
+    card_3
+    {
+        nin = 0;
+    }
+}
+
+errorr
+{
+    card_1
+    {
+        nendf = 21;
+        npend = 0;
+        ngout = 99;
+        nout = 26;
+        nout = 0;
+        nin = 0;
+    }
+
+    card_2
+    {
+        matd = 9237;
+        ign = 3;
+        iwt = 6;
+        iprint = 1;
+    }
+
+    /* Test problem 17 is using a file of the endf-5 format (iverf = 5) */
+
+    card_7
+    {
+        iread = 2;
+        mfcov = 33;
+        irespr = 1;
+        legord = 1;
+        ifissp = -1;
+    }
+
+    card_10
+    {
+        mat1 = 9228;
+        mt1 = 18;
+    }
+
+    card_10
+    {
+        mat1 = 9437;
+        mt1 = 18;
+    }
+
+    card_10
+    {
+        mat1 = 0;
+    }
+}
