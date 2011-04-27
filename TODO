@@ -1,6 +1,9 @@
 Report
 ------
 Abstract
+Pretty picture of the phases:
+    lexer -> parser -> organizer -> analyzer -> translator -> emitter
+
 ...
 
 
@@ -12,6 +15,30 @@ Expected output.
 Organizer
 ---------
 Sort arrays and variables with multiple values. See e.g. dtfr card 4,5.
+
+acer:
+    Kind of finished. Needs cleaning?
+
+heatr: XXX
+
+groupr: XXX
+
+broadr: XXX
+
+reconr: XXX
+
+thermr: XXX
+
+covr: XXX
+
+errorr: XXX
+
+plotr: XXX
+
+viewr: XXX
+
+rest: ZZZ
+
 
 
 Analyzer
@@ -48,6 +75,13 @@ acer : iz,aw pairs. Must they be outputted as comma-separated pairs?
 Emitter
 -------
 acer : iz,aw pairs. Must they be outputted as comma-separated pairs?
+
+
+In General
+----------
+Tidy up. Clean up and generalize.
+Setup good structure for the project such that it is easy to complete.
+Documentation.
 
 
 README
