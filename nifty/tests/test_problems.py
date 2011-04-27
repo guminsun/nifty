@@ -7,8 +7,6 @@ class ProblemTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
-### NJOY Test Problems
-
     def test_tp01_analyzer(self):
         infile = get_test_problem('tp01')
         outfile = infile + analyzer_suffix()
@@ -77,6 +75,42 @@ class ProblemTestCase(unittest.TestCase):
 
     def test_tp03_translator(self):
         infile = get_test_problem('tp03')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
+    def test_tp04_analyzer(self):
+        infile = get_test_problem('tp04')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp04_emitter(self):
+        infile = get_test_problem('tp04')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_tp04_lexer(self):
+        infile = get_test_problem('tp04')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp04_organizer(self):
+        infile = get_test_problem('tp04')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp04_parser(self):
+        infile = get_test_problem('tp04')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_tp04_translator(self):
+        infile = get_test_problem('tp04')
         outfile = infile + translator_suffix()
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
@@ -302,9 +336,9 @@ class ProblemTestCase(unittest.TestCase):
 
 def get_test_problem(tp):
     test_problems = {
-        # NJOY Test Problems
         'tp01' : 'data/test_problems/tp01.nif',
         'tp03' : 'data/test_problems/tp03.nif',
+        'tp04' : 'data/test_problems/tp04.nif',
         'tp05' : 'data/test_problems/tp05.nif',
         'tp07' : 'data/test_problems/tp07.nif',
         'tp08' : 'data/test_problems/tp08.nif',
@@ -361,7 +395,6 @@ def run(infile, outfile, function):
 
 def suite():
     tests = [
-        # NJOY Test Problems
         'test_tp01_analyzer',
         'test_tp01_emitter',
         'test_tp01_lexer',
@@ -374,6 +407,12 @@ def suite():
         'test_tp03_organizer',
         'test_tp03_parser',
         'test_tp03_translator',
+        'test_tp04_analyzer',
+        'test_tp04_emitter',
+        'test_tp04_lexer',
+        'test_tp04_organizer',
+        'test_tp04_parser',
+        'test_tp04_translator',
         'test_tp05_analyzer',
         'test_tp05_emitter',
         'test_tp05_lexer',
