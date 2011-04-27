@@ -112,13 +112,6 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    #if p is not None:
-    #    print p
-    #    msg = ('--- Syntax error on line %d, unexpected token: \'%s\''
-    #           % (p.lineno, p.value))
-    #else:
-    #    msg = ('--- Syntax error, unexpected token: \'%s\'' % (p))
-    #raise SyntaxError(msg)
     syntax_error(p)
 
 ##############################################################################
