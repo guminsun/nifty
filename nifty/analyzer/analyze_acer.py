@@ -57,25 +57,13 @@ def analyze_acer_card_list(module):
 
 def analyze_acer_card_1(card_1, module):
     stmt_iter = env.get_statement_iterator(card_1)
-    analyze_acer_card_1_nendf(env.next(stmt_iter), card_1, module)
-    analyze_acer_card_1_npend(env.next(stmt_iter), card_1, module)
+    rule.analyze_identifier_nendf(env.next(stmt_iter), card_1, module)
+    rule.analyze_identifier_npend(env.next(stmt_iter), card_1, module)
     analyze_acer_card_1_ngend(env.next(stmt_iter), card_1, module)
     analyze_acer_card_1_nace(env.next(stmt_iter), card_1, module)
     analyze_acer_card_1_ndir(env.next(stmt_iter), card_1, module)
     rule.no_more_statement_allowed(env.next(stmt_iter), card_1, module)
     return card_1
-
-def analyze_acer_card_1_nendf(node, card_1, module):
-    rule.identifier_must_be_defined(('nendf', None), node, card_1, module)
-    rule.identifier_must_be_int(node)
-    rule.identifier_must_be_unit_number(node)
-    return node
-
-def analyze_acer_card_1_npend(node, card_1, module):
-    rule.identifier_must_be_defined(('npend', None), node, card_1, module)
-    rule.identifier_must_be_int(node)
-    rule.identifier_must_be_unit_number(node)
-    return node
 
 def analyze_acer_card_1_ngend(node, card_1, module):
     rule.identifier_must_be_defined(('ngend', None), node, card_1, module)

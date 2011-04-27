@@ -15,7 +15,7 @@ from analyze_acer import analyze_acer
 #from analyze_plotr import analyze_plotr
 #from analyze_powr import analyze_powr
 #from analyze_purr import analyze_purr
-#from analyze_reconr import analyze_reconr
+from analyze_reconr import analyze_reconr
 #from analyze_resxsr import analyze_resxsr
 #from analyze_thermr import analyze_thermr
 #from analyze_unresr import analyze_unresr
@@ -59,7 +59,7 @@ def analyze_module(module):
         #'plotr' : analyze_plotr,
         #'powr' : analyze_powr,
         #'purr' : analyze_purr,
-        #'reconr' : analyze_reconr,
+        'reconr' : analyze_reconr,
         #'resxsr' : analyze_resxsr,
         #'thermr' : analyze_thermr,
         #'unresr' : analyze_unresr,

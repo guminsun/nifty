@@ -4,6 +4,21 @@ from nifty.environment.exceptions import semantic_error
 from nifty.environment import helpers as env
 
 ##############################################################################
+# Common identifiers are analyzed exactly the same.
+
+def analyze_identifier_nendf(node, card, module):
+    identifier_must_be_defined(('nendf', None), node, card, module)
+    identifier_must_be_int(node)
+    identifier_must_be_unit_number(node)
+    return node
+
+def analyze_identifier_npend(node, card, module):
+    identifier_must_be_defined(('npend', None), node, card, module)
+    identifier_must_be_int(node)
+    identifier_must_be_unit_number(node)
+    return node
+
+##############################################################################
 # Semantic rules.
 
 def card_must_be_defined(card_name, module_node, msg):
