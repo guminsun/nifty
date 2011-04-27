@@ -1,0 +1,41 @@
+--- nifty_organizer: XXX not implemented yet: moder
+--- nifty_organizer: XXX not implemented yet: reconr
+--- nifty_organizer: XXX not implemented yet: errorr
+--- nifty_organizer: XXX not implemented yet: groupr
+--- nifty_organizer: XXX not implemented yet: errorr
+--- nifty_analyzer: XXX not implemented yet: moder
+--- nifty_analyzer: XXX not implemented yet: reconr
+--- nifty_analyzer: XXX not implemented yet: errorr
+--- nifty_analyzer: XXX not implemented yet: groupr
+--- nifty_analyzer: XXX not implemented yet: errorr
+moder
+20 -21/
+reconr
+-21 -22/
+'u-235 10% pendf for errorr test problem from t511'/
+1395/
+0.10/
+0/
+errorr
+-21 -22 0 23 0/
+1395 19 3 1 1/
+0 0/
+0 33/
+1/
+1.0e0 1.0e3/
+groupr
+-21 -22 0 24/
+1395 3 0 3 0 1 1 1/
+'u-235 multigroup nubar calculation'/
+0.0/
+1.0e10/
+3 452 'total nubar'/
+0/
+0/
+errorr
+-21 0 24 25 23/
+1395 1 2 1 1/
+0 31/
+7/
+1.0e0 1.0e1 1.0e2 1.0e3 1.0e4 1.0e5 1.0e6 1.0e7/
+stop
