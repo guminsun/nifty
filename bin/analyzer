@@ -11,7 +11,10 @@ nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
 if os.path.isdir(nifty_dir):
     sys.path.insert(0, nifty_top)
 
-from nifty.environment.exceptions import SemanticError, SyntaxError
+from nifty.environment.exceptions import LexicalError
+from nifty.environment.exceptions import SemanticError
+from nifty.environment.exceptions import SyntaxError
+
 from nifty.analyzer.nifty_analyzer import analyze
 from nifty.organizer.nifty_organizer import organize
 from nifty.parser.nifty_parser import parse
@@ -29,23 +32,26 @@ def main():
     (options, args) = arg_parser.parse_args()
 
     if len(args) == 0:
-        input_file = sys.stdin
-        output_file = sys.stdout
+        input_stream = sys.stdin
+        output_stream = sys.stdout
     elif len(args) == 1:
-        input_file = open(args[0])
-        output_file = sys.stdout
+        input_stream = open(args[0])
+        output_stream = sys.stdout
     elif len(args) == 2:
-        input_file = open(args[0])
-        output_file = open(args[1], 'w')
+        input_stream = open(args[0])
+        output_stream = open(args[1], 'w')
     else:
         arg_parser.error('incorrect number of arguments')
 
     ast = ''
 
     try:
-        ast = parse(input_file.read())
+        ast = parse(input_stream.read())
+    except LexicalError, lexical_error:
+        output_stream.write(eval(str(lexical_error)) + '\n')
+        sys.exit('lexical_error')
     except SyntaxError, syntax_error:
-        output_file.write(eval(str(syntax_error)) + '\n')
+        output_stream.write(eval(str(syntax_error)) + '\n')
         sys.exit('syntax_error')
 
     # XXX: Catch organizer errors?
@@ -55,10 +61,10 @@ def main():
     try:
         ast = analyze(ast)
     except SemanticError, semantic_error:
-        output_file.write(eval(str(semantic_error)) + '\n')
+        output_stream.write(eval(str(semantic_error)) + '\n')
         sys.exit('semantic_error')
 
-    pprint(ast, output_file)
+    pprint(ast, output_stream)
 
 if __name__ == '__main__':
     main()

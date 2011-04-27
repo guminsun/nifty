@@ -23,17 +23,13 @@ def lexical_error(token):
            % (token.lineno, token.value[0]))
     raise LexicalError(msg)
 
-class SemanticError(Exception):
+class SemanticError(NiftyError):
     '''Exception raised for semantical errors.
 
     Attributes:
         msg -- explanation of the error
     '''
-    def __init__(self, msg):
-        self.msg = msg
-
-    def __str__(self):
-        return repr(self.msg)
+    pass
 
 def semantic_error(msg, node):
     try:
@@ -47,14 +43,18 @@ def semantic_error(msg, node):
     msg = ('--- Semantic error on line %s, %s' % (line, msg))
     raise SemanticError(msg)
 
-class SyntaxError(Exception):
+class SyntaxError(NiftyError):
     '''Exception raised for syntax errors.
 
     Attributes:
         msg -- explanation of the error
     '''
-    def __init__(self, msg):
-        self.msg = msg
-    
-    def __str__(self):
-        return repr(self.msg)
+    pass
+
+def syntax_error(token):
+    if token is not None:
+        msg = ('--- Syntax error on line %d, unexpected token: \'%s\''
+               % (token.lineno, token.value))
+    else:
+        msg = ('--- Syntax error, unexpected token: \'%s\'' % (token))
+    raise SyntaxError(msg)

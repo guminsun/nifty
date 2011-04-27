@@ -5,7 +5,7 @@ from ply import lex
 from ply import yacc
 
 from nifty.environment import ast
-from nifty.environment.exceptions import SyntaxError
+from nifty.environment.exceptions import syntax_error
 
 from nifty.lexer import nifty_lexer
 # Get the token map from the nifty lexer. Required by PLY Yacc.
@@ -112,12 +112,14 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    if p is not None:
-        msg = ('--- Syntax error on line %d, unexpected token: \'%s\''
-               % (p.lineno, p.value))
-    else:
-        msg = ('--- Syntax error, unexpected token: \'%s\'' % (p))
-    raise SyntaxError(msg)
+    #if p is not None:
+    #    print p
+    #    msg = ('--- Syntax error on line %d, unexpected token: \'%s\''
+    #           % (p.lineno, p.value))
+    #else:
+    #    msg = ('--- Syntax error, unexpected token: \'%s\'' % (p))
+    #raise SyntaxError(msg)
+    syntax_error(p)
 
 ##############################################################################
 # Driver.
