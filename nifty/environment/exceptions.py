@@ -1,3 +1,28 @@
+class NiftyError(Exception):
+    '''Exception raised for nifty errors.
+
+    Attributes:
+        msg -- explanation of the error
+    '''
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return repr(self.msg)
+
+class LexicalError(NiftyError):
+    '''Exception raised for lexical errors.
+
+    Attributes:
+        msg -- explanation of the error
+    '''
+    pass
+
+def lexical_error(token):
+    msg = ('--- Lexical error on line %d, illegal character \'%s\''
+           % (token.lineno, token.value[0]))
+    raise LexicalError(msg)
+
 class SemanticError(Exception):
     '''Exception raised for semantical errors.
 

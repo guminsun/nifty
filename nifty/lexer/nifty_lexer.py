@@ -1,5 +1,7 @@
 import sys
 
+from nifty.environment.exceptions import lexical_error
+
 ##############################################################################
 # Tokens.
 
@@ -126,6 +128,4 @@ def t_comment(t):
 
 # Error handling.
 def t_error(t):
-    print('--- Lexical error on line %d, illegal character \'%s\''
-          % (t.lineno, t.value[0]))
-    sys.exit('lexical_error')
+    lexical_error(t)

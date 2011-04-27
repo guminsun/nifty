@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os, sys
+from optparse import OptionParser
 from pprint import pprint
 
 lexer_dir = os.path.dirname(__file__)        # bin/lexer
@@ -10,6 +11,7 @@ nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
 if os.path.isdir(nifty_dir):
     sys.path.insert(0, nifty_top)
 
+from nifty.environment.exceptions import LexicalError
 from nifty.lexer import nifty_lexer
 from ply import lex
 
@@ -31,14 +33,40 @@ def file2tokens(filename, lexer):
         token_list.append(t)
     return token_list
 
+def stream2tokens(stream, lexer):
+    lexer.input(stream.read())
+    token_list = []
+    while True:
+        t = lex.token()
+        if not t: break
+        token_list.append(t)
+    return token_list
+
 def main():
-    lexer = lex.lex(module=nifty_lexer)
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        tokens = file2tokens(filename, lexer)
+    usage = '%prog [input_file] [output_file]'
+    arg_parser = OptionParser(usage)
+    (options, args) = arg_parser.parse_args()
+
+    if len(args) == 0:
+        input_stream = sys.stdin
+        output_stream = sys.stdout
+    elif len(args) == 1:
+        input_stream = open(args[0])
+        output_stream = sys.stdout
+    elif len(args) == 2:
+        input_stream = open(args[0])
+        output_stream = open(args[1], 'w')
     else:
-        tokens = stdin2tokens(lexer)
-    pprint(tokens)
+        arg_parser.error('incorrect number of arguments')
+
+    lexer = lex.lex(module=nifty_lexer)
+    tokens = ''
+    try:
+        tokens = stream2tokens(input_stream, lexer)
+    except LexicalError, lexical_error:
+        output_stream.write(eval(str(lexical_error)) + '\n')
+        sys.exit('lexical_error')
+    pprint(tokens, output_stream)
 
 if __name__ == '__main__':
     main()
