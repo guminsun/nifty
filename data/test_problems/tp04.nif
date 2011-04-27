@@ -1,0 +1,227 @@
+/*****************************************************************************
+ NJOY Test Problem 04:
+
+    moder
+    20 -21
+    reconr
+    -21 -22
+    'u-235 10% pendf for errorr test problem from t511'/
+    1395/
+    .10/
+    0/
+    errorr
+    -21 -22 0 23 0/
+    1395 19 3 1 1
+    0 0
+    0 33/
+    1
+    1.e0 1.e3
+    groupr
+    -21 -22 0 24
+    1395 3 0 3 0 1 1 1
+    'u-235 multigroup nubar calculation'/
+    0.
+    1.e10
+    3 452 'total nubar'/
+    0/
+    0/
+    errorr
+    -21 0 24 25 23/
+    1395 1 2 1 1
+    0 31/
+    7
+    1.e0 1.e1 1.e2 1.e3 1.e4 1.e5 1.e6 1.e7
+    stop
+
+Source: http://t2.lanl.gov/codes/njoy99/in04.dat
+
+*****************************************************************************/
+
+moder
+{
+    card_1
+    {
+        nin = 20;
+        nout = -21;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+    }
+
+    card_2
+    {
+        tlabel =  "u-235 10% pendf for errorr test problem from t511";
+    }
+
+    card_3
+    {
+        mat = 1395;
+    }
+
+    card_4
+    {
+        err = 0.10; // Use C-style floats.
+    }
+
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+errorr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+        ngout = 0;
+        nout = 23;
+        nin = 0;
+    }
+
+    card_2
+    {
+        matd = 1395;
+        ign = 19;
+        iwt = 3;
+        iprint = 1;
+        irelco = 1;
+    }
+
+    card_3
+    {
+        mprint = 0;
+        tempin = 0;
+    }
+
+    /* Test problem 04 is using a file of the endf-5 format (iverf = 5) */
+
+    card_7
+    {
+        iread = 0;
+        mfcov = 33;
+    }
+
+    card_12a
+    {
+        ngn = 1;
+    }
+
+    card_12b
+    {
+        egn[0] = 1.0e0;
+        egn[1] = 1.0e3;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+        ngout1 = 0;
+        ngout2 = 24;
+    }
+
+    card_2
+    {
+        matb = 1395;
+        ign = 3;
+        igg = 0;
+        iwt = 3;
+        lord = 0;
+        ntemp = 1;
+        nsigz = 1;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        title = "u-235 multigroup nubar calculation";
+    }
+
+    card_4
+    {
+        temp[0] = 0.0;
+    }
+
+    card_5
+    {
+        sigz[0] = 1.0e10;
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 452;
+        mtname = "total nubar";
+    }
+
+    /* Terminate temperature/material with mfd = 0 as usual. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr run with matd = 0 as usual. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+errorr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = 0;
+        ngout = 24;
+        nout = 25;
+        nin = 23;
+    }
+
+    card_2
+    {
+        matd = 1395;
+        ign = 1;
+        iwt = 2;
+        iprint = 1;
+        irelco = 1;
+    }
+
+    /* Card 3 omitted since ngout != 0. */
+
+    /* Test problem 04 is using a file of the endf-5 format (iverf = 5) */
+
+    card_7
+    {
+        iread = 0;
+        mfcov = 31;
+    }
+
+    card_12a
+    {
+        ngn = 7;
+    }
+
+    card_12b
+    {
+        egn[0] = 1.0e0;
+        egn[1] = 1.0e1;
+        egn[2] = 1.0e2;
+        egn[3] = 1.0e3;
+        egn[4] = 1.0e4;
+        egn[5] = 1.0e5;
+        egn[6] = 1.0e6;
+        egn[7] = 1.0e7;
+    }
+}
