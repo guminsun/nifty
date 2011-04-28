@@ -45,8 +45,8 @@ def analyze_acer_card_list(module):
 def analyze_acer_card_1(card_1, module):
     # Card 1 must be defined.
     rule.card_must_be_defined('card_1', card_1, module, None)
-    # Check the order of the identifiers by iterating over the statement
-    # list.
+    # Use a statement iterator to check whether the identifiers have been
+    # defined in the expected order.
     stmt_iter = env.get_statement_iterator(card_1)
     rule.analyze_identifier_nendf(env.next(stmt_iter), card_1, module)
     rule.analyze_identifier_npend(env.next(stmt_iter), card_1, module)
