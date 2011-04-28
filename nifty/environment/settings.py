@@ -19,8 +19,9 @@ identifier_map = {
     'iza01' : ['iza01'],
     'iza02' : ['iza02'],
     'iza03' : ['iza03'],
-    'mat' : ['mat'],
-    'matd' : ['matd'],
+    # XXX: Use one identifier for material?
+    'mat' : ['mat', 'matd'],
+    'matd' : ['matd', 'mat', 'material'],
     'mte' : ['mte'],
     'mti' : ['mti'],
     'nace' : ['nace'],
