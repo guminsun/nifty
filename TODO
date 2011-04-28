@@ -14,6 +14,34 @@ Expected output.
 
 Organizer
 ---------
+organize_statement_list is broken for:
+
+acer
+{
+    card_1
+    {
+        nendf = 20;
+        npend = 21;
+        ngend = 22;
+        nace = 23;
+        ndir = 24;
+    }
+
+    card_2
+    {
+        iopt = 2;
+        nxtra = 1;
+    }
+
+    card_3
+    {
+        hk = "A string.";
+    }
+
+    card_4
+    {}
+}
+
 Sort arrays and variables with multiple values. See e.g. dtfr card 4,5.
 
 acer:
@@ -44,7 +72,9 @@ rest: ZZZ
 Analyzer
 --------
 acer:
-    Kind of finished. Needs cleaning.
+    Check order of cards.
+    'zaid' allowed to be e.g. 92235.50c, introduce new token class?
+    'ndir' must be a string?
 
 heatr: XXX
 
@@ -52,7 +82,7 @@ groupr: XXX
 
 broadr: XXX
 
-reconr: Ugly. Need serious cleaning.
+reconr: XXX
 
 thermr: XXX
 
