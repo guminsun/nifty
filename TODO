@@ -42,9 +42,7 @@ acer
     {}
 }
 
-Sort arrays and variables with multiple values. See e.g. dtfr card 4,5.
-
-acer:
+acer: see brokenness above
     Kind of finished. Needs cleaning?
 
 heatr: XXX
@@ -71,7 +69,8 @@ rest: ZZZ
 
 Analyzer
 --------
-acer:
+acer: ok
+    minor issues, see XXX's
     'zaid' allowed to be e.g. 92235.50c, introduce new token class?
 
 heatr: XXX
@@ -80,7 +79,8 @@ groupr: XXX
 
 broadr: XXX
 
-reconr: XXX
+reconr: ok
+    minor issues, see XXX's
 
 thermr: XXX
 
