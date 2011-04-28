@@ -7,6 +7,8 @@ from nifty.environment import helpers as env
 # Common identifiers are analyzed exactly the same.
 
 def analyze_identifier_matd(node, card, module):
+    # XXX: material must not be 0? 0 usually denotes termination of material
+    # or module.
     identifier_must_be_defined(('matd', None), node, card, module)
     return env.get_value(env.get_r_value(node))
 
@@ -185,18 +187,9 @@ def node_must_be_identifier(l_value_node, card_node, module_node):
                'identifier declaration).')
         semantic_error(msg, l_value_node)
 
-def number_of_cards_must_be(number, card_name_1, card_name_2, module):
-    '''
-        Return 'number' if the number of cards for 'card_name_1' is equal to
-        'number', else a semantic error indicating the ratio mismatch.
-    '''
-    card_list_1 = env.get_cards(card_name_1, module)
-    card_len_1 = len(card_list_1)
-    if card_len_1 != number:
-        module_name = env.get_module_name(module)
-        msg = ('in module \'' + module_name + '\': card \'' + card_name_1 +
-               '\' is declared ' + str(card_len_1) + ' time(s) while card \'' +
-               card_name_2 + '\' has been ' + 'declared ' + str(number) +
-               ' time(s), expected a 1:1 ratio.')
-        semantic_error(msg, module)
-    return number
+def too_few_cards_defined(number_of_cards, expected_number, card_name, module):
+    module_name = env.get_module_name(module)
+    msg = ('number of \'' + card_name + '\'s is ' + str(number_of_cards) +
+           ' in module \'' + module_name + '\'. ' + 'Expected at least ' +
+           str(expected_number) + ' \'' + card_name + '\'s.')
+    semantic_error(msg, module)
