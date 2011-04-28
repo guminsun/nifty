@@ -6,28 +6,55 @@ from nifty.environment import helpers as env
 ##############################################################################
 # Common identifiers are analyzed exactly the same.
 
+def analyze_identifier_matd(node, card, module):
+    identifier_must_be_defined(('matd', None), node, card, module)
+    return env.get_value(env.get_r_value(node))
+
 def analyze_identifier_nendf(node, card, module):
     identifier_must_be_defined(('nendf', None), node, card, module)
     identifier_must_be_int(node)
     identifier_must_be_unit_number(node)
-    return node
+    return env.get_value(env.get_r_value(node))
 
 def analyze_identifier_npend(node, card, module):
     identifier_must_be_defined(('npend', None), node, card, module)
     identifier_must_be_int(node)
     identifier_must_be_unit_number(node)
-    return node
+    return env.get_value(env.get_r_value(node))
+
+def analyze_identifier_tempd(node, card, module):
+    # Temperature does not have to be defined. Defaults to 300.
+    if env.not_defined(node):
+        return 300
+    else:
+        # If 'node' is defined, make sure it's a tempd node.
+        identifier_must_be_defined(('tempd', None), node, card, module)
+    return env.get_value(env.get_r_value(node))
 
 ##############################################################################
 # Semantic rules.
 
-def card_must_be_defined(card_name, module_node, msg):
-    card_node = env.get_card(card_name, module_node)
-    if card_node is None:
+def card_must_be_defined(card_name, node, module_node, explanation):
+    '''
+        Return 'node' if its name is 'card_name', else report a semantic error
+        where 'explanation' has been appended to the error message.
+    '''
+    if node is None:
         msg = ('card \'' + card_name + '\' not defined in module \'' +
-               module_node['module_name'] + '\' (' + msg + ').')
+               module_node['module_name'] + '\'.')
+        if explanation is not None:
+            msg += ' (' + explanation + ')'
         semantic_error(msg, module_node)
-    return card_node
+
+    node_name = env.get_card_name(node)
+    if not (card_name == node_name):
+        msg = ('expected card \'' + card_name + '\' but saw \'' +
+               node_name + '\' in module \'' + module_node['module_name'] +
+               '\'.')
+        if explanation is not None:
+            msg += ' (' + explanation + ')'
+        semantic_error(msg, node)
+    return node
 
 def card_must_not_be_defined(card_name, module_node, msg):
     card_node = env.get_card(card_name, module_node)
@@ -36,14 +63,6 @@ def card_must_not_be_defined(card_name, module_node, msg):
                '\'' + module_node['module_name'] + '\' (' + msg + ').')
         semantic_error(msg, card_node)
     return card_node
-
-def cards_must_be_defined(must_be_defined, module_node):
-    cards = list()
-    for card_name in must_be_defined:
-        msg = ('i.e. expected a declaration of \'' + card_name + '\'')
-        c = card_must_be_defined(card_name, module_node, msg)
-        cards.append(c)
-    return cards
 
 def card_must_be_unique(card_name, module_node):
     card_node = env.get_card(card_name, module_node)
@@ -91,7 +110,7 @@ def identifier_must_be_defined(name_index, node, card_node, module_node):
             msg = ('expected array index ' + str(id_index) + ' for \'' +
                    id_name + '\' but saw ' + str(index) + ' in \'' +
                    card_node['card_name'] + '\', module \'' +
-                   module_node['module_name'] + '.')
+                   module_node['module_name'] + '\'.')
             semantic_error(msg, l_value_node)
 
     return node
@@ -176,7 +195,15 @@ def node_must_be_identifier(l_value_node, card_node, module_node):
                'identifier declaration).')
         semantic_error(msg, l_value_node)
 
-def no_more_statement_allowed(node, card_node, module_node):
+def no_card_allowed(card_node, module_node):
+    if not env.not_defined(card_node):
+        card_name = env.get_card_name(card_node)
+        module_name = env.get_module_name(module_node)
+        msg = ('unexpected card: \'' + card_name + '\', no more cards was ' +
+               'expected in module \'' + module_name + '\'.')
+        semantic_error(msg, card_node)
+
+def no_statement_allowed(node, card_node, module_node):
     if not env.not_defined(node):
         node_name = env.get_identifier_name(env.get_l_value(node))
         node_value = env.get_value(env.get_r_value(node))
