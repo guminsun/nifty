@@ -72,9 +72,7 @@ rest: ZZZ
 Analyzer
 --------
 acer:
-    Check order of cards.
     'zaid' allowed to be e.g. 92235.50c, introduce new token class?
-    'ndir' must be a string?
 
 heatr: XXX
 
