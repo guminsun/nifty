@@ -21,6 +21,12 @@ def is_assignment(node):
     '''
     return get_node_type(node) == '='
 
+def is_card(node):
+    '''
+        Return True if 'node' is a card node, else False.
+    '''
+    return get_node_type(node) == 'card'
+
 def is_even(number):
     '''
         Return True if 'number' is even, else False.
@@ -107,9 +113,12 @@ def get_card_list(module_node):
 
 def get_card_name(card_node):
     '''
-        Return the name of the card 'card_node'.
+        Return name of 'card_node' if it is a card node, else None.
     '''
-    return card_node['card_name']
+    if is_card(card_node):
+        return card_node['card_name']
+    else:
+        return None
 
 def get_identifier(reserved_id_name, card_node):
     '''
@@ -222,6 +231,13 @@ def save_statement_list(statement_list, card):
 
 ##############################################################################
 # Misc. helpers.
+
+def get_card_iterator(module_node):
+    '''
+        Return an iterator for 'module_node's card list.
+    '''
+    card_list = get_card_list(module_node)
+    return iter(card_list)
 
 def get_statement_iterator(card_node):
     '''
