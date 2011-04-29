@@ -1,3 +1,7 @@
+NJOY Runs To Test
+-----------------
+Need to verify that tp02.nif actually runs in NJOY.
+
 Report
 ------
 Abstract
@@ -48,8 +52,10 @@ acer: see brokenness above
 heatr: XXX
 
 groupr: XXX
+    In card_4, temp can be an array. See tp02.nif
 
 broadr: XXX
+    In card_4, tempd can be an array. See tp02.nif
 
 reconr: XXX
 
@@ -65,6 +71,9 @@ viewr: XXX
 
 rest: ZZZ
 
+unresr
+    In card_3, temp can be an array. See tp02.nif
+    In card_4, sigz can be an array. See tp02.nif
 
 
 Analyzer
@@ -76,8 +85,10 @@ acer: ok
 heatr: XXX
 
 groupr: XXX
+    In card_4, temp can be an array. See tp02.nif
 
 broadr: XXX
+    In card_4, tempd can be an array. See tp02.nif
 
 reconr: ok
     minor issues, see XXX's
@@ -93,6 +104,13 @@ plotr: XXX
 viewr: XXX
 
 rest: ZZZ
+
+ccccr
+    In card_3, hsetid does not have to be 12 chars? See tp02.nif
+
+unresr
+    In card_3, temp can be an array. See tp02.nif
+    In card_4, sigz can be an array. See tp02.nif
 
 
 Translator
