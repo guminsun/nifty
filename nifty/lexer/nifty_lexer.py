@@ -18,6 +18,7 @@ reserved_cards = {
     'card_6' : 'CARD',
     'card_6a' : 'CARD',
     'card_7' : 'CARD',
+    'card_7a' : 'CARD',
     'card_8' : 'CARD',
     'card_8a' : 'CARD',
     'card_8c' : 'CARD',
