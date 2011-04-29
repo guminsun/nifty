@@ -100,6 +100,8 @@ covr: XXX
 errorr: XXX
 
 plotr: XXX
+    See e.g. tp06.nif
+    triplet values as NNN. see tp06 nth_ntp_nkh.
 
 viewr: XXX
 
@@ -121,6 +123,8 @@ acer : iz,aw pairs. Must they be outputted as comma-separated pairs?
 Emitter
 -------
 acer : iz,aw pairs. Must they be outputted as comma-separated pairs?
+    pairs seems to be defined as NN, eg if iz = 1 and aw = 2, then 12 should
+    be outputted.
 
 
 In General
