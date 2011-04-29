@@ -1,0 +1,580 @@
+/*****************************************************************************
+ NJOY Test Problem 11:
+
+    moder
+    20 -21
+    reconr
+    -21 -22
+    'pendf tape for pu-238 from endf/b-iv tape 404'/
+    1050 3/
+    .005/
+    '94-pu-238 from endf/b tape t404'/
+    'processed by the njoy nuclear data processing system'/
+    'see original endf/b-iv tape for details of evaluation'/
+    0/
+    broadr
+    -21 -22 -23
+    1050 3 0 1 0 /
+    .005/
+    300. 900. 2100.
+    0/
+    unresr
+    -21 -23 -24
+    1050 3 7 1
+    300 900 2100
+    1.e10 1.e5 1.e4 1000. 100. 10. 1
+    0/
+    thermr
+    0 -24 -25
+    0 1050 8 3 1 0 1 221 0
+    300. 900. 2100.
+    .05 4.2
+    groupr
+    -21 -25 0 -26
+    1050 9 0 5 3 3 7 1
+    '94-pu-238'/
+    300. 900. 2100.
+    1.e10 1.e5 1.e4 1000. 100. 10. 1
+    3 1 'total'/
+    3 2 'elastic'/
+    3 16 'n2n'/
+    3 17 'n3n'/
+    3 18 'fission'/
+    3 102 'capture'/
+    3 221 'free gas thermal'/
+    6 2 'elastic'/
+    6 16 'n2n'/
+    6 17 'n,3n'/
+    6 18 'fission'/
+    6 51 'discrete inelastic'/
+    6 -59 'continued'/
+    6 91 'continuum inelastic'/
+    6 221 'free gas thermal'/
+    0/
+    3 1 'total'/
+    3 2 'elastic'/
+    3 18 'fission'/
+    3 102 'capture'/
+    3 221 'free gas thermal'/
+    6 2 'elastic'/
+    6 221 'free gas thermal'/
+    0/
+    3 1 'total'/
+    3 2 'elastic'/
+    3 18 'fission'/
+    3 102 'capture'/
+    3 221 'free gas thermal'/
+    6 2 'elastic'/
+    6 221 'free gas thermal'/
+    0/
+    0/
+    wimsr
+    -26 27
+    1/
+    1050 1 1050./
+    3 7 1e10 3 10.890 221 0/
+    1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1./
+    stop
+
+Source: http://t2.lanl.gov/codes/njoy99/in11.dat
+
+*****************************************************************************/
+
+moder
+{
+    card_1
+    {
+        nin = 20;
+        nout = -21;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+    }
+
+    card_2
+    {
+        tlabel =  "pendf tape for pu-238 from endf/b-iv tape 404";
+    }
+
+    card_3
+    {
+        mat = 1050;
+        ncards = 3;
+    }
+
+    card_4
+    {
+        err = 0.005; // Use C-style floats.
+    }
+
+    card_5
+    {
+        cards = "94-pu-238 from endf/b tape t404";
+    }
+
+    card_5
+    {
+        cards = "processed by the njoy nuclear data processing system";
+    }
+
+    card_5
+    {
+        cards = "see original endf/b-iv tape for details of evaluation";
+    }
+
+    /* Card 6 skipped since ngrid defaults to 0 in first card 3 */
+
+    /* Terminate reconr. */
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -22;
+        nout = -23;
+    }
+
+    card_2
+    {
+        mat1 = 1050;
+        ntemp2 = 3;
+        istart = 0;
+        istrap = 1;
+        temp1 = 0;
+    }
+
+    card_3
+    {
+        errthn = 0.005; // Use C-style floats.
+    }
+
+    card_4
+    {
+        temp2[0] = 300.0; // Use C-style floats.
+        temp2[1] = 900.0;
+        temp2[2] = 2100.0;
+    }
+
+    /* Terminate broadr. */
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+unresr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -23;
+        nout = -24;
+    }
+
+    card_2
+    {
+        matd = 1050;
+        ntemp = 3;
+        nsigz = 7;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        temp[0] = 300;
+        temp[1] = 900;
+        temp[2] = 2100;
+    }
+
+    card_4
+    {
+        sigz[0] = 1.0e10;
+        sigz[1] = 1.0e5;
+        sigz[2] = 1.0e4;
+        sigz[3] = 1000.0;
+        sigz[4] = 100.0;
+        sigz[5] = 10.0;
+        sigz[6] = 1;
+    }
+
+    /* Terminate unresr. */
+    card_2
+    {
+        matd = 0;
+    }
+}
+
+thermr
+{
+    card_1
+    {
+        nendf = 0;
+        nin = -24;
+        nout = -25;
+    }
+
+    card_2
+    {
+        matde = 0;
+        matdp = 1050;
+        nbin = 8;
+        ntemp = 3;
+        iinc = 1;
+        icoh = 0;
+        natom = 1;
+        mtref = 221;
+        iprint = 0;
+    }
+
+    card_3
+    {
+        tempr[0] = 300.0; // Use C-style floats.
+        tempr[1] = 900.0;
+        tempr[2] = 2100.0;
+    }
+
+    card_4
+    {
+        tol = 0.05; // Use C-style floats.
+        emax = 4.2;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -25;
+        ngout1 = 0;
+        ngout2 = -26;
+    }
+
+    card_2
+    {
+        matb = 1050;
+        ign = 9;
+        igg = 0;
+        iwt = 5;
+        lord = 3;
+        ntemp = 3;
+        nsigz = 7;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        title = "94-pu-238";
+    }
+
+    card_4
+    {
+        /* ntemp in card_2 denotes the number of expected temperatures. */
+        temp[0] = 300.0;
+        temp[1] = 900.0;
+        temp[2] = 2100.0;
+    }
+
+    card_5
+    {
+        /* nsigz in card_2 denotes the number of expected sigma zeroes. */
+        sigz[0] = 1.0e10;
+        sigz[1] = 1.0e5;
+        sigz[2] = 1.0e4;
+        sigz[3] = 1000.0;
+        sigz[4] = 100.0;
+        sigz[5] = 10.0;
+        sigz[6] = 1;
+    }
+
+    /* Reactions for temperature 300.0. */
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 16;
+        mtname = "n2n";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 17;
+        mtname = "n3n";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "capture";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 221;
+        mtname = "free gas thermal";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 16;
+        mtname = "n2n";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 17;
+        mtname = "n,3n";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 51;
+        mtname = "discrete inelastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = -59;
+        mtname = "continued";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 91;
+        mtname = "continuum inelastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 221;
+        mtname = "free gas thermal";
+    }
+
+    /* Terminate temperature 300.0. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Reactions for temperature 900.0. */
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "capture";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 221;
+        mtname = "free gas thermal";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 221;
+        mtname = "free gas thermal";
+    }
+
+    /* Terminate temperature 900.0. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Reactions for temperature 2100.0. */
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "capture";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 221;
+        mtname = "free gas thermal";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 221;
+        mtname = "free gas thermal";
+    }
+
+    /* Terminate temperature 2100.0. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+wimsr
+{
+    card_1
+    {
+        ngendf = -26;
+        nout = 27;
+    }
+
+    card_2
+    {
+        iprint = 1;
+    }
+
+    card_3
+    {
+        mat = 1050;
+        nfid = 1;
+        rdfid = 1050.0;
+    }
+
+    card_4
+    {
+        ntemp = 3;
+        nsigz = 7;
+        sgref = 1e10;
+        ires = 3;
+        sigp = 10.890;
+        mti = 221;
+        mtc = 0;
+    }
+
+    card_7
+    {
+        lambda[0] = 1.0;
+        lambda[1] = 1.0;
+        lambda[2] = 1.0;
+        lambda[3] = 1.0;
+        lambda[4] = 1.0;
+        lambda[5] = 1.0;
+        lambda[6] = 1.0;
+        lambda[7] = 1.0;
+        lambda[8] = 1.0;
+        lambda[9] = 1.0;
+        lambda[10] = 1.0;
+        lambda[11] = 1.0;
+        lambda[12] = 1.0;
+    }
+}
