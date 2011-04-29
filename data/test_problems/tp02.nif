@@ -1,0 +1,602 @@
+/*****************************************************************************
+ NJOY Test Problem 02:
+
+    moder
+    20 -21
+    reconr
+    -21 -22
+    'pendf tape for pu-238 from endf/b-iv tape 404'/
+    1050 3/
+    .005/
+    '94-pu-238 from endf/b tape t404'/
+    'processed by the njoy nuclear data processing system'/
+    'see original endf/b-iv tape for details of evaluation'/
+    0/
+    broadr
+    -21 -22 -23
+    1050 3 0 1 0/
+    .005/
+    300. 900. 2100.
+    0/
+    moder
+    -23 33
+    unresr
+    -21 -23 -24
+    1050 3 7 1
+    300 900 2100
+    1.e10 1.e5 1.e4 1000. 100. 10. 1
+    0/
+    groupr
+    -21 -24 0 -25
+    1050 5 0 4 3 3 7 1
+    '94-pu-238'/
+    300. 900. 2100.
+    1.e10 1.e5 1.e4 1000. 100. 10. 1
+    .1 0.025 0.8208e06 1.4e06
+    3 1 'total'/
+    3 2 'elastic'/
+    3 16 'n2n'/
+    3 17 'n3n'/
+    3 18 'fission'/
+    3 102 'capture'/
+    3 251 'mubar'/
+    3 252 'xi'/
+    3 253 'gamma'/
+    3 259 '1/v'/
+    6 2 'elastic'/
+    6 16 'n2n'/
+    6 17 'n,3n'/
+    6 18 'fission'/
+    6 51 'discrete inelastic'/
+    6 -59 'continued'/
+    6 91 'continuum inelastic'/
+    0/
+    3 1 'total'/
+    3 2 'elastic'/
+    3 18 'fission'/
+    3 102 'capture'/
+    6 2 'elastic'/
+    0/
+    3 1 'total'/
+    3 2 'elastic'/
+    3 18 'fission'/
+    3 102 'capture'/
+    6 2 'elastic'/
+    0/
+    0/
+    ccccr
+    -25 26 27 0
+    1 1 't2lanl njoy'/
+    'ccccr tests for njoy87'/
+    50 0 1 4 1
+    pu238 pu238 endfb4 ' 1050 ' 1050 10.89
+    1 0 50 -1
+    0 2.3821e02 3.3003e-11 1.7461e-12 0. 1.e10 0.0
+    3 6
+    300 900 2100
+    1.e5 1.e4 1000. 100. 10. 1
+    moder
+    -24 28
+    stop
+
+Source: http://t2.lanl.gov/codes/njoy99/in02.dat
+
+*****************************************************************************/
+
+moder
+{
+    card_1
+    {
+        nin = 20;
+        nout = -21;
+    }
+}
+
+reconr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -22;
+    }
+
+    card_2
+    {
+        tlabel =  "pendf tape for pu-238 from endf/b-iv tape 404";
+    }
+
+    card_3
+    {
+        mat = 1050;
+        ncards = 3;
+    }
+
+    card_4
+    {
+        err = 0.005; // Use C-style floats instead of ".005".
+    }
+
+    card_5
+    {
+        cards = "94-pu-238 from endf/b tape t404";
+    }
+
+    card_5
+    {
+        cards = "processed by the njoy nuclear data processing system";
+    }
+
+    card_5
+    {
+        cards = "see original endf/b-iv tape for details of evaluation";
+    }
+
+    /* Card 6 skipped since ngrid defaults to 0 in first card 3. */
+
+    card_3
+    {
+        mat = 0;
+    }
+}
+
+broadr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -22;
+        nout = -23;
+    }
+
+    card_2
+    {
+        mat1 = 1050;
+        ntemp2 = 3;
+        istart = 0;
+        istrap = 1;
+        temp1 = 0;
+    }
+
+    card_3
+    {
+        errthn = 0.005; // Use C-style floats instead of ".005".
+    }
+
+    card_4
+    {
+        /* In this example, Each temperature is declared as an element in an
+           array.
+           ntemp2 in card_2 denotes the number of expected temperatures.
+         */
+        temp2[0] = 300.0;
+        temp2[1] = 900.0;
+        temp2[2] = 2100.0;
+    }
+
+    card_5
+    {
+        mat1 = 0;
+    }
+}
+
+moder
+{
+    card_1
+    {
+        nin = -23;
+        nout = 33;
+    }
+}
+
+unresr
+{
+    card_1
+    {
+        nendf = -21;
+        nin = -23;
+        nout = -24;
+    }
+
+    card_2
+    {
+        matd = 1050;
+        ntemp = 3;
+        nsigz = 7;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        temp[0] = 300;
+        temp[1] = 900;
+        temp[2] = 2100;
+    }
+
+    card_4
+    {
+        sigz[0] = 1.0e10;
+        sigz[1] = 1.0e5;
+        sigz[2] = 1.0e4;
+        sigz[3] = 1000.0;
+        sigz[4] = 100.0;
+        sigz[5] = 10.0;
+        sigz[6] = 1;
+    }
+
+    card_2
+    {
+        matd = 0;
+    }
+}
+
+groupr
+{
+    card_1
+    {
+        nendf = -21;
+        npend = -24;
+        ngout1 = 0;
+        ngout2 = -25;
+    }
+
+    card_2
+    {
+        matb = 1050;
+        ign = 5;
+        igg = 0;
+        iwt = 4;
+        lord = 3;
+        ntemp = 3;
+        nsigz = 7;
+        iprint = 1;
+    }
+
+    card_3
+    {
+        title = "94-pu-238";
+    }
+
+    card_4
+    {
+        /* ntemp in card_2 denotes the number of expected temperatures. */
+        temp[0] = 300.0;
+        temp[1] = 900.0;
+        temp[2] = 2100.0;
+    }
+
+    card_5
+    {
+        /* nsigz in card_2 denotes the number of expected sigma zeroes. */
+        sigz[0] = 1.0e10;
+        sigz[1] = 1.0e5;
+        sigz[2] = 1.0e4;
+        sigz[3] = 1000.0;
+        sigz[4] = 100.0;
+        sigz[5] = 10.0;
+        sigz[6] = 1;
+    }
+
+    card_8c
+    {
+        eb = 0.1;
+        tb = 0.025;
+        ec = 0.8208e06;
+        tc = 1.4e06;
+    }
+
+    /* Reactions for temperature 300.0. */
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 16;
+        mtname = "n2n";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 17;
+        mtname = "n3n";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "capture";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 251;
+        mtname = "mubar";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 252;
+        mtname = "xi";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 253;
+        mtname = "gamma";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 259;
+        mtname = "1/v";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 16;
+        mtname = "n2n";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 17;
+        mtname = "n,3n";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 51;
+        mtname = "discrete inelastic";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = -59;
+        mtname = "continued";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 91;
+        mtname = "continuum inelastic";
+    }
+
+    /* Terminate temperature 300.0. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Reactions for temperature 900.0. */
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "capture";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    /* Terminate temperature 900.0. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Reactions for temperature 2100.0. */
+    card_9
+    {
+        mfd = 3;
+        mtd = 1;
+        mtname = "total";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 18;
+        mtname = "fission";
+    }
+
+    card_9
+    {
+        mfd = 3;
+        mtd = 102;
+        mtname = "capture";
+    }
+
+    card_9
+    {
+        mfd = 6;
+        mtd = 2;
+        mtname = "elastic";
+    }
+
+    /* Terminate temperature 2100.0. */
+    card_9
+    {
+        mfd = 0;
+    }
+
+    /* Terminate groupr. */
+    card_10
+    {
+        matd = 0;
+    }
+}
+
+ccccr
+{
+    card_1
+    {
+        nin = -25;
+        nisot = 26;
+        nbrks = 27;
+        ndlay = 0; // dlayxs not wanted
+    }
+
+    card_2
+    {
+        lprint = 1;
+        ivers = 1;
+        huse = "t2lanl njoy";
+    }
+
+    card_3
+    {
+        /* hsetid does not have to be 12 chars? */
+        hsetid = "ccccr tests for njoy87";
+    }
+
+    card_4
+    {
+        ngroup = 50;
+        nggrup = 0;
+        niso = 1; // Denotes number of card_5's.
+        maxord = 4;
+        ifopt = 1; // Blocking by reaction order.
+    }
+
+    card_5
+    {
+        /* Note that the original input does not denote the first four
+           variables as strings. 
+           What does the two ' denote? Seems a bit irregular.
+           XXX: Need to verify that this actually works in NJOY. */
+        hisnm = "pu238";
+        habsid = "pu238";
+        hident = "endfb4";
+        hmat = "1050";
+        imat = 1050;
+        xspo = 10.89;
+    }
+
+    card_1
+    {
+        nsblok = 1;
+        maxup = 0; // Always zero (?).
+        maxdn = 50;
+        ichix = -1; // Vector (using groupr flux).
+    }
+
+    card_4
+    {
+        kbr = 0;
+        amass = 2.3821e02;
+        efiss = 3.3003e-11;
+        ecapt = 1.7461e-12;
+        temp = 0.0;
+        sigpot = 1.0e10;
+        adens = 0.0;
+    }
+
+    card_1
+    {
+        nti = 3;
+        nzi = 6;
+    }
+
+    card_2
+    {
+        /* Number of expected temperatures defined by nti. */
+        atem[0] = 300;
+        atem[1] = 900;
+        atem[2] = 2100;
+    }
+
+    card_3
+    {
+        /* Number of expected sigpo values defined by nzi. */
+        asig[0] = 1.0e5;
+        asig[1] = 1.0e4;
+        asig[2] = 1000.0;
+        asig[3] = 100.0;
+        asig[4] = 10.0;
+        asig[5] = 1;
+    }
+}
+
+moder
+{
+    card_1
+    {
+        nin = -24;
+        nout = 28;
+    }
+}
