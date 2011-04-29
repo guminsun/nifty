@@ -6,7 +6,7 @@ from nifty.environment.exceptions import lexical_error
 # Tokens.
 
 reserved_cards = {
-    'card' : 'CARD',
+    'card_0' : 'CARD',
     'card_1' : 'CARD',
     'card_2' : 'CARD',
     'card_2a' : 'CARD',
