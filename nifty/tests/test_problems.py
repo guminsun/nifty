@@ -43,6 +43,42 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
+    def test_tp02_analyzer(self):
+        infile = get_test_problem('tp02')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp02_emitter(self):
+        infile = get_test_problem('tp02')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_tp02_lexer(self):
+        infile = get_test_problem('tp02')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp02_organizer(self):
+        infile = get_test_problem('tp02')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp02_parser(self):
+        infile = get_test_problem('tp02')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_tp02_translator(self):
+        infile = get_test_problem('tp02')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
     def test_tp03_analyzer(self):
         infile = get_test_problem('tp03')
         outfile = infile + analyzer_suffix()
@@ -373,6 +409,7 @@ class ProblemTestCase(unittest.TestCase):
 def get_test_problem(tp):
     test_problems = {
         'tp01' : 'data/test_problems/tp01.nif',
+        'tp02' : 'data/test_problems/tp02.nif',
         'tp03' : 'data/test_problems/tp03.nif',
         'tp04' : 'data/test_problems/tp04.nif',
         'tp05' : 'data/test_problems/tp05.nif',
@@ -438,6 +475,12 @@ def suite():
         'test_tp01_organizer',
         'test_tp01_parser',
         'test_tp01_translator',
+        'test_tp02_analyzer',
+        'test_tp02_emitter',
+        'test_tp02_lexer',
+        'test_tp02_organizer',
+        'test_tp02_parser',
+        'test_tp02_translator',
         'test_tp03_analyzer',
         'test_tp03_emitter',
         'test_tp03_lexer',
