@@ -24,6 +24,7 @@ reserved_cards = {
     'card_9' : 'CARD',
     'card_10' : 'CARD',
     'card_11' : 'CARD',
+    'card_12' : 'CARD',
     'card_12a' : 'CARD',
     'card_12b' : 'CARD',
 }
