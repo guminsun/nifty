@@ -11,10 +11,13 @@ nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
 if os.path.isdir(nifty_dir):
     sys.path.insert(0, nifty_top)
 
-from nifty.tests import test_helpers, test_problems
+from nifty.tests import test_acer
+from nifty.tests import test_helpers
+from nifty.tests import test_problems
 
+acer_suite = test_acer.suite()
 helper_suite = test_helpers.suite()
 njoy_problem_suite = test_problems.suite()
-all_tests = unittest.TestSuite([helper_suite, njoy_problem_suite])
+all_tests = unittest.TestSuite([acer_suite, helper_suite, njoy_problem_suite])
 
 unittest.TextTestRunner(verbosity=2).run(all_tests)
