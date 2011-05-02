@@ -1,3 +1,4 @@
+--- nifty_organizer: XXX not implemented yet: acer
 [('acer',
   [[('integer', 20),
     ('integer', 21),
@@ -10,6 +11,6 @@
     ('float', '0.00'),
     ('integer', 3)],
    [('string', 'Sample string.')],
-   [('integer', 11), ('integer', 22), ('integer', 58)],
+   [('pair', '11'), ('pair', '22'), ('pair', '58')],
    [('integer', 2225)]]),
  ('stop', [])]

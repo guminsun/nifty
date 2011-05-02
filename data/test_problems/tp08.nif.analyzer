@@ -4,6 +4,7 @@
 --- nifty_organizer: XXX not implemented yet: heatr
 --- nifty_organizer: XXX not implemented yet: moder
 --- nifty_organizer: XXX not implemented yet: groupr
+--- nifty_organizer: XXX not implemented yet: acer
 --- nifty_analyzer: XXX not implemented yet: moder
 --- nifty_analyzer: XXX not implemented yet: broadr
 --- nifty_analyzer: XXX not implemented yet: heatr
@@ -814,15 +815,7 @@
                                                      'node_type': '=',
                                                      'r_value': {'line_number': 299,
                                                                  'node_type': 'integer',
-                                                                 'value': 0}},
-                                                    {'l_value': {'line_number': None,
-                                                                 'name': 'iopp',
-                                                                 'node_type': 'identifier'},
-                                                     'line_number': None,
-                                                     'node_type': '=',
-                                                     'r_value': {'line_number': None,
-                                                                 'node_type': 'integer',
-                                                                 'value': 1}}]},
+                                                                 'value': 0}}]},
                                 {'card_id': (7, ''),
                                  'card_name': 'card_7',
                                  'line_number': 302,

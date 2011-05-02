@@ -33,16 +33,15 @@ acer
 
     card_4
     {
-        /* XXX: 
-         
-         Ugly representation of pairs.
+        /* Input format of iz,aw pairs.
 
-         Pairs, triplets, ..., should be represented as some kind of tuple
-         node in the AST instead.
+           First pair: iz = 1 and aw = 1
+           Second pair: iz = 2 and aw = 2
+           Third pair: iz = 5 and aw = 8
          */
-        iz_aw[0] = 11; // iz = 1, aw = 1.
-        iz_aw[1] = 22; // iz = 2, aw = 2.
-        iz_aw[2] = 58; // iz = 5, aw = 8.
+        iz[0], aw[0] = 1, 1;
+        iz[1], aw[1] = 2, 2;
+        iz[2], aw[2] = 5, 8;
     }
 
     card_11

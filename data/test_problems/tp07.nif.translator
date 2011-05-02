@@ -4,6 +4,7 @@
 --- nifty_organizer: XXX not implemented yet: heatr
 --- nifty_organizer: XXX not implemented yet: moder
 --- nifty_organizer: XXX not implemented yet: groupr
+--- nifty_organizer: XXX not implemented yet: acer
 --- nifty_analyzer: XXX not implemented yet: moder
 --- nifty_analyzer: XXX not implemented yet: broadr
 --- nifty_analyzer: XXX not implemented yet: heatr
@@ -58,6 +59,6 @@
    [('integer', 1)],
    [('string', 'njoy test problem 7')],
    [('integer', 1395), ('float', '300.0')],
-   [('integer', 0), ('integer', 1)],
+   [('integer', 0)],
    []]),
  ('stop', [])]

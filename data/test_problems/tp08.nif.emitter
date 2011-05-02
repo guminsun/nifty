@@ -4,6 +4,7 @@
 --- nifty_organizer: XXX not implemented yet: heatr
 --- nifty_organizer: XXX not implemented yet: moder
 --- nifty_organizer: XXX not implemented yet: groupr
+--- nifty_organizer: XXX not implemented yet: acer
 --- nifty_analyzer: XXX not implemented yet: moder
 --- nifty_analyzer: XXX not implemented yet: broadr
 --- nifty_analyzer: XXX not implemented yet: heatr
@@ -50,6 +51,6 @@ acer
 1 1 1/
 '28-ni-61a from endf-vi.1'/
 2834 300.0/
-0 1/
+0/
 /
 stop
