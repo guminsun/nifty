@@ -2,8 +2,14 @@
 # Identifier map. Used to lookup valid identifier names.
 
 identifier_map = {
+    # The key is the identifier name used internally by the translator and the
+    # NJOY documentation. The value associated with each key is a list of
+    # valid identifier names for the key.
+    # If a {better,descriptive,long,...} identifier name is wanted, just add
+    # it to the appropriate list. Some example names have been provided.
     'aw' : ['aw'],
     'cards' : ['cards'],
+    'ed' : ['ed'],
     'emax' : ['emax'],
     'enode' : ['enode'],
     'err' : ['err'],
@@ -19,23 +25,33 @@ identifier_map = {
     'iza01' : ['iza01'],
     'iza02' : ['iza02'],
     'iza03' : ['iza03'],
-    # XXX: Use one identifier for material?
+    'local' : ['local'],
     'mat' : ['mat', 'matd'],
     'matd' : ['matd', 'mat', 'material'],
+    'mta' : ['mta'],
     'mte' : ['mte'],
     'mti' : ['mti'],
+    'mtk' : ['mtk'],
     'nace' : ['nace'],
+    'nin' : ['nin', 'pendf_input'],
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
-    'nendf' : ['nendf', 'endf_input_tape'],
+    'nendf' : ['nendf', 'endf_input'],
     'newfor' : ['newfor'],
     'ndir' : ['ndir'],
     'ngend' : ['ngend'],
     'ngrid' : ['ngrid'],
     'nmix' : ['nmix'],
+    'ntemp' : ['ntemp'],
     'ntype' : ['ntype'],
-    'npend' : ['npend', 'pendf_input_tape'],
+    'nout' : ['nout', 'pendf_output'],
+    'npend' : ['npend', 'pendf_input'],
+    'npk' : ['npk', 'number_of_partial_kermas'],
+    'nplot' : ['nplot'],
+    'nqa' : ['nqa', 'number_of_q_values'],
     'nxtra' : ['nxtra'],
+    'qa' : ['qa'],
+    'qbar' : ['qbar'],
     'suff' : ['suff'],
     'tempd' : ['tempd'],
     'tempr' : ['tempr'],
