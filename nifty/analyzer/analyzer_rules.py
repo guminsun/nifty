@@ -33,6 +33,21 @@ def analyze_identifier_tempd(node, card, module):
         identifier_must_be_defined(('tempd', None), node, card, module)
     return env.get_value(env.get_r_value(node))
 
+def analyze_optional_unit_number(id_name, node, card, module):
+    # Assuming that the default value for all optional unit numbers is zero.
+    if env.not_defined(node):
+        return 0
+    else:
+        # If 'node' is defined, make sure it's a 'id_name' node.
+        identifier_must_be_defined((id_name, None), node, card, module)
+    return env.get_value(env.get_r_value(node))
+
+def analyze_unit_number(id_name, node, card, module):
+    identifier_must_be_defined((id_name, None), node, card, module)
+    identifier_must_be_int(node)
+    identifier_must_be_unit_number(node)
+    return env.get_value(env.get_r_value(node))
+
 ##############################################################################
 # Semantic rules.
 

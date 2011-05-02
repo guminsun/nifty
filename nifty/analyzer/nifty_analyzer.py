@@ -7,7 +7,7 @@ from analyze_acer import analyze_acer
 #from analyze_gaminr import analyze_gaminr
 #from analyze_gaspr import analyze_gaspr
 #from analyze_groupr import analyze_groupr
-#from analyze_heatr import analyze_heatr
+from analyze_heatr import analyze_heatr
 #from analyze_leapr import analyze_leapr
 #from analyze_matxsr import analyze_matxsr
 #from analyze_mixr import analyze_mixr
@@ -51,7 +51,7 @@ def analyze_module(module):
         #'gaminr' : analyze_gaminr,
         #'gaspr' : analyze_gaspr,
         #'groupr' : analyze_groupr,
-        #'heatr' : analyze_heatr,
+        'heatr' : analyze_heatr,
         #'leapr' : analyze_leapr,
         #'matxsr' : analyze_matxsr,
         #'mixr' : analyze_mixr,
