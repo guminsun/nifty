@@ -51,5 +51,17 @@ def translate_assignment(statement):
 
 def translate_r_value(r_value):
     node_type = r_value['node_type']
-    value = r_value['value']
+    if node_type == 'pair':
+        return translate_r_value_pair(r_value)
+    else:
+        value = r_value['value']
+    return (node_type, value)
+
+def translate_r_value_pair(pair):
+    element_1_value = pair['element_1']['value']
+    element_2_value = pair['element_2']['value']
+    value = str(element_1_value) + str(element_2_value)
+    # Assuming both elements have the same type. Should have been checked by
+    # the analyzer in a previous step.
+    node_type = pair['node_type']
     return (node_type, value)
