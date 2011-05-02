@@ -200,8 +200,8 @@ def analyze_acer_card_4(nxtra_value, card_4, module):
         for i in range(stmt_len):
             analyze_acer_card_4_iz_aw(i, env.next(stmt_iter), card_4, module)
     else:
-        msg = ('saw ' + str(stmt_len) + ' \'iz,aw\' pair(s) in \'card_4\'' +
-               ' but expected ' + str(nxtra_value) + ' pair(s) since ' +
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
+               ' but expected ' + str(nxtra_value) + ' since ' +
                'nxtra = ' + str(nxtra_value) + ' in \'card_2\', module ' +
                '\'acer\'.')
         rule.semantic_error(msg, card_4)
