@@ -27,12 +27,6 @@ def is_card(node):
     '''
     return get_node_type(node) == 'card'
 
-def is_even(number):
-    '''
-        Return True if 'number' is even, else False.
-    '''
-    return (not number & 1)
-
 def is_identifier(node):
     '''
         Return True if 'node' is an identifier node, else False.

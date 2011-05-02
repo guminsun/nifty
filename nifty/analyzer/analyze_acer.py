@@ -20,7 +20,7 @@ def analyze_acer_card_list(module):
     analyze_acer_card_3(env.next(card_iter), module)
     # Card 4 should only be defined if nxtra > 0 in card_2.
     if nxtra > 0:
-        analyze_acer_card_4(env.next(card_iter), module)
+        analyze_acer_card_4(nxtra, env.next(card_iter), module)
     # Card 5, 6 and 7 should only be defined if iopt = 1 in card_2.
     if iopt == 1:
         analyze_acer_card_5(env.next(card_iter), module)
@@ -179,40 +179,38 @@ def analyze_acer_card_3_hk(hk_node, card_3, module):
     rule.identifier_string_must_not_exceed_length(hk_node, 70, card_3, module)
     return hk_r_value
 
-def analyze_acer_card_4(card_4, module):
+def analyze_acer_card_4(nxtra_value, card_4, module):
     # Note that card 4 should only be defined if nxtra > 0 in card_2, check if
     # it is before calling this function.
     msg = ('expected \'card_4\' since nxtra > 0 in \'card_2\'')
     rule.card_must_be_defined('card_4', card_4, module, msg)
     stmt_iter = env.get_statement_iterator(card_4)
-    # XXX: Unknown if all the iz,aw pairs should be defined in one card, or
-    #      if one card is supposed to hold only one pair.
-    #      Assuming that one card holds all pairs since documentation says
-    #      "nxtra pairs".
+    # XXX:
+    # Assuming that pairs should be supplied as e.g. "12" (where iz = 1 and
+    # aw = 2) to NJOY, in a similar manner how the "nth,ntp,nkh" triplets are
+    # defined in the NJOY Test Problem 06 (plotr, card 8).
+    # Unknown if all the iz,aw pairs should be defined in one card, or if one
+    # card is supposed to hold only one pair. Assuming that one card holds all
+    # pairs since documentation says "nxtra pairs".
+    #
+    # This is a dirty solution. Pairs, triplets, etc should be defined as some
+    # kind of tuple node in the AST instead.
     stmt_len = len(stmt_iter)
-    # XXX: Ugly.
-    if env.is_even(stmt_len):
-        index = 0;
-        for i in range(0, stmt_len, 2):
-            analyze_acer_card_4_iz(index, env.next(stmt_iter), card_4, module)
-            analyze_acer_card_4_aw(index, env.next(stmt_iter), card_4, module)
-            index += 1
+    if stmt_len == nxtra_value:
+        for i in range(stmt_len):
+            analyze_acer_card_4_iz_aw(i, env.next(stmt_iter), card_4, module)
     else:
-        msg = ('expected an even number of statements in \'card_4\' ' +
-               'since \'nxtra\' (previously defined in \'card_2\') ' +
-               'pairs of \'iz\' and \'aw\' should be supplied.')
+        msg = ('saw ' + str(stmt_len) + ' \'iz_aw\' pair(s) in \'card_4\'' +
+               ' but expected ' + str(nxtra_value) + ' pair(s) since ' +
+               'nxtra = ' + str(nxtra_value) + ' in \'card_2\', module ' +
+               '\'acer\'.')
         rule.semantic_error(msg, card_4)
     return card_4
 
-def analyze_acer_card_4_iz(expected_index, iz_node, card_4, module):
-    rule.identifier_must_be_defined(('iz', expected_index), iz_node, card_4,
-                                    module)
-    return env.get_value(env.get_r_value(iz_node))
-
-def analyze_acer_card_4_aw(expected_index, aw_node, card_4, module):
-    rule.identifier_must_be_defined(('aw', expected_index), aw_node, card_4,
-                                    module)
-    return env.get_value(env.get_r_value(aw_node))
+def analyze_acer_card_4_iz_aw(expected_index, iz_aw_node, card_4, module):
+    rule.identifier_must_be_defined(('iz_aw', expected_index), iz_aw_node,
+                                    card_4, module)
+    return env.get_value(env.get_r_value(iz_aw_node))
 
 def analyze_acer_card_5(card_5, module):
     # Note that card 5 should only be defined if iopt = 1 in card_2, check if

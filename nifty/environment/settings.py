@@ -2,7 +2,6 @@
 # Identifier map. Used to lookup valid identifier names.
 
 identifier_map = {
-    'aw' : ['aw'],
     'cards' : ['cards'],
     'emax' : ['emax'],
     'enode' : ['enode'],
@@ -15,7 +14,7 @@ identifier_map = {
     'iopp' : ['iopp'],
     'iprint' : ['iprint'],
     'iwt' : ['iwt'],
-    'iz' : ['iz'],
+    'iz_aw' : ['iz_aw'],
     'iza01' : ['iza01'],
     'iza02' : ['iza02'],
     'iza03' : ['iza03'],
