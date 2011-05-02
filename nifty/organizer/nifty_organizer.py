@@ -43,7 +43,7 @@ def organize_module_list(module_list):
 def organize_module(module):
     organizer_function = organize_dummy
     organizer_functions = {
-        'acer' : organize_acer,
+        #'acer' : organize_acer,
         #'broadr' : organize_broadr,
         #'ccccr' : organize_ccccr,
         #'covr' : organize_covrr,
