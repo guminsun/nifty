@@ -1,0 +1,52 @@
+/*****************************************************************************
+This test file is just used for testing the translator for the acer module. It
+is not intended to be run by NJOY.
+
+Illustrates how iz,aw pairs are speficied in NIF.
+
+*****************************************************************************/
+
+acer
+{
+    card_1
+    {
+        nendf = 20;
+        npend = 21;
+        ngend = 22;
+        nace = 23;
+        ndir = 32;
+    }
+
+    card_2
+    {
+        iopt = 5;
+        iprint = 1;
+        ntype = 1;
+        suff = 0.00;
+        nxtra = 3;
+    }
+
+    card_3
+    {
+        hk = "Sample string.";
+    }
+
+    card_4
+    {
+        /* XXX: 
+         
+         Ugly representation of pairs.
+
+         Pairs, triplets, ..., should be represented as some kind of tuple
+         node in the AST instead.
+         */
+        iz_aw[0] = 11; // iz = 1, aw = 1.
+        iz_aw[1] = 22; // iz = 2, aw = 2.
+        iz_aw[2] = 58; // iz = 5, aw = 8.
+    }
+
+    card_11
+    {
+        matd = 2225;
+    }
+}
