@@ -12,6 +12,10 @@ def analyze_heatr_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_heatr_card_1(env.next(card_iter), module)
     card_2, npk, nqa = analyze_heatr_card_2(env.next(card_iter), module)
+    # Card 3 should only be defined if the number of partial kermas (npk) is
+    # greater than zero.
+    if npk > 0:
+        analyze_heatr_card_3(npk, env.next(card_iter), module)
     return module
 
 def analyze_heatr_card_1(card_1, module):
@@ -126,3 +130,26 @@ def analyze_heatr_card_2_ed(ed_node, card_2, module):
         rule.identifier_must_be_defined(('ed', None), ed_node, card_2, module)
         # XXX: Type for 'ed'?
     return env.get_value(env.get_r_value(ed_node))
+
+def analyze_heatr_card_3(npk_value, card_3, module):
+    msg = ('expected \'card_3\' since npk > 0 in \'card_2\'')
+    rule.card_must_be_defined('card_3', card_3, module, msg)
+    stmt_iter = env.get_statement_iterator(card_3)
+    stmt_len = len(stmt_iter)
+    if stmt_len == npk_value:
+        for i in range(stmt_len):
+            analyze_heatr_card_3_mtk(i, env.next(stmt_iter), card_3, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_3\'' +
+               ' but expected ' + str(npk_value) + ' since ' +
+               'npk = ' + str(npk_value) + ' in \'card_2\', module ' +
+               '\'heatr\'.')
+        rule.semantic_error(msg, card_3)
+    rule.no_statement_allowed(env.next(stmt_iter), card_3, module)
+    return card_3
+
+def analyze_heatr_card_3_mtk(expected_index, mtk_node, card_3, module):
+    rule.identifier_must_be_defined(('mtk', expected_index), mtk_node, card_3,
+                                    module)
+    rule.identifier_must_be_int(mtk_node)
+    return env.get_value(env.get_r_value(mtk_node))
