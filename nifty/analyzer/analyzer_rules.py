@@ -61,21 +61,18 @@ def card_must_be_defined(card_name, node, module_node, explanation):
 def identifier_must_be_defined(name_index, node, card_node, module_node):
     id_name = name_index[0]
     id_index = name_index[1]
+
     if node is None:
         msg = ('identifier \'' + id_name + '\' not defined in \'' +
                card_node['card_name'] + '\', module \'' +
                module_node['module_name'] + '\'.')
         semantic_error(msg, card_node)
+
     l_value_node = env.get_l_value(node)
-    l_value_node_type = env.get_node_type(node)
-    name = env.get_identifier_name(l_value_node)
+    l_value_node_type = env.get_node_type(l_value_node)
+
     # 'index' is an integer if 'l_value_node' is an array, else None.
     index = env.get_array_index(l_value_node)
-    if not env.is_valid_name(name, id_name):
-        msg = ('expected identifier \'' + id_name + '\' but saw \'' +
-               name + '\' in \'' + card_node['card_name'] +
-               '\', module \'' + module_node['module_name'] + '.')
-        semantic_error(msg, l_value_node)
     if id_index is None:
         node_must_be_identifier(l_value_node, card_node, module_node)
     else:
@@ -86,6 +83,14 @@ def identifier_must_be_defined(name_index, node, card_node, module_node):
                    card_node['card_name'] + '\', module \'' +
                    module_node['module_name'] + '\'.')
             semantic_error(msg, l_value_node)
+
+    name = env.get_identifier_name(l_value_node)
+    if not env.is_valid_name(name, id_name):
+        msg = ('expected identifier \'' + id_name + '\' but saw \'' +
+               name + '\' in \'' + card_node['card_name'] +
+               '\', module \'' + module_node['module_name'] + '.')
+        semantic_error(msg, l_value_node)
+
     return node
 
 def identifier_must_be_float(node):
@@ -167,10 +172,9 @@ def node_must_be_array(l_value_node, card_node, module_node):
     if env.is_array(l_value_node):
         return l_value_node
     else:
-        id_name = env.get_identifier_name(l_value_node)
         node_type = env.get_node_type(l_value_node)
-        msg = ('identifier \'' + id_name + '\' defined as an ' + node_type +
-               ' in \'' + card_node['card_name'] + '\', module \'' +
+        msg = ('identifier defined as a ' + node_type + ' in \'' +
+               card_node['card_name'] + '\', module \'' +
                module_node['module_name'] + '\' (expected an array ' +
                'identifier declaration).')
         semantic_error(msg, l_value_node)
@@ -179,10 +183,9 @@ def node_must_be_identifier(l_value_node, card_node, module_node):
     if env.is_identifier(l_value_node):
         return l_value_node
     else:
-        id_name = env.get_identifier_name(l_value_node)
         node_type = env.get_node_type(l_value_node)
-        msg = ('identifier \'' + id_name + '\' defined as an ' + node_type +
-               ' in \'' + card_node['card_name'] + '\', module \'' +
+        msg = ('identifier defined as a ' + node_type + ' in \'' +
+               card_node['card_name'] + '\', module \'' +
                module_node['module_name'] + '\' (expected a regular ' +
                'identifier declaration).')
         semantic_error(msg, l_value_node)

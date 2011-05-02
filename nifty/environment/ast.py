@@ -67,6 +67,14 @@ def make_l_value(p):
 def make_r_value(p):
     return p[1]
 
+def make_pair(p):
+    node = dict()
+    node['line_number'] = p.lineno(2)
+    node['node_type'] = 'pair'
+    node['element_1'] = p[1]
+    node['element_2'] = p[3]
+    return node
+
 def make_array(p):
     node = dict()
     node['line_number'] = p.lineno(0)

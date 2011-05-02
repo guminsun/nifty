@@ -66,6 +66,7 @@ def p_statement(p):
 def p_expression(p):
     '''
         expression : l_value ASSIGNMENT r_value
+                   | l_value_pair ASSIGNMENT r_value_pair
     '''
     p[0] = ast.make_assignment(p)
 
@@ -75,6 +76,12 @@ def p_l_value(p):
                 | identifier
     '''
     p[0] = ast.make_l_value(p)
+
+def p_l_value_pair(p):
+    '''
+        l_value_pair : l_value COMMA l_value
+    '''
+    p[0] = ast.make_pair(p)
 
 def p_array(p):
     'array : IDENTIFIER LEFT_BRACKET INTEGER RIGHT_BRACKET'
@@ -90,6 +97,12 @@ def p_r_value(p):
                 | string
     '''
     p[0] = ast.make_r_value(p)
+
+def p_r_value_pair(p):
+    '''
+        r_value_pair : r_value COMMA r_value
+    '''
+    p[0] = ast.make_pair(p)
 
 def p_number(p):
     '''
