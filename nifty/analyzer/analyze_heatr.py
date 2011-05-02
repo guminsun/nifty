@@ -145,6 +145,8 @@ def analyze_heatr_card_3(npk_value, card_3, module):
                'npk = ' + str(npk_value) + ' in \'card_2\', module ' +
                '\'heatr\'.')
         rule.semantic_error(msg, card_3)
+    # This check is really not required here since we loop over the entire
+    # statement list above.
     rule.no_statement_allowed(env.next(stmt_iter), card_3, module)
     return card_3
 
@@ -152,4 +154,7 @@ def analyze_heatr_card_3_mtk(expected_index, mtk_node, card_3, module):
     rule.identifier_must_be_defined(('mtk', expected_index), mtk_node, card_3,
                                     module)
     rule.identifier_must_be_int(mtk_node)
+    # XXX: Additional checks? The range of allowed values in the documentation
+    # does not seem to be complete. See for example NJOY Test Problem 08 where
+    # mtk[0] = 302.
     return env.get_value(env.get_r_value(mtk_node))
