@@ -75,6 +75,15 @@ def make_pair(p):
     node['element_2'] = p[3]
     return node
 
+def make_triple(p):
+    node = dict()
+    node['line_number'] = p.lineno(2)
+    node['node_type'] = 'triple'
+    node['element_1'] = p[1]
+    node['element_2'] = p[3]
+    node['element_3'] = p[5]
+    return node
+
 def make_array(p):
     node = dict()
     node['line_number'] = p.lineno(0)
