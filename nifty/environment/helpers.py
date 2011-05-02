@@ -33,6 +33,18 @@ def is_identifier(node):
     '''
     return get_node_type(node) == 'identifier'
 
+def is_pair(node):
+    '''
+        Return True if 'node' is a pair node, else False.
+    '''
+    return get_node_type(node) == 'pair'
+
+def is_triple(node):
+    '''
+        Return True if 'node' is a triple node, else False.
+    '''
+    return get_node_type(node) == 'triple'
+
 def is_valid_name(name_to_validate, reserved_id_name):
     '''
         Return True if 'name_to_validate' is a valid, possible alternative,

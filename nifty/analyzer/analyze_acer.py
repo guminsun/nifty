@@ -200,7 +200,7 @@ def analyze_acer_card_4(nxtra_value, card_4, module):
         for i in range(stmt_len):
             analyze_acer_card_4_iz_aw(i, env.next(stmt_iter), card_4, module)
     else:
-        msg = ('saw ' + str(stmt_len) + ' \'iz_aw\' pair(s) in \'card_4\'' +
+        msg = ('saw ' + str(stmt_len) + ' \'iz,aw\' pair(s) in \'card_4\'' +
                ' but expected ' + str(nxtra_value) + ' pair(s) since ' +
                'nxtra = ' + str(nxtra_value) + ' in \'card_2\', module ' +
                '\'acer\'.')
@@ -208,9 +208,10 @@ def analyze_acer_card_4(nxtra_value, card_4, module):
     return card_4
 
 def analyze_acer_card_4_iz_aw(expected_index, iz_aw_node, card_4, module):
-    rule.identifier_must_be_defined(('iz_aw', expected_index), iz_aw_node,
-                                    card_4, module)
-    return env.get_value(env.get_r_value(iz_aw_node))
+    pair = (('iz', expected_index), ('aw', expected_index))
+    rule.pair_must_be_defined(pair, iz_aw_node, card_4, module)
+    # XXX: get_value need to handle pairs and return a pair.
+    # return env.get_value(env.get_r_value(iz_aw_node))
 
 def analyze_acer_card_5(card_5, module):
     # Note that card 5 should only be defined if iopt = 1 in card_2, check if
