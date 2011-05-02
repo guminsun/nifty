@@ -140,12 +140,13 @@ heatr
     card_3
     {
         /* npk = 6 -> 6 values for mtk */
-        mtk = 302;
-        mtk = 303;
-        mtk = 304;
-        mtk = 402;
-        mtk = 443;
-        mtk = 444;
+        /* Note that mtk has been defined as an array. */
+        mtk[0] = 302;
+        mtk[1] = 303;
+        mtk[2] = 304;
+        mtk[3] = 402;
+        mtk[4] = 443;
+        mtk[5] = 444;
     }
 }
 

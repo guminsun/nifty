@@ -181,7 +181,7 @@ heatr
 
     card_3
     {
-        mtk = 444;
+        mtk[0] = 444; // Note that mtk has to be defined as an array.
     }
 
     /* Card 4, 5, and 5a are skipped since nqa defaults to 0 in card 2. */
