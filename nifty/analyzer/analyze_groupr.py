@@ -13,10 +13,12 @@ def analyze_groupr_card_list(module):
     # Card 1 must always be defined.
     analyze_groupr_card_1(env.next(card_iter), module)
     # Card 2 must always be defined.
-    analyze_groupr_card_2(env.next(card_iter), module)
+    card_2, ign, igg, iwt, ntemp, nsigz = analyze_groupr_card_2(env.next(card_iter), module)
     # Card 3 must always be defined.
     analyze_groupr_card_3(env.next(card_iter), module)
-        
+    # Card 4 must always be defined.
+    analyze_groupr_card_4(ntemp, env.next(card_iter), module)
+
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
     #rule.no_card_allowed(env.next(card_iter), module)
@@ -114,3 +116,25 @@ def analyze_groupr_card_3_title(title_node, card_3, module):
     rule.identifier_must_be_string(title_node, card_3, module)
     rule.identifier_string_must_not_exceed_length(title_node, 80, card_3, module)
     return env.get_value(env.get_r_value(title_node))
+
+def analyze_groupr_card_4(ntemp_value, card_4, module):
+    # Note that the number of temperatures in card 4 should be equal to the
+    # number of temperatures ('ntemp_value') defined in card 2.
+    rule.card_must_be_defined('card_4', card_4, module, None)
+    stmt_iter = env.get_statement_iterator(card_4)
+    stmt_len = len(stmt_iter)
+    if stmt_len == ntemp_value:
+        for i in range(stmt_len):
+            analyze_groupr_card_4_temp(i, env.next(stmt_iter), card_4, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
+               ' but expected ' + str(ntemp_value) + ' since ' +
+               'ntemp = ' + str(ntemp_value) + ' in \'card_2\', module ' +
+               '\'groupr\'.')
+        rule.semantic_error(msg, card_4)
+    return card_4
+
+def analyze_groupr_card_4_temp(expected_index, temp_node, card_4, module):
+    expected = ('temp', expected_index)
+    rule.identifier_must_be_defined(expected, temp_node, card_4, module)
+    return env.get_value(env.get_r_value(temp_node))
