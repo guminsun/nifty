@@ -492,7 +492,10 @@ plotr
         mfd = 5;
         mtd = 24;
         temper = 0.0;
-        nth_ntp_nkh = 12; // XXX: Triplet. nkh not used for iverf = 5.
+        /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
+           I.e. could also be defined as a pair: "nth,ntp = 1,2;"
+         */
+        nth, ntp, nkh = 1, 2, ""; // "" is used to denote an empty value.
     }
 
     card_9 {}
@@ -523,7 +526,10 @@ plotr
         mfd = 5;
         mtd = 24;
         temper = 0.0;
-        nth_ntp_nkh = 16; // nkh not used.
+        /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
+           I.e. could also be defined as a pair: "nth,ntp = 1,6;"
+         */
+        nth, ntp, nkh = 1, 6, ""; // "" is used to denote an empty value.
     }
 
     card_9 {}
@@ -555,7 +561,10 @@ plotr
         mfd = 5;
         mtd = 24;
         temper = 0.0;
-        nth_ntp_nkh = 20; // nkh not used.
+        /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
+           I.e. could also be defined as a pair: "nth,ntp = 2,0;"
+         */
+        nth, ntp, nkh = 2, 0, ""; // "" is used to denote an empty value.
     }
 
     card_9 {}
