@@ -41,7 +41,6 @@ def organize_module_list(module_list):
     return module_list
 
 def organize_module(module):
-    organizer_function = organize_dummy
     organizer_functions = {
         #'acer' : organize_acer,
         #'broadr' : organize_broadr,
@@ -72,12 +71,7 @@ def organize_module(module):
         # Nothing to organize.
         return module
     else:
-        try:
-            organizer_function = organizer_functions[module_name]
-        except KeyError:
-            msg = ('--- nifty_organizer: XXX not implemented yet: ' +
-                   module_name)
-            print msg
+        organizer_function = organizer_functions.get(module_name, organize_dummy)
     return organizer_function(module)
 
 def organize_dummy(module):

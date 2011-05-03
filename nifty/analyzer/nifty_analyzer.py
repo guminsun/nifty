@@ -67,14 +67,9 @@ def analyze_module(module):
     }
     module_name = module['module_name']
     if module_name == 'stop':
+        # Nothing to analyze.
         return module
     else:
-        #try:
-        #    analyzer_function = analyzer_functions[module_name]
-        #except KeyError:
-        #    msg = ('--- nifty_analyzer: XXX not implemented yet: ' +
-        #           module_name)
-        #    print msg
         analyzer_function = analyzer_functions.get(module_name, analyze_dummy)
     analyzer_function(module)
     return module
