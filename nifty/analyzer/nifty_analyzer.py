@@ -6,7 +6,7 @@ from analyze_acer import analyze_acer
 #from analyze_errorr import analyze_errorr
 #from analyze_gaminr import analyze_gaminr
 #from analyze_gaspr import analyze_gaspr
-#from analyze_groupr import analyze_groupr
+from analyze_groupr import analyze_groupr
 from analyze_heatr import analyze_heatr
 #from analyze_leapr import analyze_leapr
 #from analyze_matxsr import analyze_matxsr
@@ -40,7 +40,6 @@ def analyze_module_list(module_list):
     return module_list
 
 def analyze_module(module):
-    analyzer_function = analyze_dummy
     analyzer_functions = {
         'acer' : analyze_acer,
         #'broadr' : analyze_broadr,
@@ -50,7 +49,7 @@ def analyze_module(module):
         #'errorr' : analyze_errorr,
         #'gaminr' : analyze_gaminr,
         #'gaspr' : analyze_gaspr,
-        #'groupr' : analyze_groupr,
+        'groupr' : analyze_groupr,
         'heatr' : analyze_heatr,
         #'leapr' : analyze_leapr,
         #'matxsr' : analyze_matxsr,
@@ -70,12 +69,13 @@ def analyze_module(module):
     if module_name == 'stop':
         return module
     else:
-        try:
-            analyzer_function = analyzer_functions[module_name]
-        except KeyError:
-            msg = ('--- nifty_analyzer: XXX not implemented yet: ' +
-                   module_name)
-            print msg
+        #try:
+        #    analyzer_function = analyzer_functions[module_name]
+        #except KeyError:
+        #    msg = ('--- nifty_analyzer: XXX not implemented yet: ' +
+        #           module_name)
+        #    print msg
+        analyzer_function = analyzer_functions.get(module_name, analyze_dummy)
     analyzer_function(module)
     return module
 
