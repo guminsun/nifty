@@ -16,6 +16,11 @@ def analyze_heatr_card_list(module):
     # greater than zero.
     if npk > 0:
         analyze_heatr_card_3(npk, env.next(card_iter), module)
+    # Card 4 and 5 should only be defined if the number of user q values (nqa)
+    # is greater than zero.
+    if nqa > 0:
+        analyze_heatr_card_4(nqa, env.next(card_iter), module)
+        analyze_heatr_card_5(nqa, env.next(card_iter), module)
     return module
 
 def analyze_heatr_card_1(card_1, module):
@@ -158,3 +163,32 @@ def analyze_heatr_card_3_mtk(expected_index, mtk_node, card_3, module):
     # does not seem to be complete. See for example NJOY Test Problem 08 where
     # mtk[0] = 302.
     return env.get_value(env.get_r_value(mtk_node))
+
+def analyze_heatr_card_4(nqa_value, card_4, module):
+    msg = ('expected \'card_4\' since nqa > 0 in \'card_2\'')
+    rule.card_must_be_defined('card_4', card_4, module, msg)
+    stmt_iter = env.get_statement_iterator(card_4)
+    stmt_len = len(stmt_iter)
+    if stmt_len == nqa_value:
+        for i in range(stmt_len):
+            analyze_heatr_card_4_mta(i, env.next(stmt_iter), card_4, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
+               ' but expected ' + str(nqa_value) + ' since ' +
+               'nqa = ' + str(nqa_value) + ' in \'card_2\', module ' +
+               '\'heatr\'.')
+        rule.semantic_error(msg, card_4)
+    # This check is really not required here since we loop over the entire
+    # statement list above.
+    rule.no_statement_allowed(env.next(stmt_iter), card_4, module)
+    return card_4
+
+def analyze_heatr_card_4_mta(expected_index, mta_node, card_4, module):
+    rule.identifier_must_be_defined(('mta', expected_index), mta_node, card_4,
+                                    module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(mta_node))
+
+def analyze_heatr_card_5(nqa_value, card_5, module):
+    # XXX: Need to implement.
+    pass
