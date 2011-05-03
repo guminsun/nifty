@@ -538,7 +538,7 @@ ccccr
         /* Note that the original input does not denote the first four
            variables as strings. 
            What does the two ' denote? Seems a bit irregular.
-           XXX: Need to verify that this actually works in NJOY. */
+         */
         hisnm = "pu238";
         habsid = "pu238";
         hident = "endfb4";
