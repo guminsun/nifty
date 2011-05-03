@@ -284,7 +284,7 @@ groupr
 
     card_4
     {
-        temp = 300;
+        temp[0] = 300;
     }
 
     card_5

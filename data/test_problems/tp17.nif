@@ -314,7 +314,7 @@ groupr
 
     card_4
     {
-        temp = 300.0;
+        temp[0] = 300.0;
     }
 
     card_5
@@ -412,7 +412,7 @@ groupr
 
     card_4
     {
-        temp = 300.0;
+        temp[0] = 300.0;
     }
 
     card_5
@@ -468,7 +468,7 @@ groupr
 
     card_4
     {
-        temp = 300.0;
+        temp[0] = 300.0;
     }
 
     card_5
