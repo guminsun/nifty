@@ -187,8 +187,10 @@ def get_module_name(module_node):
 
 def get_node_type(node):
     '''
-        Return node type of 'node'.
+        Return node type of 'node'. None if 'node' is None.
     '''
+    if node is None:
+        return None
     return node['node_type']
 
 def get_original_statement_list(card_node):
