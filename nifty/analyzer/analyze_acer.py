@@ -210,8 +210,9 @@ def analyze_acer_card_4(nxtra_value, card_4, module):
 def analyze_acer_card_4_iz_aw(expected_index, iz_aw_node, card_4, module):
     pair = (('iz', expected_index), ('aw', expected_index))
     rule.pair_must_be_defined(pair, iz_aw_node, card_4, module)
-    # XXX: get_value need to handle pairs and return a pair.
-    # return env.get_value(env.get_r_value(iz_aw_node))
+    iz_value = iz_aw_node['r_value']['element_1']['value']
+    aw_value = iz_aw_node['r_value']['element_2']['value']
+    return iz_value, aw_value
 
 def analyze_acer_card_5(card_5, module):
     # Note that card 5 should only be defined if iopt = 1 in card_2, check if
