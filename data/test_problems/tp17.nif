@@ -319,7 +319,7 @@ groupr
 
     card_5
     {
-        sigz = 1.0e10; // No trailing dots. Use C-style floats.
+        sigz[0] = 1.0e10; // No trailing dots. Use C-style floats.
     }
 
     card_9
@@ -417,7 +417,7 @@ groupr
 
     card_5
     {
-        sigz = 1.0e10; // No trailing dots. Use C-style floats.
+        sigz[0] = 1.0e10; // No trailing dots. Use C-style floats.
     }
 
     card_9
@@ -473,7 +473,7 @@ groupr
 
     card_5
     {
-        sigz = 1.0e10; // No trailing dots. Use C-style floats.
+        sigz[0] = 1.0e10; // No trailing dots. Use C-style floats.
     }
 
     card_9

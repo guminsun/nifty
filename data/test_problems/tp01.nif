@@ -289,7 +289,7 @@ groupr
 
     card_5
     {
-        sigz = 1e10; // No trailing dots. Use C-style floats.
+        sigz[0] = 1e10; // No trailing dots. Use C-style floats.
     }
 
     card_9
