@@ -24,6 +24,10 @@ def analyze_groupr_card_list(module):
     if ign == 1:
         card_6a, ngn = analyze_groupr_card_6a(env.next(card_iter), module)
         analyze_groupr_card_6b(ngn, env.next(card_iter), module)
+    # Card 7a and 7b should only be defined if igg = 1.
+    if igg == 1:
+        card_7a, ngg = analyze_groupr_card_7a(env.next(card_iter), module)
+        analyze_groupr_card_7b(ngg, env.next(card_iter), module)
 
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
@@ -184,7 +188,8 @@ def analyze_groupr_card_6a_ngn(ngn_node, card_6a, module):
     return env.get_value(env.get_r_value(ngn_node))
 
 def analyze_groupr_card_6b(ngn_value, card_6b, module):
-    rule.card_must_be_defined('card_6b', card_6b, module, None)
+    msg = ('expected \'card_6b\' since ign = 1 in \'card_2\'')
+    rule.card_must_be_defined('card_6b', card_6b, module, msg)
     stmt_iter = env.get_statement_iterator(card_6b)
     stmt_len = len(stmt_iter)
     if stmt_len == ngn_value+1:
@@ -203,3 +208,41 @@ def analyze_groupr_card_6b_egn(expected_index, egn_node, card_6b, module):
     expected = ('egn', expected_index)
     rule.identifier_must_be_defined(expected, egn_node, card_6b, module)
     return env.get_value(env.get_r_value(egn_node))
+
+def analyze_groupr_card_7a(card_7a, module):
+    # Note that card 7a should only be defined if igg = 1 in card_2, check if
+    # it is before calling this function.
+    msg = ('expected \'card_7a\' since igg = 1 in \'card_2\'')
+    rule.card_must_be_defined('card_7a', card_7a, module, msg)
+    stmt_iter = env.get_statement_iterator(card_7a)
+    ngg = analyze_groupr_card_7a_ngg(env.next(stmt_iter), card_7a, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card_7a, module)
+    return card_7a, ngg
+
+def analyze_groupr_card_7a_ngg(ngg_node, card_7a, module):
+    rule.identifier_must_be_defined(('ngg', None), ngg_node, card_7a, module)
+    rule.identifier_must_be_int(ngg_node)
+    # XXX: Additional checks? Range?
+    return env.get_value(env.get_r_value(ngg_node))
+
+def analyze_groupr_card_7b(ngg_value, card_7b, module):
+    msg = ('expected \'card_7b\' since igg = 1 in \'card_2\'')
+    rule.card_must_be_defined('card_7b', card_7b, module, msg)
+    stmt_iter = env.get_statement_iterator(card_7b)
+    stmt_len = len(stmt_iter)
+    if stmt_len == ngg_value+1:
+        for i in range(stmt_len):
+            # XXX: The ngg+1 group breaks (ev) should be in increasing order.
+            analyze_groupr_card_7b_egg(i, env.next(stmt_iter), card_7b, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_7b\'' +
+               ' but expected ' + str(ngg_value+1) + ' since ' +
+               'ngg = ' + str(ngg_value) + ' in \'card_7a\', module ' +
+               '\'groupr\'.')
+        rule.semantic_error(msg, card_7b)
+    return card_7b
+
+def analyze_groupr_card_7b_egg(expected_index, egg_node, card_7b, module):
+    expected = ('egg', expected_index)
+    rule.identifier_must_be_defined(expected, egg_node, card_7b, module)
+    return env.get_value(env.get_r_value(egg_node))
