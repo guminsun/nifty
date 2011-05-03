@@ -21,6 +21,16 @@ def analyze_heatr_card_list(module):
     if nqa > 0:
         analyze_heatr_card_4(nqa, env.next(card_iter), module)
         analyze_heatr_card_5(nqa, env.next(card_iter), module)
+    # XXX: Don't know how the variable qbar values in card 5a should be
+    # specified. What is a 'word'? Need to investigate the NJOY source
+    # code.
+    # If the next card is 5a, just pass it along for now, no other cards are
+    # allowed though.
+    next_card = env.next(card_iter)
+    if env.get_card_name(next_card) == 'card_5a':
+        rule.no_card_allowed(env.next(card_iter), module)
+    else:
+        rule.no_card_allowed(next_card, module)
     return module
 
 def analyze_heatr_card_1(card_1, module):
@@ -190,5 +200,28 @@ def analyze_heatr_card_4_mta(expected_index, mta_node, card_4, module):
     return env.get_value(env.get_r_value(mta_node))
 
 def analyze_heatr_card_5(nqa_value, card_5, module):
-    # XXX: Need to implement.
-    pass
+    msg = ('expected \'card_5\' since nqa > 0 in \'card_2\'')
+    rule.card_must_be_defined('card_5', card_5, module, msg)
+    stmt_iter = env.get_statement_iterator(card_5)
+    stmt_len = len(stmt_iter)
+    if stmt_len == nqa_value:
+        for i in range(stmt_len):
+            analyze_heatr_card_5_qa(i, env.next(stmt_iter), card_5, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_5\'' +
+               ' but expected ' + str(nqa_value) + ' since ' +
+               'nqa = ' + str(nqa_value) + ' in \'card_2\', module ' +
+               '\'heatr\'.')
+        rule.semantic_error(msg, card_5)
+    # This check is really not required here since we loop over the entire
+    # statement list above.
+    rule.no_statement_allowed(env.next(stmt_iter), card_5, module)
+    # XXX: Should return the number of qa values which are greater than 99e6,
+    # such that card 5a can be analyzed.
+    return card_5
+
+def analyze_heatr_card_5_qa(expected_index, qa_node, card_5, module):
+    rule.identifier_must_be_defined(('qa', expected_index), qa_node, card_5,
+                                    module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(qa_node))
