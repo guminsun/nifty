@@ -1,0 +1,41 @@
+heatr
+{
+    card_1
+    {
+        nendf = 20;
+        nin = 21;
+        nout = 22;
+        nplot = 32;
+    }
+
+    card_2
+    {
+        matd = 238;
+        npk = 2;
+        nqa = 2;
+        ntemp = 2;
+        local = 1;
+        iprint = 2;
+        ed = 1;
+    }
+
+    card_3
+    {
+        mtk[0] = 404;
+        mtk[1] = 505;
+    }
+
+    card_4
+    {
+        mta[0] = 443;
+        mta[1] = 444;
+    }
+
+    card_5
+    {
+        qa[0] = 99e6;
+        qa[1] = 99e6;
+    }
+
+    card_5a {}
+}
