@@ -12,72 +12,13 @@ Tests
 Expected output.
 
 
-Organizer
----------
-organize_statement_list is broken for:
-
-acer
-{
-    card_1
-    {
-        nendf = 20;
-        npend = 21;
-        ngend = 22;
-        nace = 23;
-        ndir = 24;
-    }
-
-    card_2
-    {
-        iopt = 2;
-        nxtra = 1;
-    }
-
-    card_3
-    {
-        hk = "A string.";
-    }
-
-    card_4
-    {}
-}
-
-acer: see brokenness above
-    Kind of finished. Needs cleaning?
-
-heatr: XXX
-
-groupr: XXX
-    In card_4, temp can be an array. See tp02.nif
-
-broadr: XXX
-    In card_4, tempd can be an array. See tp02.nif
-
-reconr: XXX
-
-thermr: XXX
-
-covr: XXX
-
-errorr: XXX
-
-plotr: XXX
-
-viewr: XXX
-
-rest: ZZZ
-
-unresr
-    In card_3, temp can be an array. See tp02.nif
-    In card_4, sigz can be an array. See tp02.nif
-
-
 Analyzer
 --------
-acer: ok
+acer: ok?
     minor issues, see XXX's
 
-heatr: XXX
+heatr: ok?
+    minor issues, see XXX's
 
 groupr: XXX
     In card_4, temp can be an array. See tp02.nif
@@ -85,7 +26,7 @@ groupr: XXX
 broadr: XXX
     In card_4, tempd can be an array. See tp02.nif
 
-reconr: ok
+reconr: ok?
     minor issues, see XXX's
 
 thermr: XXX
@@ -110,20 +51,9 @@ unresr
     In card_4, sigz can be an array. See tp02.nif
 
 
-Translator
-----------
-acer : iz,aw pairs.
-
-
-Emitter
--------
-acer : iz,aw pairs. pairs seems to be defined as NN, eg if iz = 1 and aw = 2,
-       then 12 should be outputted.
-
-
 In General
 ----------
-Tidy up. Clean up and generalize.
+Clean up and generalize.
 Setup good structure for the project such that it is easy to complete.
 Documentation.
 
@@ -131,15 +61,9 @@ Documentation.
 README
 ------
 Install
-    PLY
 Usage
 
 
 Executeable binary
 ------------------
 XXX
-
-
-GUI Editor
-----------
-ZZZ
