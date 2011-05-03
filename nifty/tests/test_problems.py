@@ -367,6 +367,42 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
+    def test_tp12_analyzer(self):
+        infile = get_test_problem('tp12')
+        outfile = infile + analyzer_suffix()
+        return_code = run(infile, outfile, analyzer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp12_emitter(self):
+        infile = get_test_problem('tp12')
+        outfile = infile + emitter_suffix()
+        return_code = run(infile, outfile, emitter())
+        self.assertEqual(return_code, 0)
+
+    def test_tp12_lexer(self):
+        infile = get_test_problem('tp12')
+        outfile = infile + lexer_suffix()
+        return_code = run(infile, outfile, lexer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp12_organizer(self):
+        infile = get_test_problem('tp12')
+        outfile = infile + organizer_suffix()
+        return_code = run(infile, outfile, organizer())
+        self.assertEqual(return_code, 0)
+
+    def test_tp12_parser(self):
+        infile = get_test_problem('tp12')
+        outfile = infile + parser_suffix()
+        return_code = run(infile, outfile, parser())
+        self.assertEqual(return_code, 0)
+
+    def test_tp12_translator(self):
+        infile = get_test_problem('tp12')
+        outfile = infile + translator_suffix()
+        return_code = run(infile, outfile, translator())
+        self.assertEqual(return_code, 0)
+
     def test_tp13_analyzer(self):
         infile = get_test_problem('tp13')
         outfile = infile + analyzer_suffix()
@@ -490,6 +526,7 @@ def get_test_problem(tp):
         'tp08' : 'data/test_problems/tp08.nif',
         'tp10' : 'data/test_problems/tp10.nif',
         'tp11' : 'data/test_problems/tp11.nif',
+        'tp12' : 'data/test_problems/tp12.nif',
         'tp13' : 'data/test_problems/tp13.nif',
         'tp14' : 'data/test_problems/tp14.nif',
         'tp17' : 'data/test_problems/tp17.nif',
@@ -603,6 +640,12 @@ def suite():
         'test_tp11_organizer',
         'test_tp11_parser',
         'test_tp11_translator',
+        'test_tp12_analyzer',
+        'test_tp12_emitter',
+        'test_tp12_lexer',
+        'test_tp12_organizer',
+        'test_tp12_parser',
+        'test_tp12_translator',
         'test_tp13_analyzer',
         'test_tp13_emitter',
         'test_tp13_lexer',
