@@ -185,16 +185,6 @@ def analyze_acer_card_4(nxtra_value, card_4, module):
     msg = ('expected \'card_4\' since nxtra > 0 in \'card_2\'')
     rule.card_must_be_defined('card_4', card_4, module, msg)
     stmt_iter = env.get_statement_iterator(card_4)
-    # XXX:
-    # Assuming that pairs should be supplied as e.g. "12" (where iz = 1 and
-    # aw = 2) to NJOY, in a similar manner how the "nth,ntp,nkh" triplets are
-    # defined in the NJOY Test Problem 06 (plotr, card 8).
-    # Unknown if all the iz,aw pairs should be defined in one card, or if one
-    # card is supposed to hold only one pair. Assuming that one card holds all
-    # pairs since documentation says "nxtra pairs".
-    #
-    # This is a dirty solution. Pairs, triplets, etc should be defined as some
-    # kind of tuple node in the AST instead.
     stmt_len = len(stmt_iter)
     if stmt_len == nxtra_value:
         for i in range(stmt_len):
