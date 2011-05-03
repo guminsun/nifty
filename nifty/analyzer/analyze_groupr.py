@@ -20,6 +20,10 @@ def analyze_groupr_card_list(module):
     analyze_groupr_card_4(ntemp, env.next(card_iter), module)
     # Card 5 must always be defined.
     analyze_groupr_card_5(nsigz, env.next(card_iter), module)
+    # Card 6a and 6b should only be defined if ign = 1.
+    if ign == 1:
+        card_6a, ngn = analyze_groupr_card_6a(env.next(card_iter), module)
+        analyze_groupr_card_6b(ngn, env.next(card_iter), module)
 
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
@@ -162,3 +166,40 @@ def analyze_groupr_card_5_sigz(expected_index, sigz_node, card_5, module):
     expected = ('sigz', expected_index)
     rule.identifier_must_be_defined(expected, sigz_node, card_5, module)
     return env.get_value(env.get_r_value(sigz_node))
+
+def analyze_groupr_card_6a(card_6a, module):
+    # Note that card 6a should only be defined if ign = 1 in card_2, check if
+    # it is before calling this function.
+    msg = ('expected \'card_6a\' since ign = 1 in \'card_2\'')
+    rule.card_must_be_defined('card_6a', card_6a, module, msg)
+    stmt_iter = env.get_statement_iterator(card_6a)
+    ngn = analyze_groupr_card_6a_ngn(env.next(stmt_iter), card_6a, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card_6a, module)
+    return card_6a, ngn
+
+def analyze_groupr_card_6a_ngn(ngn_node, card_6a, module):
+    rule.identifier_must_be_defined(('ngn', None), ngn_node, card_6a, module)
+    rule.identifier_must_be_int(ngn_node)
+    # XXX: Additional checks? Range?
+    return env.get_value(env.get_r_value(ngn_node))
+
+def analyze_groupr_card_6b(ngn_value, card_6b, module):
+    rule.card_must_be_defined('card_6b', card_6b, module, None)
+    stmt_iter = env.get_statement_iterator(card_6b)
+    stmt_len = len(stmt_iter)
+    if stmt_len == ngn_value+1:
+        for i in range(stmt_len):
+            # XXX: The ngn+1 group breaks (ev) should be in increasing order.
+            analyze_groupr_card_6b_egn(i, env.next(stmt_iter), card_6b, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_6b\'' +
+               ' but expected ' + str(ngn_value+1) + ' since ' +
+               'ngn = ' + str(ngn_value) + ' in \'card_6a\', module ' +
+               '\'groupr\'.')
+        rule.semantic_error(msg, card_6b)
+    return card_6b
+
+def analyze_groupr_card_6b_egn(expected_index, egn_node, card_6b, module):
+    expected = ('egn', expected_index)
+    rule.identifier_must_be_defined(expected, egn_node, card_6b, module)
+    return env.get_value(env.get_r_value(egn_node))
