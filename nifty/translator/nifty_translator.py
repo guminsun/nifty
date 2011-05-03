@@ -53,6 +53,8 @@ def translate_r_value(r_value):
     node_type = r_value['node_type']
     if node_type == 'pair':
         return translate_r_value_pair(r_value)
+    elif node_type == 'triple':
+        return translate_r_value_triple(r_value)
     else:
         value = r_value['value']
     return (node_type, value)
@@ -62,4 +64,12 @@ def translate_r_value_pair(pair):
     element_2_value = pair['element_2']['value']
     value = str(element_1_value) + str(element_2_value)
     node_type = pair['element_1']['node_type']
+    return (node_type, value)
+
+def translate_r_value_triple(triple):
+    element_1_value = triple['element_1']['value']
+    element_2_value = triple['element_2']['value']
+    element_3_value = triple['element_3']['value']
+    value = str(element_1_value) + str(element_2_value) + str(element_3_value)
+    node_type = triple['element_1']['node_type']
     return (node_type, value)
