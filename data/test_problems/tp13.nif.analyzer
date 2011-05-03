@@ -7,11 +7,6 @@
 --- nifty_organizer: XXX not implemented yet: acer
 --- nifty_organizer: XXX not implemented yet: acer
 --- nifty_organizer: XXX not implemented yet: viewr
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: broadr
---- nifty_analyzer: XXX not implemented yet: gaspr
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: viewr
 {'line_number': 44,
  'module_list': [{'card_list': [{'card_id': (1, ''),
                                  'card_name': 'card_1',

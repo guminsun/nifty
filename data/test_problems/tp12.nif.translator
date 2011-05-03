@@ -2,9 +2,6 @@
 --- nifty_organizer: XXX not implemented yet: gaspr
 --- nifty_organizer: XXX not implemented yet: plotr
 --- nifty_organizer: XXX not implemented yet: viewr
---- nifty_analyzer: XXX not implemented yet: gaspr
---- nifty_analyzer: XXX not implemented yet: plotr
---- nifty_analyzer: XXX not implemented yet: viewr
 [('reconr',
   [[('integer', 20), ('integer', 21)],
    [('string', 'pendf tape for endf/b-vi.1 28-ni-61a')],

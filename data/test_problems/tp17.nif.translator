@@ -9,14 +9,6 @@
 --- nifty_organizer: XXX not implemented yet: groupr
 --- nifty_organizer: XXX not implemented yet: moder
 --- nifty_organizer: XXX not implemented yet: errorr
---- nifty_analyzer: XXX not implemented yet: broadr
---- nifty_analyzer: XXX not implemented yet: broadr
---- nifty_analyzer: XXX not implemented yet: broadr
---- nifty_analyzer: XXX not implemented yet: groupr
---- nifty_analyzer: XXX not implemented yet: groupr
---- nifty_analyzer: XXX not implemented yet: groupr
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: errorr
 [('reconr',
   [[('integer', 21), ('integer', 41)],
    [('string', 'processing jendl-3.3 238u.')],

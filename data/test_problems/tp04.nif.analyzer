@@ -3,10 +3,6 @@
 --- nifty_organizer: XXX not implemented yet: errorr
 --- nifty_organizer: XXX not implemented yet: groupr
 --- nifty_organizer: XXX not implemented yet: errorr
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: errorr
---- nifty_analyzer: XXX not implemented yet: groupr
---- nifty_analyzer: XXX not implemented yet: errorr
 {'line_number': 40,
  'module_list': [{'card_list': [{'card_id': (1, ''),
                                  'card_name': 'card_1',

@@ -3,11 +3,6 @@
 --- nifty_organizer: XXX not implemented yet: errorr
 --- nifty_organizer: XXX not implemented yet: covr
 --- nifty_organizer: XXX not implemented yet: viewr
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: errorr
---- nifty_analyzer: XXX not implemented yet: covr
---- nifty_analyzer: XXX not implemented yet: viewr
 [('moder', [[('integer', 30), ('integer', -31)]]),
  ('moder', [[('integer', -31), ('integer', -32)]]),
  ('errorr',

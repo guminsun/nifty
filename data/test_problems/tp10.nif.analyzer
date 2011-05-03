@@ -5,11 +5,6 @@
 --- nifty_organizer: XXX not implemented yet: purr
 --- nifty_organizer: XXX not implemented yet: acer
 --- nifty_organizer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: broadr
---- nifty_analyzer: XXX not implemented yet: unresr
---- nifty_analyzer: XXX not implemented yet: purr
---- nifty_analyzer: XXX not implemented yet: moder
 {'line_number': 48,
  'module_list': [{'card_list': [{'card_id': (1, ''),
                                  'card_name': 'card_1',

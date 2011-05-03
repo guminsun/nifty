@@ -3,10 +3,6 @@
 --- nifty_organizer: XXX not implemented yet: dtfr
 --- nifty_organizer: XXX not implemented yet: matxsr
 --- nifty_organizer: XXX not implemented yet: viewr
---- nifty_analyzer: XXX not implemented yet: gaminr
---- nifty_analyzer: XXX not implemented yet: dtfr
---- nifty_analyzer: XXX not implemented yet: matxsr
---- nifty_analyzer: XXX not implemented yet: viewr
 {'line_number': 50,
  'module_list': [{'card_list': [{'card_id': (1, ''),
                                  'card_name': 'card_1',

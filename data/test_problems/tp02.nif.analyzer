@@ -6,13 +6,6 @@
 --- nifty_organizer: XXX not implemented yet: groupr
 --- nifty_organizer: XXX not implemented yet: ccccr
 --- nifty_organizer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: broadr
---- nifty_analyzer: XXX not implemented yet: moder
---- nifty_analyzer: XXX not implemented yet: unresr
---- nifty_analyzer: XXX not implemented yet: groupr
---- nifty_analyzer: XXX not implemented yet: ccccr
---- nifty_analyzer: XXX not implemented yet: moder
 {'line_number': 86,
  'module_list': [{'card_list': [{'card_id': (1, ''),
                                  'card_name': 'card_1',
