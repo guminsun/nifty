@@ -14,14 +14,15 @@ def analyze_groupr_card_list(module):
     analyze_groupr_card_1(env.next(card_iter), module)
     # Card 2 must always be defined.
     analyze_groupr_card_2(env.next(card_iter), module)
-    
+    # Card 3 must always be defined.
+    analyze_groupr_card_3(env.next(card_iter), module)
+        
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
     #rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_groupr_card_1(card_1, module):
-    # Card 1 must be defined.
     rule.card_must_be_defined('card_1', card_1, module, None)
     stmt_iter = env.get_statement_iterator(card_1)
     rule.analyze_unit_number('nendf', env.next(stmt_iter), card_1, module)
@@ -32,7 +33,6 @@ def analyze_groupr_card_1(card_1, module):
     return card_1
 
 def analyze_groupr_card_2(card_2, module):
-    # Card 2 must be defined.
     rule.card_must_be_defined('card_2', card_2, module, None)
     stmt_iter = env.get_statement_iterator(card_2)
     analyze_groupr_card_2_matb(env.next(stmt_iter), card_2, module)
@@ -101,3 +101,16 @@ def analyze_groupr_card_2_iprint(iprint_node, card_2, module):
                    ', expected 0 for min, 1 for max (default = 1).')
             rule.semantic_error(msg, iprint_node)
     return iprint_r_value
+
+def analyze_groupr_card_3(card_3, module):
+    rule.card_must_be_defined('card_3', card_3, module, None)
+    stmt_iter = env.get_statement_iterator(card_3)
+    analyze_groupr_card_3_title(env.next(stmt_iter), card_3, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card_3, module)
+    return card_3
+
+def analyze_groupr_card_3_title(title_node, card_3, module):
+    rule.identifier_must_be_defined(('title', None), title_node, card_3, module)
+    rule.identifier_must_be_string(title_node, card_3, module)
+    rule.identifier_string_must_not_exceed_length(title_node, 80, card_3, module)
+    return env.get_value(env.get_r_value(title_node))
