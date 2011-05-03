@@ -11,6 +11,6 @@
     ('float', '0.00'),
     ('integer', 3)],
    [('string', 'Sample string.')],
-   [('pair', '11'), ('pair', '22'), ('pair', '58')],
+   [('integer', '11'), ('integer', '22'), ('integer', '58')],
    [('integer', 2225)]]),
  ('stop', [])]
