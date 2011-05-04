@@ -43,6 +43,8 @@ def analyze_groupr_card_list(module):
     # Number of card_9's should at least be 2 since one card 9 must always be
     # supplied, and there must be an ending card 9 (with mfd = 0) to indicate 
     # termination of current temperature/material.
+    # XXX: number of temperatures (ntemp) defines the number of card 9 with
+    # mfd = 0?
     number_of_card_9 = len(env.get_cards('card_9', module))
     if number_of_card_9 < 2:
         rule.too_few_cards_defined(number_of_card_9, 2, 'card_9', module)
@@ -50,11 +52,10 @@ def analyze_groupr_card_list(module):
         analyze_groupr_card_9(env.next(card_iter), module)
     # The last card is expected to be a card 10 with matd = 0, to indicate
     # termination of groupr.
-    #analyze_reconr_card_10(env.next(card_iter), module)
-
+    analyze_reconr_card_10(env.next(card_iter), module)
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
-    #rule.no_card_allowed(env.next(card_iter), module)
+    rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_groupr_card_1(card_1, module):
@@ -508,3 +509,10 @@ def analyze_groupr_card_9_mtname(node, card, module):
     # XXX: Additional checks? Allowed length? (probably 80 characters since
     # ENDF records are limited to 80 characters?)
     return env.get_value(env.get_r_value(node))
+
+def analyze_reconr_card_10(card_10, module):
+    rule.card_must_be_defined('card_10', card_10, module, None)
+    stmt_iter = env.get_statement_iterator(card_10)
+    matd = rule.analyze_identifier_matd(env.next(stmt_iter), card_10, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card_10, module)
+    return card_10
