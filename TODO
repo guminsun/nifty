@@ -21,7 +21,7 @@ heatr: ok?
     minor issues, see XXX's
 
 groupr: XXX
-    In card_4, temp can be an array. See tp02.nif
+    TAB1 records not handled.
 
 broadr: XXX
     In card_4, tempd can be an array. See tp02.nif
