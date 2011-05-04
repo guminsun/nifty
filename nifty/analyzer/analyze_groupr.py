@@ -34,6 +34,23 @@ def analyze_groupr_card_list(module):
     # Card 8b should only be defined if iwt = 1 or iwt = -1.
     if iwt == 1 or iwt == -1:
         analyze_groupr_card_8b(env.next(card_iter), module)
+    # Card 8c should only be defined if iwt = 4 or iwt = -4.
+    if iwt == 4 or iwt == -4:
+        analyze_groupr_card_8c(env.next(card_iter), module)
+    # Card 8d should only be defined if iwt = 0.
+    if iwt == 0:
+        analyze_groupr_card_8d(env.next(card_iter), module)
+    # Number of card_9's should at least be 2 since one card 9 must always be
+    # supplied, and there must be an ending card 9 (with mfd = 0) to indicate 
+    # termination of current temperature/material.
+    number_of_card_9 = len(env.get_cards('card_9', module))
+    if number_of_card_9 < 2:
+        rule.too_few_cards_defined(number_of_card_9, 2, 'card_9', module)
+    for c9 in range(number_of_card_9):
+        analyze_groupr_card_9(env.next(card_iter), module)
+    # The last card is expected to be a card 10 with matd = 0, to indicate
+    # termination of groupr.
+    #analyze_reconr_card_10(env.next(card_iter), module)
 
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
@@ -379,9 +396,9 @@ def analyze_groupr_card_8b(card_8b, module):
     msg = ('expected \'card_8b\' since iwt = 1 (or iwt = -1) in \'card_2\'')
     rule.card_must_be_defined('card_8b', card_8b, module, msg)
     # XXX:
-    # Skip analysis of 'wght' since TAB1 records hasn't been implemented in
-    # NIF nor nifty. Could implement it as an array declaration with variable
-    # length, but chose to leave it out for now.
+    # Skip analysis of 'wght' for now.
+    # Could implement it as an array declaration with variable length, but
+    # chose to leave it out for now.
     # If wght is needed, and assuming it should be provided as a space
     # separated list to NJOY, then just assign each value to an identifier.
     # E.g.:
@@ -389,4 +406,105 @@ def analyze_groupr_card_8b(card_8b, module):
     #   wght[1] = value2;
     #   ...
     #   wght[N] = valueN;
+    #
+    # XXX: 
+    # Would it be neat to implement TAB1 records as variable lists assigned to
+    # one variable? For example:
+    #     wght = value1 value2 ... valueN;
     return card_8b
+
+def analyze_groupr_card_8c(card_8c, module):
+    # Note that card 8c should only be defined if iwt = 4 or iwt = -4 in
+    # card_2, check if it is before calling this function.
+    msg = ('expected \'card_8c\' since iwt = 4 (or iwt = -4) in \'card_2\'')
+    rule.card_must_be_defined('card_8c', card_8c, module, msg)
+    stmt_iter = env.get_statement_iterator(card_8c)
+    # XXX: Must be defined? No default values specified.
+    analyze_groupr_card_8c_eb(env.next(stmt_iter), card_8c, module)
+    analyze_groupr_card_8c_tb(env.next(stmt_iter), card_8c, module)
+    analyze_groupr_card_8c_ec(env.next(stmt_iter), card_8c, module)
+    analyze_groupr_card_8c_tc(env.next(stmt_iter), card_8c, module)
+    # No more statements are allowed.
+    rule.no_statement_allowed(env.next(stmt_iter), card_8c, module)
+    return card_8c
+
+def analyze_groupr_card_8c_eb(node, card, module):
+    expected = ('eb', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_8c_tb(node, card, module):
+    expected = ('tb', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_8c_ec(node, card, module):
+    expected = ('ec', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_8c_tc(node, card, module):
+    expected = ('tc', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_8d(card_8d, module):
+    # Note that card 8d should only be defined if iwt = 0 in card_2, check if
+    # it is before calling this function.
+    msg = ('expected \'card_8d\' since iwt = 0 in \'card_2\'')
+    rule.card_must_be_defined('card_8d', card_8d, module, msg)
+    stmt_iter = env.get_statement_iterator(card_8d)
+    analyze_groupr_card_8d_ninwt(env.next(stmt_iter), card_8d, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card_8d, module)
+    return card_8d
+
+def analyze_groupr_card_8d_ninwt(node, card, module):
+    # XXX: ninwt must be binary?
+    return rule.analyze_unit_number('ninwt', node, card, module)
+
+def analyze_groupr_card_9(card_9, module):
+    rule.card_must_be_defined('card_9', card_9, module, None)
+    stmt_iter = env.get_statement_iterator(card_9)
+    # Save the number of statements here since the lenght of stmt_iter
+    # decreases when getting the next element from the iterator.
+    stmt_length = len(stmt_iter)
+    # mfd must always be defined.
+    analyze_groupr_card_9_mfd(env.next(stmt_iter), card_9, module)
+    # If the number of statements is one; mfd is either
+    #     * mfd = 0 which indicates termination of temperature/material and no
+    #       more values are expected for this card.
+    #     * mfd is set to an automatic reaction processing option and no more
+    #       values are expected for this card.
+    if stmt_length == 1:
+        rule.no_statement_allowed(env.next(stmt_iter), card_9, module)
+    # If the number of statements is not 1, then we expect to see mtd and
+    # mtname.
+    else:
+        analyze_groupr_card_9_mtd(env.next(stmt_iter), card_9, module)
+        analyze_groupr_card_9_mtname(env.next(stmt_iter), card_9, module)
+        rule.no_statement_allowed(env.next(stmt_iter), card_9, module)
+    return card_9
+
+def analyze_groupr_card_9_mfd(node, card, module):
+    expected = ('mfd', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    # XXX: mfd must be unit number? Additional checks?
+    return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_9_mtd(node, card, module):
+    expected = ('mtd', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    # XXX: Additional checks?
+    return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_9_mtname(node, card, module):
+    expected = ('mtname', None)
+    rule.identifier_must_be_defined(expected, node, card, module)
+    rule.identifier_must_be_string(node, card, module)
+    # XXX: Additional checks? Allowed length? (probably 80 characters since
+    # ENDF records are limited to 80 characters?)
+    return env.get_value(env.get_r_value(node))
