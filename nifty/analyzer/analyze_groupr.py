@@ -31,6 +31,9 @@ def analyze_groupr_card_list(module):
     # Card 8a should only be defined if iwt < 0.
     if iwt < 0:
         analyze_groupr_card_8a(env.next(card_iter), module)
+    # Card 8b should only be defined if iwt = 1 or iwt = -1.
+    if iwt == 1 or iwt == -1:
+        analyze_groupr_card_8b(env.next(card_iter), module)
 
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
@@ -369,3 +372,21 @@ def analyze_groupr_card_8a_gamma(node, card, module):
         rule.identifier_must_be_defined(expected, node, card, module)
         # XXX: Additional checks?
     return env.get_value(env.get_r_value(node))
+
+def analyze_groupr_card_8b(card_8b, module):
+    # Note that card 8b should only be defined if iwt = 1 or iwt = -1 in
+    # card_2, check if it is before calling this function.
+    msg = ('expected \'card_8b\' since iwt = 1 (or iwt = -1) in \'card_2\'')
+    rule.card_must_be_defined('card_8b', card_8b, module, msg)
+    # XXX:
+    # Skip analysis of 'wght' since TAB1 records hasn't been implemented in
+    # NIF nor nifty. Could implement it as an array declaration with variable
+    # length, but chose to leave it out for now.
+    # If wght is needed, and assuming it should be provided as a space
+    # separated list to NJOY, then just assign each value to an identifier.
+    # E.g.:
+    #   wght[0] = value1;
+    #   wght[1] = value2;
+    #   ...
+    #   wght[N] = valueN;
+    return card_8b
