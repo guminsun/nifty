@@ -50,12 +50,18 @@ def analyze_groupr_card_list(module):
         rule.too_few_cards_defined(number_of_card_9, 2, 'card_9', module)
     for c9 in range(number_of_card_9):
         analyze_groupr_card_9(env.next(card_iter), module)
+    analyze_reconr_card_10(env.next(card_iter), module)
+    # XXX: Pass all successive cards for now, since more than one material
+    # may be processed. matd in card 10 denotes the next material to be
+    # processed, but which cards are supposed to be included? Card 6-9 for
+    # each material desired or what?
+    #
     # The last card is expected to be a card 10 with matd = 0, to indicate
     # termination of groupr.
-    analyze_reconr_card_10(env.next(card_iter), module)
+    # analyze_reconr_card_10_stop(env.next(card_iter), module)
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
-    rule.no_card_allowed(env.next(card_iter), module)
+    # rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_groupr_card_1(card_1, module):
