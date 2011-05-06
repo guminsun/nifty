@@ -170,7 +170,7 @@ def analyze_reconr_card_4_errmax(err, node, card, module):
     # criterion is satisfied.
     # errmax does not have to be defined, defaults to 10*err.
     if node is None:
-        return 10*err
+        return 10*float(err)
     else:
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('errmax', l_value, card, module)
