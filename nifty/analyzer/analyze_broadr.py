@@ -12,6 +12,7 @@ def analyze_broadr_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_broadr_card_1(env.next(card_iter), module)
     analyze_broadr_card_2(env.next(card_iter), module)
+    analyze_broadr_card_3(env.next(card_iter), module)
     # XXX:
     # rule.no_card_allowed(env.next(card_iter), module)
     return module
@@ -33,6 +34,7 @@ def analyze_broadr_card_2(card, module):
     analyze_broadr_card_2_istart(env.next(stmt_iter), card, module)
     analyze_broadr_card_2_istrap(env.next(stmt_iter), card, module)
     analyze_broadr_card_2_temp1(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_broadr_card_2_ntemp2(node, card, module):
@@ -93,5 +95,57 @@ def analyze_broadr_card_2_temp1(node, card, module):
     else:
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('temp1', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_broadr_card_3(card, module):
+    rule.card_must_be_defined('card_3', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    errthn = analyze_broadr_card_3_errthn(env.next(stmt_iter), card, module)
+    analyze_broadr_card_3_thnmax(env.next(stmt_iter), card, module)
+    analyze_broadr_card_3_errmax(errthn, env.next(stmt_iter), card, module)
+    analyze_broadr_card_3_errint(errthn, env.next(stmt_iter), card, module)
+    # rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_broadr_card_3_errthn(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('errthn', l_value, card, module)
+    errthn = rule.must_be_float(l_value, r_value, card, module)
+    # XXX: Additional checks?
+    return errthn
+
+def analyze_broadr_card_3_thnmax(node, card, module):
+    if node is None:
+        return None
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('thnmax', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_broadr_card_3_errmax(errthn, node, card, module):
+    # Fractional reconstruction tolerance used when resonance-integral error
+    # criterion is satisfied.
+    # errmax does not have to be defined, defaults to 10*errthn.
+    if node is None:
+        return 10*float(errthn)
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('errmax', l_value, card, module)
+        # XXX: Additional checks? criterion: errmax_value >= err
+        return r_value.get('value')
+
+def analyze_broadr_card_3_errint(errthn, node, card, module):
+    # Maximum resonance-integral error (in barns) per grid point.
+    # errint does not have to be defined, defaults to errthn/20000.
+    if node is None:
+        # XXX: Will the Python float definition introduce accuracy problems?
+        #      Just a heads up if this return value will be used in the
+        #      translator.
+        return float(errthn)/20000
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('errint', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
