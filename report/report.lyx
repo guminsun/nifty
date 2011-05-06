@@ -426,7 +426,7 @@ declaration
 \align center
 
 \family typewriter
-material = 725
+material = 8225
 \end_layout
 
 \begin_layout Standard
@@ -521,7 +521,7 @@ material
 \family default
 , and the integer 
 \family typewriter
-725
+8225
 \family default
  could be represented as tokens of the form
 \end_layout
@@ -578,7 +578,7 @@ material
 \begin_inset space ~
 \end_inset
 
- <INTEGER, 725>
+ <INTEGER, 8225>
 \end_layout
 
 \begin_layout Standard
