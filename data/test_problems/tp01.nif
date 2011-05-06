@@ -155,7 +155,7 @@ broadr
 
     card_4
     {
-        temp2 = 300; // Use C-style floats.
+        temp2[0] = 300; // Use C-style floats.
     }
 
     card_5

@@ -108,7 +108,7 @@ broadr
 
     card_4
     {
-        temp2 = 300;
+        temp2[0] = 300;
     }
 
     card_5
