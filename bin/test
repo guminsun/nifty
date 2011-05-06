@@ -12,17 +12,20 @@ if os.path.isdir(nifty_dir):
     sys.path.insert(0, nifty_top)
 
 from nifty.tests import test_acer
+from nifty.tests import test_groupr
 from nifty.tests import test_heatr
 from nifty.tests import test_helpers
 from nifty.tests import test_problems
 
 acer_suite = test_acer.suite()
+groupr_suite = test_groupr.suite()
 heatr_suite = test_heatr.suite()
 helper_suite = test_helpers.suite()
 njoy_problem_suite = test_problems.suite()
 
 all_tests_list = [
     acer_suite,
+    groupr_suite,
     heatr_suite,
     helper_suite,
     njoy_problem_suite,

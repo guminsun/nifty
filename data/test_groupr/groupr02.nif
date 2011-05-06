@@ -1,0 +1,98 @@
+/*****************************************************************************
+
+groupr test problem 02:
+
+iwt = -1 implies card8a and card 8b.
+
+*****************************************************************************/
+
+groupr
+{
+    card_1
+    {
+        nendf = 20;
+        npend = 21;
+    }
+
+    card_2
+    {
+        matb = 2225;
+        ign = 1;
+        igg = 1;
+        iwt = -1;
+        lord = 5;
+        ntemp = 0;
+        nsigz = 0;
+    }
+
+    card_3
+    {
+        title = "sample string.";
+    }
+
+    card_4{}
+    card_5{}
+
+    card_6a
+    {
+        ngn = 2;
+    }
+
+    card_6b
+    {
+        egn[0] = 0;
+        egn[1] = 1;
+        egn[2] = 2;
+    }
+
+    card_7a
+    {
+        ngg = 2;
+    }
+
+    card_7b
+    {
+        egg[0] = 0;
+        egg[1] = 1;
+        egg[2] = 2;  
+    }
+
+    card_8a
+    {
+        ehi = 0;
+        sigpot = 0;
+        nflmax = 0;
+        ninwt = 0;
+        jsigz = 0;
+        alpha2 = 0;
+        sam = 0;
+        beta = 0;
+        alpha3 = 0;
+        gamma = 0;
+    }
+
+    card_8b
+    {
+        wght[0] = 1;
+        wght[1] = 2;
+        wght[2] = 3;
+    }
+
+    card_9
+    {
+        mfd = 20;
+        mtd = 99;
+        mtname = "99";
+    }
+
+    card_9
+    {
+        mfd = 0;
+    }
+
+    card_10
+    {
+        matd = 0;
+    }
+
+}
