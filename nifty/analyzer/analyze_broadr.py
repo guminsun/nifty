@@ -11,8 +11,9 @@ def analyze_broadr(module):
 def analyze_broadr_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_broadr_card_1(env.next(card_iter), module)
-    analyze_broadr_card_2(env.next(card_iter), module)
+    card2, ntemp2 = analyze_broadr_card_2(env.next(card_iter), module)
     analyze_broadr_card_3(env.next(card_iter), module)
+    analyze_broadr_card_4(ntemp2, env.next(card_iter), module)
     # XXX:
     # rule.no_card_allowed(env.next(card_iter), module)
     return module
@@ -30,12 +31,12 @@ def analyze_broadr_card_2(card, module):
     rule.card_must_be_defined('card_2', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     rule.analyze_material('mat1', env.next(stmt_iter), card, module)
-    analyze_broadr_card_2_ntemp2(env.next(stmt_iter), card, module)
+    ntemp2 = analyze_broadr_card_2_ntemp2(env.next(stmt_iter), card, module)
     analyze_broadr_card_2_istart(env.next(stmt_iter), card, module)
     analyze_broadr_card_2_istrap(env.next(stmt_iter), card, module)
     analyze_broadr_card_2_temp1(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
-    return card
+    return card, ntemp2
 
 def analyze_broadr_card_2_ntemp2(node, card, module):
     l_value, r_value = rule.analyze_singleton(node, card, module)
@@ -105,7 +106,7 @@ def analyze_broadr_card_3(card, module):
     analyze_broadr_card_3_thnmax(env.next(stmt_iter), card, module)
     analyze_broadr_card_3_errmax(errthn, env.next(stmt_iter), card, module)
     analyze_broadr_card_3_errint(errthn, env.next(stmt_iter), card, module)
-    # rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_broadr_card_3_errthn(node, card, module):
@@ -149,3 +150,27 @@ def analyze_broadr_card_3_errint(errthn, node, card, module):
         rule.identifier_must_be_defined('errint', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
+
+def analyze_broadr_card_4(ntemp2, card, module):
+    # Note that the number of temperatures in card 4 should be equal to the
+    # number of temperatures ('ntemp2') defined in card 2.
+    rule.card_must_be_defined('card_4', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    stmt_len = len(stmt_iter)
+    if stmt_len == ntemp2:
+        for i in range(stmt_len):
+            analyze_broadr_card_4_temp2(i, env.next(stmt_iter), card, module)
+    else:
+        msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
+               ' but expected ' + str(ntemp2) + ' since ' + 'ntemp2 = ' +
+               str(ntemp2) + ' in \'card_2\', module ' + '\'broadr\'.')
+        rule.semantic_error(msg, card)
+    return card
+
+def analyze_broadr_card_4_temp2(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
+    expected = ('temp2', expected_index)
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
