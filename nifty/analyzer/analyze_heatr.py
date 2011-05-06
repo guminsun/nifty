@@ -21,8 +21,8 @@ def analyze_heatr_card_list(module):
     if nqa > 0:
         analyze_heatr_card_4(nqa, env.next(card_iter), module)
         analyze_heatr_card_5(nqa, env.next(card_iter), module)
-    # XXX: Don't know how the variable qbar values in card 5a should be
-    # specified. What is a 'word'? Need to investigate the NJOY source code.
+    # XXX: card_5a should be supplied if qa >= 99.e6, but should there be a
+    # card_5a for each qa that is >= 99.e6?
     # If the next card is 5a, just pass it along for now, no other cards are
     # allowed though.
     next_card = env.next(card_iter)
