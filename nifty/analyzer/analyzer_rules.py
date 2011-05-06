@@ -329,8 +329,8 @@ def string_must_not_exceed_length(lval, rval, max_length, card_node, module_node
     return string
 
 def too_few_cards_defined(number_of_cards, expected_number, card_name, module):
-    module_name = env.get_module_name(module)
-    msg = ('expected ' + str(expected_number) + '\'' + card_name + '\'s ' +
+    module_name = module.get('module_name')
+    msg = ('expected ' + str(expected_number) + ' \'' + card_name + '\'s ' +
            'but saw ' + str(number_of_cards) + ', in module \'' +
            module_name + '\'.')
     semantic_error(msg, module)
