@@ -16,88 +16,82 @@
     33 36/
     stop
 
+Source: http://t2.lanl.gov/codes/njoy99/in14.dat
+
+This NIF version of NJOY Test Problem 14 provides examples of user specified
+identifiers. The identifiers are specified in: 'nifty/environment/settings.py'
+
 *****************************************************************************/
 
 acer
 {
-    /* acer card 1 */
-    card_1
+    card_1 
     {
-        nendf = 20;
-        npend = 21;
-        ngend = 0;
-        nace = 31;
-        ndir = 32;
+        endf_input = 20;
+        pendf_input = 21;
+        multigroup_photon_input = 0;
+        ace_output = 31;
+        mcnp_directory_output = 32;
     }
 
-    /* acer card 2 */
     card_2
     {
-        iopt = 1;
-        iprint = 0;
-        ntype = 1;
-        /* suff and nxtra is set to the default values with '/'. */
+        acer_run_option = 1;
+        print_control = 0;
+        ace_output_type = 1;
+
+        /* id suffix for zaid (default = 0.00), and
+           number of iz,aw pairs to read in (default = 0) are set to their
+           default values since they are not provided.
+         */
     }
 
-    /* acer card 3 */
     card_3
     {
-        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+        description = "proton + 7-n-14 apt la150 njoy99 mcnpx";
     }
 
-    /* nxtra = 0 per default -> card 4 is skipped. */
-
-    /* acer card 5, since iopt=1 */
     card_5
     {
-        matd = 725;
-        tempd = 0; // No trailing dots allowed. Use C-style floats.
+        material = 725;
+        temperature = 0; // No trailing dots allowed. Use C-style floats.
     }
 
-    /* acer card 6 and 7 skipped. Set to default values with '/'. */
-    card_6 {}
-    card_7 {}
+    /* Card 6 and 7 are empty; the default values will be used. */
+    card_6 {} // Use new cummulative angle distributions.
+    card_7 {} // No thinning.
 }
 
 acer
 {
-    /* acer card 1 */
     card_1
     {
-        nendf = 0;
-        npend = 31;
-        ngend = 33;
-        nace = 34;
-        ndir = 35;
+        endf_input = 0;
+        pendf_input = 31;
+        multigroup_photon_input = 33;
+        ace_output = 34;
+        mcnp_directory_output = 35;
     }
 
-    /* acer card 2 */
     card_2
     {
-        iopt = 7;
-        iprint = 1;
-        ntype = 2;
-        /* suff and nxtra is set to the default values with '/'. */
+        acer_run_option = 7;
+        print_control = 1;
+        ace_output_type = 2;
     }
 
-    /* acer card 3 */
     card_3
     {
-        hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+        description = "proton + 7-n-14 apt la150 njoy99 mcnpx";
     }
-
-    /* nxtra = 0 per default -> card 4 is skipped. */
-
-    /* iopt = 7 -> card 5-11 skipped. */
 }
 
 viewr
 {
-    /* viewr card 1: input (since first value != {0,1}) */
     card_1
     {
-        infile = 33;
-        nps = 36;
+        input = 33;
+        output = 36;
     }
 }
 

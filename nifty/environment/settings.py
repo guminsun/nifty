@@ -24,13 +24,14 @@ identifier_map = {
     'errint' : ['errint'],
     'errmax' : ['errmax'],
     'gamma' : ['gamma'], # Used by groupr.
-    'hk' : ['hk'],
+    'hk' : ['hk', 'description'],
     'ielas' : ['ielas'],
     'ign' : ['ign', 'neutron_group_structure'], # Used by groupr.
     'igg' : ['igg', 'gamma_group_structure'], # Used by groupr.
-    'iopt' : ['iopt'],
+    'infile' : ['infile', 'input'], # Used by viewr.
+    'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
-    'iprint' : ['iprint'], # Used by groupr.
+    'iprint' : ['iprint', 'print_control'], # Used by groupr.
     'iwt' : ['iwt'], # Used by groupr.
     'iz' : ['iz'],
     # XXX: Treat iza as an array?
@@ -51,15 +52,15 @@ identifier_map = {
     'mti' : ['mti'],
     'mtk' : ['mtk'],
     'mtname' : ['mtname'], # Used by groupr.
-    'nace' : ['nace'],
+    'nace' : ['nace', 'ace_output'],
     'nin' : ['nin', 'pendf_input'],
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
-    'ndir' : ['ndir'],
+    'ndir' : ['ndir', 'mcnp_directory_output'],
     'nendf' : ['nendf', 'endf_input'],
     'newfor' : ['newfor'],
     'nflmax' : ['nflmax', 'max_flux_points'], # Used by groupr.
-    'ngend' : ['ngend'],
+    'ngend' : ['ngend', 'multigroup_photon_input'],
     'ngg' : ['ngg', 'number_of_gamma_groups'], # Used by groupr.
     'ngn' : ['ngn', 'number_of_neutron_groups'], # Used by groupr.
     'ngrid' : ['ngrid'],
@@ -68,11 +69,12 @@ identifier_map = {
     'ninwt' : ['ninwt'], # Used by groupr.
     'nmix' : ['nmix'],
     'ntemp' : ['ntemp', 'number_of_temperatures'], # Used by groupr.
-    'ntype' : ['ntype'],
+    'ntype' : ['ntype', 'ace_output_type'],
     'nout' : ['nout', 'pendf_output'],
     'npend' : ['npend', 'pendf_input'],
     'npk' : ['npk', 'number_of_partial_kermas'],
     'nplot' : ['nplot'],
+    'nps' : ['nps', 'output'], # Used by viewr.
     'nqa' : ['nqa', 'number_of_q_values'],
     'nsigz' : ['nsigz', 'number_of_sigma_zeroes'], # Used by groupr.
     'nxtra' : ['nxtra'],
@@ -85,9 +87,9 @@ identifier_map = {
     # XXX: Use a single name to denote temperatures in kelvin?
     'tb' : ['tb', 'thermal_temperature'], # Used by groupr.
     'tc' : ['tc', 'fission_temperature'], # Used by groupr.
-    'temp' : ['temp'], # Used by groupr.
-    'tempd' : ['tempd'],
-    'tempr' : ['tempr'],
+    'temp' : ['temp', 'temperature'], # Used by groupr.
+    'tempd' : ['tempd', 'temperature'],
+    'tempr' : ['tempr', 'temperature'],
     # XXX: Treat thin as an array?
     'thin01' : ['thin01'],
     'thin02' : ['thin02'],
