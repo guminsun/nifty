@@ -1,5 +1,5 @@
 from analyze_acer import analyze_acer
-#from analyze_broadr import analyze_broadr
+from analyze_broadr import analyze_broadr
 #from analyze_ccccr import analyze_ccccr
 #from analyze_covr import analyze_covr
 #from analyze_dtfr import analyze_dtfr
@@ -42,7 +42,7 @@ def analyze_module_list(module_list):
 def analyze_module(module):
     analyzer_functions = {
         'acer' : analyze_acer,
-        #'broadr' : analyze_broadr,
+        'broadr' : analyze_broadr,
         #'ccccr' : analyze_ccccr,
         #'covr' : analyze_covrr,
         #'dtfr' : analyze_dtfrr,
