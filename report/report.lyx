@@ -489,7 +489,7 @@ key "key-9"
 
 \end_inset
 
-, in an Un*x environment.
+, in an unix-like environment.
 \end_layout
 
 \begin_layout Subsubsection
@@ -665,22 +665,27 @@ hk
 \family typewriter
 acer
 \family default
- must be declared as a string and must not exceed 70 characters in length
- 
+ is a descriptive character string.
+ According to 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-5"
 
 \end_inset
 
-.
- The translator should report an error if this is violated; such as when
- 
+, 
 \family typewriter
 hk
 \family default
- has been declared as an integer, or when the string contains more than
- 70 characters.
+ must be declared as a character string and must not exceed 70 characters
+ in length.
+ The translator should report an error if these rules are violated; such
+ as when 
+\family typewriter
+hk
+\family default
+ has been declared as an integer, or when the character string contains
+ more than 70 characters.
 \end_layout
 
 \begin_layout Standard
@@ -756,7 +761,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset listings
-lstparams "basicstyle={\ttfamily}"
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -817,37 +822,22 @@ expression     ::= l_value "=" r_value
 
 \begin_layout Plain Layout
 
-l_value        ::= array
+                 | l_value "," l_value "=" r_value "," r_value
 \end_layout
 
 \begin_layout Plain Layout
 
-                 | identifier
+l_value        ::= IDENTIFIER "[" INTEGER "]"
 \end_layout
 
 \begin_layout Plain Layout
 
-r_value        ::= number
+                 | IDENTIFIER
 \end_layout
 
 \begin_layout Plain Layout
 
-                 | string 
-\end_layout
-
-\begin_layout Plain Layout
-
-array          ::= IDENTIFIER "[" INTEGER "]"
-\end_layout
-
-\begin_layout Plain Layout
-
-identifier     ::= IDENTIFIER
-\end_layout
-
-\begin_layout Plain Layout
-
-number         ::= FLOAT
+r_value        ::= FLOAT
 \end_layout
 
 \begin_layout Plain Layout
@@ -857,7 +847,7 @@ number         ::= FLOAT
 
 \begin_layout Plain Layout
 
-string         ::= STRING
+                 | STRING
 \end_layout
 
 \end_inset
@@ -910,10 +900,8 @@ The structure of the grammar is simple.
  A program in NIF is a listing of modules.
  Each module is composed by a set of cards.
  A card is a placeholder for a listing of statements.
- Each statement is an expression and an expression is a declaration of an
- array or identifier.
- An array or identifier can be declared to hold the value of either a float,
- integer or a string.
+ Each statement is an expression and an expression is a declaration of a
+ tuple.
 \end_layout
 
 \begin_layout Standard
@@ -1531,32 +1519,14 @@ XXX E.g.
 \begin_layout Itemize
 The analysis of the input format revealed some common features for each
  module, and a general structure of the input instructions was evident.
- Because of this, a solution based on Lex and Yacc was chosen
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX Why PLY? See note in Diary
-\end_layout
-
-\end_inset
-
-.
+ Because of this, a solution based on Lex and Yacc was chosen.
+ XXX Why PLY? See note in Diary.
  Easy and fast.
 \end_layout
 
 \begin_layout Itemize
 Influenced by the C programming language.
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-Why?
-\end_layout
-
-\end_inset
-
-
+ Why?
 \end_layout
 
 \begin_layout Itemize
