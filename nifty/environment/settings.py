@@ -21,8 +21,9 @@ identifier_map = {
     'emax' : ['emax'],
     'enode' : ['enode'],
     'err' : ['err'],
-    'errint' : ['errint'],
-    'errmax' : ['errmax'],
+    'errint' : ['errint'], # Used by broadr, XXX.
+    'errmax' : ['errmax'], # Used by broadr, XXX.
+    'errthn' : ['errthn'], # Used by broadr.
     'gamma' : ['gamma'], # Used by groupr.
     'hk' : ['hk', 'description'],
     'ielas' : ['ielas'],
@@ -32,6 +33,8 @@ identifier_map = {
     'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
     'iprint' : ['iprint', 'print_control'], # Used by groupr.
+    'istart' : ['istart', 'restart'], # Used by broadr.
+    'istrap' : ['istrap', 'bootstrap'], # Used by broadr.
     'iwt' : ['iwt'], # Used by groupr.
     'iz' : ['iz'],
     # XXX: Treat iza as an array?
@@ -43,6 +46,7 @@ identifier_map = {
     'lord' : ['lord', 'legendre_order'], # Used by groupr. 
     # XXX: Use a single name to indicate material?
     'mat' : ['mat', 'matd'],
+    'mat1' : ['mat1', 'matd'], # Used by broadr.
     'matb' : ['matb'], # Used by groupr.
     'matd' : ['matd', 'mat', 'material'], # Used by groupr.
     'mfd' : ['mfd'], # Used by groupr.
@@ -69,6 +73,7 @@ identifier_map = {
     'ninwt' : ['ninwt'], # Used by groupr.
     'nmix' : ['nmix'],
     'ntemp' : ['ntemp', 'number_of_temperatures'], # Used by groupr.
+    'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # Used by broadr.
     'ntype' : ['ntype', 'ace_output_type'],
     'nout' : ['nout', 'pendf_output'],
     'npend' : ['npend', 'pendf_input'],
@@ -88,12 +93,15 @@ identifier_map = {
     'tb' : ['tb', 'thermal_temperature'], # Used by groupr.
     'tc' : ['tc', 'fission_temperature'], # Used by groupr.
     'temp' : ['temp', 'temperature'], # Used by groupr.
+    'temp1' : ['temp1', 'start_temp'], # Used by broadr. 
+    'temp2' : ['temp2', 'final_temp'], # Used by broadr.
     'tempd' : ['tempd', 'temperature'],
     'tempr' : ['tempr', 'temperature'],
     # XXX: Treat thin as an array?
     'thin01' : ['thin01'],
     'thin02' : ['thin02'],
     'thin03' : ['thin03'],
+    'thnmax' : ['thnmax'], # Used by broadr.
     # XXX: Use a single name to denote labels and titles?
     'title' : ['title'], # Used by groupr.
     'tlabel' : ['tlabel'],
