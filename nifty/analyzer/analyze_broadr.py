@@ -14,8 +14,24 @@ def analyze_broadr_card_list(module):
     card2, ntemp2 = analyze_broadr_card_2(env.next(card_iter), module)
     analyze_broadr_card_3(env.next(card_iter), module)
     analyze_broadr_card_4(ntemp2, env.next(card_iter), module)
-    # XXX:
-    # rule.no_card_allowed(env.next(card_iter), module)
+    # Number of card_5's should at least be 1 since one card 5 must always
+    # be supplied (an ending card 5 with mat1 = 0 to indicate termination
+    # of broadr).
+    number_of_card_5 = len(env.get_cards('card_5', module))
+    if number_of_card_5 < 1:
+        rule.too_few_cards_defined(number_of_card_5, 1, 'card_5', module)
+    # The last card 5 should not be considered as a next material to process,
+    # since it is expected to terminate the execution of broadr.
+    # Therefore, 'number_of_card_5-1' is used to create the range to iterate
+    # over.
+    for c5 in range(number_of_card_5-1):
+        analyze_broadr_card_5(env.next(card_iter), module)
+    # The last card is expected to be a card 5 with mat1 = 0, to indicate
+    # termination of broadr.
+    analyze_broadr_card_5_stop(env.next(card_iter), module)
+    # No more cards are allowed. The next card returned by env.next(card_iter)
+    # should be 'None'.
+    rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_broadr_card_1(card, module):
@@ -174,3 +190,23 @@ def analyze_broadr_card_4_temp2(expected_index, node, card, module):
     rule.array_must_be_defined(expected, l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
+
+def analyze_broadr_card_5(card, module):
+    rule.card_must_be_defined('card_5', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_material('mat1', env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_broadr_card_5_stop(card, module):
+    msg = ('expected a \'card_5\' with the material set to 0 to indicate ' + 
+           'termination of module \'broadr\'.')
+    rule.card_must_be_defined('card_5', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    mat1 = rule.analyze_material('mat1', env.next(stmt_iter), card, module)
+    # The last card is expected to be a card 5 with mat1 = 0, to indicate
+    # termination of broadr.
+    if mat1 != 0:
+        rule.semantic_error(msg, card)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return mat1
