@@ -186,7 +186,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset listings
-lstparams "basicstyle={\small\ttfamily},numbers=left,numberstyle={\footnotesize}"
+lstparams "basicstyle={\small\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize}"
 inline false
 status open
 
@@ -295,6 +295,13 @@ acer
 \begin_layout Standard
 The input instructions can be annotated with descriptive comments, but even
  then, working with a large and complex job easily becomes a daunting task.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -753,126 +760,6 @@ The resulting NJOY Input Format (NIF) is illustrated as a context-free grammar
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float algorithm
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-program        ::= module_list
-\end_layout
-
-\begin_layout Plain Layout
-
-module_list    ::= module module_list
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | empty
-\end_layout
-
-\begin_layout Plain Layout
-
-module         ::= MODULE "{" card_list "}"
-\end_layout
-
-\begin_layout Plain Layout
-
-card_list      ::= card card_list
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | empty
-\end_layout
-
-\begin_layout Plain Layout
-
-card           ::= CARD "{" statement_list "}"
-\end_layout
-
-\begin_layout Plain Layout
-
-statement_list ::= statement statement_list
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | empty
-\end_layout
-
-\begin_layout Plain Layout
-
-statement      ::= expression ";"
-\end_layout
-
-\begin_layout Plain Layout
-
-expression     ::= l_value "=" r_value
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | l_value "," l_value "=" r_value "," r_value
-\end_layout
-
-\begin_layout Plain Layout
-
-l_value        ::= IDENTIFIER "[" INTEGER "]"
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | IDENTIFIER
-\end_layout
-
-\begin_layout Plain Layout
-
-r_value        ::= FLOAT
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | INTEGER
-\end_layout
-
-\begin_layout Plain Layout
-
-                 | STRING
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-NJOY Input Format (NIF) Grammar Definition
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The start symbol is 
 \family typewriter
 program
@@ -900,8 +787,231 @@ The structure of the grammar is simple.
  A program in NIF is a listing of modules.
  Each module is composed by a set of cards.
  A card is a placeholder for a listing of statements.
- Each statement is an expression and an expression is a declaration of a
- tuple.
+ Each statement is an expression and an expression is an assignment.
+\end_layout
+
+\begin_layout Standard
+An assignment denotes that a left hand side tuple is assigned to hold the
+ values of a right hand side tuple.
+ A left hand side tuple is an ordered list of elements, where the elements
+ can be an array or identifier.
+ A right hand side tuple is an ordered list of elements, where the elements
+ can be a float, integer or a string.
+\end_layout
+
+\begin_layout Standard
+As such, an array or identifier can be declared to hold the value of either
+ a floating point number, natural number or a character string.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily},breaklines=true"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+program ::= module_list
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+module_list ::= module module_list
+\end_layout
+
+\begin_layout Plain Layout
+
+              | empty
+\end_layout
+
+\begin_layout Plain Layout
+
+module      ::= MODULE "{" card_list "}"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+card_list ::= card card_list
+\end_layout
+
+\begin_layout Plain Layout
+
+            | empty
+\end_layout
+
+\begin_layout Plain Layout
+
+card      ::= CARD "{" stmt_list "}"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+stmt_list ::= statement stmt_list
+\end_layout
+
+\begin_layout Plain Layout
+
+            | empty
+\end_layout
+
+\begin_layout Plain Layout
+
+statement ::= expression ";"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+expression ::= assignment
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assignment ::= l_value_singleton "=" r_value_singleton
+\end_layout
+
+\begin_layout Plain Layout
+
+             | l_value_pair "=" r_value_pair
+\end_layout
+
+\begin_layout Plain Layout
+
+             | l_value_triplet "=" r_value_triplet
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+l_value_singleton ::= l_value
+\end_layout
+
+\begin_layout Plain Layout
+
+r_value_singleton ::= r_value
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+l_value_pair ::= l_value "," l_value
+\end_layout
+
+\begin_layout Plain Layout
+
+r_value_pair ::= r_value "," r_value
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+l_value_triplet ::= l_value "," l_value "," l_value
+\end_layout
+
+\begin_layout Plain Layout
+
+r_value_triplet ::= r_value "," r_value "," r_value
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+l_value ::= array
+\end_layout
+
+\begin_layout Plain Layout
+
+          | ident
+\end_layout
+
+\begin_layout Plain Layout
+
+array   ::= IDENTIFIER "[" INTEGER "]"
+\end_layout
+
+\begin_layout Plain Layout
+
+ident   ::= IDENTIFIER
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+r_value ::= FLOAT
+\end_layout
+
+\begin_layout Plain Layout
+
+          | INTEGER
+\end_layout
+
+\begin_layout Plain Layout
+
+          | STRING
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NJOY Input Format (NIF) Grammar Definition
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
