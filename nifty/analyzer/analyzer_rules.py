@@ -11,10 +11,10 @@ def analyze_material(name, node, card, module):
     # or module.
     # The node is expected to be an assignment node.
     l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value are both expected to be a singleton nodes.
+    # The l-value and r-value are both expected to be a singleton node.
     l_value_singleton = must_be_singleton(l_value, card, module)
     r_value_singleton = must_be_singleton(r_value, card, module)
-    # The l-value of the assignment is expected to be an identifier; matd
+    # The l-value of the assignment is expected to be an identifier; name
     identifier_must_be_defined(name, l_value_singleton, card, module)
     return r_value_singleton.get('value')
 
