@@ -1,4 +1,3 @@
-from nifty.environment import ast
 from nifty.environment import helpers as env
 
 ##############################################################################

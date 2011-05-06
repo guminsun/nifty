@@ -41,7 +41,7 @@ def analyze_groupr_card_list(module):
     if iwt == 0:
         analyze_groupr_card_8d(env.next(card_iter), module)
     # Number of card_9's should at least be 2 since one card 9 must always be
-    # supplied, and there must be an ending card 9 (with mfd = 0) to indicate 
+    # supplied, and there must be an ending card 9 (with mfd = 0) to indicate
     # termination of current temperature/material.
     # XXX: number of temperatures (ntemp) defines the number of card 9 with
     # mfd = 0?
@@ -50,12 +50,12 @@ def analyze_groupr_card_list(module):
         rule.too_few_cards_defined(number_of_card_9, 2, 'card_9', module)
     for c9 in range(number_of_card_9):
         analyze_groupr_card_9(env.next(card_iter), module)
-    
+
     analyze_reconr_card_10(env.next(card_iter), module)
     # XXX: Pass all successive cards for now, since more than one material
     # may be processed. matd in card 10 denotes the next material to be
-    # processed, but which cards are supposed to be included? Card 6-9 for
-    # each material desired or what?
+    # processed, assuming that card 10 denotes the next material that is going
+    # to be processed with the same settings?
     #
     # The last card is expected to be a card 10 with matd = 0, to indicate
     # termination of groupr.
@@ -65,270 +65,299 @@ def analyze_groupr_card_list(module):
     # rule.no_card_allowed(env.next(card_iter), module)
     return module
 
-def analyze_groupr_card_1(card_1, module):
-    rule.card_must_be_defined('card_1', card_1, module, None)
-    stmt_iter = env.get_statement_iterator(card_1)
-    rule.analyze_unit_number('nendf', env.next(stmt_iter), card_1, module)
-    rule.analyze_unit_number('npend', env.next(stmt_iter), card_1, module)
-    rule.analyze_optional_unit_number('ngout1', env.next(stmt_iter), card_1, module)
-    rule.analyze_optional_unit_number('ngout2', env.next(stmt_iter), card_1, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_1, module)
-    return card_1
+def analyze_groupr_card_1(card, module):
+    # Card 1 must be defined.
+    rule.card_must_be_defined('card_1', card, module, None)
+    # Use a statement iterator to check whether the identifiers have been
+    # defined in the expected order.
+    stmt_iter = env.get_statement_iterator(card)
+    # Unit numbers that must be defined.
+    rule.analyze_unit_number('nendf', env.next(stmt_iter), card, module)
+    rule.analyze_unit_number('npend', env.next(stmt_iter), card, module)
+    # Optional unit numbers.
+    rule.analyze_optional_unit_number('ngout1', env.next(stmt_iter), card, module)
+    rule.analyze_optional_unit_number('ngout2', env.next(stmt_iter), card, module)
+    # No more statements are allowed. The next statement returned by
+    # env.next(card_iter) should be 'None'.
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_groupr_card_2(card_2, module):
-    rule.card_must_be_defined('card_2', card_2, module, None)
-    stmt_iter = env.get_statement_iterator(card_2)
-    analyze_groupr_card_2_matb(env.next(stmt_iter), card_2, module)
-    ign = analyze_groupr_card_2_ign(env.next(stmt_iter), card_2, module)
-    igg = analyze_groupr_card_2_igg(env.next(stmt_iter), card_2, module)
-    iwt = analyze_groupr_card_2_iwt(env.next(stmt_iter), card_2, module)
-    analyze_groupr_card_2_lord(env.next(stmt_iter), card_2, module)
-    ntemp = analyze_groupr_card_2_ntemp(env.next(stmt_iter), card_2, module)
-    nsigz = analyze_groupr_card_2_nsigz(env.next(stmt_iter), card_2, module)
-    analyze_groupr_card_2_iprint(env.next(stmt_iter), card_2, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_2, module)
-    return card_2, ign, igg, iwt, ntemp, nsigz
+def analyze_groupr_card_2(card, module):
+    rule.card_must_be_defined('card_2', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_groupr_card_2_matb(env.next(stmt_iter), card, module)
+    ign = analyze_groupr_card_2_ign(env.next(stmt_iter), card, module)
+    igg = analyze_groupr_card_2_igg(env.next(stmt_iter), card, module)
+    iwt = analyze_groupr_card_2_iwt(env.next(stmt_iter), card, module)
+    analyze_groupr_card_2_lord(env.next(stmt_iter), card, module)
+    ntemp = analyze_groupr_card_2_ntemp(env.next(stmt_iter), card, module)
+    nsigz = analyze_groupr_card_2_nsigz(env.next(stmt_iter), card, module)
+    analyze_groupr_card_2_iprint(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, ign, igg, iwt, ntemp, nsigz
 
 def analyze_groupr_card_2_matb(node, card, module):
-    expected = ('matb', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    # Expecting a singleton value.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an identifier; matb
+    rule.identifier_must_be_defined('matb', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_ign(node, card, module):
-    expected = ('ign', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ign', l_value, card, module)
     # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_igg(node, card, module):
-    expected = ('igg', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('igg', l_value, card, module)
     # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_iwt(node, card, module):
-    expected = ('iwt', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('iwt', l_value, card, module)
     # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_lord(node, card, module):
-    expected = ('lord', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('lord', l_value, card, module)
     # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_ntemp(node, card, module):
-    expected = ('ntemp', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_int(node)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ntemp', l_value, card, module)
     # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_nsigz(node, card, module):
-    expected = ('nsigz', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_int(node)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('nsigz', l_value, card, module)
     # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_2_iprint(node, card, module):
     # iprint (0 = min, 1 = max) does not have to be defined, defaults to 1
     # meaning maximum print option.
-    if env.not_defined(node):
+    if node is None:
         return 1
     else:
         # If the node is defined, it's expected to be 'iprint'.
-        expected = ('iprint', None)
-        rule.identifier_must_be_defined(expected, node, card, module)
-        rule.identifier_must_be_int(node)
-        iprint_r_value = env.get_value(env.get_r_value(node))
-        if iprint_r_value not in range(0,2):
-            iprint_l_value = env.get_l_value(node)
-            iprint_id_name = env.get_identifier_name(iprint_l_value)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('iprint', l_value, card, module)
+        iprint = rule.must_be_int(l_value, r_value, card, module)
+        if iprint not in range(0,2):
+            id_name = l_value.get('name')
             msg = ('illegal print option in \'card_2\', module \'groupr\': ' +
-                   iprint_id_name + ' = ' + str(iprint_r_value) +
-                   ', expected 0 for min, 1 for max (default = 1).')
+                   id_name + ' = ' + str(iprint) + ', expected 0 for min, ' +
+                   '1 for max (default = 1).')
             rule.semantic_error(msg, node)
-    return iprint_r_value
+    return iprint
 
-def analyze_groupr_card_3(card_3, module):
-    rule.card_must_be_defined('card_3', card_3, module, None)
-    stmt_iter = env.get_statement_iterator(card_3)
-    analyze_groupr_card_3_title(env.next(stmt_iter), card_3, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_3, module)
-    return card_3
+def analyze_groupr_card_3(card, module):
+    rule.card_must_be_defined('card_3', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_groupr_card_3_title(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
 def analyze_groupr_card_3_title(node, card, module):
-    expected = ('title', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_string(node, card, module)
-    rule.identifier_string_must_not_exceed_length(node, 80, card, module)
-    return env.get_value(env.get_r_value(node))
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an identifier.
+    rule.identifier_must_be_defined('title', l_value, card, module)
+    # The r-value of the assignment is expected to be a string.
+    title = rule.must_be_string(l_value, r_value, card, module)
+    rule.string_must_not_exceed_length(l_value, r_value, 80, card, module)
+    return title
 
-def analyze_groupr_card_4(ntemp_value, card_4, module):
+def analyze_groupr_card_4(ntemp, card, module):
     # Note that the number of temperatures in card 4 should be equal to the
-    # number of temperatures ('ntemp_value') defined in card 2.
-    rule.card_must_be_defined('card_4', card_4, module, None)
-    stmt_iter = env.get_statement_iterator(card_4)
+    # number of temperatures ('ntemp') defined in card 2.
+    rule.card_must_be_defined('card_4', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(stmt_iter)
-    if stmt_len == ntemp_value:
+    if stmt_len == ntemp:
         for i in range(stmt_len):
-            analyze_groupr_card_4_temp(i, env.next(stmt_iter), card_4, module)
+            analyze_groupr_card_4_temp(i, env.next(stmt_iter), card, module)
     else:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
-               ' but expected ' + str(ntemp_value) + ' since ' +
-               'ntemp = ' + str(ntemp_value) + ' in \'card_2\', module ' +
-               '\'groupr\'.')
-        rule.semantic_error(msg, card_4)
-    return card_4
+               ' but expected ' + str(ntemp) + ' since ' + 'ntemp = ' +
+               str(ntemp) + ' in \'card_2\', module ' + '\'groupr\'.')
+        rule.semantic_error(msg, card)
+    return card
 
 def analyze_groupr_card_4_temp(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
     expected = ('temp', expected_index)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    return env.get_value(env.get_r_value(node))
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
-def analyze_groupr_card_5(nsigz_value, card_5, module):
+def analyze_groupr_card_5(nsigz, card, module):
     # Note that the number of sigma zero values in card 5 should be equal to
-    # the number of sigma zero values ('nsigz_value') defined in card 2.
-    rule.card_must_be_defined('card_5', card_5, module, None)
-    stmt_iter = env.get_statement_iterator(card_5)
+    # the number of sigma zero values ('nsigz') defined in card 2.
+    rule.card_must_be_defined('card_5', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(stmt_iter)
-    if stmt_len == nsigz_value:
+    if stmt_len == nsigz:
         for i in range(stmt_len):
-            analyze_groupr_card_5_sigz(i, env.next(stmt_iter), card_5, module)
+            analyze_groupr_card_5_sigz(i, env.next(stmt_iter), card, module)
     else:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_5\'' +
-               ' but expected ' + str(nsigz_value) + ' since ' +
-               'nsigz = ' + str(nsigz_value) + ' in \'card_2\', module ' +
-               '\'groupr\'.')
-        rule.semantic_error(msg, card_5)
-    return card_5
+               ' but expected ' + str(nsigz) + ' since ' + 'nsigz = ' +
+               str(nsigz) + ' in \'card_2\', module ' + '\'groupr\'.')
+        rule.semantic_error(msg, card)
+    return card
 
 def analyze_groupr_card_5_sigz(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
     expected = ('sigz', expected_index)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    return env.get_value(env.get_r_value(node))
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
-def analyze_groupr_card_6a(card_6a, module):
+def analyze_groupr_card_6a(card, module):
     # Note that card 6a should only be defined if ign = 1 in card_2, check if
     # it is before calling this function.
     msg = ('expected \'card_6a\' since ign = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_6a', card_6a, module, msg)
-    stmt_iter = env.get_statement_iterator(card_6a)
-    ngn = analyze_groupr_card_6a_ngn(env.next(stmt_iter), card_6a, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_6a, module)
-    return card_6a, ngn
+    rule.card_must_be_defined('card_6a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    ngn = analyze_groupr_card_6a_ngn(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, ngn
 
 def analyze_groupr_card_6a_ngn(node, card, module):
-    expected = ('ngn', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_int(node)
-    # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ngn', l_value, card, module)
+    ngn = rule.must_be_int(l_value, r_value, card, module)
+    # ngn defines the number of neutron groups, a negative value does not make
+    # sense.
+    if ngn < 0:
+        id_name = l_value.get('name')
+        msg = ('expected a non-negative number of neutron groups (\'' +
+               id_name + '\') ' + 'in \'card_6a\', module \'groupr\'.')
+        rule.semantic_error(msg, node)
+    return ngn
 
-def analyze_groupr_card_6b(ngn_value, card_6b, module):
+def analyze_groupr_card_6b(ngn, card, module):
     msg = ('expected \'card_6b\' since ign = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_6b', card_6b, module, msg)
-    stmt_iter = env.get_statement_iterator(card_6b)
+    rule.card_must_be_defined('card_6b', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(stmt_iter)
-    if stmt_len == ngn_value+1:
+    if stmt_len == ngn+1:
         for i in range(stmt_len):
             # XXX: The ngn+1 group breaks (ev) should be in increasing order.
-            analyze_groupr_card_6b_egn(i, env.next(stmt_iter), card_6b, module)
+            analyze_groupr_card_6b_egn(i, env.next(stmt_iter), card, module)
     else:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_6b\'' +
-               ' but expected ' + str(ngn_value+1) + ' since ' +
-               'ngn = ' + str(ngn_value) + ' in \'card_6a\', module ' +
+               ' but expected ' + str(ngn+1) + ' since ' +
+               'ngn = ' + str(ngn) + ' in \'card_6a\', module ' +
                '\'groupr\'.')
-        rule.semantic_error(msg, card_6b)
-    return card_6b
+        rule.semantic_error(msg, card)
+    return card
 
 def analyze_groupr_card_6b_egn(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
     expected = ('egn', expected_index)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    return env.get_value(env.get_r_value(node))
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
-def analyze_groupr_card_7a(card_7a, module):
+def analyze_groupr_card_7a(card, module):
     # Note that card 7a should only be defined if igg = 1 in card_2, check if
     # it is before calling this function.
     msg = ('expected \'card_7a\' since igg = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_7a', card_7a, module, msg)
-    stmt_iter = env.get_statement_iterator(card_7a)
-    ngg = analyze_groupr_card_7a_ngg(env.next(stmt_iter), card_7a, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_7a, module)
-    return card_7a, ngg
+    rule.card_must_be_defined('card_7a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    ngg = analyze_groupr_card_7a_ngg(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, ngg
 
 def analyze_groupr_card_7a_ngg(node, card, module):
-    expected = ('ngg', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_int(node)
-    # XXX: Additional checks? Range?
-    return env.get_value(env.get_r_value(node))
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ngg', l_value, card, module)
+    ngg = rule.must_be_int(l_value, r_value, card, module)
+    # ngg defines the number of gamma groups, a negative value does not make
+    # sense.
+    if ngg < 0:
+        id_name = l_value.get('name')
+        msg = ('expected a non-negative number of gamma groups (\'' +
+               id_name + '\') ' + 'in \'card_7a\', module \'groupr\'.')
+        rule.semantic_error(msg, node)
+    return ngg
 
-def analyze_groupr_card_7b(ngg_value, card_7b, module):
+def analyze_groupr_card_7b(ngg, card, module):
     msg = ('expected \'card_7b\' since igg = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_7b', card_7b, module, msg)
-    stmt_iter = env.get_statement_iterator(card_7b)
+    rule.card_must_be_defined('card_7b', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(stmt_iter)
-    if stmt_len == ngg_value+1:
+    if stmt_len == ngg+1:
         for i in range(stmt_len):
             # XXX: The ngg+1 group breaks (ev) should be in increasing order.
-            analyze_groupr_card_7b_egg(i, env.next(stmt_iter), card_7b, module)
+            analyze_groupr_card_7b_egg(i, env.next(stmt_iter), card, module)
     else:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_7b\'' +
-               ' but expected ' + str(ngg_value+1) + ' since ' +
-               'ngg = ' + str(ngg_value) + ' in \'card_7a\', module ' +
+               ' but expected ' + str(ngg+1) + ' since ' +
+               'ngg = ' + str(ngg) + ' in \'card_7a\', module ' +
                '\'groupr\'.')
-        rule.semantic_error(msg, card_7b)
-    return card_7b
+        rule.semantic_error(msg, card)
+    return card
 
 def analyze_groupr_card_7b_egg(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
     expected = ('egg', expected_index)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    return env.get_value(env.get_r_value(node))
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
-def analyze_groupr_card_8a(card_8a, module):
+def analyze_groupr_card_8a(card, module):
     # Note that card 8a should only be defined if iwt < 0 in card_2, check if
     # it is before calling this function.
     msg = ('expected \'card_8a\' since iwt < 0 in \'card_2\'')
-    rule.card_must_be_defined('card_8a', card_8a, module, msg)
-    stmt_iter = env.get_statement_iterator(card_8a)
+    rule.card_must_be_defined('card_8a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
     # Must be defined.
-    analyze_groupr_card_8a_ehi(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_sigpot(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_nflmax(env.next(stmt_iter), card_8a, module)
+    analyze_groupr_card_8a_ehi(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_sigpot(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_nflmax(env.next(stmt_iter), card, module)
     # Optionals.
-    analyze_groupr_card_8a_ninwt(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_jsigz(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_alpha2(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_sam(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_beta(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_alpha3(env.next(stmt_iter), card_8a, module)
-    analyze_groupr_card_8a_gamma(env.next(stmt_iter), card_8a, module)
+    analyze_groupr_card_8a_ninwt(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_jsigz(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_alpha2(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_sam(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_beta(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_alpha3(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8a_gamma(env.next(stmt_iter), card, module)
     # No more statements are allowed.
-    rule.no_statement_allowed(env.next(stmt_iter), card_8a, module)
-    return card_8a
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
 def analyze_groupr_card_8a_ehi(node, card, module):
-    expected = ('ehi', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ehi', l_value, card, module)
     # XXX: Additional checks? From documentation: "must be in resolved range"
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_sigpot(node, card, module):
-    expected = ('sigpot', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('sigpot', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_nflmax(node, card, module):
-    expected = ('nflmax', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_int(node)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('nflmax', l_value, card, module)
+    nflmax = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return nflmax
 
 def analyze_groupr_card_8a_ninwt(node, card, module):
     # Tape unit for new flux parameters does not have to be defined,
@@ -336,73 +365,73 @@ def analyze_groupr_card_8a_ninwt(node, card, module):
     return rule.analyze_optional_unit_number('ninwt', node, card, module)
 
 def analyze_groupr_card_8a_jsigz(node, card, module):
-    expected = ('jsigz', None)
-    if env.not_defined(node):
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(expected, node, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('jsigz', l_value, card, module)
         # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_alpha2(node, card, module):
-    # Alpha for admixed moderator does not have to be defined, 
+    # Alpha for admixed moderator does not have to be defined,
     # defaults to 0 (none).
-    expected = ('alpha2', None)
-    if env.not_defined(node):
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(expected, node, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('alpha2', l_value, card, module)
         # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_sam(node, card, module):
     # Admixed moderator does not have to be defined, defaults to 0 (none).
-    expected = ('sam', None)
-    if env.not_defined(node):
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(expected, node, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('sam', l_value, card, module)
         # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_beta(node, card, module):
-    # Heterogeniety parameter does not have to be defined,
-    # defaults to 0 (none).
-    expected = ('beta', None)
-    if env.not_defined(node):
+    # Heterogeniety parameter does not have to be defined, defaults to 0
+    # (meaning none).
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(expected, node, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('beta', l_value, card, module)
         # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_alpha3(node, card, module):
-    # Alpha for external moderator does not have to be defined,
-    # defaults to 0 (none).
-    expected = ('alpha3', None)
-    if env.not_defined(node):
+    # Alpha for external moderator does not have to be defined, defaults to 0
+    # (meaning none).
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(expected, node, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('alpha3', l_value, card, module)
         # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8a_gamma(node, card, module):
     # Fraction of admixed moderator cross section in external moderator cross
-    # section does not have to be defined, defaults to 0 (none).
-    expected = ('gamma', None)
-    if env.not_defined(node):
+    # section does not have to be defined, defaults to 0 (meaning none).
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(expected, node, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('gamma', l_value, card, module)
         # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
-def analyze_groupr_card_8b(card_8b, module):
+def analyze_groupr_card_8b(card, module):
     # Note that card 8b should only be defined if iwt = 1 or iwt = -1 in
     # card_2, check if it is before calling this function.
     msg = ('expected \'card_8b\' since iwt = 1 (or iwt = -1) in \'card_2\'')
-    rule.card_must_be_defined('card_8b', card_8b, module, msg)
+    rule.card_must_be_defined('card_8b', card, module, msg)
     # XXX:
     # Skip analysis of 'wght' for now.
     # Could implement it as an array declaration with variable length, but
@@ -415,111 +444,112 @@ def analyze_groupr_card_8b(card_8b, module):
     #   ...
     #   wght[N] = valueN;
     #
-    # XXX: 
+    # XXX:
     # Would it be neat to implement TAB1 records as variable lists assigned to
     # one variable? For example:
     #     wght = value1 value2 ... valueN;
-    return card_8b
+    return card
 
-def analyze_groupr_card_8c(card_8c, module):
+def analyze_groupr_card_8c(card, module):
     # Note that card 8c should only be defined if iwt = 4 or iwt = -4 in
     # card_2, check if it is before calling this function.
     msg = ('expected \'card_8c\' since iwt = 4 (or iwt = -4) in \'card_2\'')
-    rule.card_must_be_defined('card_8c', card_8c, module, msg)
-    stmt_iter = env.get_statement_iterator(card_8c)
-    # XXX: Must be defined? No default values specified.
-    analyze_groupr_card_8c_eb(env.next(stmt_iter), card_8c, module)
-    analyze_groupr_card_8c_tb(env.next(stmt_iter), card_8c, module)
-    analyze_groupr_card_8c_ec(env.next(stmt_iter), card_8c, module)
-    analyze_groupr_card_8c_tc(env.next(stmt_iter), card_8c, module)
+    rule.card_must_be_defined('card_8c', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    # XXX: Must be defined? No default values specified in documentation.
+    analyze_groupr_card_8c_eb(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8c_tb(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8c_ec(env.next(stmt_iter), card, module)
+    analyze_groupr_card_8c_tc(env.next(stmt_iter), card, module)
     # No more statements are allowed.
-    rule.no_statement_allowed(env.next(stmt_iter), card_8c, module)
-    return card_8c
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
 def analyze_groupr_card_8c_eb(node, card, module):
-    expected = ('eb', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('eb', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8c_tb(node, card, module):
-    expected = ('tb', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('tb', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8c_ec(node, card, module):
-    expected = ('ec', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ec', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_8c_tc(node, card, module):
-    expected = ('tc', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('tc', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
-def analyze_groupr_card_8d(card_8d, module):
+def analyze_groupr_card_8d(card, module):
     # Note that card 8d should only be defined if iwt = 0 in card_2, check if
     # it is before calling this function.
     msg = ('expected \'card_8d\' since iwt = 0 in \'card_2\'')
-    rule.card_must_be_defined('card_8d', card_8d, module, msg)
-    stmt_iter = env.get_statement_iterator(card_8d)
-    analyze_groupr_card_8d_ninwt(env.next(stmt_iter), card_8d, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_8d, module)
-    return card_8d
+    rule.card_must_be_defined('card_8d', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_groupr_card_8d_ninwt(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
 def analyze_groupr_card_8d_ninwt(node, card, module):
     # XXX: ninwt must be binary?
     return rule.analyze_unit_number('ninwt', node, card, module)
 
-def analyze_groupr_card_9(card_9, module):
-    rule.card_must_be_defined('card_9', card_9, module, None)
-    stmt_iter = env.get_statement_iterator(card_9)
+def analyze_groupr_card_9(card, module):
+    rule.card_must_be_defined('card_9', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
     # Save the number of statements here since the lenght of stmt_iter
     # decreases when getting the next element from the iterator.
     stmt_length = len(stmt_iter)
     # mfd must always be defined.
-    analyze_groupr_card_9_mfd(env.next(stmt_iter), card_9, module)
-    # If the number of statements is one; mfd is either
+    analyze_groupr_card_9_mfd(env.next(stmt_iter), card, module)
+    # If the number of statements is one, then:
     #     * mfd = 0 which indicates termination of temperature/material and no
-    #       more values are expected for this card.
+    #       more values are expected for this card, or
     #     * mfd is set to an automatic reaction processing option and no more
     #       values are expected for this card.
     if stmt_length == 1:
-        rule.no_statement_allowed(env.next(stmt_iter), card_9, module)
-    # If the number of statements is not 1, then we expect to see mtd and
-    # mtname.
+        rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    # If the number of statements is not 1, then mtd and mtname are expected.
     else:
-        analyze_groupr_card_9_mtd(env.next(stmt_iter), card_9, module)
-        analyze_groupr_card_9_mtname(env.next(stmt_iter), card_9, module)
-        rule.no_statement_allowed(env.next(stmt_iter), card_9, module)
-    return card_9
+        analyze_groupr_card_9_mtd(env.next(stmt_iter), card, module)
+        analyze_groupr_card_9_mtname(env.next(stmt_iter), card, module)
+        rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
 def analyze_groupr_card_9_mfd(node, card, module):
-    expected = ('mfd', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    # XXX: mfd must be unit number? Additional checks?
-    return env.get_value(env.get_r_value(node))
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('mfd', l_value, card, module)
+    # XXX: Additional checks? mfd must be unit number?
+    return r_value.get('value')
 
 def analyze_groupr_card_9_mtd(node, card, module):
-    expected = ('mtd', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('mtd', l_value, card, module)
     # XXX: Additional checks?
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
 def analyze_groupr_card_9_mtname(node, card, module):
-    expected = ('mtname', None)
-    rule.identifier_must_be_defined(expected, node, card, module)
-    rule.identifier_must_be_string(node, card, module)
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an identifier.
+    rule.identifier_must_be_defined('mtname', l_value, card, module)
+    # The r-value of the assignment is expected to be a string.
+    rule.must_be_string(l_value, r_value, card, module)
     # XXX: Additional checks? Allowed length? (probably 80 characters since
     # ENDF records are limited to 80 characters?)
-    return env.get_value(env.get_r_value(node))
+    return r_value.get('value')
 
-def analyze_reconr_card_10(card_10, module):
-    rule.card_must_be_defined('card_10', card_10, module, None)
-    stmt_iter = env.get_statement_iterator(card_10)
-    matd = rule.analyze_identifier_matd(env.next(stmt_iter), card_10, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_10, module)
-    return card_10
+def analyze_reconr_card_10(card, module):
+    rule.card_must_be_defined('card_10', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    matd = rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card

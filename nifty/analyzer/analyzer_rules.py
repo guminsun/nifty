@@ -9,294 +9,328 @@ from nifty.environment import helpers as env
 def analyze_identifier_matd(node, card, module):
     # XXX: material must not be 0? 0 usually denotes termination of material
     # or module.
-    identifier_must_be_defined(('matd', None), node, card, module)
-    return env.get_value(env.get_r_value(node))
-
-def analyze_identifier_nendf(node, card, module):
-    identifier_must_be_defined(('nendf', None), node, card, module)
-    identifier_must_be_int(node)
-    identifier_must_be_unit_number(node)
-    return env.get_value(env.get_r_value(node))
-
-def analyze_identifier_npend(node, card, module):
-    identifier_must_be_defined(('npend', None), node, card, module)
-    identifier_must_be_int(node)
-    identifier_must_be_unit_number(node)
-    return env.get_value(env.get_r_value(node))
+    # The node is expected to be an assignment node.
+    l_value, r_value = must_be_assignment(node, card, module)
+    # The l-value and r-value are both expected to be a singleton nodes.
+    l_value_singleton = must_be_singleton(l_value, card, module)
+    r_value_singleton = must_be_singleton(r_value, card, module)
+    # The l-value of the assignment is expected to be an identifier; matd
+    identifier_must_be_defined('matd', l_value_singleton, card, module)
+    return r_value_singleton.get('value')
 
 def analyze_identifier_tempd(node, card, module):
     # Temperature does not have to be defined. Defaults to 300.
-    if env.not_defined(node):
+    if node is None:
         return 300
     else:
-        # If 'node' is defined, make sure it's a tempd node.
-        identifier_must_be_defined(('tempd', None), node, card, module)
-    return env.get_value(env.get_r_value(node))
+        # The node is expected to be an assignment node.
+        l_value, r_value = must_be_assignment(node, card, module)
+        # The l-value and r-value are both expected to be a singleton nodes.
+        l_value_singleton = must_be_singleton(l_value, card, module)
+        r_value_singleton = must_be_singleton(r_value, card, module)
+        # The l-value of the assignment is expected to be an identifier; tempd
+        identifier_must_be_defined('tempd', l_value_singleton, card, module)
+    return r_value_singleton.get('value')
+
+def analyze_singleton(node, card, module):
+    # 'node' is expected to be an assignment node.
+    l_value, r_value = must_be_assignment(node, card, module)
+    # The l-value and r-value of 'node' are expected to be a singleton nodes.
+    l_value_singleton = must_be_singleton(l_value, card, module)
+    r_value_singleton = must_be_singleton(r_value, card, module)
+    return l_value_singleton, r_value_singleton
 
 def analyze_optional_unit_number(id_name, node, card, module):
     # Assuming that the default value for all optional unit numbers is zero.
-    if env.not_defined(node):
+    if node is None:
         return 0
     else:
-        # If 'node' is defined, make sure it's a 'id_name' node.
-        identifier_must_be_defined((id_name, None), node, card, module)
-    return env.get_value(env.get_r_value(node))
+        # The node is expected to be an assignment node.
+        l_value, r_value = must_be_assignment(node, card, module)
+        # The l-value and r-value are both expected to be a singleton nodes.
+        l_value_singleton = must_be_singleton(l_value, card, module)
+        r_value_singleton = must_be_singleton(r_value, card, module)
+        # The l-value of the assignment is expected to be an identifier.
+        identifier_must_be_defined(id_name, l_value_singleton, card, module)
+        value = must_be_unit_number(l_value_singleton, r_value_singleton, card, module)
+        return value
+
+def analyze_pair(node, card, module):
+    # 'node' is expected to be an assignment node.
+    l_value, r_value = must_be_assignment(node, card, module)
+    # The l-value and r-value of 'node' are expected to be a pair nodes.
+    l_value_pair = must_be_pair(l_value, card, module)
+    r_value_pair = must_be_pair(r_value, card, module)
+    return l_value_pair, r_value_pair
 
 def analyze_unit_number(id_name, node, card, module):
-    identifier_must_be_defined((id_name, None), node, card, module)
-    identifier_must_be_int(node)
-    identifier_must_be_unit_number(node)
-    return env.get_value(env.get_r_value(node))
+    # The node is expected to be an assignment node.
+    l_value, r_value = must_be_assignment(node, card, module)
+    # The l-value and r-value are both expected to be a singleton nodes.
+    l_value_singleton = must_be_singleton(l_value, card, module)
+    r_value_singleton = must_be_singleton(r_value, card, module)
+    # The l-value of the assignment is expected to be an identifier; id_name
+    identifier_must_be_defined(id_name, l_value_singleton, card, module)
+    value = must_be_unit_number(l_value_singleton, r_value_singleton, card, module)
+    return value
 
 ##############################################################################
 # Semantic rules.
 
-def card_must_be_defined(card_name, node, module_node, explanation):
-    '''
-        Return 'node' if its name is 'card_name', else report a semantic error
-        where 'explanation' has been appended to the error message.
-    '''
+def array_must_be_defined(expected, node, card_node, module_node):
+    card_name = card_node.get('card_name')
+    module_name = module_node.get('module_name')
+    expected_name = expected[0]
+    expected_index = expected[1]
+    expected_name_index = expected_name + '[' + str(expected_index) + ']'
+    # If the node is defined, it must be an array node.
     if node is None:
-        msg = ('card \'' + card_name + '\' not defined in module \'' +
-               module_node['module_name'] + '\'.')
+        msg = ('expected array \'' + expected_name_index + '\' in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, card_node)
+    must_be_array(node, card_node, module_node)
+    # Check if the array is the expected one.
+    name = env.get_identifier_name(node)
+    index = node.get('index')
+    name_index = name + '[' + str(index) + ']'
+    if not env.is_valid_name(name, expected_name):
+        msg = ('expected array \'' + expected_name_index + '\' but saw \'' +
+               name_index + '\' in \'' + card_name + '\', module \'' +
+               module_name + '\'.')
+        semantic_error(msg, node)
+    # Check if the index is the expected one.
+    index = node.get('index')
+    if expected_index != index:
+        msg = ('index mismatch; expected array \'' + expected_name_index +
+               '\' but saw \'' + name_index + '\' in \'' + card_name +
+               '\', module \'' + module_name + '\'.')
+        semantic_error(msg, node)
+    return node
+
+def card_must_be_defined(card_name, card_node, module_node, explanation):
+    module_name = module_node.get('module_name')
+    if card_node is None:
+        msg = ('expected card \'' + card_name + '\' in module \'' +
+               module_name + '\'.')
         if explanation is not None:
             msg += ' (' + explanation + ')'
         semantic_error(msg, module_node)
-
-    node_name = env.get_card_name(node)
+    must_be_card(card_node, module_node)
+    node_name = card_node.get('card_name')
     if not (card_name == node_name):
         msg = ('expected card \'' + card_name + '\' but saw \'' +
-               node_name + '\' in module \'' + module_node['module_name'] +
-               '\'.')
+               node_name + '\' in module \'' + module_name + '\'.')
         if explanation is not None:
             msg += ' (' + explanation + ')'
-        semantic_error(msg, node)
-    return node
-
-def identifier_must_be_defined(name_index, node, card_node, module_node):
-    id_name = name_index[0]
-    id_index = name_index[1]
-
-    if node is None:
-        msg = ('identifier \'' + id_name + '\' not defined in \'' +
-               card_node['card_name'] + '\', module \'' +
-               module_node['module_name'] + '\'.')
         semantic_error(msg, card_node)
+    return card_node
 
-    l_value_node = env.get_l_value(node)
-    l_value_node_type = env.get_node_type(l_value_node)
-
-    # 'index' is an integer if 'l_value_node' is an array, else None.
-    index = env.get_array_index(l_value_node)
-    if id_index is None:
-        node_must_be_identifier(l_value_node, card_node, module_node)
-    else:
-        node_must_be_array(l_value_node, card_node, module_node)
-        if id_index != index:
-            msg = ('expected array index ' + str(id_index) + ' for \'' +
-                   id_name + '\' but saw ' + str(index) + ' in \'' +
-                   card_node['card_name'] + '\', module \'' +
-                   module_node['module_name'] + '\'.')
-            semantic_error(msg, l_value_node)
-
-    name = env.get_identifier_name(l_value_node)
+def identifier_must_be_defined(id_name, node, card_node, module_node):
+    card_name = card_node.get('card_name')
+    module_name = module_node.get('module_name')
+    if node is None:
+        msg = ('expected identifier \'' + id_name + '\' in \'' + card_name +
+               '\', module \'' + module_name + '\'.')
+        semantic_error(msg, card_node)
+    must_be_identifier(node, card_node, module_node)
+    name = env.get_identifier_name(node)
     if not env.is_valid_name(name, id_name):
         msg = ('expected identifier \'' + id_name + '\' but saw \'' +
-               name + '\' in \'' + card_node['card_name'] +
-               '\', module \'' + module_node['module_name'] + '.')
-        semantic_error(msg, l_value_node)
-
+               name + '\' in \'' + card_name + '\', module \'' + module_name +
+               '\'.')
+        semantic_error(msg, node)
     return node
 
-def identifier_must_be_float(node):
-    value = env.get_value(env.get_r_value(node))
+def must_be_array(node, card_node, module_node):
+    if env.is_array(node):
+        return node
+    elif node is None:
+        return None
+    else:
+        node_type = env.get_node_type(node)
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected an array declaration but saw ' + node_type +
+               ' in \'' + card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, node)
+
+def must_be_assignment(node, card_node, module_node):
+    if env.is_assignment(node):
+        return node.get('l_value'), node.get('r_value')
+    elif node is None:
+        return None, None
+    else:
+        node_type = env.get_node_type(node)
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected an assignment declaration but saw ' +
+                node_type + ' in \'' + card_name + '\', module \'' +
+                module_name + '\'.')
+        semantic_error(msg, module_node)
+
+def must_be_card(node, module_node):
+    if env.is_card(node):
+        return node
+    elif node is None:
+        return None
+    else:
+        node_type = env.get_node_type(node)
+        module_name = module_node.get('module_name')
+        msg = ('expected a card declaration but saw ' + node_type +
+               ' in module \'' + module_name + '\'.')
+        semantic_error(msg, module_node)
+
+def must_be_identifier(node, card_node, module_node):
+    if env.is_identifier(node):
+        return node
+    elif node is None:
+        return None
+    else:
+        node_type = env.get_node_type(node)
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected an identifier declaration but saw ' + node_type +
+               ' in \'' + card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, node)
+
+def must_be_float(lval, rval, card_node, module_node):
+    value = rval.get('value')
     if not isinstance(eval(str(value)), float):
-        id_name = env.get_identifier_name(env.get_l_value(node))
-        msg = ('identifier \'' + id_name + '\' not defined as a float.')
-        semantic_error(msg, node)
+        id_name = lval.get('name')
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected \'' + id_name + '\' to be defined as a float in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, lval)
     return value
 
-def identifier_must_be_int(node):
-    value = env.get_value(env.get_r_value(node))
+def must_be_int(lval, rval, card_node, module_node):
+    value = rval.get('value')
     if not isinstance(value, int):
-        id_name = env.get_identifier_name(env.get_l_value(node))
-        msg = ('identifier \'' + id_name + '\' not defined as an integer.')
-        semantic_error(msg, node)
+        name = lval.get('name')
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected \'' + name + '\' to be defined as an integer in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, lval)
     return value
 
-def identifier_must_be_string(id_node, card_node, module_node):
-    value = env.get_value(env.get_r_value(id_node))
+def must_be_pair(node, card_node, module_node):
+    # XXX: Supply expected pair to generate a better error message?
+    if env.is_pair(node):
+        return node.get('element_1'), node.get('element_2')
+    elif node is None:
+        return None, None
+    else:
+        node_type = env.get_node_type(node)
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected a pair declaration but saw ' + node_type +
+               ' declaration, in \'' + card_name + '\' module \'' +
+               module_name + '\'.')
+        semantic_error(msg, card_node)
+
+def must_be_singleton(node, card_node, module_node):
+    if env.is_singleton(node):
+        return node.get('element_1')
+    elif node is None:
+        return None
+    else:
+        node_type = env.get_node_type(node)
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected a singleton declaration but saw ' + node_type +
+               ' declaration, in \'' + card_name + '\' module \'' +
+               module_name + '\'.')
+        semantic_error(msg, card_node)
+
+def must_be_string(lval, rval, card_node, module_node):
+    value = rval.get('value')
     if not isinstance(value, str):
-        id_name = env.get_identifier_name(env.get_l_value(id_node))
-        card_name = card_node['card_name']
-        module_name = module_node['module_name']
-        msg = ('identifier \'' + id_name + '\' not defined as a string in ' +
+        id_name = lval.get('name')
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected \'' + id_name + '\' to be defined as a string in ' +
                '\'' + card_name + '\', module \'' + module_name + '\'.')
-        semantic_error(msg, id_node)
+        semantic_error(msg, lval)
     return value
 
-def identifier_must_be_unit_number(node):
-    # Make sure it's an int before continuing.
-    identifier_must_be_int(node)
-    value = env.get_value(env.get_r_value(node))
+def must_be_unit_number(lval, rval, card_node, module_node):
+    must_be_int(lval, rval, card_node, module_node)
+    value = rval.get('value')
     # A unit number must be in [20,99], or [-99,-20] for binary.
     # Or possible 0 (zero) which denotes no unit.
     if ((value not in range(20, 100)) and
         (value not in range(-99, -19)) and
         (value != 0)):
-        id_name = env.get_identifier_name(env.get_l_value(node))
-        msg = ('\'' + id_name + '\' illegal unit number (' + str(value) + ').')
-        semantic_error(msg, node)
+        name = lval.get('name')
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected \'' + name + '\' to be defined as an unit number ' +
+               'in \'' + card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, lval)
     return value
 
-def identifier_string_must_not_exceed_length(id_node, max_length, card_node,
-                                             module_node):
-    # Make sure it's a string before continuing.
-    string = identifier_must_be_string(id_node, card_node, module_node)
-    if len(string) > max_length:
-        id_name = env.get_identifier_name(env.get_l_value(id_node))
-        card_name = card_node['card_name']
-        module_name = module_node['module_name']
-        msg = ('identifier \'' + id_name + '\' exceeds the ' +
-               str(max_length) + ' character length in \'' + card_name +
-               '\', module ' + '\'' + module_name + '\'.')
-        semantic_error(msg, id_node)
-    return 'ok'
-
 def no_card_allowed(card_node, module_node):
-    if not env.not_defined(card_node):
-        card_name = env.get_card_name(card_node)
-        module_name = env.get_module_name(module_node)
+    if card_node is not None:
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
         msg = ('unexpected card: \'' + card_name + '\', no more cards was ' +
                'expected in module \'' + module_name + '\'.')
         semantic_error(msg, card_node)
 
 def no_statement_allowed(node, card_node, module_node):
-    if not env.not_defined(node):
-        node_name = env.get_identifier_name(env.get_l_value(node))
-        node_value = env.get_value(env.get_r_value(node))
-        stmt = node_name + ' = ' + str(node_value)
-        card_name = card_node['card_name']
-        module_name = module_node['module_name']
-        msg = ('unexpected statement: \'' + stmt + '\', no more ' +
-               'statements was expected in \'' + card_name + '\', module ' +
-               '\'' + module_name + '\'.')
+    if node is not None:
+        # XXX: Provide better error message? E.g. include the faulting
+        # statement in the error message as well.
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('unexpected statement, no more statements was expected in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, node)
 
-def node_must_be_array(l_value_node, card_node, module_node):
-    if env.is_array(l_value_node):
-        return l_value_node
-    else:
-        name = env.get_identifier_name(l_value_node)
-        node_type = env.get_node_type(l_value_node)
-        msg = ('identifier \'' + name + '\' defined as an ' + node_type +
-               ' in \'' + card_node['card_name'] + '\', module \'' +
-               module_node['module_name'] + '\'. Expected an array ' +
-               'identifier declaration.')
-        semantic_error(msg, l_value_node)
-
-def node_must_be_identifier(l_value_node, card_node, module_node):
-    if env.is_identifier(l_value_node):
-        return l_value_node
-    else:
-        name = env.get_identifier_name(l_value_node)
-        node_type = env.get_node_type(l_value_node)
-        msg = ('identifier \'' + name + '\' defined as an ' + node_type +
-               ' in \'' + card_node['card_name'] + '\', module \'' +
-               module_node['module_name'] + '\'. Expected a regular ' +
-               'identifier declaration.')
-        semantic_error(msg, l_value_node)
-
-def node_must_be_pair(l_value_node, card_node, module_node):
-    if env.is_pair(l_value_node):
-        return l_value_node
-    else:
-        node_type = env.get_node_type(l_value_node)
-        msg = ('expected a pair declaration but saw ' + node_type +
-               ' declaration, in \'' + card_node['card_name'] +
-               '\' module \'' + module_node['module_name'] + '\'.')
-        semantic_error(msg, l_value_node)
-
-def pair_must_be_defined(pair, node, card_node, module_node):
-    # XXX: Ugh. Ugly. Needs cleaning.
-    element_1_name = pair[0][0]
-    element_2_name = pair[1][0]
-    element_1_index = pair[0][1]
-    element_2_index = pair[1][1]
-    pair_name = element_1_name + ',' + element_2_name
-
-    if node is None:
-        msg = ('pair \'' + pair_name + '\' not defined in \'' +
-               card_node['card_name'] + '\', module \'' +
-               module_node['module_name'] + '\'.')
+def pair_must_be_defined(expected_pair, l_value_pair, r_value_pair, card_node, module_node):
+    # XXX: Describe workflow with analyze_pair and pair_must_be_defined.
+    card_name = card_node.get('card_name')
+    module_name = module_node.get('module_name')
+    # Unpack expected data.
+    expected_name_1 = expected_pair[0][0]
+    expected_name_2 = expected_pair[1][0]
+    expected_index_1 = expected_pair[0][1]
+    expected_index_2 = expected_pair[1][1]
+    expected_pair_name = expected_name_1 + ',' + expected_name_2
+    # Make sure both nodes are defined.
+    if (l_value_pair is None) or (r_value_pair is None):
+        msg = ('expected pair \'' + expected_pair_name + '\' in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, card_node)
-
-    l_value_node = env.get_l_value(node)
-    node_must_be_pair(l_value_node, card_node, module_node)
-
-    element_1_node = l_value_node['element_1']
-    element_2_node = l_value_node['element_2']
-
-    # 'first_index' is an integer if 'l_value_node' is an array, else None.
-    first_index = env.get_array_index(element_1_node)
-    if element_1_index is None:
-        node_must_be_identifier(element_1_node, card_node, module_node)
+    # Check the expected pair depending on whether they are supposed to be
+    # defined as regular identifiers or arrays.
+    if (expected_index_1 is None) and (expected_index_2 is None):
+        identifier_must_be_defined(expected_name_1, l_value_pair[0], card_node, module_node)
+        identifier_must_be_defined(expected_name_2, l_value_pair[1], card_node, module_node)
     else:
-        node_must_be_array(element_1_node, card_node, module_node)
-        if element_1_index != first_index:
-            msg = ('expected array index ' + str(element_1_index) + ' for \'' +
-                   element_1_name + '\' but saw ' + str(first_index) + ' in \'' +
-                   card_node['card_name'] + '\', module \'' +
-                   module_node['module_name'] + '\'.')
-            semantic_error(msg, element_1_node)
-
-    # 'second_index' is an integer if 'l_value_node' is an array, else None.
-    second_index = env.get_array_index(element_2_node)
-    if element_2_index is None:
-        node_must_be_identifier(element_2_node, card_node, module_node)
-    else:
-        node_must_be_array(element_2_node, card_node, module_node)
-        if element_2_index != second_index:
-            msg = ('expected array index ' + str(element_2_index) + ' for \'' +
-                   element_2_name + '\' but saw ' + str(second_index) + ' in \'' +
-                   card_node['card_name'] + '\', module \'' +
-                   module_node['module_name'] + '\'.')
-            semantic_error(msg, element_2_node)
-
-    # The indicies must match; must be defined as a pair. (This check should
-    # not be necessary if the function is called properly.)
-    if first_index != second_index:
-        msg = ('array index mismatch for \'' + pair_name + '\' pair in \'' +
-               card_node['card_name'] + '\', module \'' +
-               module_node['module_name'] + '\'. ' +
-               'The array indices must be the same for a pair.')
-        semantic_error(msg, node)
-
-    # Check that the first elements name is the expected one.
-    first_name = env.get_identifier_name(element_1_node)
-    if not env.is_valid_name(first_name, element_1_name):
-        msg = ('expected first identifier in pair to be \'' + element_1_name + 
-               '\' but saw \'' + first_name + '\' in \'' + 
-               card_node['card_name'] + '\', module \'' + 
-               module_node['module_name'] + '.')
-        semantic_error(msg, element_1_node)
-
-    # Check that the second elements name is the expected one.
-    second_name = env.get_identifier_name(element_2_node)
-    if not env.is_valid_name(second_name, element_2_name):
-        msg = ('expected second identifier in pair to be \'' + element_2_name +
-               '\' but saw \'' + second_name + '\' in \'' +
-               card_node['card_name'] + '\', module \'' +
-               module_node['module_name'] + '.')
-        semantic_error(msg, element_2_node)
-    
+        array_must_be_defined(expected_pair[0], l_value_pair[0], card_node, module_node)
+        array_must_be_defined(expected_pair[1], l_value_pair[1], card_node, module_node)
     # XXX: Check the type of the nodes? Must not differ?
+    return l_value_pair, r_value_pair
 
-    return node
+def string_must_not_exceed_length(lval, rval, max_length, card_node, module_node):
+    # Make sure it's a string before continuing.
+    string = must_be_string(lval, rval, card_node, module_node)
+    if len(string) > max_length:
+        id_name = lval.get('name')
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected \'' + id_name + '\' to be at most ' +
+               str(max_length) + ' characters in \'' + card_name +
+               '\', module ' + '\'' + module_name + '\'.')
+        semantic_error(msg, lval)
+    return string
 
 def too_few_cards_defined(number_of_cards, expected_number, card_name, module):
     module_name = env.get_module_name(module)
-    msg = ('number of \'' + card_name + '\'s is ' + str(number_of_cards) +
-           ' in module \'' + module_name + '\'. ' + 'Expected at least ' +
-           str(expected_number) + ' \'' + card_name + '\'s.')
+    msg = ('expected ' + str(expected_number) + '\'' + card_name + '\'s ' +
+           'but saw ' + str(number_of_cards) + ', in module \'' +
+           module_name + '\'.')
     semantic_error(msg, module)

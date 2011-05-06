@@ -42,449 +42,424 @@ def analyze_acer_card_list(module):
     rule.no_card_allowed(env.next(card_iter), module)
     return module
 
-def analyze_acer_card_1(card_1, module):
+def analyze_acer_card_1(card, module):
     # Card 1 must be defined.
-    rule.card_must_be_defined('card_1', card_1, module, None)
+    rule.card_must_be_defined('card_1', card, module, None)
     # Use a statement iterator to check whether the identifiers have been
     # defined in the expected order.
-    stmt_iter = env.get_statement_iterator(card_1)
-    rule.analyze_identifier_nendf(env.next(stmt_iter), card_1, module)
-    rule.analyze_identifier_npend(env.next(stmt_iter), card_1, module)
-    analyze_acer_card_1_ngend(env.next(stmt_iter), card_1, module)
-    analyze_acer_card_1_nace(env.next(stmt_iter), card_1, module)
-    analyze_acer_card_1_ndir(env.next(stmt_iter), card_1, module)
+    stmt_iter = env.get_statement_iterator(card)
+    # Unit numbers that must be defined.
+    rule.analyze_unit_number('nendf', env.next(stmt_iter), card, module)
+    rule.analyze_unit_number('npend', env.next(stmt_iter), card, module)
+    rule.analyze_unit_number('ngend', env.next(stmt_iter), card, module)
+    rule.analyze_unit_number('nace', env.next(stmt_iter), card, module)
+    rule.analyze_unit_number('ndir', env.next(stmt_iter), card, module)
     # No more statements are allowed. The next statement returned by
     # env.next(card_iter) should be 'None'.
-    rule.no_statement_allowed(env.next(stmt_iter), card_1, module)
-    return card_1
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_1_ngend(node, card_1, module):
-    rule.identifier_must_be_defined(('ngend', None), node, card_1, module)
-    rule.identifier_must_be_int(node)
-    rule.identifier_must_be_unit_number(node)
-    return env.get_value(env.get_r_value(node))
+def analyze_acer_card_2(card, module):
+    rule.card_must_be_defined('card_2', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    iopt = analyze_acer_card_2_iopt(env.next(stmt_iter), card, module)
+    analyze_acer_card_2_iprint(env.next(stmt_iter), card, module)
+    analyze_acer_card_2_ntype(env.next(stmt_iter), card, module)
+    analyze_acer_card_2_suff(env.next(stmt_iter), card, module)
+    nxtra = analyze_acer_card_2_nxtra(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, iopt, nxtra
 
-def analyze_acer_card_1_nace(node, card_1, module):
-    rule.identifier_must_be_defined(('nace', None), node, card_1, module)
-    rule.identifier_must_be_int(node)
-    rule.identifier_must_be_unit_number(node)
-    return env.get_value(env.get_r_value(node))
-
-def analyze_acer_card_1_ndir(node, card_1, module):
-    rule.identifier_must_be_defined(('ndir', None), node, card_1, module)
-    # XXX: 'ndir' must be a string? Pass typecheck for now.
-    return env.get_value(env.get_r_value(node))
-
-def analyze_acer_card_2(card_2, module):
-    rule.card_must_be_defined('card_2', card_2, module, None)
-    stmt_iter = env.get_statement_iterator(card_2)
-    iopt_value = analyze_acer_card_2_iopt(env.next(stmt_iter), card_2, module)
-    analyze_acer_card_2_iprint(env.next(stmt_iter), card_2, module)
-    analyze_acer_card_2_ntype(env.next(stmt_iter), card_2, module)
-    analyze_acer_card_2_suff(env.next(stmt_iter), card_2, module)
-    nxtra_value = analyze_acer_card_2_nxtra(env.next(stmt_iter), card_2, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_2, module)
-    return card_2, iopt_value, nxtra_value
-
-def analyze_acer_card_2_iopt(iopt_node, card_2, module):
-    rule.identifier_must_be_defined(('iopt', None), iopt_node, card_2, module)
-    rule.identifier_must_be_int(iopt_node)
-    # XXX: Ugly.
-    iopt_r_value = env.get_value(env.get_r_value(iopt_node))
-    if ((iopt_r_value not in range(1, 6)) and
-        (iopt_r_value not in range(-5, 0)) and
-        (iopt_r_value not in range(7, 9)) and
-        (iopt_r_value not in range(-8, -6))):
-        iopt_l_value = env.get_l_value(iopt_node)
-        iopt_id_name = env.get_identifier_name(iopt_l_value)
+def analyze_acer_card_2_iopt(node, card, module):
+    # Expecting a singleton value.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an identifier; iopt
+    rule.identifier_must_be_defined('iopt', l_value, card, module)
+    # The r-value of the assignment is expected to be an integer.
+    iopt = rule.must_be_int(l_value, r_value, card, module)
+    # XXX: Ugly:
+    if ((iopt not in range(1, 6)) and
+        (iopt not in range(-5, 0)) and
+        (iopt not in range(7, 9)) and
+        (iopt not in range(-8, -6))):
+        id_name = l_value.get('name')
         msg = ('illegal run option in \'card_2\', module \'acer\': ' +
-               iopt_id_name + ' = ' + str(iopt_r_value))
-        rule.semantic_error(msg, iopt_node)
-    return iopt_r_value
+               id_name + ' = ' + str(iopt))
+        rule.semantic_error(msg, l_value)
+    return iopt
 
-def analyze_acer_card_2_iprint(iprint_node, card_2, module):
-    if env.not_defined(iprint_node):
-        return iprint_node
+def analyze_acer_card_2_iprint(node, card, module):
+    if node is None:
+        return 1
     else:
-        rule.identifier_must_be_defined(('iprint', None), iprint_node, card_2,
-                                        module)
-        rule.identifier_must_be_int(iprint_node)
-        iprint_r_value = env.get_value(env.get_r_value(iprint_node))
-        if iprint_r_value not in range(0,2):
-            iprint_l_value = env.get_l_value(iprint_node)
-            iprint_id_name = env.get_identifier_name(iprint_l_value)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # The l-value of the assignment is expected to be an identifier; iopt
+        rule.identifier_must_be_defined('iprint', l_value, card, module)
+        # The r-value of the assignment is expected to be an integer.
+        iprint = rule.must_be_int(l_value, r_value, card, module)
+        if iprint not in range(0,2):
+            id_name = l_value.get('name')
             msg = ('illegal print control in \'card_2\', module \'acer\': ' +
-                   iprint_id_name + ' = ' + str(iprint_r_value) +
+                   id_name + ' = ' + str(iprint) +
                    ', expected 0 for min or 1 for max (default = 1).')
-            rule.semantic_error(msg, iprint_node)
-    return iprint_r_value
+            rule.semantic_error(msg, node)
+    return iprint
 
-def analyze_acer_card_2_ntype(ntype_node, card_2, module):
-    if env.not_defined(ntype_node):
-        return ntype_node
+def analyze_acer_card_2_ntype(node, card, module):
+    if node is None:
+        return 1
     else:
-        rule.identifier_must_be_defined(('ntype', None), ntype_node, card_2,
-                                        module)
-        rule.identifier_must_be_int(ntype_node)
-        ntype_r_value = env.get_value(env.get_r_value(ntype_node))
-        if ntype_r_value not in range(1,4):
-            ntype_l_value = env.get_l_value(ntype_node)
-            ntype_id_name = env.get_identifier_name(ntype_l_value)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # The l-value of the assignment is expected to be an identifier; iopt
+        rule.identifier_must_be_defined('ntype', l_value, card, module)
+        # The r-value of the assignment is expected to be an integer.
+        ntype = rule.must_be_int(l_value, r_value, card, module)
+        if ntype not in range(1,4):
+            id_name = l_value.get('name')
             msg = ('illegal ace output type in \'card_2\', module \'acer\': ' +
-                   ntype_id_name + ' = ' + str(ntype_r_value) +
+                   id_name + ' = ' + str(ntype) +
                    ', expected 1, 2, or 3 (default = 1).')
-            rule.semantic_error(msg, ntype_node)
-    return ntype_r_value
+            rule.semantic_error(msg, node)
+    return ntype
 
-def analyze_acer_card_2_suff(suff_node, card_2, module):
-    if env.not_defined(suff_node):
-        return suff_node
+def analyze_acer_card_2_suff(node, card, module):
+    if node is None:
+        return 0.00
     else:
-        # XXX: Check if suff_r_value is a float? Not sure it must be a float
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # The l-value of the assignment is expected to be an identifier.
+        rule.identifier_must_be_defined('suff', l_value, card, module)
+        # XXX: Check if r_value is a float? Not sure it must be a float 
         #      though. Pass for now.
-        rule.identifier_must_be_defined(('suff', None), suff_node, card_2,
-                                        module)
-    return env.get_value(env.get_r_value(suff_node))
+    return r_value.get('value')
 
-def analyze_acer_card_2_nxtra(nxtra_node, card_2, module):
-    if env.not_defined(nxtra_node):
-        return nxtra_node
+def analyze_acer_card_2_nxtra(node, card, module):
+    # nxtra does not have to be defined, defaults to 0.
+    if node is None:
+        return 0
     else:
-        rule.identifier_must_be_defined(('nxtra', None), nxtra_node, card_2,
-                                        module)
-        rule.identifier_must_be_int(nxtra_node)
-        nxtra_r_value = env.get_value(env.get_r_value(nxtra_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # The l-value of the assignment is expected to be an identifier.
+        rule.identifier_must_be_defined('nxtra', l_value, card, module)
+        # The r-value of the assignment is expected to be an integer.
+        nxtra = rule.must_be_int(l_value, r_value, card, module)
         # nxtra defines the number of iz,aw pairs to read in (default = 0), a
         # negative value does not make sense.
-        if nxtra_r_value < 0:
-            nxtra_l_value = env.get_l_value(nxtra_node)
-            nxtra_id_name = env.get_identifier_name(nxtra_l_value)
-            msg = ('the number of iz,aw pairs to read in is negative in ' +
-                   '\'card_2\', module \'acer\': ' +
-                   nxtra_id_name + ' = ' + str(nxtra_r_value) +
-                   ', expected a non-negative value (default = 0).')
-            rule.semantic_error(msg, nxtra_node)
-    return nxtra_r_value
+        if nxtra < 0:
+            msg = ('expected a non-negative number of iz,aw pairs to read ' + 
+                   'in (default = 0) in \'card_2\', module \'acer\'.')
+            rule.semantic_error(msg, node)
+    return nxtra
 
-def analyze_acer_card_3(card_3, module):
-    rule.card_must_be_defined('card_3', card_3, module, None)
-    stmt_iter = env.get_statement_iterator(card_3)
-    analyze_acer_card_3_hk(env.next(stmt_iter), card_3, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_3, module)
-    return card_3
+def analyze_acer_card_3(card, module):
+    rule.card_must_be_defined('card_3', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_acer_card_3_hk(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_3_hk(hk_node, card_3, module):
-    rule.identifier_must_be_defined(('hk', None), hk_node, card_3, module)
-    hk_r_value = rule.identifier_must_be_string(hk_node, card_3, module)
-    rule.identifier_string_must_not_exceed_length(hk_node, 70, card_3, module)
-    return hk_r_value
+def analyze_acer_card_3_hk(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an identifier.
+    rule.identifier_must_be_defined('hk', l_value, card, module)
+    # The r-value of the assignment is expected to be a string.
+    hk = rule.must_be_string(l_value, r_value, card, module)
+    rule.string_must_not_exceed_length(l_value, r_value, 70, card, module)
+    return hk
 
-def analyze_acer_card_4(nxtra_value, card_4, module):
+def analyze_acer_card_4(nxtra, card, module):
     # Note that card 4 should only be defined if nxtra > 0 in card_2, check if
     # it is before calling this function.
     msg = ('expected \'card_4\' since nxtra > 0 in \'card_2\'')
-    rule.card_must_be_defined('card_4', card_4, module, msg)
-    stmt_iter = env.get_statement_iterator(card_4)
+    rule.card_must_be_defined('card_4', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(stmt_iter)
-    if stmt_len == nxtra_value:
+    if stmt_len == nxtra:
         for i in range(stmt_len):
-            analyze_acer_card_4_iz_aw(i, env.next(stmt_iter), card_4, module)
+            analyze_acer_card_4_iz_aw(i, env.next(stmt_iter), card, module)
     else:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
-               ' but expected ' + str(nxtra_value) + ' since ' +
-               'nxtra = ' + str(nxtra_value) + ' in \'card_2\', module ' +
+               ' but expected ' + str(nxtra) + ' since ' +
+               'nxtra = ' + str(nxtra) + ' in \'card_2\', module ' +
                '\'acer\'.')
-        rule.semantic_error(msg, card_4)
-    return card_4
+        rule.semantic_error(msg, card)
+    return card
 
-def analyze_acer_card_4_iz_aw(expected_index, iz_aw_node, card_4, module):
-    pair = (('iz', expected_index), ('aw', expected_index))
-    rule.pair_must_be_defined(pair, iz_aw_node, card_4, module)
-    iz_value = iz_aw_node['r_value']['element_1']['value']
-    aw_value = iz_aw_node['r_value']['element_2']['value']
-    return iz_value, aw_value
+def analyze_acer_card_4_iz_aw(expected_index, node, card, module):
+    l_value_pair, r_value_pair = rule.analyze_pair(node, card, module)
+    expected_pair = (('iz', expected_index), ('aw', expected_index))
+    rule.pair_must_be_defined(expected_pair, l_value_pair, r_value_pair, card, module)
+    iz = r_value_pair[0].get('value')
+    aw = r_value_pair[1].get('value')
+    return iz, aw
 
-def analyze_acer_card_5(card_5, module):
+def analyze_acer_card_5(card, module):
     # Note that card 5 should only be defined if iopt = 1 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_5 is not defined.
     msg = ('expected \'card_5\' since iopt = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_5', card_5, module, msg)
-    stmt_iter = env.get_statement_iterator(card_5)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card_5, module)
-    rule.analyze_identifier_tempd(env.next(stmt_iter), card_5, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_5, module)
-    return card_5
+    rule.card_must_be_defined('card_5', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_6(card_6, module):
+def analyze_acer_card_6(card, module):
     # Note that card 6 should only be defined if iopt = 1 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_6 is not defined.
     msg = ('expected \'card_6\' since iopt = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_6', card_6, module, msg)
-    stmt_iter = env.get_statement_iterator(card_6)
-    analyze_acer_card_6_newfor(env.next(stmt_iter), card_6, module)
-    analyze_acer_card_6_iopp(env.next(stmt_iter), card_6, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_6, module)
-    return card_6
+    rule.card_must_be_defined('card_6', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_acer_card_6_newfor(env.next(stmt_iter), card, module)
+    analyze_acer_card_6_iopp(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_6_newfor(newfor_node, card_6, module):
-    if env.not_defined(newfor_node):
-        return None
+def analyze_acer_card_6_newfor(node, card, module):
+    if node is None:
+        return 1
     else:
-        rule.identifier_must_be_defined(('newfor', None), newfor_node, card_6,
-                                        module)
-        rule.identifier_must_be_int(newfor_node)
-        newfor_r_value = env.get_value(env.get_r_value(newfor_node))
-        if newfor_r_value not in range(0,2):
-            newfor_l_value = env.get_l_value(newfor_node)
-            newfor_id_name = env.get_identifier_name(newfor_l_value)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('newfor', l_value, card, module)
+        newfor = rule.must_be_int(l_value, r_value, card, module)
+        if newfor not in range(0,2):
+            id_name = l_value.get('name')
             msg = ('illegal value in \'card_6\', module \'acer\': ' +
-                   newfor_id_name + ' = ' + str(newfor_r_value) +
+                   id_name + ' = ' + str(newfor) +
                    ', expected 0 or 1 (default = 1).')
-            rule.semantic_error(msg, newfor_node)
-    return newfor_r_value
+            rule.semantic_error(msg, node)
+    return newfor
 
-def analyze_acer_card_6_iopp(iopp_node, card_6, module):
-    if env.not_defined(iopp_node):
-        return None
+def analyze_acer_card_6_iopp(node, card, module):
+    if node is None:
+        return 1
     else:
-        rule.identifier_must_be_defined(('iopp', None), iopp_node, card_6,
-                                        module)
-        rule.identifier_must_be_int(iopp_node)
-        iopp_r_value = env.get_value(env.get_r_value(iopp_node))
-        if iopp_r_value not in range(0,2):
-            iopp_l_value = env.get_l_value(iopp_node)
-            iopp_id_name = env.get_identifier_name(iopp_l_value)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('iopp', l_value, card, module)
+        iopp = rule.must_be_int(l_value, r_value, card, module)
+        if iopp not in range(0,2):
+            id_name = l_value.get('name')
             msg = ('illegal value in \'card_6\', module \'acer\': ' +
-                   iopp_id_name + ' = ' + str(iopp_r_value) +
+                   id_name + ' = ' + str(iopp) +
                    ', expected 0 or 1 (default = 1).')
-            rule.semantic_error(msg, iopp_node)
-    return iopp_r_value
+            rule.semantic_error(msg, node)
+    return iopp
 
-def analyze_acer_card_7(card_7, module):
+def analyze_acer_card_7(card, module):
     # Note that card 7 should only be defined if iopt = 1 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_7 is not defined.
     msg = ('expected \'card_7\' since iopt = 1 in \'card_2\'')
-    rule.card_must_be_defined('card_7', card_7, module, msg)
-    stmt_iter = env.get_statement_iterator(card_7)
+    rule.card_must_be_defined('card_7', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
     # XXX: Treat thin as an array instead?
-    analyze_acer_card_7_thin01(env.next(stmt_iter), card_7, module)
-    analyze_acer_card_7_thin02(env.next(stmt_iter), card_7, module)
-    analyze_acer_card_7_thin03(env.next(stmt_iter), card_7, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_7, module)
-    return card_7
+    analyze_acer_card_7_thin01(env.next(stmt_iter), card, module)
+    analyze_acer_card_7_thin02(env.next(stmt_iter), card, module)
+    analyze_acer_card_7_thin03(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_7_thin01(thin01_node, card_7, module):
-    # XXX: Which type (int, float)? Specific range?
-    if env.not_defined(thin01_node):
-        return thin01_node
+def analyze_acer_card_7_thin01(node, card, module):
+    if node is None:
+        return None
     else:
-        rule.identifier_must_be_defined(('thin01', None), thin01_node, card_7,
-                                        module)
-    return env.get_value(env.get_r_value(thin01_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('thin01', l_value, card, module)
+        # XXX: Which type (int, float)? Specific range?
+    return r_value.get('value')
 
-def analyze_acer_card_7_thin02(thin02_node, card_7, module):
-    # XXX: Which type (int, float)? Specific range?
-    if env.not_defined(thin02_node):
-        return thin02_node
+def analyze_acer_card_7_thin02(node, card, module):
+    if node is None:
+        return None
     else:
-        rule.identifier_must_be_defined(('thin02', None), thin02_node, card_7,
-                                        module)
-    return env.get_value(env.get_r_value(thin02_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('thin02', l_value, card, module)
+        # XXX: Which type (int, float)? Specific range?
+    return r_value.get('value')
 
-def analyze_acer_card_7_thin03(thin03_node, card_7, module):
-    # XXX: Which type (int, float)? Specific range?
-    if env.not_defined(thin03_node):
-        return thin03_node
+def analyze_acer_card_7_thin03(node, card, module):
+    if node is None:
+        return None
     else:
-        rule.identifier_must_be_defined(('thin03', None), thin03_node, card_7,
-                                        module)
-    return env.get_value(env.get_r_value(thin03_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('thin03', l_value, card, module)
+        # XXX: Which type (int, float)? Specific range?
+    return r_value.get('value')
 
-def analyze_acer_card_8(card_8, module):
+def analyze_acer_card_8(card, module):
     # Note that card 8 should only be defined if iopt = 2 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_8 is not defined.
     msg = ('expected \'card_8\' since iopt = 2 in \'card_2\'')
-    rule.card_must_be_defined('card_8', card_8, module, msg)
-    stmt_iter = env.get_statement_iterator(card_8)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card_8, module)
-    rule.analyze_identifier_tempd(env.next(stmt_iter), card_8, module)
-    analyze_acer_card_8_tname(env.next(stmt_iter), card_8, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_8, module)
-    return card_8
+    rule.card_must_be_defined('card_8', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
+    analyze_acer_card_8_tname(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_8_tname(tname_node, card_8, module):
+def analyze_acer_card_8_tname(node, card, module):
     # Thermal zaid name (6 characters max, default = za).
-    if env.not_defined(tname_node):
-        return tname_node
+    if node is None:
+        return "za"
     else:
-        rule.identifier_must_be_defined(('tname', None), tname_node, card_8,
-                                        module)
-        rule.identifier_must_be_string(tname_node, card_8, module)
-        rule.identifier_string_must_not_exceed_length(tname_node, 6, card_8,
-                                                      module)
-    return env.get_value(env.get_r_value(tname_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('tname', l_value, card, module)
+        rule.must_be_string(l_value, r_value, card, module)
+        tname = rule.string_must_not_exceed_length(l_value, r_value, 6, card, module)
+    return tname
 
-def analyze_acer_card_8a(card_8a, module):
+def analyze_acer_card_8a(card, module):
     # Note that card 8a should only be defined if iopt = 2 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_8a is not defined.
     msg = ('expected \'card_8a\' since iopt = 2 in \'card_2\'')
-    rule.card_must_be_defined('card_8a', card_8a, module, msg)
-    stmt_iter = env.get_statement_iterator(card_8a)
+    rule.card_must_be_defined('card_8a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
     # XXX: Treat iza{01,02,03} as an array instead?
-    analyze_acer_card_8a_iza01(env.next(stmt_iter), card_8a, module)
-    analyze_acer_card_8a_iza02(env.next(stmt_iter), card_8a, module)
-    analyze_acer_card_8a_iza03(env.next(stmt_iter), card_8a, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_8a, module)
-    return card_8a
+    analyze_acer_card_8a_iza01(env.next(stmt_iter), card, module)
+    analyze_acer_card_8a_iza02(env.next(stmt_iter), card, module)
+    analyze_acer_card_8a_iza03(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_8a_iza01(iza01_node, card_8a, module):
+def analyze_acer_card_8a_iza01(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('iza01', l_value, card, module)
     # XXX: Must be an integer? Ignore for now.
-    rule.identifier_must_be_defined(('iza01', None), iza01_node, card_8a,
-                                    module)
-    return env.get_value(env.get_r_value(iza01_node))
+    return r_value.get('value')
 
-def analyze_acer_card_8a_iza02(iza02_node, card_8a, module):
+def analyze_acer_card_8a_iza02(node, card, module):
     # iza02 does not have to be defined. Defaults to 0.
-    # XXX: Must be an integer? Pass for now.
-    if env.not_defined(iza02_node):
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(('iza02', None), iza02_node, card_8a,
-                                        module)
-    return env.get_value(env.get_r_value(iza02_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('iza02', l_value, card, module)
+        # XXX: Must be an integer? Pass for now.
+    return r_value.get('value')
 
 def analyze_acer_card_8a_iza03(iza03_node, card_8a, module):
     # iza03 does not have to be defined. Defaults to 0.
-    # XXX: Must be an integer? Pass for now.
-    if env.not_defined(iza03_node):
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(('iza03', None), iza03_node, card_8a,
-                                        module)
-    return env.get_value(env.get_r_value(iza03_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('iza03', l_value, card, module)
+        # XXX: Must be an integer? Pass for now.
+    return r_value.get('value')
 
-def analyze_acer_card_9(card_9, module):
+def analyze_acer_card_9(card, module):
     # Note that card 9 should only be defined if iopt = 2 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_9 is not defined.
     msg = ('expected \'card_9\' since iopt = 2 in \'card_2\'')
-    rule.card_must_be_defined('card_9', card_9, module, msg)
-    stmt_iter = env.get_statement_iterator(card_9)
-    analyze_acer_card_9_mti(env.next(stmt_iter), card_9, module)
-    analyze_acer_card_9_nbint(env.next(stmt_iter), card_9, module)
-    analyze_acer_card_9_mte(env.next(stmt_iter), card_9, module)
-    analyze_acer_card_9_ielas(env.next(stmt_iter), card_9, module)
-    analyze_acer_card_9_nmix(env.next(stmt_iter), card_9, module)
-    analyze_acer_card_9_emax(env.next(stmt_iter), card_9, module)
-    analyze_acer_card_9_iwt(env.next(stmt_iter), card_9, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_9, module)
-    return card_9
+    rule.card_must_be_defined('card_9', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_acer_card_9_mti(env.next(stmt_iter), card, module)
+    analyze_acer_card_9_nbint(env.next(stmt_iter), card, module)
+    analyze_acer_card_9_mte(env.next(stmt_iter), card, module)
+    analyze_acer_card_9_ielas(env.next(stmt_iter), card, module)
+    analyze_acer_card_9_nmix(env.next(stmt_iter), card, module)
+    analyze_acer_card_9_emax(env.next(stmt_iter), card, module)
+    analyze_acer_card_9_iwt(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_9_mti(mti_node, card_9, module):
+def analyze_acer_card_9_mti(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('mti', l_value, card, module)
     # XXX: Type of mti? Ignore for now.
-    rule.identifier_must_be_defined(('mti', None), mti_node, card_9, module)
-    return env.get_value(env.get_r_value(mti_node))
+    return r_value.get('value')
 
-def analyze_acer_card_9_nbint(nbint_node, card_9, module):
-    rule.identifier_must_be_defined(('nbint', None), nbint_node, card_9,
-                                    module)
-    nbint_r_value = rule.identifier_must_be_int(nbint_node)
+def analyze_acer_card_9_nbint(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('nbint', l_value, card, module)
+    nbint = rule.must_be_int(l_value, r_value, card, module)
     # nbint defines the number of bins for incoherent scattering, therefore,
     # a negative value does not make sense:
-    if nbint_r_value < 0:
-        nbint_l_value = env.get_l_value(nbint_node)
-        nbint_id_name = env.get_identifier_name(nbint_l_value)
-        msg = ('the number of bins for incoherent scattering is negative ' +
-               'in \'card_9\', module \'acer\': ' + nbint_id_name + ' = ' +
-               str(nbint_r_value) + ', expected a non-negative value.')
-        rule.semantic_error(msg, nbint_node)
-    return nbint_r_value
+    if nbint < 0:
+        id_name = l_value.get('name')
+        msg = ('expected the number of bins for incoherent scattering (\'' +
+               id_name + '\') to be non-negative in \'card_9\', module ' +
+               '\'acer\'.')
+        rule.semantic_error(msg, node)
+    return nbint
 
-def analyze_acer_card_9_mte(mte_node, card_9, module):
+def analyze_acer_card_9_mte(node, card, module):
     # XXX: Type of mte? Ignore for now.
-    rule.identifier_must_be_defined(('mte', None), mte_node, card_9, module)
-    return env.get_value(env.get_r_value(mte_node))
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('mte', l_value, card, module)
+    return r_value.get('value')
 
-def analyze_acer_card_9_ielas(ielas_node, card_9, module):
+def analyze_acer_card_9_ielas(node, card, module):
     # ielas = 0 denotes coherent elastic,
     # ielas = 1 denotes incoherent elastic.
-    rule.identifier_must_be_defined(('ielas', None), ielas_node, card_9,
-                                    module)
-    ielas_r_value = rule.identifier_must_be_int(ielas_node)
-    if ielas_r_value not in range(0,2):
-        ielas_l_value = env.get_l_value(ielas_node)
-        ielas_id_name = env.get_identifier_name(ielas_l_value)
-        msg = ('illegal value in \'card_9\', module \'acer\': ' +
-               ielas_id_name + ' = ' + str(ielas_r_value) +
-               ', expected 0 or 1.')
-        rule.semantic_error(msg, ielas_node)
-    return ielas_r_value
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('ielas', l_value, card, module)
+    ielas = rule.must_be_int(l_value, r_value, card, module)
+    if ielas not in range(0,2):
+        id_name = l_value.get('name')
+        msg = ('illegal value in \'card_9\', module \'acer\': ' + id_name +
+               ' = ' + str(ielas) + ', expected 0 or 1.')
+        rule.semantic_error(msg, node)
+    return ielas
 
-def analyze_acer_card_9_nmix(nmix_node, card_9, module):
+def analyze_acer_card_9_nmix(node, card, module):
     # nmix specifies the number of atom types in mixed moderator.
     # nmix does not have to be defined, defaults to 1.
-    if env.not_defined(nmix_node):
+    if node is None:
         return 1
     else:
-        rule.identifier_must_be_defined(('nmix', None), nmix_node, card_9,
-                                        module)
-        rule.identifier_must_be_int(nmix_node)
-    return env.get_value(env.get_r_value(nmix_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('nmix', l_value, card, module)
+        nmix = rule.must_be_int(l_value, r_value, card, module)
+        # XXX: must be non-negative?
+    return nmix
 
-def analyze_acer_card_9_emax(emax_node, card_9, module):
+def analyze_acer_card_9_emax(node, card, module):
     # emax specifies maximum energy for thermal treatment (ev).
     # emax does not have to be defined, defaults to 1000.0 (determined from
     # mf3, mti).
-    # XXX: Type must be float? Ignore for now.
-    if env.not_defined(emax_node):
+    if node is None:
         return 1000.0
     else:
-        rule.identifier_must_be_defined(('emax', None), emax_node, card_9,
-                                        module)
-    return env.get_value(env.get_r_value(emax_node))
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('emax', l_value, card, module)
+        # XXX: Must be float? Pass for now.
+    return r_value.get('value')
 
-def analyze_acer_card_9_iwt(iwt_node, card_9, module):
+def analyze_acer_card_9_iwt(node, card, module):
     # The iwt value specifies the weighting option. It's either variable (0),
     # constant (1) or tabulated (2). Defaults to 0 (variable).
-    if env.not_defined(iwt_node):
+    if node is None:
         return 0
     else:
-        rule.identifier_must_be_defined(('iwt', None), iwt_node, card_9,
-                                        module)
-        iwt_r_value = rule.identifier_must_be_int(iwt_node)
-        if iwt_r_value not in range(0,3):
-            iwt_l_value = env.get_l_value(iwt_node)
-            iwt_id_name = env.get_identifier_name(iwt_l_value)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('iwt', l_value, card, module)
+        iwt = rule.must_be_int(l_value, r_value, card, module)
+        if iwt not in range(0,3):
+            id_name = l_value.get('name')
             msg = ('illegal weighting option in \'card_9\', module ' +
-                   '\'acer\': ' + iwt_id_name + ' = ' + str(iwt_r_value) +
+                   '\'acer\': ' + id_name + ' = ' + str(iwt) +
                    ', expected 0, 1 or 2 (default = 0).')
-            rule.semantic_error(msg, iwt_node)
-    return iwt_r_value
+            rule.semantic_error(msg, node)
+    return iwt
 
-def analyze_acer_card_10(card_10, module):
+def analyze_acer_card_10(card, module):
     # Note that card 10 should only be defined if iopt = 3 in card_2, check if
     # it is before calling this function.
-    # Prepare a descriptive message if card_10 is not defined.
     msg = ('expected \'card_10\' since iopt = 3 in \'card_2\'')
-    rule.card_must_be_defined('card_10', card_10, module, msg)
-    stmt_iter = env.get_statement_iterator(card_10)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card_10, module)
-    rule.analyze_identifier_tempd(env.next(stmt_iter), card_10, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_10, module)
-    return card_10
+    rule.card_must_be_defined('card_10', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
 
-def analyze_acer_card_11(card_11, module):
+def analyze_acer_card_11(card, module):
     # Note that card 11 should only be defined if iopt = 4 or 5 in card_2,
     # check if it is before calling this function.
-    # Prepare a descriptive message if card_11 is not defined.
     msg = ('expected \'card_11\' since iopt = 4 (or 5) in \'card_2\'')
-    rule.card_must_be_defined('card_11', card_11, module, msg)
-    stmt_iter = env.get_statement_iterator(card_11)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card_11, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card_11, module)
-    return card_11
+    rule.card_must_be_defined('card_11', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card

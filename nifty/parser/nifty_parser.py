@@ -4,7 +4,7 @@ from pprint import pprint
 from ply import lex
 from ply import yacc
 
-from nifty.environment import ast
+from nifty.environment import syntax_tree
 from nifty.environment.exceptions import syntax_error
 
 from nifty.lexer import nifty_lexer
@@ -18,7 +18,7 @@ start = 'program'
 
 def p_program(p):
     'program : module_list'
-    p[0] = ast.make_program(p)
+    p[0] = syntax_tree.make_program(p.lineno(0), p[1])
 
 def p_module_list(p):
     '''
@@ -27,13 +27,13 @@ def p_module_list(p):
     '''
     if len(p) == 3:
         p[0] = [p[1]] + p[2]
-    # Append 'stop' as the last instruction to be executed.
+    # Append 'stop' as the lsyntax_tree instruction to be executed.
     if p[0] is None:
-        p[0] = [ast.make_stop(p)]
+        p[0] = [syntax_tree.make_stop(p.lineno(0))]
 
 def p_module(p):
     'module : MODULE LEFT_BRACE card_list RIGHT_BRACE'
-    p[0] = ast.make_module(p)
+    p[0] = syntax_tree.make_module(p.lineno(0), p[1], p[3])
 
 def p_card_list(p):
     '''
@@ -47,7 +47,7 @@ def p_card_list(p):
 
 def p_card(p):
     'card : CARD LEFT_BRACE statement_list RIGHT_BRACE'
-    p[0] = ast.make_card(p)
+    p[0] = syntax_tree.make_card(p.lineno(0), p[1], p[3])
 
 def p_statement_list(p):
     '''
@@ -61,61 +61,91 @@ def p_statement_list(p):
 
 def p_statement(p):
     'statement : expression SEMICOLON'
-    p[0] = ast.make_statement(p)
+    p[0] = syntax_tree.make_statement(p[1])
 
 def p_expression(p):
     '''
-        expression : l_value ASSIGNMENT r_value
-                   | l_value_pair ASSIGNMENT r_value_pair
-                   | l_value_triple ASSIGNMENT r_value_triple
+        expression : singleton_assignment
+                   | pair_assignment
+                   | triplet_assignment
     '''
-    p[0] = ast.make_assignment(p)
+    p[0] = syntax_tree.make_expression(p[1])
+
+def p_singleton_assignment(p):
+    '''
+        singleton_assignment : l_value_singleton ASSIGNMENT r_value_singleton
+    '''
+    p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
+
+def p_l_value_singleton(p):
+    '''
+        l_value_singleton : l_value
+    '''
+    p[0] = syntax_tree.make_singleton(p.lineno(0), p[1])
+
+def p_r_value_singleton(p):
+    '''
+        r_value_singleton : r_value
+    '''
+    p[0] = syntax_tree.make_singleton(p.lineno(0), p[1])
+
+def p_pair_assignment(p):
+    '''
+        pair_assignment : l_value_pair ASSIGNMENT r_value_pair
+    '''
+    p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
+
+def p_l_value_pair(p):
+    '''
+        l_value_pair : l_value COMMA l_value
+    '''
+    p[0] = syntax_tree.make_pair(p.lineno(0), p[1], p[3])
+
+def p_r_value_pair(p):
+    '''
+        r_value_pair : r_value COMMA r_value
+    '''
+    p[0] = syntax_tree.make_pair(p.lineno(0), p[1], p[3])
+
+def p_triplet_assignment(p):
+    '''
+        triplet_assignment : l_value_triplet ASSIGNMENT r_value_triplet
+    '''
+    p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
+
+def p_l_value_triplet(p):
+    '''
+        l_value_triplet : l_value COMMA l_value COMMA l_value
+    '''
+    p[0] = syntax_tree.make_triplet(p.lineno(0), p[1], p[3], p[5])
+
+def p_r_value_triplet(p):
+    '''
+        r_value_triplet : r_value COMMA r_value COMMA r_value
+    '''
+    p[0] = syntax_tree.make_triplet(p.lineno(0), p[1], p[3], p[5])
 
 def p_l_value(p):
     '''
         l_value : array
                 | identifier
     '''
-    p[0] = ast.make_l_value(p)
-
-def p_l_value_pair(p):
-    '''
-        l_value_pair : l_value COMMA l_value
-    '''
-    p[0] = ast.make_pair(p)
-
-def p_l_value_triple(p):
-    '''
-        l_value_triple : l_value COMMA l_value COMMA l_value
-    '''
-    p[0] = ast.make_triple(p)
+    p[0] = syntax_tree.make_l_value(p[1])
 
 def p_array(p):
     'array : IDENTIFIER LEFT_BRACKET INTEGER RIGHT_BRACKET'
-    p[0] = ast.make_array(p)
+    p[0] = syntax_tree.make_array(p.lineno(0), p[1], eval(p[3]))
 
 def p_identifier(p):
     'identifier : IDENTIFIER'
-    p[0] = ast.make_identifier(p)
+    p[0] = syntax_tree.make_identifier(p.lineno(0), p[1])
 
 def p_r_value(p):
     '''
         r_value : number
                 | string
     '''
-    p[0] = ast.make_r_value(p)
-
-def p_r_value_pair(p):
-    '''
-        r_value_pair : r_value COMMA r_value
-    '''
-    p[0] = ast.make_pair(p)
-
-def p_r_value_triple(p):
-    '''
-        r_value_triple : r_value COMMA r_value COMMA r_value
-    '''
-    p[0] = ast.make_triple(p)
+    p[0] = syntax_tree.make_r_value(p[1])
 
 def p_number(p):
     '''
@@ -123,22 +153,27 @@ def p_number(p):
                | INTEGER
     '''
     if isinstance(eval(p[1]), float):
-        p[0] = ast.make_float(p)
+        # Floats are encapsulated as strings to preserve the float in its
+        # original form. For example, Python would evaluate '3e2' to '300.0'.
+        p[0] = syntax_tree.make_float(p.lineno(0), p[1])
     elif isinstance(eval(p[1]), int):
-        p[0] = ast.make_integer(p)
+        p[0] = syntax_tree.make_integer(p.lineno(0), eval(p[1]))
     else:
         p_error(p)
 
 def p_string(p):
     'string : STRING'
-    p[0] = ast.make_string(p)
+    p[0] = syntax_tree.make_string(p.lineno(0), eval(p[1]))
 
 def p_empty(p):
     'empty :'
     pass
 
 def p_error(p):
-    syntax_error(p)
+    if p is None:
+        syntax_error(None, p)
+    else:
+        syntax_error(p.lineno, p.value)
 
 ##############################################################################
 # Driver.

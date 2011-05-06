@@ -30,7 +30,7 @@ def analyze(ast):
     return ast
 
 def analyze_program(program):
-    module_list = program['module_list']
+    module_list = program.get('module_list')
     analyze_module_list(module_list)
     return program
 
@@ -65,7 +65,7 @@ def analyze_module(module):
         #'viewr' : analyze_viewr,
         #'wimsr' : analyze_wimsr,
     }
-    module_name = module['module_name']
+    module_name = module.get('module_name')
     if module_name == 'stop':
         # Nothing to analyze.
         return module

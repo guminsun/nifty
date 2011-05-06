@@ -51,10 +51,10 @@ class SyntaxError(NiftyError):
     '''
     pass
 
-def syntax_error(token):
-    if token is not None:
+def syntax_error(line_number, token):
+    if line_number is not None:
         msg = ('--- Syntax error on line %d, unexpected token: \'%s\''
-               % (token.lineno, token.value))
+               % (line_number, token))
     else:
         msg = ('--- Syntax error, unexpected token: \'%s\'' % (token))
     raise SyntaxError(msg)

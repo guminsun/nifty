@@ -31,7 +31,7 @@ def organize(ast):
     return organize_program(ast)
 
 def organize_program(program):
-    module_list = helper.get_module_list(program)
+    module_list = program.get('module_list')
     module_list = organize_module_list(module_list)
     return program
 
@@ -66,7 +66,7 @@ def organize_module(module):
         #'viewr' : organize_viewr,
         #'wimsr' : organize_wimsr,
     }
-    module_name = helper.get_module_name(module)
+    module_name = module.get('module_name')
     if module_name == 'stop':
         # Nothing to organize.
         return module
