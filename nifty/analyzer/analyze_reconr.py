@@ -163,7 +163,7 @@ def analyze_reconr_card_4_tempr(node, card, module):
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('tempr', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_reconr_card_4_errmax(err, node, card, module):
     # Fractional reconstruction tolerance used when resonance-integral error
@@ -175,7 +175,7 @@ def analyze_reconr_card_4_errmax(err, node, card, module):
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('errmax', l_value, card, module)
         # XXX: Additional checks? criterion: errmax_value >= err
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_reconr_card_4_errint(err, node, card, module):
     # Maximum resonance-integral error (in barns) per grid point.
@@ -189,7 +189,7 @@ def analyze_reconr_card_4_errint(err, node, card, module):
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('errint', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_reconr_card_5(ncards, card, module):
     msg = ('expected ' + str(ncards) + ' \'card_5\'s, since ' +
