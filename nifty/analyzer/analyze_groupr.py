@@ -50,19 +50,24 @@ def analyze_groupr_card_list(module):
         rule.too_few_cards_defined(number_of_card_9, 2, 'card_9', module)
     for c9 in range(number_of_card_9):
         analyze_groupr_card_9(env.next(card_iter), module)
-
-    analyze_reconr_card_10(env.next(card_iter), module)
-    # XXX: Pass all successive cards for now, since more than one material
-    # may be processed. matd in card 10 denotes the next material to be
-    # processed, assuming that card 10 denotes the next material that is going
-    # to be processed with the same settings?
-    #
+    # Number of card_10's should at least be 1 since one card 10 must always
+    # be supplied (an ending card 10 with matd = 0 to indicate termination
+    # of groupr).
+    number_of_card_10 = len(env.get_cards('card_10', module))
+    if number_of_card_10 < 1:
+        rule.too_few_cards_defined(number_of_card_10, 1, 'card_10', module)
+    # The last card 10 should not be considered as a next material to 
+    # process, since it is expected to terminate the execution of groupr.
+    # Therefore, 'number_of_card_10-1' is used to create the range to iterate
+    # over.
+    for c10 in range(number_of_card_10-1):
+        analyze_groupr_card_10(env.next(card_iter), module)
     # The last card is expected to be a card 10 with matd = 0, to indicate
     # termination of groupr.
-    # analyze_reconr_card_10_stop(env.next(card_iter), module)
+    analyze_groupr_card_10_stop(env.next(card_iter), module)
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
-    # rule.no_card_allowed(env.next(card_iter), module)
+    rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_groupr_card_1(card, module):
@@ -547,9 +552,22 @@ def analyze_groupr_card_9_mtname(node, card, module):
     # ENDF records are limited to 80 characters?)
     return r_value.get('value')
 
-def analyze_reconr_card_10(card, module):
+def analyze_groupr_card_10(card, module):
     rule.card_must_be_defined('card_10', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     matd = rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
+
+def analyze_groupr_card_10_stop(card, module):
+    msg = ('expected a \'card_10\' with the material set to 0 to indicate ' + 
+           'termination of module \'groupr\'.')
+    rule.card_must_be_defined('card_10', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    matd = rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    # The last card is expected to be a card 10 with matd = 0, to indicate
+    # termination of groupr.
+    if matd != 0:
+        rule.semantic_error(msg, card)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return matd
