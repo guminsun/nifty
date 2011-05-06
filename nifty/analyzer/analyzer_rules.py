@@ -6,7 +6,7 @@ from nifty.environment import helpers as env
 ##############################################################################
 # Common identifiers are analyzed exactly the same.
 
-def analyze_identifier_matd(node, card, module):
+def analyze_material(name, node, card, module):
     # XXX: material must not be 0? 0 usually denotes termination of material
     # or module.
     # The node is expected to be an assignment node.
@@ -15,7 +15,7 @@ def analyze_identifier_matd(node, card, module):
     l_value_singleton = must_be_singleton(l_value, card, module)
     r_value_singleton = must_be_singleton(r_value, card, module)
     # The l-value of the assignment is expected to be an identifier; matd
-    identifier_must_be_defined('matd', l_value_singleton, card, module)
+    identifier_must_be_defined(name, l_value_singleton, card, module)
     return r_value_singleton.get('value')
 
 def analyze_identifier_tempd(node, card, module):

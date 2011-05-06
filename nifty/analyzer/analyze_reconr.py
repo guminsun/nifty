@@ -80,7 +80,7 @@ def analyze_reconr_card_3(card, module):
     # Card 3 must be defined.
     rule.card_must_be_defined('card_3', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_material('mat', env.next(stmt_iter), card, module)
     ncards = analyze_reconr_card_3_ncards(env.next(stmt_iter), card, module)
     ngrid = analyze_reconr_card_3_ngrid(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
@@ -125,7 +125,7 @@ def analyze_reconr_card_3_stop(card, module):
     # Card 3 with mat = 0 must be defined.
     rule.card_must_be_defined('card_3', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    mat = rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    mat = rule.analyze_material('mat', env.next(stmt_iter), card, module)
     # The last card is expected to be a card 3 with mat = 0, to indicate
     # termination of reconr.
     if mat != 0:

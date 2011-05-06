@@ -45,7 +45,7 @@ def analyze_heatr_card_1(card, module):
 def analyze_heatr_card_2(card, module):
     rule.card_must_be_defined('card_2', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_material('matd', env.next(stmt_iter), card, module)
     npk = analyze_heatr_card_2_npk(env.next(stmt_iter), card, module)
     nqa = analyze_heatr_card_2_nqa(env.next(stmt_iter), card, module)
     analyze_heatr_card_2_ntemp(env.next(stmt_iter), card, module)

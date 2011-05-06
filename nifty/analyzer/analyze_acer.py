@@ -199,7 +199,7 @@ def analyze_acer_card_5(card, module):
     msg = ('expected \'card_5\' since iopt = 1 in \'card_2\'')
     rule.card_must_be_defined('card_5', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_material('matd', env.next(stmt_iter), card, module)
     rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
@@ -291,7 +291,7 @@ def analyze_acer_card_8(card, module):
     msg = ('expected \'card_8\' since iopt = 2 in \'card_2\'')
     rule.card_must_be_defined('card_8', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_material('matd', env.next(stmt_iter), card, module)
     rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
     analyze_acer_card_8_tname(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
@@ -449,7 +449,7 @@ def analyze_acer_card_10(card, module):
     msg = ('expected \'card_10\' since iopt = 3 in \'card_2\'')
     rule.card_must_be_defined('card_10', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_material('matd', env.next(stmt_iter), card, module)
     rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
@@ -460,6 +460,6 @@ def analyze_acer_card_11(card, module):
     msg = ('expected \'card_11\' since iopt = 4 (or 5) in \'card_2\'')
     rule.card_must_be_defined('card_11', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    rule.analyze_material('matd', env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card

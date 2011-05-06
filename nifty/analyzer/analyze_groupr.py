@@ -555,7 +555,7 @@ def analyze_groupr_card_9_mtname(node, card, module):
 def analyze_groupr_card_10(card, module):
     rule.card_must_be_defined('card_10', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    matd = rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    matd = rule.analyze_material('matd', env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -564,7 +564,7 @@ def analyze_groupr_card_10_stop(card, module):
            'termination of module \'groupr\'.')
     rule.card_must_be_defined('card_10', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    matd = rule.analyze_identifier_matd(env.next(stmt_iter), card, module)
+    matd = rule.analyze_material('matd', env.next(stmt_iter), card, module)
     # The last card is expected to be a card 10 with matd = 0, to indicate
     # termination of groupr.
     if matd != 0:
