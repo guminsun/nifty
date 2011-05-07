@@ -1987,6 +1987,7 @@ Efficient implementation, e.g.
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-1"
@@ -2018,6 +2019,7 @@ Los Alamos Nat.
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-2"
@@ -2051,6 +2053,7 @@ Nuclear Data Sheets
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-3"
@@ -2079,6 +2082,7 @@ European Nuclear Conference
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-4"
@@ -2100,6 +2104,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-5"
@@ -2133,6 +2138,7 @@ http://t2.lanl.gov/codes/njoy99/Userinp.364
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-6"
@@ -2165,6 +2171,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-7"
@@ -2197,6 +2204,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-8"
@@ -2229,6 +2237,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-9"
@@ -2263,6 +2272,7 @@ http://docs.python.org/
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-10"
@@ -2295,6 +2305,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-11"
@@ -2326,6 +2337,7 @@ http://www.dabeaz.com/ply/ply.html
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-12"
@@ -2358,6 +2370,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-13"
@@ -2390,6 +2403,7 @@ Compilers: Principles, Techniques, & Tools
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-14"
