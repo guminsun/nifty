@@ -282,8 +282,8 @@ NJOY Test Problem 14
 
 Without consulting the documentation, one might guess that line 4 and 11
  are some kind of descriptive titles, which is correct.
- But it is not obvious that line 2 denotes input and output files (each
- number indicates a specific file) which the 
+ However, it is not obvious that line 2 denotes input and output files (each
+ number indicates a specific file) that the 
 \family typewriter
 acer
 \family default
@@ -311,15 +311,15 @@ Objective
 
 \begin_layout Standard
 The NJOY input instructions is not an optimal input format.
- Therefore, the scope of this work has been to design and implement a more
- user friendly, and readable input format.
+ Therefore, the scope of this thesis has been to design and implement a
+ more user friendly, and readable input format.
 \end_layout
 
 \begin_layout Standard
 In order to make the new input format useable with NJOY, it has to be translated
  into the original NJOY input instructions.
  As such, the scope of this work also included developing an accompanying
- translator to the new input format.
+ translator for the new input format.
 \end_layout
 
 \begin_layout Standard
@@ -445,7 +445,7 @@ which can be expressed in a context-free grammar as the production
 \align center
 
 \family typewriter
-expression ::= l_value 
+assignment ::= l_value 
 \begin_inset Quotes eld
 \end_inset
 
@@ -497,7 +497,7 @@ key "key-9"
 
 \end_inset
 
-, in an unix-like environment.
+, in an Unix-like environment.
 \end_layout
 
 \begin_layout Subsubsection
@@ -660,20 +660,41 @@ key "key-14"
 \end_inset
 
 .
- Type checking is a part of the semantic analysis where the translator checks
- that each operator has valid operands.
 \end_layout
 
 \begin_layout Standard
-For example, the variable 
-\family typewriter
-hk
-\family default
- in card 3, module 
+For example, according to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+, card 1, 2 and 3 in module 
 \family typewriter
 acer
 \family default
- is a descriptive character string.
+ must always be defined, and they must be defined in sequential order.
+ The translator should report an error if these rules are violated; such
+ as when card 1 has not been defined or when card 3 has been defined prior
+ to card 2.
+\end_layout
+
+\begin_layout Standard
+Type checking is another important part of the semantic analysis where the
+ translator checks that each operator has valid operands.
+\end_layout
+
+\begin_layout Standard
+For example, the identifier 
+\family typewriter
+hk
+\family default
+, in card 3 module 
+\family typewriter
+acer
+\family default
+, is used to denote a descriptive character string.
  According to 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -756,53 +777,31 @@ NIF
 \end_layout
 
 \begin_layout Standard
+The new input format, NJOY Input Format (NIF), is basically the NJOY input
+ instructions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+ which have been annotated with syntax to make it easier to read and express.
+\end_layout
+
+\begin_layout Standard
 The resulting NJOY Input Format (NIF) is illustrated as a context-free grammar
  definition in algorithm 2.
-\end_layout
+ The structure of the grammar is simple.
+ Just like in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
 
-\begin_layout Standard
-The start symbol is 
-\family typewriter
-program
-\family default
-.
- The capitalized terminals, such as 
-\family typewriter
-MODULE
-\family default
- and 
-\family typewriter
-CARD
-\family default
-, are token classes specified by the lexer (see section 3.2.1).
- Special symbols are denoted within double quotes.
- 
-\family typewriter
-empty
-\family default
- denotes the empty string.
-\end_layout
+\end_inset
 
-\begin_layout Standard
-The structure of the grammar is simple.
- A program in NIF is a listing of modules.
- Each module is composed by a set of cards.
- A card is a placeholder for a listing of statements.
- Each statement is an expression and an expression is an assignment.
-\end_layout
-
-\begin_layout Standard
-An assignment denotes that a left hand side tuple is assigned to hold the
- values of a right hand side tuple.
- A left hand side tuple is an ordered list of elements, where the elements
- can be an array or identifier.
- A right hand side tuple is an ordered list of elements, where the elements
- can be a float, integer or a string.
-\end_layout
-
-\begin_layout Standard
-As such, an array or identifier can be declared to hold the value of either
- a floating point number, natural number or a character string.
+, a NIF program is an ordered sequence of modules.
+ Each module is composed by an ordered sequence of cards.
+ A card is an ordered sequence of value deﬁnitions.
 \end_layout
 
 \begin_layout Standard
@@ -867,21 +866,17 @@ card      ::= CARD "{" stmt_list "}"
 
 \begin_layout Plain Layout
 
-stmt_list ::= statement stmt_list
+stmt_list  ::= statement stmt_list
 \end_layout
 
 \begin_layout Plain Layout
 
-            | empty
+             | empty
 \end_layout
 
 \begin_layout Plain Layout
 
-statement ::= expression ";"
-\end_layout
-
-\begin_layout Plain Layout
-
+statement  ::= expression ";"
 \end_layout
 
 \begin_layout Plain Layout
@@ -1016,21 +1011,201 @@ NJOY Input Format (NIF) Grammar Definition
 \end_layout
 
 \begin_layout Standard
-For example, consider the program in algorithm xxx which is written in the
- NJOY input instructions format.
+The start symbol is 
+\family typewriter
+program
+\family default
+.
+ The capitalized terminals, such as 
+\family typewriter
+MODULE
+\family default
+ and 
+\family typewriter
+CARD
+\family default
+, are token classes specified by the lexer (see section 3.2.1).
+ Special symbols are denoted within double quotes.
+ 
+\family typewriter
+empty
+\family default
+ denotes the empty string.
 \end_layout
 
 \begin_layout Standard
-XXX insert test problem xxx here.
+An assignment denotes that a left hand side tuple is assigned to hold the
+ values of a right hand side tuple.
+ A left hand side tuple is an ordered list of elements, where the elements
+ can be an array or identifier.
+ A right hand side tuple is an ordered list of elements, where the elements
+ can be a float, integer or a string.
 \end_layout
 
 \begin_layout Standard
-Algorithm xxx illustrates an equivalent representation of algorithm xxx
- written in NIF.
+As such, a value definition is an array or identifier that has been declared
+ to hold the value of either a floating-point number, natural number or
+ a character string.
 \end_layout
 
 \begin_layout Standard
-XXX insert NIF translation of test problem here.
+For an example, in algorithm 3, the lines 1-7 from algorithm 1 are expressed
+ in the NIF language.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+acer {
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_1 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		endf_input = 20;
+\end_layout
+
+\begin_layout Plain Layout
+
+		pendf_input = 21;
+\end_layout
+
+\begin_layout Plain Layout
+
+		multigroup_photon_input = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+		ace_output = 31;
+\end_layout
+
+\begin_layout Plain Layout
+
+    	mcnp_directory_output = 32;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_2 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		acer_run_option = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+		print_control = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+		ace_output_type = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_3 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		description = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_5 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		material = 725;
+\end_layout
+
+\begin_layout Plain Layout
+
+		temperature = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_6 {}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_7 {}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NIF version of 
+\shape italic
+Algorithm 1
+\shape default
+, lines 1-7
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
