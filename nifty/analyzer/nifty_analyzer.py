@@ -17,7 +17,7 @@ from analyze_heatr import analyze_heatr
 #from analyze_purr import analyze_purr
 from analyze_reconr import analyze_reconr
 #from analyze_resxsr import analyze_resxsr
-#from analyze_thermr import analyze_thermr
+from analyze_thermr import analyze_thermr
 #from analyze_unresr import analyze_unresr
 #from analyze_viewr import analyze_viewr
 #from analyze_wimsr import analyze_wimsr
@@ -60,7 +60,7 @@ def analyze_module(module):
         #'purr' : analyze_purr,
         'reconr' : analyze_reconr,
         #'resxsr' : analyze_resxsr,
-        #'thermr' : analyze_thermr,
+        'thermr' : analyze_thermr,
         #'unresr' : analyze_unresr,
         #'viewr' : analyze_viewr,
         #'wimsr' : analyze_wimsr,
