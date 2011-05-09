@@ -13,7 +13,8 @@ def analyze_thermr_card_list(module):
     analyze_thermr_card_1(env.next(card_iter), module)
     card_2, ntemp = analyze_thermr_card_2(env.next(card_iter), module)
     analyze_thermr_card_3(ntemp, env.next(card_iter), module)
-    # rule.no_card_allowed(env.next(card_iter), module)
+    analyze_thermr_card_4(env.next(card_iter), module)
+    rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_thermr_card_1(card, module):
@@ -171,6 +172,7 @@ def analyze_thermr_card_3(ntempr, card, module):
                'temperatures (\'ntempr\') is ' + str(ntempr) + ' in ' +
                '\'card_2\', module ' + '\'' + module_name + '\'.')
         rule.semantic_error(msg, card)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_thermr_card_3_tempr(expected_index, node, card, module):
@@ -179,4 +181,24 @@ def analyze_thermr_card_3_tempr(expected_index, node, card, module):
     expected = ('tempr', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
     # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_thermr_card_4(card, module):
+    rule.card_must_be_defined('card_4', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_thermr_card_4_tol(env.next(stmt_iter), card, module)
+    analyze_thermr_card_4_emax(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_thermr_card_4_tol(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('tol', l_value, card, module)
+    # XXX: Additional checks? Must be float?
+    return r_value.get('value')
+
+def analyze_thermr_card_4_emax(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('emax', l_value, card, module)
+    # XXX: Additional checks? Must be float?
     return r_value.get('value')
