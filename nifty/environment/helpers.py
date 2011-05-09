@@ -27,11 +27,29 @@ def is_card(node):
     '''
     return get_node_type(node) == 'card'
 
+def is_float(node):
+    '''
+        Return True if 'node' is a float node, else False.
+    '''
+    return get_node_type(node) == 'float'
+
 def is_identifier(node):
     '''
         Return True if 'node' is an identifier node, else False.
     '''
     return get_node_type(node) == 'identifier'
+
+def is_integer(node):
+    '''
+        Return True if 'node' is an integer node, else False.
+    '''
+    return get_node_type(node) == 'integer'
+
+def is_null(node):
+    '''
+        Return True if 'node' is a null node, else False.
+    '''
+    return get_node_type(node) == 'null'
 
 def is_pair(node):
     '''
@@ -44,6 +62,12 @@ def is_singleton(node):
         Return True if 'node' is a singleton node, else False.
     '''
     return get_node_type(node) == 'singleton'
+
+def is_string(node):
+    '''
+        Return True if 'node' is a string node, else False.
+    '''
+    return get_node_type(node) == 'string'
 
 def is_triplet(node):
     '''
