@@ -20,13 +20,17 @@ identifier_map = {
     'ehi' : ['ehi'], # Used by groupr.
     'emax' : ['emax'], # Used by thermr, ...
     'enode' : ['enode'],
+    'epmin' : ['epmin'], # Used by covr, ...
     'err' : ['err'],
     'errint' : ['errint'], # Used by broadr, XXX.
     'errmax' : ['errmax'], # Used by broadr, XXX.
     'errthn' : ['errthn'], # Used by broadr.
     'gamma' : ['gamma'], # Used by groupr.
+    'hdescr' : ['hdescr'], # Used by covr.
     'hk' : ['hk', 'description'],
+    'hlibid' : ['hlibid'], # Used by covr.
     'icoh' : ['icoh'], # Used by thermr.
+    'icolor' : ['icolor'], # Used by covr.
     'ielas' : ['ielas'],
     'ign' : ['ign', 'neutron_group_structure'], # Used by groupr.
     'igg' : ['igg', 'gamma_group_structure'], # Used by groupr.
@@ -35,6 +39,7 @@ identifier_map = {
     'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
     'iprint' : ['iprint', 'print_control'], # Used by groupr, thermr, ...
+    'irelco' : ['irelco'], # Used by covr, ...
     'istart' : ['istart', 'restart'], # Used by broadr.
     'istrap' : ['istrap', 'bootstrap'], # Used by broadr.
     'iwt' : ['iwt'], # Used by groupr.
@@ -45,15 +50,17 @@ identifier_map = {
     'iza03' : ['iza03'],
     'jsigz' : ['jsigz'], # Used by groupr.
     'local' : ['local'],
-    'lord' : ['lord', 'legendre_order'], # Used by groupr. 
-    # XXX: Use a single name to indicate material?
-    'mat' : ['mat', 'matd'],
-    'mat1' : ['mat1', 'matd'], # Used by broadr.
+    'lord' : ['lord', 'legendre_order'], # Used by groupr.
+    'mat' : ['mat'], # Used by covr, ...
+    'mat1' : ['mat1'], # Used by broadr, covr, ...
     'matb' : ['matb'], # Used by groupr.
-    'matd' : ['matd', 'mat', 'material'], # Used by groupr.
+    'matd' : ['matd', 'material'], # Used by groupr.
     'matde' : ['matde'], # Used by thermr.
     'matdp' : ['matdp'], # Used by thermr.
+    'matype' : ['matype'], # Used by covr, ...
     'mfd' : ['mfd'], # Used by groupr.
+    'mt' : ['mt'], # Used by covr,
+    'mt1' : ['mt1'], # Used by covr,
     'mta' : ['mta'],
     'mtd' : ['mtd'], # Used by groupr.
     'mte' : ['mte'],
@@ -63,11 +70,13 @@ identifier_map = {
     'mtref' : ['mtref'], # Used by thermr.
     'nace' : ['nace', 'ace_output'],
     'natom' : ['natom'], # Used by thermr.
-    'nin' : ['nin', 'pendf_input'],
+    'nin' : ['nin', 'pendf_input'], # Used by covr, ...
     'nbin' : ['nbin'], # Used by thermr.
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
+    'ncase' : ['ncase'], # Used by covr, ...
     'ndir' : ['ndir', 'mcnp_directory_output'],
+    'ndiv' : ['ndiv'], # Used by covr, ...
     'nendf' : ['nendf', 'endf_input'],
     'newfor' : ['newfor'],
     'nflmax' : ['nflmax', 'max_flux_points'], # Used by groupr.
@@ -82,13 +91,15 @@ identifier_map = {
     'ntemp' : ['ntemp', 'number_of_temperatures'], # Used by groupr, thermr, ...
     'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # Used by broadr.
     'ntype' : ['ntype', 'ace_output_type'],
-    'nout' : ['nout', 'pendf_output'],
+    'noleg' : ['noleg'], # Used by covr, ...
+    'nout' : ['nout', 'pendf_output'], # Used by covr, ...
     'npend' : ['npend', 'pendf_input'],
     'npk' : ['npk', 'number_of_partial_kermas'],
-    'nplot' : ['nplot'],
+    'nplot' : ['nplot'], # Used by covr, ...
     'nps' : ['nps', 'output'], # Used by viewr.
     'nqa' : ['nqa', 'number_of_q_values'],
     'nsigz' : ['nsigz', 'number_of_sigma_zeroes'], # Used by groupr.
+    'nstart' : ['nstart'], # Used by covr, ...
     'nxtra' : ['nxtra'],
     'qa' : ['qa'],
     'qbar' : ['qbar'],
@@ -96,7 +107,6 @@ identifier_map = {
     'sigpot' : ['sigpot'], # Used by groupr.
     'sigz' : ['sigz', 'sigma_zero_values'], # Used by groupr.
     'suff' : ['suff'],
-    # XXX: Use a single name to denote temperatures in kelvin?
     'tb' : ['tb', 'thermal_temperature'], # Used by groupr.
     'tc' : ['tc', 'fission_temperature'], # Used by groupr.
     'temp' : ['temp', 'temperature'], # Used by groupr.
@@ -109,7 +119,6 @@ identifier_map = {
     'thin02' : ['thin02'],
     'thin03' : ['thin03'],
     'thnmax' : ['thnmax'], # Used by broadr.
-    # XXX: Use a single name to denote labels and titles?
     'title' : ['title'], # Used by groupr.
     'tlabel' : ['tlabel'],
     'tname' : ['tname'],
