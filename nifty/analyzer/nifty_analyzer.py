@@ -1,7 +1,7 @@
 from analyze_acer import analyze_acer
 from analyze_broadr import analyze_broadr
 #from analyze_ccccr import analyze_ccccr
-#from analyze_covr import analyze_covr
+from analyze_covr import analyze_covr
 #from analyze_dtfr import analyze_dtfr
 #from analyze_errorr import analyze_errorr
 #from analyze_gaminr import analyze_gaminr
@@ -44,7 +44,7 @@ def analyze_module(module):
         'acer' : analyze_acer,
         'broadr' : analyze_broadr,
         #'ccccr' : analyze_ccccr,
-        #'covr' : analyze_covrr,
+        'covr' : analyze_covr,
         #'dtfr' : analyze_dtfrr,
         #'errorr' : analyze_errorr,
         #'gaminr' : analyze_gaminr,
