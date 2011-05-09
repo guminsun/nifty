@@ -11,7 +11,8 @@ def analyze_thermr(module):
 def analyze_thermr_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_thermr_card_1(env.next(card_iter), module)
-    analyze_thermr_card_2(env.next(card_iter), module)
+    card_2, ntemp = analyze_thermr_card_2(env.next(card_iter), module)
+    analyze_thermr_card_3(ntemp, env.next(card_iter), module)
     # rule.no_card_allowed(env.next(card_iter), module)
     return module
 
@@ -30,14 +31,14 @@ def analyze_thermr_card_2(card, module):
     rule.analyze_material('matde', env.next(stmt_iter), card, module)
     rule.analyze_material('matdp', env.next(stmt_iter), card, module)
     analyze_thermr_card_2_nbin(env.next(stmt_iter), card, module)
-    analyze_thermr_card_2_ntemp(env.next(stmt_iter), card, module)
+    ntemp = analyze_thermr_card_2_ntemp(env.next(stmt_iter), card, module)
     analyze_thermr_card_2_iinc(env.next(stmt_iter), card, module)
     analyze_thermr_card_2_icoh(env.next(stmt_iter), card, module)
     analyze_thermr_card_2_natom(env.next(stmt_iter), card, module)
     analyze_thermr_card_2_mtref(env.next(stmt_iter), card, module)
     analyze_thermr_card_2_iprint(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
-    return card
+    return card, ntemp
 
 def analyze_thermr_card_2_nbin(node, card, module):
     # Number of equi-probable angles should be a non-negative number.
@@ -152,3 +153,30 @@ def analyze_thermr_card_2_iprint(node, card, module):
                    'intermediate results (default = 0).')
             rule.semantic_error(msg, node)
     return iprint
+
+def analyze_thermr_card_3(ntempr, card, module):
+    # Note that the number of temperatures in card 3 should be equal to the
+    # number of temperatures ('ntempr') defined in card 2.
+    rule.card_must_be_defined('card_3', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    stmt_len = len(stmt_iter)
+    if stmt_len == ntempr:
+        for i in range(stmt_len):
+            analyze_thermr_card_3_tempr(i, env.next(stmt_iter), card, module)
+    else:
+        card_name = card.get('card_name')
+        module_name = module.get('module_name')
+        msg = ('saw ' + str(stmt_len) + ' statement(s) in \'' + card_name +
+               '\' but expected ' + str(ntempr) + ' since the number of ' +
+               'temperatures (\'ntempr\') is ' + str(ntempr) + ' in ' +
+               '\'card_2\', module ' + '\'' + module_name + '\'.')
+        rule.semantic_error(msg, card)
+    return card
+
+def analyze_thermr_card_3_tempr(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
+    expected = ('tempr', expected_index)
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
