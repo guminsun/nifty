@@ -18,7 +18,7 @@ identifier_map = {
     'egg' : ['egg', 'gamma_group_breaks'], # Used by groupr.
     'egn' : ['egn', 'neutron_group_breaks'], # Used by groupr.
     'ehi' : ['ehi'], # Used by groupr.
-    'emax' : ['emax'],
+    'emax' : ['emax'], # Used by thermr, ...
     'enode' : ['enode'],
     'err' : ['err'],
     'errint' : ['errint'], # Used by broadr, XXX.
@@ -26,13 +26,15 @@ identifier_map = {
     'errthn' : ['errthn'], # Used by broadr.
     'gamma' : ['gamma'], # Used by groupr.
     'hk' : ['hk', 'description'],
+    'icoh' : ['icoh'], # Used by thermr.
     'ielas' : ['ielas'],
     'ign' : ['ign', 'neutron_group_structure'], # Used by groupr.
     'igg' : ['igg', 'gamma_group_structure'], # Used by groupr.
+    'iinc' : ['iinc'], # Used by thermr.
     'infile' : ['infile', 'input'], # Used by viewr.
     'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
-    'iprint' : ['iprint', 'print_control'], # Used by groupr.
+    'iprint' : ['iprint', 'print_control'], # Used by groupr, thermr, ...
     'istart' : ['istart', 'restart'], # Used by broadr.
     'istrap' : ['istrap', 'bootstrap'], # Used by broadr.
     'iwt' : ['iwt'], # Used by groupr.
@@ -49,6 +51,8 @@ identifier_map = {
     'mat1' : ['mat1', 'matd'], # Used by broadr.
     'matb' : ['matb'], # Used by groupr.
     'matd' : ['matd', 'mat', 'material'], # Used by groupr.
+    'matde' : ['matde'], # Used by thermr.
+    'matdp' : ['matdp'], # Used by thermr.
     'mfd' : ['mfd'], # Used by groupr.
     'mta' : ['mta'],
     'mtd' : ['mtd'], # Used by groupr.
@@ -56,8 +60,11 @@ identifier_map = {
     'mti' : ['mti'],
     'mtk' : ['mtk'],
     'mtname' : ['mtname'], # Used by groupr.
+    'mtref' : ['mtref'], # Used by thermr.
     'nace' : ['nace', 'ace_output'],
+    'natom' : ['natom'], # Used by thermr.
     'nin' : ['nin', 'pendf_input'],
+    'nbin' : ['nbin'], # Used by thermr.
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
     'ndir' : ['ndir', 'mcnp_directory_output'],
@@ -72,7 +79,7 @@ identifier_map = {
     'ngout2' : ['ngout2', 'gout_output'], # Used by groupr.
     'ninwt' : ['ninwt'], # Used by groupr.
     'nmix' : ['nmix'],
-    'ntemp' : ['ntemp', 'number_of_temperatures'], # Used by groupr.
+    'ntemp' : ['ntemp', 'number_of_temperatures'], # Used by groupr, thermr, ...
     'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # Used by broadr.
     'ntype' : ['ntype', 'ace_output_type'],
     'nout' : ['nout', 'pendf_output'],
@@ -96,7 +103,7 @@ identifier_map = {
     'temp1' : ['temp1', 'start_temp'], # Used by broadr. 
     'temp2' : ['temp2', 'final_temp'], # Used by broadr.
     'tempd' : ['tempd', 'temperature'],
-    'tempr' : ['tempr', 'temperature'],
+    'tempr' : ['tempr', 'temperature'], # Used by thermr, ...
     # XXX: Treat thin as an array?
     'thin01' : ['thin01'],
     'thin02' : ['thin02'],
@@ -106,5 +113,6 @@ identifier_map = {
     'title' : ['title'], # Used by groupr.
     'tlabel' : ['tlabel'],
     'tname' : ['tname'],
+    'tol' : ['tol', 'tolerance'], # Used by thermr.
     'wght' : ['wght'], # Used by groupr.
 }
