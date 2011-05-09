@@ -211,7 +211,7 @@ thermr
 
     card_3
     {
-        tempr = 300; // Use C-style floats.
+        tempr[0] = 300; // Use C-style floats.
     }
 
     card_4
@@ -245,7 +245,7 @@ thermr
 
     card_3
     {
-        tempr = 300; // Use C-style floats.
+        tempr[0] = 300; // Use C-style floats.
     }
 
     card_4
