@@ -74,9 +74,9 @@ def main():
             sys.exit('semantic_error')
 
     # XXX: Catch translator errors?
-    instructions = translate(ast)
+    #instructions = translate(ast)
     # XXX: Catch emitter errors?
-    instructions = emit(instructions)
+    instructions = emit(ast)
 
     print >>output_stream, instructions
 
