@@ -37,12 +37,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp01_translator(self):
-        infile = get_test_problem('tp01')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp02_analyzer(self):
         infile = get_test_problem('tp02')
         outfile = infile + analyzer_suffix()
@@ -71,12 +65,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp02')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp02_translator(self):
-        infile = get_test_problem('tp02')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_tp03_analyzer(self):
@@ -109,12 +97,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp03_translator(self):
-        infile = get_test_problem('tp03')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp04_analyzer(self):
         infile = get_test_problem('tp04')
         outfile = infile + analyzer_suffix()
@@ -143,12 +125,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp04')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp04_translator(self):
-        infile = get_test_problem('tp04')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_tp05_analyzer(self):
@@ -181,12 +157,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp05_translator(self):
-        infile = get_test_problem('tp05')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp06_analyzer(self):
         infile = get_test_problem('tp06')
         outfile = infile + analyzer_suffix()
@@ -215,12 +185,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp06')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp06_translator(self):
-        infile = get_test_problem('tp06')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_tp07_analyzer(self):
@@ -253,12 +217,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp07_translator(self):
-        infile = get_test_problem('tp07')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp08_analyzer(self):
         infile = get_test_problem('tp08')
         outfile = infile + analyzer_suffix()
@@ -287,12 +245,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp08')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp08_translator(self):
-        infile = get_test_problem('tp08')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_tp10_analyzer(self):
@@ -325,12 +277,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp10_translator(self):
-        infile = get_test_problem('tp10')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp11_analyzer(self):
         infile = get_test_problem('tp11')
         outfile = infile + analyzer_suffix()
@@ -359,12 +305,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp11')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp11_translator(self):
-        infile = get_test_problem('tp11')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_tp12_analyzer(self):
@@ -397,12 +337,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp12_translator(self):
-        infile = get_test_problem('tp12')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp13_analyzer(self):
         infile = get_test_problem('tp13')
         outfile = infile + analyzer_suffix()
@@ -431,12 +365,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp13')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp13_translator(self):
-        infile = get_test_problem('tp13')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_tp14_analyzer(self):
@@ -469,12 +397,6 @@ class ProblemTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_tp14_translator(self):
-        infile = get_test_problem('tp14')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_tp17_analyzer(self):
         infile = get_test_problem('tp17')
         outfile = infile + analyzer_suffix()
@@ -503,12 +425,6 @@ class ProblemTestCase(unittest.TestCase):
         infile = get_test_problem('tp17')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_tp17_translator(self):
-        infile = get_test_problem('tp17')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
 ##############################################################################
@@ -548,9 +464,6 @@ def organizer():
 def parser():
     return bin_dir() + 'parser'
 
-def translator():
-    return bin_dir() + 'translator'
-
 def bin_dir():
     return 'bin/'
 
@@ -569,9 +482,6 @@ def organizer_suffix():
 def parser_suffix():
     return '.parser'
 
-def translator_suffix():
-    return '.translator'
-
 def run(infile, outfile, function):
     fd = open(outfile, 'w')
     return_code = call([function, infile], stdout=fd, stderr=fd)
@@ -580,90 +490,90 @@ def run(infile, outfile, function):
 
 def suite():
     tests = [
+        # Test Problem 01:
         'test_tp01_analyzer',
         'test_tp01_emitter',
         'test_tp01_lexer',
         'test_tp01_organizer',
         'test_tp01_parser',
-        'test_tp01_translator',
+        # Test Problem 02:
         'test_tp02_analyzer',
         'test_tp02_emitter',
         'test_tp02_lexer',
         'test_tp02_organizer',
         'test_tp02_parser',
-        'test_tp02_translator',
+        # Test Problem 03:
         'test_tp03_analyzer',
         'test_tp03_emitter',
         'test_tp03_lexer',
         'test_tp03_organizer',
         'test_tp03_parser',
-        'test_tp03_translator',
+        # Test Problem 04:
         'test_tp04_analyzer',
         'test_tp04_emitter',
         'test_tp04_lexer',
         'test_tp04_organizer',
         'test_tp04_parser',
-        'test_tp04_translator',
+        # Test Problem 05:
         'test_tp05_analyzer',
         'test_tp05_emitter',
         'test_tp05_lexer',
         'test_tp05_organizer',
         'test_tp05_parser',
-        'test_tp05_translator',
+        # Test Problem 06:
         'test_tp06_analyzer',
         'test_tp06_emitter',
         'test_tp06_lexer',
         'test_tp06_organizer',
         'test_tp06_parser',
-        'test_tp06_translator',
+        # Test Problem 07:
         'test_tp07_analyzer',
         'test_tp07_emitter',
         'test_tp07_lexer',
         'test_tp07_organizer',
         'test_tp07_parser',
-        'test_tp07_translator',
+        # Test Problem 08:
         'test_tp08_analyzer',
         'test_tp08_emitter',
         'test_tp08_lexer',
         'test_tp08_organizer',
         'test_tp08_parser',
-        'test_tp08_translator',
+        # Test Problem 10:
         'test_tp10_analyzer',
         'test_tp10_emitter',
         'test_tp10_lexer',
         'test_tp10_organizer',
         'test_tp10_parser',
-        'test_tp10_translator',
+        # Test Problem 11:
         'test_tp11_analyzer',
         'test_tp11_emitter',
         'test_tp11_lexer',
         'test_tp11_organizer',
         'test_tp11_parser',
-        'test_tp11_translator',
+        # Test Problem 12:
         'test_tp12_analyzer',
         'test_tp12_emitter',
         'test_tp12_lexer',
         'test_tp12_organizer',
         'test_tp12_parser',
-        'test_tp12_translator',
+        # Test Problem 13:
         'test_tp13_analyzer',
         'test_tp13_emitter',
         'test_tp13_lexer',
         'test_tp13_organizer',
         'test_tp13_parser',
-        'test_tp13_translator',
+        # Test Problem 14:
         'test_tp14_analyzer',
         'test_tp14_emitter',
         'test_tp14_lexer',
         'test_tp14_organizer',
         'test_tp14_parser',
-        'test_tp14_translator',
+        # Test Problem 17:
         'test_tp17_analyzer',
         'test_tp17_emitter',
         'test_tp17_lexer',
         'test_tp17_organizer',
         'test_tp17_parser',
-        'test_tp17_translator',
     ]
     return unittest.TestSuite(map(ProblemTestCase, tests))
 

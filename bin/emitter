@@ -18,7 +18,6 @@ from nifty.analyzer.nifty_analyzer import analyze
 from nifty.emitter.nifty_emitter import emit
 from nifty.organizer.nifty_organizer import organize
 from nifty.parser.nifty_parser import parse
-from nifty.translator.nifty_translator import translate
 
 def main():
     usage = '%prog [options] [input_file] [output_file]'
@@ -73,8 +72,6 @@ def main():
             output_stream.write(eval(str(semantic_error)) + '\n')
             sys.exit('semantic_error')
 
-    # XXX: Catch translator errors?
-    #instructions = translate(ast)
     # XXX: Catch emitter errors?
     instructions = emit(ast)
 

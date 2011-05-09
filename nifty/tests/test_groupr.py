@@ -37,12 +37,6 @@ class GrouprTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_groupr01_translator(self):
-        infile = get_test_problem('groupr01')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_groupr02_analyzer(self):
         infile = get_test_problem('groupr02')
         outfile = infile + analyzer_suffix()
@@ -71,12 +65,6 @@ class GrouprTestCase(unittest.TestCase):
         infile = get_test_problem('groupr02')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_groupr02_translator(self):
-        infile = get_test_problem('groupr02')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_groupr03_analyzer(self):
@@ -109,12 +97,6 @@ class GrouprTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_groupr03_translator(self):
-        infile = get_test_problem('groupr03')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
     def test_groupr04_analyzer(self):
         infile = get_test_problem('groupr04')
         outfile = infile + analyzer_suffix()
@@ -143,12 +125,6 @@ class GrouprTestCase(unittest.TestCase):
         infile = get_test_problem('groupr04')
         outfile = infile + parser_suffix()
         return_code = run(infile, outfile, parser())
-        self.assertEqual(return_code, 0)
-
-    def test_groupr04_translator(self):
-        infile = get_test_problem('groupr04')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
         self.assertEqual(return_code, 0)
 
     def test_groupr05_analyzer(self):
@@ -181,12 +157,6 @@ class GrouprTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_groupr05_translator(self):
-        infile = get_test_problem('groupr05')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
 ##############################################################################
 # Helpers.
 
@@ -215,9 +185,6 @@ def organizer():
 def parser():
     return bin_dir() + 'parser'
 
-def translator():
-    return bin_dir() + 'translator'
-
 def bin_dir():
     return 'bin/'
 
@@ -236,9 +203,6 @@ def organizer_suffix():
 def parser_suffix():
     return '.parser'
 
-def translator_suffix():
-    return '.translator'
-
 def run(infile, outfile, function):
     fd = open(outfile, 'w')
     return_code = call([function, infile], stdout=fd, stderr=fd)
@@ -253,35 +217,30 @@ def suite():
         'test_groupr01_lexer',
         'test_groupr01_organizer',
         'test_groupr01_parser',
-        'test_groupr01_translator',
         # 2:
         'test_groupr02_analyzer',
         'test_groupr02_emitter',
         'test_groupr02_lexer',
         'test_groupr02_organizer',
         'test_groupr02_parser',
-        'test_groupr02_translator',
         # 3:
         'test_groupr03_analyzer',
         'test_groupr03_emitter',
         'test_groupr03_lexer',
         'test_groupr03_organizer',
         'test_groupr03_parser',
-        'test_groupr03_translator',
         # 4:
         'test_groupr04_analyzer',
         'test_groupr04_emitter',
         'test_groupr04_lexer',
         'test_groupr04_organizer',
         'test_groupr04_parser',
-        'test_groupr04_translator',
         # 5:
         'test_groupr05_analyzer',
         'test_groupr05_emitter',
         'test_groupr05_lexer',
         'test_groupr05_organizer',
         'test_groupr05_parser',
-        'test_groupr05_translator',
     ]
     return unittest.TestSuite(map(GrouprTestCase, tests))
 

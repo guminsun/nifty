@@ -37,12 +37,6 @@ class HeatrTestCase(unittest.TestCase):
         return_code = run(infile, outfile, parser())
         self.assertEqual(return_code, 0)
 
-    def test_heatr01_translator(self):
-        infile = get_test_problem('heatr01')
-        outfile = infile + translator_suffix()
-        return_code = run(infile, outfile, translator())
-        self.assertEqual(return_code, 0)
-
 ##############################################################################
 # Helpers.
 
@@ -67,9 +61,6 @@ def organizer():
 def parser():
     return bin_dir() + 'parser'
 
-def translator():
-    return bin_dir() + 'translator'
-
 def bin_dir():
     return 'bin/'
 
@@ -88,9 +79,6 @@ def organizer_suffix():
 def parser_suffix():
     return '.parser'
 
-def translator_suffix():
-    return '.translator'
-
 def run(infile, outfile, function):
     fd = open(outfile, 'w')
     return_code = call([function, infile], stdout=fd, stderr=fd)
@@ -104,7 +92,6 @@ def suite():
         'test_heatr01_lexer',
         'test_heatr01_organizer',
         'test_heatr01_parser',
-        'test_heatr01_translator',
     ]
     return unittest.TestSuite(map(HeatrTestCase, tests))
 
