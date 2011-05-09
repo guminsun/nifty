@@ -105,6 +105,13 @@ def make_integer(line_number, value):
     node['value'] = value
     return node
 
+def make_null(line_number, value):
+    node = dict()
+    node['line_number'] = line_number
+    node['node_type'] = 'null'
+    node['value'] = None
+    return node
+
 def make_string(line_number, value):
     node = dict()
     node['line_number'] = line_number

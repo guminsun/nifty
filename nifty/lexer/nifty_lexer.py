@@ -65,14 +65,16 @@ reserved_modules = {
 }
 
 # Reserved words.
-reserved_words = {}
+reserved_words = {
+    'NULL' : 'NULL',
+}
 reserved_words.update(reserved_cards)
 reserved_words.update(reserved_modules)
 
 # List of tokens.
 tokens = [
-    'IDENTIFIER',
     'ASSIGNMENT',
+    'IDENTIFIER',
     # R-values. Numbers and strings.
     'INTEGER',
     'FLOAT',
@@ -98,12 +100,6 @@ def t_newline(t):
     t.lexer.lineno += t.value.count('\n')
     # No return value. Token (\n) discarded.
 
-# Handle identifiers and reserved words.
-def t_IDENTIFIER(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved_words.get(t.value,"IDENTIFIER")
-    return t
-
 # Assignment.
 t_ASSIGNMENT = r'='
 
@@ -114,6 +110,12 @@ t_LEFT_BRACKET = r'\['
 t_RIGHT_BRACKET = r'\]'
 t_SEMICOLON = r';'
 t_COMMA = r','
+
+# Handle identifiers and reserved words.
+def t_IDENTIFIER(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = reserved_words.get(t.value,"IDENTIFIER")
+    return t
 
 # Integers. Signed or unsigned.
 t_INTEGER = r'[-+]?\d+'

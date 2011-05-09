@@ -142,10 +142,17 @@ def p_identifier(p):
 
 def p_r_value(p):
     '''
-        r_value : number
+        r_value : null
+                | number
                 | string
     '''
     p[0] = syntax_tree.make_r_value(p[1])
+
+def p_null(p):
+    '''
+        null : NULL
+    '''
+    p[0] = syntax_tree.make_null(p.lineno(0), p[1])
 
 def p_number(p):
     '''

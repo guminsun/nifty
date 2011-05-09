@@ -148,7 +148,7 @@ plotr
     card_6a {}
 
     /* card_7 and card_7a skipped since jtype = 0. */
-    
+
     card_8
     {
         iverf = 5;
@@ -315,7 +315,7 @@ plotr
         ydate = 0.07;
         yerr1 = 0.02;
         yerr2 = 0.0;
-        xerr1 = 0.2e6; 
+        xerr1 = 0.2e6;
         xerr2 = 0.0;
     }
 
@@ -325,7 +325,7 @@ plotr
         ydate = 0.11;
         yerr1 = 0.02;
         yerr2 = 0.0;
-        xerr1 = 0.2e6; 
+        xerr1 = 0.2e6;
         xerr2 = 0.0;
     }
 
@@ -335,7 +335,7 @@ plotr
         ydate = 0.08;
         yerr1 = 0.015;
         yerr2 = 0.0;
-        xerr1 = 0.2e6; 
+        xerr1 = 0.2e6;
         xerr2 = 0.0;
     }
 
@@ -345,7 +345,7 @@ plotr
         ydate = 0.075;
         yerr1 = 0.01;
         yerr2 = 0.0;
-        xerr1 = 0.2e6; 
+        xerr1 = 0.2e6;
         xerr2 = 0.0;
     }
 
@@ -381,7 +381,7 @@ plotr
     card_6a {}
     card_7 {}
     card_7a {}
-    
+
     card_8
     {
         iverf = 5;
@@ -493,9 +493,10 @@ plotr
         mtd = 24;
         temper = 0.0;
         /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
-           I.e. could also be defined as a pair: "nth,ntp = 1,2;"
+           I.e. could also be defined as a pair: "nth,ntp = 1,2;" if the
+           analyzer allows it.
          */
-        nth, ntp, nkh = 1, 2, ""; // "" is used to denote an empty value.
+        nth, ntp, nkh = 1, 2, NULL; // NULL is used to denote an empty value.
     }
 
     card_9 {}
@@ -527,9 +528,10 @@ plotr
         mtd = 24;
         temper = 0.0;
         /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
-           I.e. could also be defined as a pair: "nth,ntp = 1,6;"
+           I.e. could also be defined as a pair: "nth,ntp = 1,6;" if the
+           analyzer allows it.
          */
-        nth, ntp, nkh = 1, 6, ""; // "" is used to denote an empty value.
+        nth, ntp, nkh = 1, 6, NULL; // NULL is used to denote an empty value.
     }
 
     card_9 {}
@@ -562,9 +564,10 @@ plotr
         mtd = 24;
         temper = 0.0;
         /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
-           I.e. could also be defined as a pair: "nth,ntp = 2,0;"
+           I.e. could also be defined as a pair: "nth,ntp = 2,0;" if the
+           analyzer allows it.
          */
-        nth, ntp, nkh = 2, 0, ""; // "" is used to denote an empty value.
+        nth, ntp, nkh = 2, 0, NULL; // NULL is used to denote an empty value.
     }
 
     card_9 {}
