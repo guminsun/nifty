@@ -1,0 +1,31 @@
+covr
+{
+    card_1
+    {
+        nin = 20;
+    }
+
+    card_2
+    {
+        icolor = 0;
+    }
+
+    card_2a
+    {
+        epmin = 0.0;
+    }
+
+    card_3a
+    {
+        irelco = 1;
+        ncase = 1;
+        noleg = 0;
+        nstart = 1;
+        ndiv = 1;
+    }
+
+    card_4
+    {
+        mat = 2222;
+    }
+}

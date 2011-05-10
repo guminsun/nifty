@@ -1,0 +1,40 @@
+covr
+{
+    card_1
+    {
+        nin = 20;
+        nout = 21;
+    }
+
+    card_2b
+    {
+        matype = 3;
+        ncase = 2;
+    }
+
+    card_3b
+    {
+        hlibid = "ABCDEF";
+    }
+
+    card_3c
+    {
+        hdescr = "A B C D E F";
+    }
+
+    card_4
+    {
+        mat = 9999;
+        mt = 0;
+        mat1 = 0;
+        mt1 = 0;
+    }
+
+    card_4
+    {
+        mat = 3333;
+        mt = 0;
+        mat1 = 0;
+        mt1 = 0;
+    }
+}
