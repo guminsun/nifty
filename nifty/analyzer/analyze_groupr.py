@@ -112,8 +112,9 @@ def analyze_groupr_card_2_matb(node, card, module):
 def analyze_groupr_card_2_ign(node, card, module):
     l_value, r_value = rule.analyze_singleton(node, card, module)
     rule.identifier_must_be_defined('ign', l_value, card, module)
+    ign = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks? Range?
-    return r_value.get('value')
+    return ign
 
 def analyze_groupr_card_2_igg(node, card, module):
     l_value, r_value = rule.analyze_singleton(node, card, module)
@@ -124,8 +125,9 @@ def analyze_groupr_card_2_igg(node, card, module):
 def analyze_groupr_card_2_iwt(node, card, module):
     l_value, r_value = rule.analyze_singleton(node, card, module)
     rule.identifier_must_be_defined('iwt', l_value, card, module)
+    iwt = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks? Range?
-    return r_value.get('value')
+    return iwt
 
 def analyze_groupr_card_2_lord(node, card, module):
     l_value, r_value = rule.analyze_singleton(node, card, module)
@@ -161,7 +163,7 @@ def analyze_groupr_card_2_iprint(node, card, module):
                    id_name + ' = ' + str(iprint) + ', expected 0 for min, ' +
                    '1 for max (default = 1).')
             rule.semantic_error(msg, node)
-    return iprint
+        return iprint
 
 def analyze_groupr_card_3(card, module):
     rule.card_must_be_defined('card_3', card, module, None)
