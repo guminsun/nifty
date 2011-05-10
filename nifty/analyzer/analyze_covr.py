@@ -15,6 +15,7 @@ def analyze_covr_card_list(module):
     if nout <= 0:
         analyze_covr_card_2(env.next(card_iter), module)
         analyze_covr_card_2a(env.next(card_iter), module)
+        analyze_covr_card_3a(env.next(card_iter), module)
     # XXX: rule.no_card_allowed(env.next(card_iter), module)
     return module
 
@@ -73,3 +74,114 @@ def analyze_covr_card_2a_epmin(node, card, module):
         rule.identifier_must_be_defined('epmin', l_value, card, module)
         # XXX: Additional checks? Must be float?
         return r_value.get('value')
+
+def analyze_covr_card_3a(card, module):
+    msg = ('expected \'card_3a\' since nout = 0 in \'card_1\'.')
+    rule.card_must_be_defined('card_3a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    # All values are optional.
+    analyze_covr_card_3a_irelco(env.next(stmt_iter), card, module)
+    analyze_covr_card_3a_ncase(env.next(stmt_iter), card, module)
+    analyze_covr_card_3a_noleg(env.next(stmt_iter), card, module)
+    analyze_covr_card_3a_nstart(env.next(stmt_iter), card, module)
+    analyze_covr_card_3a_ndiv(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_covr_card_3a_irelco(node, card, module):
+    # Type of covariances present on nin (irelco) does not have to be defined,
+    # defaults to 1 meaning relative covariances.
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('irelco', l_value, card, module)
+        irelco = rule.must_be_int(l_value, r_value, card, module)
+        if irelco not in range(0,2):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal type of covariance in \'' + card_name + '\',' +
+                   ' module \'' + module_name + '\': ' + id_name + ' = ' +
+                   str(irelco) + ', expected 0 for absolute or 1 for relative' +
+                   ' (default = 1).')
+            rule.semantic_error(msg, node)
+    return irelco
+
+def analyze_covr_card_3a_ncase(node, card, module):
+    # Number of cases to be run (ncase) does not have to be defined, defaults
+    # to 1.
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ncase', l_value, card, module)
+        ncase = rule.must_be_int(l_value, r_value, card, module)
+        if ncase < 0:
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('expected a non-negative integer of the number of cases ' +
+                   'to run (\'' + id_name + '\') in \'' + card_name + '\'' +
+                   ' module \'' + module_name + '\' (default = 1).')
+            rule.semantic_error(msg, node)
+    return ncase
+
+def analyze_covr_card_3a_noleg(node, card, module):
+    # Plot legend option (noleg) does not have to be defined, defaults to 0.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('noleg', l_value, card, module)
+        noleg = rule.must_be_int(l_value, r_value, card, module)
+        if noleg not in range(-1,2):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal plot legend option (\'' + id_name + '\') in \'' +
+                   card_name + '\' module \'' + module_name +
+                   '\'. Expected -1 for legend for first subcase only, 0 ' + 
+                   'for legend for all plots or 1 for no legends ' +
+                   '(default = 0).')
+            rule.semantic_error(msg, node)
+    return noleg
+
+def analyze_covr_card_3a_nstart(node, card, module):
+    # Sequential figure number (nstart) does not have to be defined, defaults
+    # to 1.
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('nstart', l_value, card, module)
+        nstart = rule.must_be_int(l_value, r_value, card, module)
+        if nstart < 0:
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('expected a non-negative integer for the sequential ' +
+                   'figure number (\'' + id_name + '\') in \'' + card_name +
+                   '\' module \'' + module_name + '\' (default = 1).')
+            rule.semantic_error(msg, node)
+    return nstart
+
+def analyze_covr_card_3a_ndiv(node, card, module):
+    # Number of subdivisions of each of the gray shades (ndiv) does not have
+    # to be defined, defaults to 1.
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ndiv', l_value, card, module)
+        ndiv = rule.must_be_int(l_value, r_value, card, module)
+        if ndiv < 0:
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('expected a non-negative integer for the number of ' +
+                   'subdivisions of each of the gray shades (\'' + id_name +
+                   '\') in \'' + card_name + '\' module \'' + module_name +
+                   '\' (default = 1).')
+            rule.semantic_error(msg, node)
+    return ndiv
