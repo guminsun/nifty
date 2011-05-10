@@ -7,121 +7,140 @@ identifier_map = {
     # valid identifier names for the key.
     # If a {better,descriptive,long,...} identifier name is wanted, just add
     # it to the appropriate list. Some example names have been provided.
-    'alpha2' : ['alpha2'], # Used by groupr.
-    'alpha3' : ['alpha3'], # Used by groupr.
+    'akxy' : ['akxy'], # errorr.
+    'alpha2' : ['alpha2'], # groupr.
+    'alpha3' : ['alpha3'], # groupr.
     'aw' : ['aw'],
-    'beta' : ['beta'], # Used by groupr.
+    'beta' : ['beta'], # groupr.
     'cards' : ['cards'],
-    'eb' : ['eb', 'thermal_break'], # Used by groupr.
-    'ec' : ['ec', 'fission_break'], # Used by groupr.
+    'dap' : ['dap'], # errorr.
+    'eb' : ['eb', 'thermal_break'], # errorr, groupr.
+    'ec' : ['ec', 'fission_break'], # errorr, groupr.
     'ed' : ['ed'],
-    'egg' : ['egg', 'gamma_group_breaks'], # Used by groupr.
-    'egn' : ['egn', 'neutron_group_breaks'], # Used by groupr.
-    'ehi' : ['ehi'], # Used by groupr.
-    'emax' : ['emax'], # Used by thermr, ...
+    'efmean' : ['efmean'], # errorr.
+    'egg' : ['egg', 'gamma_group_breaks'], # groupr.
+    'egn' : ['egn', 'neutron_group_breaks'], # errorr, groupr.
+    'ehi' : ['ehi'], # groupr.
+    'ek' : ['ek'], # errorr
+    'emax' : ['emax'], # thermr, ...
     'enode' : ['enode'],
-    'epmin' : ['epmin'], # Used by covr, ...
+    'epmin' : ['epmin'], # covr, ...
     'err' : ['err'],
-    'errint' : ['errint'], # Used by broadr, XXX.
-    'errmax' : ['errmax'], # Used by broadr, XXX.
-    'errthn' : ['errthn'], # Used by broadr.
-    'gamma' : ['gamma'], # Used by groupr.
-    'hdescr' : ['hdescr'], # Used by covr.
+    'errint' : ['errint'], # broadr, XXX.
+    'errmax' : ['errmax'], # broadr, XXX.
+    'errthn' : ['errthn'], # broadr.
+    'gamma' : ['gamma'], # groupr.
+    'hdescr' : ['hdescr'], # covr.
     'hk' : ['hk', 'description'],
-    'hlibid' : ['hlibid'], # Used by covr.
-    'icoh' : ['icoh'], # Used by thermr.
-    'icolor' : ['icolor'], # Used by covr.
+    'hlibid' : ['hlibid'], # covr.
+    'icoh' : ['icoh'], # thermr.
+    'icolor' : ['icolor'], # covr.
     'ielas' : ['ielas'],
-    'ign' : ['ign', 'neutron_group_structure'], # Used by groupr.
-    'igg' : ['igg', 'gamma_group_structure'], # Used by groupr.
-    'iinc' : ['iinc'], # Used by thermr.
-    'infile' : ['infile', 'input'], # Used by viewr.
+    'ifissp' : ['ifissp'], # errorr.
+    'ign' : ['ign', 'neutron_group_structure'], # errorr, groupr.
+    'igg' : ['igg', 'gamma_group_structure'], # groupr.
+    'iinc' : ['iinc'], # thermr.
+    'infile' : ['infile', 'input'], # viewr.
     'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
-    'iprint' : ['iprint', 'print_control'], # Used by groupr, thermr, ...
-    'irelco' : ['irelco'], # Used by covr, ...
-    'istart' : ['istart', 'restart'], # Used by broadr.
-    'istrap' : ['istrap', 'bootstrap'], # Used by broadr.
-    'iwt' : ['iwt'], # Used by groupr.
+    'iprint' : ['iprint', 'print_control'], # errorr, groupr, thermr, ...
+    'iread' : ['iread'], # errorr
+    'irelco' : ['irelco'], # covr, errorr, ...
+    'irespr' : ['irespr'], # errorr
+    'istart' : ['istart', 'restart'], # broadr.
+    'istrap' : ['istrap', 'bootstrap'], # broadr.
+    'iwt' : ['iwt'], # errorr, groupr.
     'iz' : ['iz'],
     # XXX: Treat iza as an array?
     'iza01' : ['iza01'],
     'iza02' : ['iza02'],
     'iza03' : ['iza03'],
-    'jsigz' : ['jsigz'], # Used by groupr.
+    'jsigz' : ['jsigz'], # groupr.
+    'legord' : ['legord'], # errorr.
     'local' : ['local'],
-    'lord' : ['lord', 'legendre_order'], # Used by groupr.
-    'mat' : ['mat'], # Used by covr, ...
-    'mat1' : ['mat1'], # Used by broadr, covr, ...
-    'matb' : ['matb'], # Used by groupr.
-    'matd' : ['matd', 'material'], # Used by groupr.
-    'matde' : ['matde'], # Used by thermr.
-    'matdp' : ['matdp'], # Used by thermr.
-    'matype' : ['matype'], # Used by covr, ...
-    'mfd' : ['mfd'], # Used by groupr.
-    'mt' : ['mt'], # Used by covr,
-    'mt1' : ['mt1'], # Used by covr,
+    'lord' : ['lord', 'legendre_order'], # groupr.
+    'mat' : ['mat'], # covr, ...
+    'mat1' : ['mat1'], # broadr, covr, ...
+    'matb' : ['matb'], # errorr, groupr.
+    'matc' : ['matc'], # errorr
+    'matd' : ['matd', 'material'], # errorr, groupr, ...
+    'matde' : ['matde'], # thermr.
+    'matdp' : ['matdp'], # thermr.
+    'matype' : ['matype'], # covr, ...
+    'mfcov' : ['mfcov'], # errorr.
+    'mfd' : ['mfd'], # groupr.
+    'mprint' : ['mprint'], # errorr
+    'mt' : ['mt'], # covr,
+    'mt1' : ['mt1'], # covr,
     'mta' : ['mta'],
-    'mtd' : ['mtd'], # Used by groupr.
+    'mtb' : ['mtb'], # errorr
+    'mtc' : ['mtc'], # errorr
+    'mtd' : ['mtd'], # groupr.
     'mte' : ['mte'],
     'mti' : ['mti'],
     'mtk' : ['mtk'],
-    'mtname' : ['mtname'], # Used by groupr.
-    'mtref' : ['mtref'], # Used by thermr.
+    'mtname' : ['mtname'], # groupr.
+    'mtref' : ['mtref'], # thermr.
+    'mts' : ['mts'], # errorr
     'nace' : ['nace', 'ace_output'],
-    'natom' : ['natom'], # Used by thermr.
-    'nin' : ['nin', 'pendf_input'], # Used by covr, ...
-    'nbin' : ['nbin'], # Used by thermr.
+    'natom' : ['natom'], # thermr.
+    'nbin' : ['nbin'], # thermr.
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
-    'ncase' : ['ncase'], # Used by covr, ...
+    'ncase' : ['ncase'], # covr, ...
     'ndir' : ['ndir', 'mcnp_directory_output'],
-    'ndiv' : ['ndiv'], # Used by covr, ...
+    'ndiv' : ['ndiv'], # covr, ...
+    'nek' : ['nek'], # errorr, ...
     'nendf' : ['nendf', 'endf_input'],
     'newfor' : ['newfor'],
-    'nflmax' : ['nflmax', 'max_flux_points'], # Used by groupr.
+    'nflmax' : ['nflmax', 'max_flux_points'], # groupr.
     'ngend' : ['ngend', 'multigroup_photon_input'],
-    'ngg' : ['ngg', 'number_of_gamma_groups'], # Used by groupr.
-    'ngn' : ['ngn', 'number_of_neutron_groups'], # Used by groupr.
+    'ngg' : ['ngg', 'number_of_gamma_groups'], # groupr.
+    'ngn' : ['ngn', 'number_of_neutron_groups'], # errorr, groupr.
     'ngrid' : ['ngrid'],
-    'ngout1' : ['ngout1', 'gout_input'], # Used by groupr.
-    'ngout2' : ['ngout2', 'gout_output'], # Used by groupr.
-    'ninwt' : ['ninwt'], # Used by groupr.
+    'ngout' : ['ngout', 'group_xsec_input'], # errorr.
+    'ngout1' : ['ngout1', 'gout_input'], # groupr.
+    'ngout2' : ['ngout2', 'gout_output'], # groupr.
+    'nin' : ['nin', 'pendf_input'], # covr, ...
+    'ninwt' : ['ninwt'], # groupr.
     'nmix' : ['nmix'],
-    'ntemp' : ['ntemp', 'number_of_temperatures'], # Used by groupr, thermr, ...
-    'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # Used by broadr.
+    'nmt' : ['nmt'], # errorr
+    'ntemp' : ['ntemp', 'number_of_temperatures'], # groupr, thermr, ...
+    'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # broadr.
     'ntype' : ['ntype', 'ace_output_type'],
-    'noleg' : ['noleg'], # Used by covr, ...
-    'nout' : ['nout', 'pendf_output'], # Used by covr, ...
+    'noleg' : ['noleg'], # covr, ...
+    'nout' : ['nout', 'pendf_output'], # covr, errorr, ...
     'npend' : ['npend', 'pendf_input'],
     'npk' : ['npk', 'number_of_partial_kermas'],
-    'nplot' : ['nplot'], # Used by covr, ...
-    'nps' : ['nps', 'output'], # Used by viewr.
+    'nplot' : ['nplot'], # covr, ...
+    'nps' : ['nps', 'output'], # viewr.
     'nqa' : ['nqa', 'number_of_q_values'],
-    'nsigz' : ['nsigz', 'number_of_sigma_zeroes'], # Used by groupr.
-    'nstart' : ['nstart'], # Used by covr, ...
+    'nsigz' : ['nsigz', 'number_of_sigma_zeroes'], # groupr.
+    'nstan' : ['nstan'], # errorr
+    'nstart' : ['nstart'], # covr, ...
     'nxtra' : ['nxtra'],
     'qa' : ['qa'],
     'qbar' : ['qbar'],
     'sam' : ['sam'],
-    'sigpot' : ['sigpot'], # Used by groupr.
-    'sigz' : ['sigz', 'sigma_zero_values'], # Used by groupr.
+    'sigpot' : ['sigpot'], # groupr.
+    'sigz' : ['sigz', 'sigma_zero_values'], # groupr.
     'suff' : ['suff'],
-    'tb' : ['tb', 'thermal_temperature'], # Used by groupr.
-    'tc' : ['tc', 'fission_temperature'], # Used by groupr.
-    'temp' : ['temp', 'temperature'], # Used by groupr.
-    'temp1' : ['temp1', 'start_temp'], # Used by broadr. 
-    'temp2' : ['temp2', 'final_temp'], # Used by broadr.
+    'tb' : ['tb', 'thermal_temperature'], # errorr, groupr.
+    'tc' : ['tc', 'fission_temperature'], # errorr, groupr.
+    'temp' : ['temp', 'temperature'], # groupr.
+    'temp1' : ['temp1', 'start_temp'], # broadr. 
+    'temp2' : ['temp2', 'final_temp'], # broadr.
     'tempd' : ['tempd', 'temperature'],
-    'tempr' : ['tempr', 'temperature'], # Used by thermr, ...
+    'tempin' : ['tempin'], # errorr.
+    'tempr' : ['tempr', 'temperature'], # thermr, ...
     # XXX: Treat thin as an array?
     'thin01' : ['thin01'],
     'thin02' : ['thin02'],
     'thin03' : ['thin03'],
-    'thnmax' : ['thnmax'], # Used by broadr.
-    'title' : ['title'], # Used by groupr.
+    'thnmax' : ['thnmax'], # broadr.
+    'title' : ['title'], # groupr.
     'tlabel' : ['tlabel'],
     'tname' : ['tname'],
-    'tol' : ['tol', 'tolerance'], # Used by thermr.
-    'wght' : ['wght'], # Used by groupr.
+    'tol' : ['tol', 'tolerance'], # thermr.
+    'wght' : ['wght'], # errorr, groupr.
 }
