@@ -15,6 +15,27 @@ def analyze_material(name, node, card, module):
     identifier_must_be_defined(name, l_value, card, module)
     return r_value.get('value')
 
+def analyze_mat1(name, node, card, module):
+    # MAT1 is MAT for the second energy-depedent cross section?
+    return analyze_material(name, node, card, module)
+
+def analyze_mt(name, node, card, module):
+    # Reaction types (MT) are identified in the ENDF formats by an integer
+    # number from 1 through 999.
+    l_value, r_value = analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an identifier; name
+    identifier_must_be_defined(name, l_value, card, module)
+    mt_number = must_be_int(l_value, r_value, card, module)
+    if mt_number not in range(1,1000):
+        id_name = l_value.get('name')
+        card_name = card.get('card_name')
+        module_name = module.get('module_name')
+        msg = ('illegal reaction type (MT number, \'' + id_name +
+               '\') in \'' + card_name + '\' module \'' + module_name +
+               '\'. Expected an integer in the range [1,999].')
+        rule.semantic_error(msg, node)
+    return mt_number
+
 def analyze_identifier_tempd(node, card, module):
     # Temperature does not have to be defined. Defaults to 300.
     if node is None:
