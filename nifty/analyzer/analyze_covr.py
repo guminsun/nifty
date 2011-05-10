@@ -10,18 +10,27 @@ def analyze_covr(module):
 
 def analyze_covr_card_list(module):
     card_iter = env.get_card_iterator(module)
+    # Card 1 must always be defined.
     card_1, nout = analyze_covr_card_1(env.next(card_iter), module)
     # Card 2, 2a, and 3a should only be defined if nout <= 0.
     if nout <= 0:
         analyze_covr_card_2(env.next(card_iter), module)
         analyze_covr_card_2a(env.next(card_iter), module)
-        analyze_covr_card_3a(env.next(card_iter), module)
+        card_3a, ncase = analyze_covr_card_3a(env.next(card_iter), module)
     # Card 2b, 3b, and 3c should only be defined if nout > 0.
     else:
-        analyze_covr_card_2b(env.next(card_iter), module)
+        card_2b, ncase = analyze_covr_card_2b(env.next(card_iter), module)
         analyze_covr_card_3b(env.next(card_iter), module)
         analyze_covr_card_3c(env.next(card_iter), module)
-    # XXX: rule.no_card_allowed(env.next(card_iter), module)
+    # Card 4 should be defined ncase times. XXX: Should there really be no
+    # card 4 if ncase = 0?
+    number_of_card_4 = len(env.get_cards('card_4', module))
+    if number_of_card_4 != ncase:
+        # XXX: Provide better descriptive message. Expects ncase card 4's...
+        rule.too_few_cards_defined(number_of_card_4, ncase, 'card_4', module)
+    for i in range(ncase):
+        analyze_covr_card_4(env.next(card_iter), module)
+    rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def analyze_covr_card_1(card, module):
@@ -86,12 +95,12 @@ def analyze_covr_card_3a(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # All values are optional.
     analyze_covr_card_3a_irelco(env.next(stmt_iter), card, module)
-    analyze_covr_ncase(env.next(stmt_iter), card, module)
+    ncase = analyze_covr_ncase(env.next(stmt_iter), card, module)
     analyze_covr_card_3a_noleg(env.next(stmt_iter), card, module)
     analyze_covr_card_3a_nstart(env.next(stmt_iter), card, module)
     analyze_covr_card_3a_ndiv(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
-    return card
+    return card, ncase
 
 def analyze_covr_card_3a_irelco(node, card, module):
     # Type of covariances present on nin (irelco) does not have to be defined,
@@ -196,9 +205,9 @@ def analyze_covr_card_2b(card, module):
     rule.card_must_be_defined('card_2b', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     analyze_covr_card_2b_matype(env.next(stmt_iter), card, module)
-    analyze_covr_ncase(env.next(stmt_iter), card, module)
+    ncase = analyze_covr_ncase(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
-    return card
+    return card, ncase
 
 def analyze_covr_card_2b_matype(node, card, module):
     # Output library matrix option (matype) does not have to be defined,
@@ -255,3 +264,58 @@ def analyze_covr_card_3c_hdescr(node, card, module):
     # The hdescr must not exceed 21 characters in length.
     rule.string_must_not_exceed_length(l_value, r_value, 21, card, module)
     return hdescr
+
+def analyze_covr_card_4(card, module):
+    rule.card_must_be_defined('card_4', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_material('mat', env.next(stmt_iter), card, module)
+    analyze_covr_card_4_mt(env.next(stmt_iter), card, module)
+    analyze_covr_card_4_mat1(env.next(stmt_iter), card, module)
+    analyze_covr_card_4_mt1(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_covr_card_4_mt(node, card, module):
+    # MT, MAT1 and MT1 does not have to be defined. They are all defaulted to
+    # 0, meaning rocess all mts for this MAT with MAT1 = MAT.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # Don't use rule.analyze_mt here since the MT numbers are allowed to 
+        # be negative (which means process all MTs for MAT, except for
+        # the negative MT numbers.)
+        rule.identifier_must_be_defined('mt', l_value, card, module)
+        mt = rule.must_be_int(l_value, r_value, card, module)
+        # XXX: Additional checks?
+        return mt
+
+def analyze_covr_card_4_mat1(node, card, module):
+    # MT, MAT1 and MT1 does not have to be defined. They are all defaulted to
+    # 0, meaning rocess all mts for this MAT with MAT1 = MAT.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # Don't use rule.analyze_mat1 here since the MAT1 numbers are allowed
+        # to be negative (which means process all MAT1s for MAT, except
+        # for the negative MAT1 numbers.)
+        rule.identifier_must_be_defined('mat1', l_value, card, module)
+        mat1 = rule.must_be_int(l_value, r_value, card, module)
+        # XXX: Additional checks?
+        return mat1
+
+def analyze_covr_card_4_mt1(node, card, module):
+    # MT, MAT1 and MT1 does not have to be defined. They are all defaulted to
+    # 0, meaning rocess all mts for this MAT with MAT1 = MAT.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # Don't use rule.analyze_mt1 here since the MT1 numbers are allowed
+        # to be negative (which means process all MT1s for MAT, except
+        # for the negative MT1 numbers.)
+        rule.identifier_must_be_defined('mt1', l_value, card, module)
+        mt1 = rule.must_be_int(l_value, r_value, card, module)
+        # XXX: Additional checks?
+        return mt1
