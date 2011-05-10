@@ -16,6 +16,9 @@ def analyze_covr_card_list(module):
         analyze_covr_card_2(env.next(card_iter), module)
         analyze_covr_card_2a(env.next(card_iter), module)
         analyze_covr_card_3a(env.next(card_iter), module)
+    # Card 2b, 3b, and 3c should only be defined if nout > 0.
+    else:
+        analyze_covr_card_2b(env.next(card_iter), module)
     # XXX: rule.no_card_allowed(env.next(card_iter), module)
     return module
 
@@ -29,7 +32,7 @@ def analyze_covr_card_1(card, module):
     return card, nout
 
 def analyze_covr_card_2(card, module):
-    msg = ('expected \'card_2\' since nout = 0 in \'card_1\'.')
+    msg = ('expected \'card_2\' since nout <= 0 in \'card_1\'.')
     rule.card_must_be_defined('card_2', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     analyze_covr_card_2_icolor(env.next(stmt_iter), card, module)
@@ -57,7 +60,7 @@ def analyze_covr_card_2_icolor(node, card, module):
         return icolor
 
 def analyze_covr_card_2a(card, module):
-    msg = ('expected \'card_2a\' since nout = 0 in \'card_1\'.')
+    msg = ('expected \'card_2a\' since nout <= 0 in \'card_1\'.')
     rule.card_must_be_defined('card_2a', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     analyze_covr_card_2a_epmin(env.next(stmt_iter), card, module)
@@ -76,12 +79,12 @@ def analyze_covr_card_2a_epmin(node, card, module):
         return r_value.get('value')
 
 def analyze_covr_card_3a(card, module):
-    msg = ('expected \'card_3a\' since nout = 0 in \'card_1\'.')
+    msg = ('expected \'card_3a\' since nout <= 0 in \'card_1\'.')
     rule.card_must_be_defined('card_3a', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     # All values are optional.
     analyze_covr_card_3a_irelco(env.next(stmt_iter), card, module)
-    analyze_covr_card_3a_ncase(env.next(stmt_iter), card, module)
+    analyze_covr_ncase(env.next(stmt_iter), card, module)
     analyze_covr_card_3a_noleg(env.next(stmt_iter), card, module)
     analyze_covr_card_3a_nstart(env.next(stmt_iter), card, module)
     analyze_covr_card_3a_ndiv(env.next(stmt_iter), card, module)
@@ -108,7 +111,7 @@ def analyze_covr_card_3a_irelco(node, card, module):
             rule.semantic_error(msg, node)
     return irelco
 
-def analyze_covr_card_3a_ncase(node, card, module):
+def analyze_covr_ncase(node, card, module):
     # Number of cases to be run (ncase) does not have to be defined, defaults
     # to 1.
     if node is None:
@@ -117,12 +120,12 @@ def analyze_covr_card_3a_ncase(node, card, module):
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('ncase', l_value, card, module)
         ncase = rule.must_be_int(l_value, r_value, card, module)
-        if ncase < 0:
+        if ncase not in range(0,61):
             id_name = l_value.get('name')
             card_name = card.get('card_name')
             module_name = module.get('module_name')
-            msg = ('expected a non-negative integer of the number of cases ' +
-                   'to run (\'' + id_name + '\') in \'' + card_name + '\'' +
+            msg = ('expected the number of cases to run (\'' + id_name +
+                   '\') to be in the range [0,60] in \'' + card_name + '\'' +
                    ' module \'' + module_name + '\' (default = 1).')
             rule.semantic_error(msg, node)
     return ncase
@@ -185,3 +188,32 @@ def analyze_covr_card_3a_ndiv(node, card, module):
                    '\' (default = 1).')
             rule.semantic_error(msg, node)
     return ndiv
+
+def analyze_covr_card_2b(card, module):
+    msg = ('expected \'card_2b\' since nout > 0 in \'card_1\'.')
+    rule.card_must_be_defined('card_2b', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_covr_card_2b_matype(env.next(stmt_iter), card, module)
+    analyze_covr_ncase(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_covr_card_2b_matype(node, card, module):
+    # Output library matrix option (matype) does not have to be defined,
+    # defaults to 3 meaning covariances.
+    if node is None:
+        return 3
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('matype', l_value, card, module)
+        matype = rule.must_be_int(l_value, r_value, card, module)
+        if matype not in range(3,5):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal output library matrix option (\'' + id_name +
+                   '\') in \'' + card_name + '\' module \'' + module_name +
+                   '\'. Expected 3 for covariances or 4 for correlations ' +
+                   '(default = 3).')
+            rule.semantic_error(msg, node)
+    return matype
