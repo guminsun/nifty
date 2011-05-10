@@ -401,7 +401,7 @@ plotr
 
     card_3
     {
-        t1 = "'<endf/b-v l>i-6";
+        t1 = "<endf/b-v l>i-6";
     }
 
     card_3a
