@@ -541,8 +541,8 @@ errorr
         npend = 0;
         ngout = 99;
         nout = 26;
-        nout = 0;
         nin = 0;
+        nstan = 0;
     }
 
     card_2
