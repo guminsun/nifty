@@ -2,7 +2,7 @@ Report
 ------
 Abstract
 Pretty picture of the phases:
-    lexer -> parser -> organizer -> analyzer -> translator -> emitter
+    lexer -> parser -> organizer -> analyzer -> emitter
 
 ...
 
@@ -14,26 +14,11 @@ Expected output.
 
 Analyzer
 --------
-acer: ok?
-    minor issues, see XXX's
-
-heatr: ok?
-    card 5a
-    minor issues, see XXX's
 
 groupr: ok?
     minor issues, see XXX's
-    TAB1 records not handled.
-
-broadr: ok?
-    minor issues, see XXX's
-
-reconr: ok?
-    minor issues, see XXX's
-
-thermr: XXX
-
-covr: XXX
+    TAB1 records not handled, although it is possible to define 'em in NIF as
+    an array for example.
 
 errorr: XXX
 
@@ -51,13 +36,6 @@ ccccr
 unresr
     In card_3, temp can be an array. See tp02.nif
     In card_4, sigz can be an array. See tp02.nif
-
-
-In General
-----------
-Clean up and generalize.
-Setup good structure for the project such that it is easy to complete.
-Documentation.
 
 
 README
