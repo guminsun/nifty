@@ -20,6 +20,7 @@ def analyze_covr_card_list(module):
     else:
         analyze_covr_card_2b(env.next(card_iter), module)
         analyze_covr_card_3b(env.next(card_iter), module)
+        analyze_covr_card_3c(env.next(card_iter), module)
     # XXX: rule.no_card_allowed(env.next(card_iter), module)
     return module
 
@@ -228,7 +229,7 @@ def analyze_covr_card_3b(card, module):
     return card
 
 def analyze_covr_card_3b_hlibid(node, card, module):
-    # hlibid must be defined?
+    # Identification (hlibid) must be defined?
     l_value, r_value = rule.analyze_singleton(node, card, module)
     rule.identifier_must_be_defined('hlibid', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
@@ -236,3 +237,21 @@ def analyze_covr_card_3b_hlibid(node, card, module):
     # The hlibid must not exceed 6 characters in length.
     rule.string_must_not_exceed_length(l_value, r_value, 6, card, module)
     return hlibid
+
+def analyze_covr_card_3c(card, module):
+    msg = ('expected \'card_3c\' since nout > 0 in \'card_1\'.')
+    rule.card_must_be_defined('card_3c', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_covr_card_3c_hdescr(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_covr_card_3c_hdescr(node, card, module):
+    # Descriptive information (hdescr) must be defined?
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('hdescr', l_value, card, module)
+    # The r-value of the assignment is expected to be a string.
+    hdescr = rule.must_be_string(l_value, r_value, card, module)
+    # The hdescr must not exceed 21 characters in length.
+    rule.string_must_not_exceed_length(l_value, r_value, 21, card, module)
+    return hdescr
