@@ -245,15 +245,14 @@ def must_be_singleton(node, card_node, module_node):
         semantic_error(msg, card_node)
 
 def must_be_string(lval, rval, card_node, module_node):
-    value = rval.get('value')
-    if not isinstance(value, str):
+    if not env.is_string(rval):
         id_name = lval.get('name')
         card_name = card_node.get('card_name')
         module_name = module_node.get('module_name')
         msg = ('expected \'' + id_name + '\' to be defined as a string in ' +
                '\'' + card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, lval)
-    return value
+    return rval.get('value')
 
 def must_be_unit_number(lval, rval, card_node, module_node):
     must_be_int(lval, rval, card_node, module_node)
