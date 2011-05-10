@@ -21,6 +21,7 @@ groupr: ok?
     an array for example.
 
 errorr: XXX
+    No iverf -> no semantic checks for card 4+
 
 plotr: XXX
     See e.g. tp06.nif

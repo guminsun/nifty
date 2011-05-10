@@ -18,6 +18,8 @@ def analyze_errorr_card_list(module):
     # XXX: The rest of the cards depends on the ENDF file version which is
     # being used as input. The translator cannot check this as of yet, hence,
     # just pass the cards along, skipping semantic analysis for them.
+    # Could also make the user specify iverf by introducing the variable in
+    # for example card 2.
     # XXX: rule.no_card_allowed(env.next(card_iter), module)
 
 def analyze_errorr_card_1(card, module):
