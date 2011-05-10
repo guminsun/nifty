@@ -200,7 +200,7 @@ def analyze_acer_card_5(card, module):
     rule.card_must_be_defined('card_5', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     rule.analyze_material('matd', env.next(stmt_iter), card, module)
-    rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
+    rule.analyze_temperature('tempd', env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -292,7 +292,7 @@ def analyze_acer_card_8(card, module):
     rule.card_must_be_defined('card_8', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     rule.analyze_material('matd', env.next(stmt_iter), card, module)
-    rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
+    rule.analyze_temperature('tempd', env.next(stmt_iter), card, module)
     analyze_acer_card_8_tname(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
@@ -450,7 +450,7 @@ def analyze_acer_card_10(card, module):
     rule.card_must_be_defined('card_10', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     rule.analyze_material('matd', env.next(stmt_iter), card, module)
-    rule.analyze_identifier_tempd(env.next(stmt_iter), card, module)
+    rule.analyze_temperature('tempd', env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 

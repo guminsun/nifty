@@ -36,15 +36,16 @@ def analyze_mt(name, node, card, module):
         rule.semantic_error(msg, node)
     return mt_number
 
-def analyze_identifier_tempd(node, card, module):
+def analyze_temperature(name, node, card, module):
     # Temperature does not have to be defined. Defaults to 300.
     if node is None:
         return 300
     else:
         l_value, r_value = analyze_singleton(node, card, module)
         # The l-value of the assignment is expected to be an identifier; tempd
-        identifier_must_be_defined('tempd', l_value, card, module)
-    return r_value.get('value')
+        identifier_must_be_defined(name, l_value, card, module)
+        # XXX: Additional checks? E.g. must be number.
+        return r_value.get('value')
 
 def analyze_unit_number(id_name, node, card, module):
     l_value, r_value = analyze_singleton(node, card, module)
