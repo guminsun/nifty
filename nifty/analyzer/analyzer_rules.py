@@ -8,29 +8,39 @@ from nifty.environment import helpers as env
 
 def analyze_material(name, node, card, module):
     # XXX: material must not be 0? 0 usually denotes termination of material
-    # or module.
-    # The node is expected to be an assignment node.
-    l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value are both expected to be a singleton node.
-    l_value_singleton = must_be_singleton(l_value, card, module)
-    r_value_singleton = must_be_singleton(r_value, card, module)
+    # or module. Materials are supposed to be MAT numbers as specified in the
+    # ENDF formats, that is; an integer in the range [1,9999].
+    l_value, r_value = analyze_singleton(node, card, module)
     # The l-value of the assignment is expected to be an identifier; name
-    identifier_must_be_defined(name, l_value_singleton, card, module)
-    return r_value_singleton.get('value')
+    identifier_must_be_defined(name, l_value, card, module)
+    return r_value.get('value')
 
 def analyze_identifier_tempd(node, card, module):
     # Temperature does not have to be defined. Defaults to 300.
     if node is None:
         return 300
     else:
-        # The node is expected to be an assignment node.
-        l_value, r_value = must_be_assignment(node, card, module)
-        # The l-value and r-value are both expected to be a singleton nodes.
-        l_value_singleton = must_be_singleton(l_value, card, module)
-        r_value_singleton = must_be_singleton(r_value, card, module)
+        l_value, r_value = analyze_singleton(node, card, module)
         # The l-value of the assignment is expected to be an identifier; tempd
-        identifier_must_be_defined('tempd', l_value_singleton, card, module)
-    return r_value_singleton.get('value')
+        identifier_must_be_defined('tempd', l_value, card, module)
+    return r_value.get('value')
+
+def analyze_unit_number(id_name, node, card, module):
+    l_value, r_value = analyze_singleton(node, card, module)
+    identifier_must_be_defined(id_name, l_value, card, module)
+    unit_number = must_be_unit_number(l_value, r_value, card, module)
+    return unit_number
+
+def analyze_optional_unit_number(id_name, node, card, module):
+    # Assuming that the default value for all optional unit numbers is zero.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = analyze_singleton(node, card, module)
+        # The l-value of the assignment is expected to be an identifier.
+        identifier_must_be_defined(id_name, l_value, card, module)
+        unit_number = must_be_unit_number(l_value, r_value, card, module)
+        return unit_number
 
 def analyze_singleton(node, card, module):
     # 'node' is expected to be an assignment node.
@@ -40,39 +50,13 @@ def analyze_singleton(node, card, module):
     r_value_singleton = must_be_singleton(r_value, card, module)
     return l_value_singleton, r_value_singleton
 
-def analyze_optional_unit_number(id_name, node, card, module):
-    # Assuming that the default value for all optional unit numbers is zero.
-    if node is None:
-        return 0
-    else:
-        # The node is expected to be an assignment node.
-        l_value, r_value = must_be_assignment(node, card, module)
-        # The l-value and r-value are both expected to be a singleton nodes.
-        l_value_singleton = must_be_singleton(l_value, card, module)
-        r_value_singleton = must_be_singleton(r_value, card, module)
-        # The l-value of the assignment is expected to be an identifier.
-        identifier_must_be_defined(id_name, l_value_singleton, card, module)
-        value = must_be_unit_number(l_value_singleton, r_value_singleton, card, module)
-        return value
-
 def analyze_pair(node, card, module):
     # 'node' is expected to be an assignment node.
     l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value of 'node' are expected to be a pair nodes.
+    # The l-value and r-value of 'node' are expected to be pair nodes.
     l_value_pair = must_be_pair(l_value, card, module)
     r_value_pair = must_be_pair(r_value, card, module)
     return l_value_pair, r_value_pair
-
-def analyze_unit_number(id_name, node, card, module):
-    # The node is expected to be an assignment node.
-    l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value are both expected to be a singleton nodes.
-    l_value_singleton = must_be_singleton(l_value, card, module)
-    r_value_singleton = must_be_singleton(r_value, card, module)
-    # The l-value of the assignment is expected to be an identifier; id_name
-    identifier_must_be_defined(id_name, l_value_singleton, card, module)
-    value = must_be_unit_number(l_value_singleton, r_value_singleton, card, module)
-    return value
 
 ##############################################################################
 # Semantic rules.
@@ -194,26 +178,26 @@ def must_be_identifier(node, card_node, module_node):
         semantic_error(msg, node)
 
 def must_be_float(lval, rval, card_node, module_node):
-    value = rval.get('value')
-    if not isinstance(eval(str(value)), float):
+    if not env.is_float(rval):
         id_name = lval.get('name')
         card_name = card_node.get('card_name')
         module_name = module_node.get('module_name')
         msg = ('expected \'' + id_name + '\' to be defined as a float in \'' +
                card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, lval)
-    return value
+    return rval.get('value')
 
 def must_be_int(lval, rval, card_node, module_node):
     value = rval.get('value')
-    if not isinstance(value, int):
+    if not env.is_integer(rval):
+        print lval
         name = lval.get('name')
         card_name = card_node.get('card_name')
         module_name = module_node.get('module_name')
         msg = ('expected \'' + name + '\' to be defined as an integer in \'' +
                card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, lval)
-    return value
+    return rval.get('value')
 
 def must_be_pair(node, card_node, module_node):
     # XXX: Supply expected pair to generate a better error message?
