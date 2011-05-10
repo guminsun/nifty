@@ -1301,7 +1301,7 @@
                                                      'node_type': '=',
                                                      'r_value': {'element_1': {'line_number': 404,
                                                                                'node_type': 'string',
-                                                                               'value': "'<endf/b-v l>i-6"},
+                                                                               'value': '<endf/b-v l>i-6'},
                                                                  'line_number': 404,
                                                                  'node_type': 'singleton'}}]},
                                 {'card_name': 'card_3a',
