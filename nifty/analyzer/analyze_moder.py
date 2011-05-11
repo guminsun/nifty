@@ -43,7 +43,9 @@ def analyze_moder_card_1(card, module):
     return card, nin
 
 def analyze_moder_card_2(card, module):
-    rule.card_must_be_defined('card_2', card, module, None)
+    msg = ('expected \'card_2\' since the absolute value of the input unit ' + 
+           '(\'nin\') is in the range [1,19] in \'card_1\'.')
+    rule.card_must_be_defined('card_2', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     analyze_moder_card_2_tpid(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
@@ -58,7 +60,9 @@ def analyze_moder_card_2_tpid(node, card, module):
     return tpid
 
 def analyze_moder_card_3(card, module):
-    rule.card_must_be_defined('card_3', card, module, None)
+    msg = ('expected \'card_3\' since the absolute value of the input unit ' + 
+           '(\'nin\') is in the range [1,19] in \'card_1\'.')
+    rule.card_must_be_defined('card_3', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
     rule.analyze_material('matd', env.next(stmt_iter), card, module)
@@ -66,7 +70,7 @@ def analyze_moder_card_3(card, module):
     return card
 
 def analyze_moder_card_3_stop(card, module):
-    msg = ('expected a \'card_3\' with the input unit (\'nin\') set to 0 ' +
+    msg = ('expected \'card_3\' with the input unit (\'nin\') set to 0 ' +
            'to indicate termination of module \'moder\'.')
     rule.card_must_be_defined('card_3', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
