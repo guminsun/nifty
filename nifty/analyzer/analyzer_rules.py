@@ -212,7 +212,6 @@ def must_be_float(lval, rval, card_node, module_node):
 def must_be_int(lval, rval, card_node, module_node):
     value = rval.get('value')
     if not env.is_integer(rval):
-        print lval
         name = lval.get('name')
         card_name = card_node.get('card_name')
         module_name = module_node.get('module_name')
