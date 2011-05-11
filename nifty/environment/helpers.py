@@ -135,26 +135,6 @@ def get_valid_id_names():
     return [i for sub in identifier_map.values() for i in sub]
 
 ##############################################################################
-# Setter helpers.
-
-def set_module_list(module_list, program):
-    program['module_list'] = module_list
-    return program
-
-def set_card_list(card_list, module):
-    module['card_list'] = card_list
-    return module
-
-def set_statement_list(statement_list, card):
-    card['statement_list'] = statement_list
-    return card
-
-def save_statement_list(statement_list, card):
-    original_statement_list = deepcopy(statement_list)
-    card['original_statement_list'] = original_statement_list
-    return card
-
-##############################################################################
 # Misc. helpers.
 
 def get_card_iterator(module_node):
