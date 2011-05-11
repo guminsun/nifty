@@ -23,6 +23,14 @@ def lexical_error(token):
            % (token.lineno, token.value[0]))
     raise LexicalError(msg)
 
+class OrganizeError(NiftyError):
+    '''Exception raised for organize errors.
+
+    Attributes:
+        msg -- explanation of the error
+    '''
+    pass
+
 class SemanticError(NiftyError):
     '''Exception raised for semantical errors.
 
