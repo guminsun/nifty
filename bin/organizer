@@ -33,7 +33,7 @@ def main():
         output_stream = open(args[1], 'w')
     else:
         arg_parser.error('incorrect number of arguments')
-    
+
     try:
         ast = parse(input_stream.read())
     except LexicalError, lexical_error:
@@ -43,7 +43,6 @@ def main():
         output_stream.write(eval(str(syntax_error)) + '\n')
         sys.exit('syntax_error')
 
-    # XXX: Catch organizer errors?
     ast = organize(ast)
     pprint(ast, output_stream)
 

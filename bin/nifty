@@ -61,7 +61,6 @@ def main():
         output_stream.write(eval(str(syntax_error)) + '\n')
         sys.exit('syntax_error')
 
-    # XXX: Catch organizer errors?
     if options.run_organizer:
         ast = organize(ast)
 
