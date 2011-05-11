@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+from nifty.environment.exceptions import OrganizeError
 from nifty.environment import helpers as helper
 
 from organize_acer import organize_acer
@@ -28,7 +31,15 @@ from organize_acer import organize_acer
 # Organizer. To put together into an orderly, functional, structured whole.
 
 def organize(ast):
-    return organize_program(ast)
+    # Save the original syntax tree such that it can be restored in case the
+    # organizing process fails.
+    original_ast = deepcopy(ast)
+    # Try to organize the program. Restore the original program if an
+    # OrganizeError is raised.
+    try:
+        return organize_program(ast)
+    except OrganizeError:
+        return original_ast
 
 def organize_program(program):
     module_list = program.get('module_list')
