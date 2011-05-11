@@ -8,6 +8,7 @@ identifier_map = {
     # If a {better,descriptive,long,...} identifier name is wanted, just add
     # it to the appropriate list. Some example names have been provided.
     'akxy' : ['akxy'], # errorr.
+    'aleg' : ['aleg'], # plotr
     'alpha2' : ['alpha2'], # groupr.
     'alpha3' : ['alpha3'], # groupr.
     'aw' : ['aw'],
@@ -20,8 +21,10 @@ identifier_map = {
     'efmean' : ['efmean'], # errorr.
     'egg' : ['egg', 'gamma_group_breaks'], # groupr.
     'egn' : ['egn', 'neutron_group_breaks'], # errorr, groupr.
+    'eh' : ['eh'], # plotr
     'ehi' : ['ehi'], # groupr.
     'ek' : ['ek'], # errorr
+    'el' : ['el'], # plotr
     'emax' : ['emax'], # thermr, ...
     'enode' : ['enode'],
     'epmin' : ['epmin'], # covr, ...
@@ -29,26 +32,42 @@ identifier_map = {
     'errint' : ['errint'], # broadr, XXX.
     'errmax' : ['errmax'], # broadr, XXX.
     'errthn' : ['errthn'], # broadr.
+    'factx' : ['factx'], # plotr
+    'facty' : ['facty'], # plotr
     'gamma' : ['gamma'], # groupr.
     'hdescr' : ['hdescr'], # covr.
     'hk' : ['hk', 'description'],
     'hlibid' : ['hlibid'], # covr.
+    'iccol' : ['iccol'], # plotr
     'icoh' : ['icoh'], # thermr.
     'icolor' : ['icolor'], # covr.
+    'icon' : ['icon'], # plotr
+    'idash' : ['idash'], # plotr
     'ielas' : ['ielas'],
     'ifissp' : ['ifissp'], # errorr.
     'ign' : ['ign', 'neutron_group_structure'], # errorr, groupr.
     'igg' : ['igg', 'gamma_group_structure'], # groupr.
+    'igrid' : ['igrid'], # plotr
     'iinc' : ['iinc'], # thermr.
+    'ileg' : ['ileg'], # plotr
     'infile' : ['infile', 'input'], # viewr.
     'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
+    'iplot' : ['iplot'], # plotr
+    'ipcol' : ['ipcol'], # plotr
     'iprint' : ['iprint', 'print_control'], # errorr, groupr, thermr, ...
     'iread' : ['iread'], # errorr
     'irelco' : ['irelco'], # covr, errorr, ...
     'irespr' : ['irespr'], # errorr
+    'ishade' : ['ishade'], # plotr
     'istart' : ['istart', 'restart'], # broadr.
+    'istyle' : ['istyle'], # plotr
     'istrap' : ['istrap', 'bootstrap'], # broadr.
+    'isym' : ['isym'], # plotr
+    'ithick' : ['ithick'], # plotr
+    'itype' : ['itype'], # plotr
+    'iverf' : ['iverf'], # plotr
+    'iwcol' : ['iwcol'], # plotr
     'iwt' : ['iwt'], # errorr, groupr.
     'iz' : ['iz'],
     # XXX: Treat iza as an array?
@@ -56,9 +75,11 @@ identifier_map = {
     'iza02' : ['iza02'],
     'iza03' : ['iza03'],
     'jsigz' : ['jsigz'], # groupr.
+    'jtype' : ['jtype'], # plotr
     'legord' : ['legord'], # errorr.
     'local' : ['local'],
     'lord' : ['lord', 'legendre_order'], # groupr.
+    'lori' : ['lori'], # plotr
     'mat' : ['mat'], # covr, ...
     'mat1' : ['mat1'], # broadr, covr, ...
     'matb' : ['matb'], # errorr, groupr.
@@ -68,14 +89,14 @@ identifier_map = {
     'matdp' : ['matdp'], # thermr.
     'matype' : ['matype'], # covr, ...
     'mfcov' : ['mfcov'], # errorr.
-    'mfd' : ['mfd'], # groupr.
+    'mfd' : ['mfd'], # groupr, plotr
     'mprint' : ['mprint'], # errorr
     'mt' : ['mt'], # covr,
     'mt1' : ['mt1'], # covr,
     'mta' : ['mta'],
     'mtb' : ['mtb'], # errorr
     'mtc' : ['mtc'], # errorr
-    'mtd' : ['mtd'], # groupr.
+    'mtd' : ['mtd'], # groupr, plotr
     'mte' : ['mte'],
     'mti' : ['mti'],
     'mtk' : ['mtk'],
@@ -94,6 +115,7 @@ identifier_map = {
     'nendf' : ['nendf', 'endf_input'],
     'newfor' : ['newfor'],
     'nflmax' : ['nflmax', 'max_flux_points'], # groupr.
+    'nform' : ['nform'], # plotr
     'ngend' : ['ngend', 'multigroup_photon_input'],
     'ngg' : ['ngg', 'number_of_gamma_groups'], # groupr.
     'ngn' : ['ngn', 'number_of_neutron_groups'], # errorr, groupr.
@@ -105,26 +127,38 @@ identifier_map = {
     'ninwt' : ['ninwt'], # groupr.
     'nmix' : ['nmix'],
     'nmt' : ['nmt'], # errorr
-    'ntemp' : ['ntemp', 'number_of_temperatures'], # groupr, thermr, ...
-    'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # broadr.
-    'ntype' : ['ntype', 'ace_output_type'],
     'noleg' : ['noleg'], # covr, ...
     'nout' : ['nout', 'pendf_output'], # covr, errorr, ...
     'npend' : ['npend', 'pendf_input'],
     'npk' : ['npk', 'number_of_partial_kermas'],
     'nplot' : ['nplot'], # covr, ...
+    'nplt' : ['nplt'], # plotr
+    'nplt0' : ['nplt0'], # plotr
     'nps' : ['nps', 'output'], # viewr.
     'nqa' : ['nqa', 'number_of_q_values'],
     'nsigz' : ['nsigz', 'number_of_sigma_zeroes'], # groupr.
     'nstan' : ['nstan'], # errorr
     'nstart' : ['nstart'], # covr, ...
+    'ntemp' : ['ntemp', 'number_of_temperatures'], # groupr, thermr, ...
+    'ntemp2' : ['ntemp2', 'number_of_final_temperatures'], # broadr.
+    'ntype' : ['ntype', 'ace_output_type'],
+    'nth' : ['nth'], # plotr
+    'ntk' : ['ntk'], # plotr
+    'ntp' : ['ntp'], # plotr
     'nxtra' : ['nxtra'],
     'qa' : ['qa'],
     'qbar' : ['qbar'],
+    'rbot' : ['rbot'], # plotr
+    'rl' : ['rl'], # plotr
+    'rtop' : ['rtop'], # plotr
+    'rstep' : ['rstep'], # plotr
     'sam' : ['sam'],
     'sigpot' : ['sigpot'], # groupr.
     'sigz' : ['sigz', 'sigma_zero_values'], # groupr.
+    'size' : ['size'], # plotr
     'suff' : ['suff'],
+    't1' : ['t1'], # plotr
+    't2' : ['t2'], # plotr
     'tb' : ['tb', 'thermal_temperature'], # errorr, groupr.
     'tc' : ['tc', 'fission_temperature'], # errorr, groupr.
     'temp' : ['temp', 'temperature'], # groupr.
@@ -132,6 +166,7 @@ identifier_map = {
     'temp2' : ['temp2', 'final_temp'], # broadr.
     'tempd' : ['tempd', 'temperature'],
     'tempin' : ['tempin'], # errorr.
+    'temper' : ['temper'], # plotr
     'tempr' : ['tempr', 'temperature'], # thermr, ...
     # XXX: Treat thin as an array?
     'thin01' : ['thin01'],
@@ -144,4 +179,30 @@ identifier_map = {
     'tol' : ['tol', 'tolerance'], # thermr.
     'tpid' : ['tpid'], # moder
     'wght' : ['wght'], # errorr, groupr.
+    'wh' : ['wh'], # plotr
+    'wr' : ['wr'], # plotr
+    'ww' : ['ww'], # plotr
+    'x3' : ['x3'], # plotr
+    'xdata' : ['xdata'], # plotr
+    'xerr1' : ['xerr1'], # plotr
+    'xerr2' : ['xerr2'], # plotr
+    'xlabl' : ['xlabl'], # plotr
+    'xll' : ['xll'], # plotr
+    'xpoint' : ['xpoint'], # plotr
+    'xstep' : ['xstep'], # plotr
+    'xtag' : ['xtag'], # plotr
+    'xv' : ['xv'], # plotr
+    'y3' : ['y3'], # plotr
+    'ydata' : ['ydata'], # plotr
+    'yerr1' : ['yerr1'], # plotr
+    'yerr2' : ['yerr2'], # plotr
+    'yh' : ['yh'], # plotr
+    'yl' : ['yl'], # plotr
+    'ylabl' : ['ylabl'], # plotr
+    'yll' : ['yll'], # plotr
+    'ytag' : ['ytag'], # plotr
+    'ystep' : ['ystep'], # plotr
+    'yv' : ['yv'], # plotr
+    'z3' : ['z3'], # plotr
+    'zv' : ['zv'], # plotr
 }
