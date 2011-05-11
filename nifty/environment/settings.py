@@ -142,5 +142,6 @@ identifier_map = {
     'tlabel' : ['tlabel'],
     'tname' : ['tname'],
     'tol' : ['tol', 'tolerance'], # thermr.
+    'tpid' : ['tpid'], # moder
     'wght' : ['wght'], # errorr, groupr.
 }
