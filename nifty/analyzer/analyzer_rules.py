@@ -263,11 +263,10 @@ def must_be_string(lval, rval, card_node, module_node):
 def must_be_unit_number(lval, rval, card_node, module_node):
     must_be_int(lval, rval, card_node, module_node)
     value = rval.get('value')
-    # A unit number must be in [20,99], or [-99,-20] for binary.
+    # A unit number must be in [0,99], or [-99,-1] for binary.
     # Or possible 0 (zero) which denotes no unit.
-    if ((value not in range(20, 100)) and
-        (value not in range(-99, -19)) and
-        (value != 0)):
+    if ((value not in range(0, 100)) and
+        (value not in range(-99, 0))):
         name = lval.get('name')
         card_name = card_node.get('card_name')
         module_name = module_node.get('module_name')
