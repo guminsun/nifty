@@ -12,7 +12,7 @@ from analyze_heatr import analyze_heatr
 #from analyze_matxsr import analyze_matxsr
 #from analyze_mixr import analyze_mixr
 #from analyze_moder import analyze_moder
-#from analyze_plotr import analyze_plotr
+from analyze_plotr import analyze_plotr
 #from analyze_powr import analyze_powr
 #from analyze_purr import analyze_purr
 from analyze_reconr import analyze_reconr
@@ -55,7 +55,7 @@ def analyze_module(module):
         #'matxsr' : analyze_matxsr,
         #'mixr' : analyze_mixr,
         #'moder' : analyze_moder,
-        #'plotr' : analyze_plotr,
+        'plotr' : analyze_plotr,
         #'powr' : analyze_powr,
         #'purr' : analyze_purr,
         'reconr' : analyze_reconr,
