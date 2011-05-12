@@ -125,6 +125,7 @@ identifier_map = {
     'ngout2' : ['ngout2', 'gout_output'], # groupr.
     'nin' : ['nin', 'pendf_input'], # covr, ...
     'ninwt' : ['ninwt'], # groupr.
+    'nkh' : ['nkh'], # plotr.
     'nmix' : ['nmix'],
     'nmt' : ['nmt'], # errorr
     'noleg' : ['noleg'], # covr, ...
