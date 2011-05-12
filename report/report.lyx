@@ -500,6 +500,13 @@ key "key-9"
 , in an Unix-like environment.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Lexical Analysis
 \end_layout
@@ -642,6 +649,13 @@ key "key-11"
  provided by the PLY tools.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Semantic Analysis
 \end_layout
@@ -722,6 +736,13 @@ The semantic analyzer was implemented using the information retrieved during
  the analysis of the NJOY input instructions.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Testing
 \end_layout
@@ -786,6 +807,16 @@ key "key-5"
 \end_inset
 
  which have been annotated with a syntax to make it easier to read and express.
+ NIF has been designed to appear more like a high-level programming language.
+ It was also designed to resemble the NJOY input instructions such that
+ the documentation in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+ can be used when specifying NJOY jobs in NIF.
 \end_layout
 
 \begin_layout Standard
@@ -813,7 +844,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset listings
-lstparams "basicstyle={\small\ttfamily},breaklines=true"
+lstparams "basicstyle={\small\ttfamily},breaklines=true,tabsize=4"
 inline false
 status open
 
@@ -1044,7 +1075,7 @@ An assignment denotes that a left hand side tuple is assigned to hold the
  A left hand side tuple is an ordered list of elements, where the elements
  can be an array or identifier.
  A right hand side tuple is an ordered list of elements, where the elements
- can be a float, integer or a string.
+ can be a float, integer, null or a string.
 \end_layout
 
 \begin_layout Standard
@@ -1054,8 +1085,8 @@ As such, a value definition is an array or identifier that has been declared
 \end_layout
 
 \begin_layout Standard
-For an example, in algorithm 3, the lines 1-7 from algorithm 1 are expressed
- in the NIF language.
+For an example, in algorithm 3, the lines 1 through 7 in algorithm 1 are
+ expressed in NIF.
 \end_layout
 
 \begin_layout Standard
@@ -1213,590 +1244,6 @@ Algorithm 1
 
 \end_layout
 
-\begin_layout Subsection
-NJOY Input Format Translator (
-\family typewriter
-nifty
-\family default
-)
-\end_layout
-
-\begin_layout Subsubsection
-Lexical Analysis
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
-\begin_layout Itemize
-Used a lexical analyzer to generate tokens and detect errors.
- PLY Lex.
-\end_layout
-
-\begin_layout Itemize
-Wrote regular expressions to recognize tokens.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="3">
-<features>
-<column alignment="left" valignment="top" width="0">
-<column alignment="left" valignment="top" width="0">
-<column alignment="left" valignment="top" width="0">
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-TOKEN
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-DESCRIPTION
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-EXAMPLE
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-MODULE
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-acer
-\family default
-, 
-\family typewriter
-reconr
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-CARD
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-card_1
-\family default
-, 
-\family typewriter
-card_2
-\family default
-, 
-\family typewriter
-card_8a
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-IDENTIFIER
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-mat
-\family default
-, 
-\family typewriter
-nin
-\family default
-, 
-\family typewriter
-nout
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-NIF Tokens
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Syntax Analysis
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
-\begin_layout Itemize
-Used a parser generator such to detect and report syntax errors.
- PLY YACC.
-\end_layout
-
-\begin_layout Itemize
-Constructed an syntax tree to represent the structure of NIF.
-\end_layout
-
-\begin_layout Subsubsection
-Semantic Analysis
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
-\begin_layout Itemize
-Enforced a type system.
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-OK: 
-\family typewriter
-nendf = 20;
-\family default
-, not OK: 
-\family typewriter
-nendf = 999;
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Determine if the program is semantically correct (i.e.
- find errors that have to do with the meaning of the program, and not the
- syntax).
-\end_layout
-
-\begin_layout Itemize
-Detected and reported errors.
- E.g.
- input file was not in the range [20,99].
-\end_layout
-
-\begin_layout Subsubsection
-Code Generation
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
-\begin_layout Itemize
-Process of translating the 
-\shape italic
-source
-\shape default
- language (NIF) into the 
-\shape italic
-target
-\shape default
- language (NJOY input instructions).
-\end_layout
-
-\begin_layout Itemize
-Massage the syntax tree into NJOY input instructions.
-\end_layout
-
-\begin_layout Itemize
-Flattened the tree structure.
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Control flow statements? E.g.
- for-loop idioms?
-\end_layout
-
-\begin_layout Itemize
-Traversed the syntax tree.
- Constructed NJOY input instructions by visiting the nodes (DFS algorithm).
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Detected and reported errors.
-\end_layout
-
-\begin_layout Itemize
-PLY
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Lexer
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Reserved words and identifiers.
- Hard coded.
-\end_layout
-
-\begin_layout Itemize
-Comments.
- Multi-line, single line.
-\end_layout
-
-\begin_layout Itemize
-Data-types: numbers and strings.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Parser
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Description of Abstract Syntax Tree (AST)
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-List structure
-\end_layout
-
-\begin_layout Itemize
-Node structure
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Organizer
-\end_layout
-
-\begin_layout Itemize
-Analyzer
-\end_layout
-
-\begin_layout Itemize
-Translator
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Translation process of syntax tree.
- Flatten the tree structure.
-\end_layout
-
-\begin_layout Itemize
-Code generation: generating the target language instructions.
-\end_layout
-
-\begin_layout Itemize
-Describe structure which is the result of the translator.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Emitter
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Translator result is converted to a string.
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Discussion
-\end_layout
-
-\begin_layout Subsection
-NJOY Input Format (NIF)
-\end_layout
-
-\begin_layout Standard
-The NIF grammar has been designed with simplicity in mind, such that the
- grammar and the translator can be expanded with ease.
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Comment
 status open
@@ -1845,8 +1292,165 @@ Cards still needs to be given in the correct, sequential order.
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-XXX
+NJOY Input Format Translator (
+\family typewriter
+nifty
+\family default
+)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Wrap figure
+lines 0
+placement o
+overhang 0in
+width "30col%"
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\align center
+\begin_inset Graphics
+	filename C:/Users/ceh/Desktop/nifty.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Translation process in nifty
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The translator, NJOY Input Format Translator (nifty), was constructed as
+ a set of modules where each module implements a specific phase in the translati
+on process.
+\end_layout
+
+\begin_layout Standard
+The phases in the translation process is shown in figure 1.
+ The lexer implements the lexical analysis and the parser implements the
+ syntax analysis.
+ The organizer implements an order analysis phase (described in section
+ 3.2.3).
+ The analyzer implements the semantic analysis.
+ The emitter implements a NJOY input instructions generator.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Lexer
+\end_layout
+
+\begin_layout Standard
+Lexical analyzer.
+\end_layout
+
+\begin_layout Itemize
+Used a lexical analyzer to generate tokens and detect errors.
+ PLY Lex.
+\end_layout
+
+\begin_layout Itemize
+Reserved words.
+\end_layout
+
+\begin_layout Itemize
+Wrote regular expressions to recognize tokens.
+\end_layout
+
+\begin_layout Subsubsection
+Parser
+\end_layout
+
+\begin_layout Standard
+Syntax analyzer.
+\end_layout
+
+\begin_layout Itemize
+Used a parser generator such to detect and report syntax errors.
+ PLY YACC.
+\end_layout
+
+\begin_layout Itemize
+Constructed an syntax tree to represent the structure of NIF.
+\end_layout
+
+\begin_layout Itemize
+Description of syntax tree?
+\end_layout
+
+\begin_layout Subsubsection
+Organizer
+\end_layout
+
+\begin_layout Standard
+Order organizer.
+\end_layout
+
+\begin_layout Itemize
+To arrange in order.
+\end_layout
+
+\begin_layout Subsubsection
+Analyzer
+\end_layout
+
+\begin_layout Standard
+Semantic analyzer.
+\end_layout
+
+\begin_layout Itemize
+Type checks.
+\end_layout
+
+\begin_layout Itemize
+Detected and reported errors.
+\end_layout
+
+\begin_layout Subsubsection
+Emitter
+\end_layout
+
+\begin_layout Standard
+Code generation.
+\end_layout
+
+\begin_layout Itemize
+Massage the syntax tree into NJOY input instructions.
+\end_layout
+
+\begin_layout Itemize
+Flattened the tree structure.
 \end_layout
 
 \begin_layout Standard
