@@ -369,39 +369,34 @@ def analyze_plotr_card_5(card, module):
            '-1 in \'card_2\'.')
     rule.card_must_be_defined('card_5', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    analyze_plotr_card_5_el(env.next(stmt_iter), card, module)
-    analyze_plotr_card_5_eh(env.next(stmt_iter), card, module)
-    analyze_plotr_card_5_xstep(env.next(stmt_iter), card, module)
-    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    # 'el' and 'eh' are either both defined, or both undefined. 'xstep' is
+    # optional.
+    if len(stmt_iter) > 0:
+        analyze_plotr_card_5_el(env.next(stmt_iter), card, module)
+        analyze_plotr_card_5_eh(env.next(stmt_iter), card, module)
+        analyze_plotr_card_5_xstep(env.next(stmt_iter), card, module)
+        rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_plotr_card_5_el(node, card, module):
     # Lowest energy to be plotted.
-    if node is None:
-        # XXX: Default value?
-        return None
-    else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
-        rule.identifier_must_be_defined('el', l_value, card, module)
-        # XXX: Additional checks?
-        return r_value.get('value')
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('el', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
 def analyze_plotr_card_5_eh(node, card, module):
     # Highest energy to be plotted.
-    if node is None:
-        # XXX: Default value?
-        return None
-    else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
-        rule.identifier_must_be_defined('eh', l_value, card, module)
-        # XXX: Additional checks?
-        return r_value.get('value')
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('eh', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
 def analyze_plotr_card_5_xstep(node, card, module):
-    # x axis step for energy to be plotted, default = automatic scales.
     if node is None:
         return None
     else:
+        # x axis step for energy to be plotted, default = automatic scales.
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('xstep', l_value, card, module)
         # XXX: Additional checks?
@@ -429,31 +424,129 @@ def analyze_plotr_card_5a_xlabl(node, card, module):
         return string
 
 def analyze_plotr_card_6(card, module):
-    rule.card_must_be_defined('card_6', card, module, None)
+    msg = ('expected \'card_6\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_6', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
+    # 'yl' and 'yh' are either both defined, or both undefined. 'ystep' is
+    # optional.
+    if len(stmt_iter) > 0:
+        analyze_plotr_card_6_yl(env.next(stmt_iter), card, module)
+        analyze_plotr_card_6_yh(env.next(stmt_iter), card, module)
+        analyze_plotr_card_6_ystep(env.next(stmt_iter), card, module)
+        rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
+
+def analyze_plotr_card_6_yl(node, card, module):
+    # Lowest value of y axis.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('yl', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_plotr_card_6_yh(node, card, module):
+    # Highest value of y axis.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('yh', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_plotr_card_6_ystep(node, card, module):
+    if node is None:
+        return None
+    else:
+        # Step for y axis. Default -> automatic scales.
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ystep', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
 
 def analyze_plotr_card_6a(card, module):
-    rule.card_must_be_defined('card_6a', card, module, None)
+    msg = ('expected \'card_6a\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_6a', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
+    analyze_plotr_card_6a_ylabl(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
+
+def analyze_plotr_card_6a_ylabl(node, card, module):
+    # Label for y axis does not have to be defined, defaults to 
+    # "cross section (barns)".
+    if node is None:
+        return 'cross section (barns)'
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ylabl', l_value, card, module)
+        # The r-value of the assignment is expected to be a string.
+        string = rule.must_be_string(l_value, r_value, card, module)
+        rule.string_must_not_exceed_length(l_value, r_value, 60, card, module)
+        return string
 
 def analyze_plotr_card_7(card, module):
-    rule.card_must_be_defined('card_7', card, module, None)
+    msg = ('expected \'card_7\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 and the type for alternate y axis or z axis (\'jtype\') is ' +
+           'defined, in \'card_2\'.')
+    rule.card_must_be_defined('card_7', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
+    # 'rbot' and 'rtop' are either both defined, or both undefined. 'rstep' is
+    # optional.
+    if len(stmt_iter) > 0:
+        analyze_plotr_card_7_rbot(env.next(stmt_iter), card, module)
+        analyze_plotr_card_7_rtop(env.next(stmt_iter), card, module)
+        analyze_plotr_card_7_rstep(env.next(stmt_iter), card, module)
+        rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
+def analyze_plotr_card_7_rbot(node, card, module):
+    # Lowest value of secondary y axis or z axis.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('rbot', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_plotr_card_7_rtop(node, card, module):
+    # Highest value of secondary y axis or z axis.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('rtop', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_plotr_card_7_rstep(node, card, module):
+    if node is None:
+        return None
+    else:
+        # Step for secondary y axis or z axis.
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('rstep', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
 def analyze_plotr_card_7a(card, module):
-    rule.card_must_be_defined('card_7a', card, module, None)
+    msg = ('expected \'card_7a\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 and the type for alternate y axis or z axis (\'jtype\') is ' +
+           'defined, in \'card_2\'.')
+    rule.card_must_be_defined('card_7a', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
+    rule.analyze_optional_string(60, 'rl', env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_plotr_card_8(card, module):
     rule.card_must_be_defined('card_8', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     iverf = analyze_plotr_card_8_iverf(env.next(stmt_iter), card, module)
-    # XXX:
-    #rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    # Ignore rest of parameters on card if data on input file is used (i.e. if
+    # iverf = 0.)
+    if iverf != 0:
+        rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
+        rule.analyze_material('matd', env.next(stmt_iter), card, module)
+        analyze_plotr_card_8_mfd(env.next(stmt_iter), card, module)
+        analyze_plotr_card_8_mtd(env.next(stmt_iter), card, module)
+        analyze_plotr_card_8_temper(env.next(stmt_iter), card, module)
+        # Triplet nth,ntp,nkh
+        analyze_plotr_card_8_nth_ntp_nkh(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card, iverf
 
 def analyze_plotr_card_8_iverf(node, card, module):
@@ -464,9 +557,51 @@ def analyze_plotr_card_8_iverf(node, card, module):
     # XXX: Additional checks?
     return iverf
 
+def analyze_plotr_card_8_mfd(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('mfd', l_value, card, module)
+    mfd = rule.must_be_int(l_value, r_value, card, module)
+    # XXX: Additional checks?
+    return mfd
+
+def analyze_plotr_card_8_mtd(node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('mtd', l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_plotr_card_8_temper(node, card, module):
+    if node is None:
+        return 0.0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('temper', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_8_nth_ntp_nkh(node, card, module):
+    if node is None:
+        return 1, 1, 1
+    else:
+        # Expecting a triplet.
+        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
+        # The triplet nth, ntp, nkh is expected to be defined as regular
+        # identifiers, as such None is given as the array index to indicate
+        # that the identifiers have none.
+        # The order in which the identifiers appears in 'expected_triplet'
+        # denotes the expected order of the identifiers in the NIF program.
+        expected_triplet = (('nth', None), ('ntp', None), ('nkh', None))
+        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        # XXX: Additional checks?
+        nth = r_value_triplet[0].get('value')
+        ntp = r_value_triplet[1].get('value')
+        nkh = r_value_triplet[2].get('value')
+        return nth, ntp, nkh
+
 def analyze_plotr_card_9(card, module):
     rule.card_must_be_defined('card_9', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
+    #rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_plotr_card_10(card, module):
