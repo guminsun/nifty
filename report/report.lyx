@@ -985,6 +985,11 @@ r_value ::= FLOAT
 
 \begin_layout Plain Layout
 
+		  | NULL
+\end_layout
+
+\begin_layout Plain Layout
+
           | STRING
 \end_layout
 
@@ -1044,8 +1049,8 @@ An assignment denotes that a left hand side tuple is assigned to hold the
 
 \begin_layout Standard
 As such, a value definition is an array or identifier that has been declared
- to hold the value of either a floating-point number, natural number or
- a character string.
+ to hold the value of either a floating-point number, natural number, empty
+ value or a character string.
 \end_layout
 
 \begin_layout Standard
