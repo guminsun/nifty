@@ -245,7 +245,7 @@ plotr
     card_13
     {
         xdata = 1.1e7;
-        ydate = 0.08;
+        ydata = 0.08;
         yerr1 = 0.05;
         yerr2 = 0.05;
     }
@@ -253,7 +253,7 @@ plotr
     card_13
     {
         xdata = 1.2e7;
-        ydate = 0.10;
+        ydata = 0.10;
         yerr1 = 0.05;
         yerr2 = 0.05;
     }
@@ -261,7 +261,7 @@ plotr
     card_13
     {
         xdata = 1.3e7;
-        ydate = 0.09;
+        ydata = 0.09;
         yerr1 = 0.04;
         yerr2 = 0.04;
     }
@@ -269,7 +269,7 @@ plotr
     card_13
     {
         xdata = 1.4e7;
-        ydate = 0.08;
+        ydata = 0.08;
         yerr1 = 0.03;
         yerr2 = 0.03;
     }
@@ -312,7 +312,7 @@ plotr
     card_13
     {
         xdata = 1.15e7;
-        ydate = 0.07;
+        ydata = 0.07;
         yerr1 = 0.02;
         yerr2 = 0.0;
         xerr1 = 0.2e6;
@@ -322,7 +322,7 @@ plotr
     card_13
     {
         xdata = 1.25e7;
-        ydate = 0.11;
+        ydata = 0.11;
         yerr1 = 0.02;
         yerr2 = 0.0;
         xerr1 = 0.2e6;
@@ -332,7 +332,7 @@ plotr
     card_13
     {
         xdata = 1.35e7;
-        ydate = 0.08;
+        ydata = 0.08;
         yerr1 = 0.015;
         yerr2 = 0.0;
         xerr1 = 0.2e6;
@@ -342,7 +342,7 @@ plotr
     card_13
     {
         xdata = 1.45e7;
-        ydate = 0.075;
+        ydata = 0.075;
         yerr1 = 0.01;
         yerr2 = 0.0;
         xerr1 = 0.2e6;
