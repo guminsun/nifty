@@ -23,10 +23,6 @@ groupr: ok?
 errorr: XXX
     No iverf -> no semantic checks for card 4+
 
-plotr: XXX
-    See e.g. tp06.nif
-    triplet values as NNN. see tp06 nth_ntp_nkh.
-
 viewr: XXX
 
 rest: ZZZ
