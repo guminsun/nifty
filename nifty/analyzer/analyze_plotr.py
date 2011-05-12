@@ -12,19 +12,56 @@ def analyze_plotr_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_plotr_card_0(env.next(card_iter), module)
     analyze_plotr_card_1(env.next(card_iter), module)
-    # The number of card 2's defines the number of card 3 through 13.
+    # The number of card 2's defines the number of cards 3 through 13.
     number_of_card_2 = len(env.get_cards('card_2', module))
-    # XXX: Check for at least two card 2's? One definition and one which
-    # indicates end of plotr job?
+    # XXX: Check for at least two card 2's? There's at least one definition
+    # and one which indicates end of plotr job?
     # The last card 2 should not be considered as a new plot index. It is
-    # expected to terminate the execution of plotr.
-    # Therefore, 'number_of_card_2-1' is used to create the range to iterate
-    # over.
+    # expected to terminate the execution of plotr. Therefore,
+    # 'number_of_card_2-1' is used to create the range to iterate over.
     for c2 in range(number_of_card_2-1):
         card_2, iplot = analyze_plotr_card_2(env.next(card_iter), module)
-
-    # The last card 2 should be defined with iplot = 99, to terminate the
-    # plotting job.
+        # Card 3 through 7 should only be defined if iplot = 1 or iplot = -1.
+        if abs(iplot) == 1:
+            analyze_plotr_card_3(env.next(card_iter), module)
+            analyze_plotr_card_3a(env.next(card_iter), module)
+            c4, itype, jtype, ileg = analyze_plotr_card_4(env.next(card_iter), module)
+            analyze_plotr_card_5(env.next(card_iter), module)
+            analyze_plotr_card_5a(env.next(card_iter), module)
+            analyze_plotr_card_6(env.next(card_iter), module)
+            analyze_plotr_card_6a(env.next(card_iter), module)
+            # Card 7 and 7a should only be defined if jtype in card 4 is > 0.
+            if jtype > 0:
+                analyze_plotr_card_7(env.next(card_iter), module)
+                analyze_plotr_card_7a(env.next(card_iter), module)
+        # Card 8 through 13 is always defined regardless of iplot value.
+        card_8, iverf = analyze_plotr_card_8(env.next(card_iter), module)
+        # Card 9 and 10 should only be defined for 2D plots (i.e. if itype
+        # is positive.)
+        if itype > 0:
+            analyze_plotr_card_9(env.next(card_iter), module)
+            # Card 10 should only be defined if ileg != 0.
+            if ileg != 0:
+                analyze_plotr_card_10(env.next(card_iter), module)
+            # Card 10a should only be defined if ileg = 2.
+            if ileg == 2:
+                analyze_plotr_card_10a(env.next(card_iter), module)
+        # Card 11 should only be defined for 3D plots.
+        else:
+            analyze_plotr_card_11(env.next(card_iter), module)
+        # Card 12 and 13 should only be defined if iverf in card 8 is 0.
+        if iverf == 0:
+            card_12, nform = analyze_plotr_card_12(env.next(card_iter), module)
+            # Card 13 should only be defined when nform = 0 in card 12.
+            if nform == 0:
+                # An unknown number of card 13's can be defined, keep 
+                # analyzing them until an empty card 13 is seen.
+                while True:
+                    card_13, card_13_stmt_len = analyze_plotr_card_13(env.next(card_iter), module)
+                    if card_13_stmt_len == 0:
+                        break
+    # The last card should be card 2 which have been defined with iplot = 99,
+    # to terminate the plotting job.
     analyze_plotr_card_2_stop(env.next(card_iter), module)
     rule.no_card_allowed(env.next(card_iter), module)
     return module
@@ -192,7 +229,287 @@ def analyze_plotr_card_2_ww_wh_wr(node, card, module):
         wr = r_value_triplet[2].get('value')
         return ww, wh, wr
 
-### Local helpers:
+def analyze_plotr_card_3(card, module):
+    msg = ('expected \'card_3\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_3', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    # First line of title (t1) does not have to be defined, defaults to empty
+    # string.
+    rule.analyze_optional_string(60, 't1', env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_plotr_card_3a(card, module):
+    msg = ('expected \'card_3a\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_3a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    # Second line of title (t2) does not have to be defined, defaults to empty
+    # string.
+    rule.analyze_optional_string(60, 't2', env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_plotr_card_4(card, module):
+    msg = ('expected \'card_4\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_4', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    itype = analyze_plotr_card_4_itype(env.next(stmt_iter), card, module)
+    jtype = analyze_plotr_card_4_jtype(env.next(stmt_iter), card, module)
+    analyze_plotr_card_4_igrid(env.next(stmt_iter), card, module)
+    ileg = analyze_plotr_card_4_ileg(env.next(stmt_iter), card, module)
+    # XXX: Is xtag and ytag a possible pair definition?
+    analyze_plotr_card_4_xtag(env.next(stmt_iter), card, module)
+    analyze_plotr_card_4_ytag(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, itype, jtype, ileg
+
+def analyze_plotr_card_4_itype(node, card, module):
+    # Type for primary axes does not have to be defined, defaults to 4,
+    # meaning log x - log y. (Negative number indicates 3D plot.)
+    if node is None:
+        return 4
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('itype', l_value, card, module)
+        itype = rule.must_be_int(l_value, r_value, card, module)
+        if abs(itype) not in range(1,5):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal type for primary axes (\'' + id_name + '\') in ' +
+                   '\'' + card_name + '\', ' + 'module \'' + module_name +
+                   '\'.')
+            rule.semantic_error(msg, node)
+        return itype
+
+def analyze_plotr_card_4_jtype(node, card, module):
+    # Type for alternate y axis or z axis does not have to be defined,
+    # defaults to 0, meaning none.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('jtype', l_value, card, module)
+        jtype = rule.must_be_int(l_value, r_value, card, module)
+        if jtype not in range(0,3):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal type for alternate y axis or z axis (\'' +
+                   id_name + '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\'.')
+            rule.semantic_error(msg, node)
+        return jtype
+
+def analyze_plotr_card_4_igrid(node, card, module):
+    # Grid and tic mark control does not have to be defined, defaults to 2,
+    # meaning tic marks on outside.
+    if node is None:
+        return 2
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('igrid', l_value, card, module)
+        igrid = rule.must_be_int(l_value, r_value, card, module)
+        if igrid not in range(0,4):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal grid and tic mark control (\'' + id_name +
+                   '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\'.')
+            rule.semantic_error(msg, node)
+        return igrid
+
+def analyze_plotr_card_4_ileg(node, card, module):
+    # Option to write a legend does not have to be defined, defaults to 0,
+    # meaning no legend.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ileg', l_value, card, module)
+        ileg = rule.must_be_int(l_value, r_value, card, module)
+        if ileg not in range(0,3):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal option to write a legend (\'' + id_name +
+                   '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\' (default = 0, meaning no legend).')
+            rule.semantic_error(msg, node)
+        return ileg
+
+def analyze_plotr_card_4_xtag(node, card, module):
+    # x coordinate of upper left corner of legend block does not have to be
+    # defined, defaults to 0.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xtag', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_4_ytag(node, card, module):
+    # y coordinate of upper left corner of legend block does not have to be
+    # defined, defaults to 0.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ytag', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_5(card, module):
+    msg = ('expected \'card_5\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_5', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_plotr_card_5_el(env.next(stmt_iter), card, module)
+    analyze_plotr_card_5_eh(env.next(stmt_iter), card, module)
+    analyze_plotr_card_5_xstep(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_plotr_card_5_el(node, card, module):
+    # Lowest energy to be plotted.
+    if node is None:
+        # XXX: Default value?
+        return None
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('el', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_5_eh(node, card, module):
+    # Highest energy to be plotted.
+    if node is None:
+        # XXX: Default value?
+        return None
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('eh', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_5_xstep(node, card, module):
+    # x axis step for energy to be plotted, default = automatic scales.
+    if node is None:
+        return None
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xstep', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_5a(card, module):
+    msg = ('expected \'card_5a\' since the plot index (\'iplot\') is 1 or ' +
+           '-1 in \'card_2\'.')
+    rule.card_must_be_defined('card_5a', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_plotr_card_5a_xlabl(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_plotr_card_5a_xlabl(node, card, module):
+    # Label for x axis does not have to be defined, defaults to "energy (ev)".
+    if node is None:
+        return 'energy (ev)'
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xlabl', l_value, card, module)
+        # The r-value of the assignment is expected to be a string.
+        string = rule.must_be_string(l_value, r_value, card, module)
+        rule.string_must_not_exceed_length(l_value, r_value, 60, card, module)
+        return string
+
+def analyze_plotr_card_6(card, module):
+    rule.card_must_be_defined('card_6', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_6a(card, module):
+    rule.card_must_be_defined('card_6a', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_7(card, module):
+    rule.card_must_be_defined('card_7', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_7a(card, module):
+    rule.card_must_be_defined('card_7a', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_8(card, module):
+    rule.card_must_be_defined('card_8', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    iverf = analyze_plotr_card_8_iverf(env.next(stmt_iter), card, module)
+    # XXX:
+    #rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, iverf
+
+def analyze_plotr_card_8_iverf(node, card, module):
+    # Version of ENDF tape.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('iverf', l_value, card, module)
+    iverf = rule.must_be_int(l_value, r_value, card, module)
+    # XXX: Additional checks?
+    return iverf
+
+def analyze_plotr_card_9(card, module):
+    rule.card_must_be_defined('card_9', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_10(card, module):
+    rule.card_must_be_defined('card_10', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_10a(card, module):
+    rule.card_must_be_defined('card_10a', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_11(card, module):
+    rule.card_must_be_defined('card_11', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    return card
+
+def analyze_plotr_card_12(card, module):
+    msg = ('expected \'card_12\' since the ENDF version (\'iverf\') is 0 ' +
+           'in \'card_8\'.')
+    rule.card_must_be_defined('card_12', card, module, msg)
+    stmt_iter = env.get_statement_iterator(card)
+    nform = analyze_plotr_card_12_nform(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card, nform
+
+def analyze_plotr_card_12_nform(node, card, module):
+    # Format code for input data.
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    rule.identifier_must_be_defined('nform', l_value, card, module)
+    nform = rule.must_be_int(l_value, r_value, card, module)
+    # XXX: Additional checks?
+    return nform
+
+def analyze_plotr_card_13(card, module):
+    msg = ('expected a \'card_13\' since \'nform\' is 0 in \'card_12\'.')
+    rule.card_must_be_defined('card_13', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    card_13_stmt_len = len(stmt_iter)
+    return card, card_13_stmt_len
+
+##############################################################################
+# Local helpers.
 
 def analyze_color(name, node, card, module):
     # Color does not have to be defined, defaults to 0 meaning white.
