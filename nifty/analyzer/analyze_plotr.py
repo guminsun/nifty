@@ -599,6 +599,7 @@ def analyze_plotr_card_8_nth_ntp_nkh(node, card, module):
         return nth, ntp, nkh
 
 def analyze_plotr_card_9(card, module):
+    # XXX: Provide a descriptive message of why card 9 should be supplied.
     rule.card_must_be_defined('card_9', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     analyze_plotr_card_9_icon(env.next(stmt_iter), card, module)
@@ -705,14 +706,49 @@ def analyze_plotr_card_9_ishade(node, card, module):
         return ishade
 
 def analyze_plotr_card_10(card, module):
+    # XXX: Provide a descriptive message of why card 10 should be supplied.
     rule.card_must_be_defined('card_10', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
+    # Title for curve tag or legend block, defaults to blank.
+    rule.analyze_optional_string(60, 'aleg', env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_plotr_card_10a(card, module):
     rule.card_must_be_defined('card_10a', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
+    analyze_plotr_card_10a_xtag(env.next(stmt_iter), card, module)
+    analyze_plotr_card_10a_ytag(env.next(stmt_iter), card, module)
+    analyze_plotr_card_10a_xpoint(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
+
+def analyze_plotr_card_10a_xtag(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xtag', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_10a_ytag(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ytag', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_10a_xpoint(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xpoint', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
 
 def analyze_plotr_card_11(card, module):
     rule.card_must_be_defined('card_11', card, module, None)
