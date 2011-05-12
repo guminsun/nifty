@@ -601,8 +601,108 @@ def analyze_plotr_card_8_nth_ntp_nkh(node, card, module):
 def analyze_plotr_card_9(card, module):
     rule.card_must_be_defined('card_9', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    #rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    analyze_plotr_card_9_icon(env.next(stmt_iter), card, module)
+    analyze_plotr_card_9_isym(env.next(stmt_iter), card, module)
+    analyze_plotr_card_9_idash(env.next(stmt_iter), card, module)
+    analyze_plotr_card_9_iccol(env.next(stmt_iter), card, module)
+    analyze_plotr_card_9_ithick(env.next(stmt_iter), card, module)
+    analyze_plotr_card_9_ishade(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
+
+def analyze_plotr_card_9_icon(node, card, module):
+    # Symbol and connection option does not have to be defined, defaults to 0.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('icon', l_value, card, module)
+        icon = rule.must_be_int(l_value, r_value, card, module)
+        # XXX: Additional checks?
+        return icon
+
+def analyze_plotr_card_9_isym(node, card, module):
+    # Symbol to be used, default = 0 meaning square symbol.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('isym', l_value, card, module)
+        isym = rule.must_be_int(l_value, r_value, card, module)
+        if isym not in range(0,19):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal symbol option (\'' + id_name +
+                   '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\' (default = 0, meaning square).')
+            rule.semantic_error(msg, node)            
+        return isym
+
+def analyze_plotr_card_9_idash(node, card, module):
+    # Type of line to plot, default = 0 meaning solid line.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('idash', l_value, card, module)
+        idash = rule.must_be_int(l_value, r_value, card, module)
+        if idash not in range(0,5):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal line option (\'' + id_name +
+                   '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\' (default = 0, meaning solid line).')
+            rule.semantic_error(msg, node)            
+        return idash
+
+def analyze_plotr_card_9_iccol(node, card, module):
+    # Curve color, default = 0 meaning black.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('iccol', l_value, card, module)
+        iccol = rule.must_be_int(l_value, r_value, card, module)
+        if iccol not in range(0,8):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal curve color option (\'' + id_name +
+                   '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\' (default = 0, meaning black).')
+            rule.semantic_error(msg, node)            
+        return iccol
+
+def analyze_plotr_card_9_ithick(node, card, module):
+    # Thickness of curve, default = 1.
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ithick', l_value, card, module)
+        ithick = rule.must_be_int(l_value, r_value, card, module)
+        # XXX: Additional checks? 
+        return ithick
+
+def analyze_plotr_card_9_ishade(node, card, module):
+    # Shade pattern, default = 0 meaning none.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ishade', l_value, card, module)
+        ishade = rule.must_be_int(l_value, r_value, card, module)
+        if ishade not in range(0,81):
+            id_name = l_value.get('name')
+            card_name = card.get('card_name')
+            module_name = module.get('module_name')
+            msg = ('illegal shade pattern option (\'' + id_name +
+                   '\') in \'' + card_name + '\', ' + 'module \'' +
+                   module_name + '\' (default = 0, meaning none).')
+            rule.semantic_error(msg, node) 
+        return ishade
 
 def analyze_plotr_card_10(card, module):
     rule.card_must_be_defined('card_10', card, module, None)
