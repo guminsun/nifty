@@ -36,6 +36,17 @@ def analyze_mt(name, node, card, module):
         rule.semantic_error(msg, node)
     return mt_number
 
+def analyze_optional_string(max_length, name, node, card, module):
+    if node is None:
+        return str()
+    else:
+        l_value, r_value = analyze_singleton(node, card, module)
+        identifier_must_be_defined(name, l_value, card, module)
+        # The r-value of the assignment is expected to be a string.
+        string = must_be_string(l_value, r_value, card, module)
+        string_must_not_exceed_length(l_value, r_value, max_length, card, module)
+        return string
+
 def analyze_temperature(name, node, card, module):
     # Temperature does not have to be defined. Defaults to 300.
     if node is None:
