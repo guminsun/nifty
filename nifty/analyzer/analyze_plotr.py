@@ -753,7 +753,36 @@ def analyze_plotr_card_10a_xpoint(node, card, module):
 def analyze_plotr_card_11(card, module):
     rule.card_must_be_defined('card_11', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
+    analyze_plotr_card_11_xv_yv_zv(env.next(stmt_iter), card, module)
+    analyze_plotr_card_11_x3_y3_z3(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
+
+def analyze_plotr_card_11_xv_yv_zv(node, card, module):
+    if node is None:
+        return 15.0, -15.0, 15.0
+    else:
+        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
+        expected_triplet = (('xv', None), ('yv', None), ('zv', None))
+        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        # XXX: Additional checks?
+        xv = r_value_triplet[0].get('value')
+        yv = r_value_triplet[1].get('value')
+        zv = r_value_triplet[2].get('value')
+        return xv, yv, zv
+
+def analyze_plotr_card_11_x3_y3_z3(node, card, module):
+    if node is None:
+        return 2.5, 6.5, 2.5
+    else:
+        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
+        expected_triplet = (('x3', None), ('y3', None), ('z3', None))
+        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        # XXX: Additional checks?
+        x3 = r_value_triplet[0].get('value')
+        y3 = r_value_triplet[1].get('value')
+        z3 = r_value_triplet[2].get('value')
+        return x3, y3, z3
 
 def analyze_plotr_card_12(card, module):
     msg = ('expected \'card_12\' since the ENDF version (\'iverf\') is 0 ' +
@@ -776,8 +805,72 @@ def analyze_plotr_card_13(card, module):
     msg = ('expected a \'card_13\' since \'nform\' is 0 in \'card_12\'.')
     rule.card_must_be_defined('card_13', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    card_13_stmt_len = len(stmt_iter)
-    return card, card_13_stmt_len
+    stmt_len = len(stmt_iter)
+    if stmt_len == 0:
+        return card, stmt_len
+    else:
+        analyze_plotr_card_13_xdata(env.next(stmt_iter), card, module)
+        analyze_plotr_card_13_ydata(env.next(stmt_iter), card, module)
+        analyze_plotr_card_13_yerr1(env.next(stmt_iter), card, module)
+        analyze_plotr_card_13_yerr2(env.next(stmt_iter), card, module)
+        analyze_plotr_card_13_xerr1(env.next(stmt_iter), card, module)
+        analyze_plotr_card_13_xerr2(env.next(stmt_iter), card, module)
+        rule.no_statement_allowed(env.next(stmt_iter), card, module)
+        return card, stmt_len
+
+def analyze_plotr_card_13_xdata(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xdata', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_13_ydata(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ydata', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_13_yerr1(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('yerr1', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_13_yerr2(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('yerr2', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_13_xerr1(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xerr1', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_13_xerr2(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xerr2', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
 
 ##############################################################################
 # Local helpers.
