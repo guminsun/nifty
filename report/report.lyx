@@ -390,7 +390,7 @@ key "key-5"
 Designing the New Input Format
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection
 Syntax Definition
 \end_layout
 
@@ -509,7 +509,7 @@ key "key-9"
 
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection
 Lexical Analysis
 \end_layout
 
@@ -618,7 +618,7 @@ key "key-12"
  in PLY Lex.
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection
 Syntax Analysis
 \end_layout
 
@@ -658,7 +658,7 @@ key "key-11"
 
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection
 Semantic Analysis
 \end_layout
 
@@ -733,6 +733,13 @@ hk
  more than 70 characters.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Testing
 \end_layout
@@ -805,14 +812,8 @@ NIF
 
 \begin_layout Standard
 The new input format, NJOY Input Format (NIF), is basically the NJOY input
- instructions 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
- which have been annotated with a syntax to make it easier to read and express.
+ instructions which have been annotated with a syntax to make it easier
+ to read and express.
  NIF has been designed to appear more like a high-level programming language.
  It was also designed to resemble the NJOY input instructions such that
  the documentation in 
@@ -1313,12 +1314,16 @@ nifty
 )
 \end_layout
 
+\begin_layout Subsubsection
+Structure of the Translator
+\end_layout
+
 \begin_layout Standard
 \begin_inset Wrap figure
 lines 0
 placement o
 overhang 0in
-width "30col%"
+width "40col%"
 status open
 
 \begin_layout Plain Layout
@@ -1354,15 +1359,56 @@ Translation process in nifty
 The translator, NJOY Input Format Translator (nifty), was constructed as
  a set of modules where each module implements a specific phase in the translati
 on process.
+ Five phases have been implemented as part of the translation process and
+ are shown in figure 1.
 \end_layout
 
 \begin_layout Standard
-The phases in the translation process is shown in figure 1.
- The lexer implements the lexical analysis and the parser implements the
- syntax analysis.
- The organizer implements an order analysis phase.
- The analyzer implements the semantic analysis.
- The emitter implements a NJOY input instructions generator.
+The first phase is the lexical analysis which is implemented by the lexer
+ module.
+ The second phase, syntax analysis, is implemented by the parser module.
+\end_layout
+
+\begin_layout Standard
+The third phase, implemented by the organizer module, is a special phase
+ which is not found in a translator as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+.
+ The organizer is a phase where the order of the statements in a card are
+ analysed and possible rearranged.
+\end_layout
+
+\begin_layout Standard
+The fourth phase is the semantic analysis which is implemented by the module
+ named analyzer.
+ The fifth, and final, phase of the translator is the emitter module which
+ implements a NJOY input instructions generator.
+\end_layout
+
+\begin_layout Subsubsection
+Reserved Words
+\end_layout
+
+\begin_layout Standard
+An important design choice is that the translator will enforce the use of
+ reserved keywords to specify NIF programs.
+ It will not only consider card and module names as reserved keywords, but
+ also identifier names.
+ As such, it is not possible to use an identifier name until it has been
+ defined as an identifier in the translator.
+ Similarly, it is not possible to use a card or module name which has not
+ been defined in the translator.
+ This restricts the expressiveness of the input format, but allows detailed
+ analysis of the semantics in the organizer and analyzer modules.
+\end_layout
+
+\begin_layout Subsubsection
+The Modules
 \end_layout
 
 \begin_layout Paragraph
@@ -1370,20 +1416,22 @@ Lexer
 \end_layout
 
 \begin_layout Standard
-Lexical analyzer.
-\end_layout
+The lexer is responsible for recognizing character patterns and generating
+ the appropriate NIF tokens.
+ As input, the lexer expects a NIF program and will generate a token stream
+ as its output unless the lexer detects a lexical error.
+ If a lexical error is detected, an error message will be reported and the
+ translation process will stop at this phase.
+ The lexer will only recognize card and module names which are specified
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
 
-\begin_layout Itemize
-Used a lexical analyzer to generate tokens and detect errors.
- PLY Lex.
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-Reserved words.
-\end_layout
-
-\begin_layout Itemize
-Wrote regular expressions to recognize tokens.
+, thus enforcing the use of a specific set of cards and modules as mentioned
+ previously.
 \end_layout
 
 \begin_layout Paragraph
@@ -1391,20 +1439,13 @@ Parser
 \end_layout
 
 \begin_layout Standard
-Syntax analyzer.
-\end_layout
-
-\begin_layout Itemize
-Used a parser generator such to detect and report syntax errors.
- PLY YACC.
-\end_layout
-
-\begin_layout Itemize
-Constructed an syntax tree to represent the structure of NIF.
-\end_layout
-
-\begin_layout Itemize
-Description of syntax tree?
+The parser is responsible of enforcing the structure of the NIF grammar
+ and constructing the syntax tree.
+ As input, the parser expects a token stream generated by the lexer.
+ The parser will produce a syntax tree as its output, which represents the
+ structure of the NIF program.
+ If the parser detects a syntax error, an error message will be reported
+ and the translation process will stop at this phase.
 \end_layout
 
 \begin_layout Paragraph
@@ -1412,11 +1453,36 @@ Organizer
 \end_layout
 
 \begin_layout Standard
-Order organizer.
+The organizer analyses the syntax tree produced by the parser.
+ Its purpose is to rearrange the statements in a card such that they appear
+ in the expected, working order.
+ As such, it should be possible to write a NIF program without having to
+ list the statements in a card in the expected order as indicated by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+.
+ The modules and cards still needs to be given in the correct order though.
 \end_layout
 
-\begin_layout Itemize
-To arrange in order.
+\begin_layout Standard
+Each module requires its own organizer implementation since each module
+ has its specific set of rules as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+.
+ If any statements have been provided out of order in a card, and the organizer
+ is able to arrange the statements, a new syntax tree is returned where
+ the statements have been ordered in the expected sequence.
+ If the organizer somehow fails, it will return the original syntax tree
+ as produced by the parser and pass it on to the next phase in the translator.
 \end_layout
 
 \begin_layout Paragraph
@@ -1424,15 +1490,26 @@ Analyzer
 \end_layout
 
 \begin_layout Standard
-Semantic analyzer.
+The analyzer expects a syntax tree as its input.
+ Like in the organizer phase, the modules needs to be analysed separately
+ since each module has its specific set of rules as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+.
+ As such, each module requires its own analyzer implementation.
 \end_layout
 
-\begin_layout Itemize
-Type checks.
-\end_layout
-
-\begin_layout Itemize
-Detected and reported errors.
+\begin_layout Standard
+The analyzer does not alter the syntax tree, it just analyses it.
+ The input syntax tree will be the output of the analyzer, if the syntax
+ tree is semantically correct according to the translator.
+ If the analyzer detects a semantical error in the syntax tree, an error
+ message will be reported and the translation process will stop at this
+ phase.
 \end_layout
 
 \begin_layout Paragraph
@@ -1440,26 +1517,62 @@ Emitter
 \end_layout
 
 \begin_layout Standard
-Code generation.
+The emitter expects a syntax tree as its input and it is responsible for
+ generating NJOY input instructions from the syntax tree.
+ The emitter simply flattens the tree structure and formats the instructions
+ to their corresponding counterparts in the NJOY input instructions format.
 \end_layout
 
-\begin_layout Itemize
-Massage the syntax tree into NJOY input instructions.
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-Flattened the tree structure.
+\begin_layout Section
+Discussion
+\end_layout
+
+\begin_layout Standard
+An organizer and analyzer has not been provided for all modules in the NJOY
+ software system due to time constraints of this thesis.
+ As such, the important semantic analysis of the translator is incomplete.
+ However, much of the needed functionality and structure is provided by
+ the existing implementation such that both the organizer and the analyzer
+ should be easy to complete.
+\end_layout
+
+\begin_layout Standard
+The implementation of the analyzer module has been the most time consuming
+ task when designing the translator.
+ It requires detailed analysis of what kind of input the modules expect
+ and how they operate on it.
+ To fully check the semantics of a NIF program, the source code for the
+ NJOY software system must be studied in greater detail.
+ The ENDF formats must also be studied in greater detail in order to understand
+ the semantics of the NJOY modules.
+\end_layout
+
+\begin_layout Standard
+The testing that was conducted within this work is not rigorous enough.
+ NJOY is a large and complex program
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The source files for the NJOY software system consists of more than 100
+ 000 lines.
+\end_layout
+
+\end_inset
+
+, hence, there is a lot of possible scenarios that has not been tested.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Comment
 status open
-
-\begin_layout Itemize
-Testing not that rigorous.
- NJOY is a large and complex program, there's a lot of scenarios (e.g.
- input instructions) that hasn't been tested.
-\end_layout
 
 \begin_layout Itemize
 Efficiency?
@@ -1723,6 +1836,7 @@ http://t2.lanl.gov/codes/njoy99/Userinp.364
 \end_layout
 
 \begin_layout Bibliography
+\paragraph_spacing single
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-5"
