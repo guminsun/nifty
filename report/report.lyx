@@ -753,7 +753,7 @@ status open
 
 \begin_layout Plain Layout
 The NJOY Test Problems are test runs which are used to test the functionality
- of NJOY.
+ of the NJOY software system.
  See 
 \begin_inset Flex URL
 status open
@@ -824,6 +824,10 @@ key "key-4"
 \end_inset
 
  can be used when specifying NJOY jobs in NIF.
+\end_layout
+
+\begin_layout Subsubsection
+Grammar Definition
 \end_layout
 
 \begin_layout Standard
@@ -1091,6 +1095,10 @@ As such, a value definition is an array or identifier that has been declared
  value or a character string.
 \end_layout
 
+\begin_layout Subsubsection
+NIF Example
+\end_layout
+
 \begin_layout Standard
 For an example, in algorithm 3, the lines 1 through 7 in algorithm 1 are
  expressed in NIF.
@@ -1244,54 +1252,6 @@ Algorithm 1
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-XXX E.g.
- denote scope, use blocks to group and format statements, declaration of
- identifiers, et cetera.
-\end_layout
-
-\begin_layout Itemize
-The analysis of the input format revealed some common features for each
- module, and a general structure of the input instructions was evident.
- Because of this, a solution based on Lex and Yacc was chosen.
- XXX Why PLY? See note in Diary.
- Easy and fast.
-\end_layout
-
-\begin_layout Itemize
-Influenced by the C programming language.
- Why?
-\end_layout
-
-\begin_layout Itemize
-Hard coded words and identifiers.
- Explain why.
-\end_layout
-
-\begin_layout Itemize
-Modules still needs to be given in the correct, sequential order.
- The translator cannot guess the users' intention of the job.
- Needs to be told what to do.
- Just a translator.
-\end_layout
-
-\begin_layout Itemize
-Cards still needs to be given in the correct, sequential order.
- For example, see NJOY Test Problem 01.
- The translator cannot guess the order of card 5 in module reconr.
- The translator needs to be told what to do, after all, it is just a simple
- translator.
 \end_layout
 
 \end_inset
@@ -1478,7 +1438,13 @@ key "key-4"
 \end_inset
 
 .
- If any statements have been provided out of order in a card, and the organizer
+ Since the identifier names are hard coded into the translator, the organizer
+ is able to do a detailed analysis of the syntax tree and easily detect
+ if a specific identifier has been defined out of order.
+\end_layout
+
+\begin_layout Standard
+If any statements have been provided out of order in a card, and the organizer
  is able to arrange the statements, a new syntax tree is returned where
  the statements have been ordered in the expected sequence.
  If the organizer somehow fails, it will return the original syntax tree
@@ -1504,8 +1470,25 @@ key "key-4"
 \end_layout
 
 \begin_layout Standard
+The analyzer basically visits every node in the order they appear in the
+ syntax tree and checks if it is the expected one.
+ The analysis can be made very detailed since the translator can, to some
+ extent, predict the next card or identifier due the ordered nature in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ and since the cards and the identifiers have reserved names.
+ As such, it can in a simple fashion determine whether a card or an identifier
+ has been defined or not and whether an identifier has been defined as the
+ expected type, et cetera.
+\end_layout
+
+\begin_layout Standard
 The analyzer does not alter the syntax tree, it just analyses it.
- The input syntax tree will be the output of the analyzer, if the syntax
+ The input syntax tree will be the output of the analyzer if the syntax
  tree is semantically correct according to the translator.
  If the analyzer detects a semantical error in the syntax tree, an error
  message will be reported and the translation process will stop at this
@@ -1567,7 +1550,10 @@ The source files for the NJOY software system consists of more than 100
 
 \end_inset
 
-, hence, there is a lot of possible scenarios that has not been tested.
+.
+ The NJOY test problems which were used to test the translation functionality
+ is a very small set of possible NJOY jobs.
+ Hence, there is a lot of possible scenarios that has not been tested.
 \end_layout
 
 \begin_layout Standard
