@@ -167,7 +167,14 @@ Problem Description
 \end_layout
 
 \begin_layout Standard
-The NJOY input instructions are complex and hard to read compared to e.g.
+The NJOY input instructions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ are complex and hard to read compared to e.g.
  a high-level programming language.
  For example, algorithm 1 is a 
 \emph on
@@ -313,6 +320,9 @@ Objective
 The NJOY input instructions is not an optimal input format.
  Therefore, the scope of this thesis has been to design and implement a
  more user friendly, and readable input format.
+ The design of the new input format had to be based on some commonly known
+ existing format that is fitting to the task.
+ The basis could for example be a programming language.
 \end_layout
 
 \begin_layout Standard
@@ -338,10 +348,24 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-As stated in 
+The NJOY input instructions had to be understood in order to design the
+ new input format.
+ Each module of the NJOY software system, as described in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
+
+\end_inset
+
+, was analyzed separately such that a general structure and common language
+ features could be extracted and used for further analysis.
+\end_layout
+
+\begin_layout Standard
+As stated in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
 
 \end_inset
 
@@ -355,62 +379,24 @@ compiler
  a translator presented in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-4"
+key "key-5"
 
 \end_inset
 
 , is described.
 \end_layout
 
-\begin_layout Standard
-In 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
-, the translation process is described as a sequence of phases.
- Each phase inspects and transforms a representation of the source program
- to another.
- Phases such as lexical analysis, syntax analysis, and semantic analysis
- has been used throughout this work.
-\end_layout
-
 \begin_layout Subsection
-Understanding the NJOY Input Instructions
+Designing the New Input Format
 \end_layout
 
-\begin_layout Standard
-The NJOY input instructions 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-5"
-
-\end_inset
-
- had to be understood in order to design the new input format.
- Each module of the NJOY software system was analyzed separately such that
- a general structure and common language features could be extracted and
- used for further analysis.
-\end_layout
-
-\begin_layout Subsection
-Designing the New NJOY Input Format
-\end_layout
-
-\begin_layout Standard
-The design of the new NJOY Input Format (NIF) was based on the analysis
- of the input instructions.
-\end_layout
-
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Syntax Definition
 \end_layout
 
 \begin_layout Standard
-The syntax definition of NIF was specified in a notation called context-free
- grammar 
+The syntax definition of the input format was specified in a notation called
+ context-free grammar 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-6"
@@ -420,10 +406,7 @@ key "key-6"
 .
  A context-free grammar is a convenient, and natural method of specifying
  the syntax of a programming language.
-\end_layout
-
-\begin_layout Standard
-For instance, the assignment (
+ For instance, the assignment (
 \shape italic
 declaration
 \shape default
@@ -474,8 +457,24 @@ Building the Translator
 \end_layout
 
 \begin_layout Standard
-The translator, which is supposed to translate NIF into NJOY input instructions,
- was partly constructed using a lexical-analyzer generator 
+In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+, the translation process is described as a sequence of phases.
+ Each phase inspects and transforms a representation of the source program
+ to another.
+ Phases such as lexical analysis, syntax analysis, and semantic analysis
+ has been used throughout this work.
+\end_layout
+
+\begin_layout Standard
+The translator, which is supposed to translate the input format into NJOY
+ input instructions, was partly constructed using a lexical-analyzer generator
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-7"
@@ -490,7 +489,10 @@ key "key-8"
 \end_inset
 
 .
- The translator was written in the Python programming language 
+\end_layout
+
+\begin_layout Standard
+The translator was written in the Python programming language 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-9"
@@ -507,13 +509,13 @@ key "key-9"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Lexical Analysis
 \end_layout
 
 \begin_layout Standard
-Lexical analysis is the process of dividing the source program (e.g.
- NIF) into sequences of characters, called tokens 
+Lexical analysis is the process of dividing the source program into sequences
+ of characters, called tokens 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-10"
@@ -604,8 +606,8 @@ key "key-11"
 
 \end_inset
 
- was used to generate a lexical analyzer (lexer) for NIF.
- The method of identifying the NIF tokens was implemented by using the notation
+ was used to generate a lexical analyzer (lexer) for the input format.
+ The method of identifying the tokens was implemented by using the notation
  of regular expressions 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -616,7 +618,7 @@ key "key-12"
  in PLY Lex.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Syntax Analysis
 \end_layout
 
@@ -644,7 +646,7 @@ key "key-11"
 \end_inset
 
  was used to generate a syntax analyzer (parser) for the grammar definition
- of NIF.
+ of the input format.
  The method of building the syntax tree was implemented by using the facilities
  provided by the PLY tools.
 \end_layout
@@ -656,7 +658,7 @@ key "key-11"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Semantic Analysis
 \end_layout
 
@@ -680,7 +682,7 @@ key "key-14"
 For example, according to 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-4"
 
 \end_inset
 
@@ -712,7 +714,7 @@ acer
  According to 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-4"
 
 \end_inset
 
@@ -731,38 +733,42 @@ hk
  more than 70 characters.
 \end_layout
 
-\begin_layout Standard
-The semantic analyzer was implemented using the information retrieved during
- the analysis of the NJOY input instructions.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Testing
 \end_layout
 
 \begin_layout Standard
 Testing was carried out continuously during the design and implementation
- of NIF and the translator.
- The NJOY test problems 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-1"
+ of the input format and the translator.
+ The NJOY test problems
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The NJOY Test Problems are test runs which are used to test the functionality
+ of NJOY.
+ See 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://t2.lanl.gov/codes/njoy99/
+\end_layout
 
 \end_inset
 
- was used to test the functionality of both NIF and the translator.
+
+\end_layout
+
+\end_inset
+
+ was used to test the functionality of both the input format and the translator.
 \end_layout
 
 \begin_layout Standard
-The NJOY test problems was manually translated into equivalent NIF programs,
- which were run through the translator.
+The NJOY test problems was manually translated into equivalent NJOY jobs
+ in the new input format, which were run through the translator.
  The resulting output was compared with the expected output, to verify that
  the translator was working appropriately.
 \end_layout
@@ -802,7 +808,7 @@ The new input format, NJOY Input Format (NIF), is basically the NJOY input
  instructions 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-4"
 
 \end_inset
 
@@ -812,7 +818,7 @@ key "key-5"
  the documentation in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-4"
 
 \end_inset
 
@@ -826,7 +832,7 @@ The resulting NJOY Input Format (NIF) is illustrated as a context-free grammar
  Just like in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-5"
+key "key-4"
 
 \end_inset
 
@@ -1060,7 +1066,7 @@ MODULE
 \family typewriter
 CARD
 \family default
-, are token classes specified by the lexer (see section 3.2.1).
+, are token classes specified by the lexer.
  Special symbols are denoted within double quotes.
  
 \family typewriter
@@ -1319,7 +1325,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Users/ceh/Desktop/nifty.eps
+	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
 
 \end_inset
 
@@ -1354,20 +1360,12 @@ on process.
 The phases in the translation process is shown in figure 1.
  The lexer implements the lexical analysis and the parser implements the
  syntax analysis.
- The organizer implements an order analysis phase (described in section
- 3.2.3).
+ The organizer implements an order analysis phase.
  The analyzer implements the semantic analysis.
  The emitter implements a NJOY input instructions generator.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Lexer
 \end_layout
 
@@ -1388,7 +1386,7 @@ Reserved words.
 Wrote regular expressions to recognize tokens.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Parser
 \end_layout
 
@@ -1409,7 +1407,7 @@ Constructed an syntax tree to represent the structure of NIF.
 Description of syntax tree?
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Organizer
 \end_layout
 
@@ -1421,7 +1419,7 @@ Order organizer.
 To arrange in order.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Analyzer
 \end_layout
 
@@ -1437,7 +1435,7 @@ Type checks.
 Detected and reported errors.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Paragraph
 Emitter
 \end_layout
 
@@ -1699,28 +1697,6 @@ key "key-4"
 \end_inset
 
 A.
- V.
- Aho 
-\shape italic
-et al.
-\shape default
-, 
-\shape italic
-Compilers: Principles, Techniques, & Tools
-\shape default
-, Second Edition.
- Boston: Pearson Educ., 2007.
-\end_layout
-
-\begin_layout Bibliography
-\paragraph_spacing single
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-5"
-
-\end_inset
-
-A.
  C.
  Kahler and R.
  E.
@@ -1744,6 +1720,27 @@ http://t2.lanl.gov/codes/njoy99/Userinp.364
 \end_inset
 
 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-5"
+
+\end_inset
+
+A.
+ V.
+ Aho 
+\shape italic
+et al.
+\shape default
+, 
+\shape italic
+Compilers: Principles, Techniques, & Tools
+\shape default
+, Second Edition.
+ Boston: Pearson Educ., 2007.
 \end_layout
 
 \begin_layout Bibliography
