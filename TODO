@@ -1,10 +1,10 @@
 Report
 ------
 Abstract
-Pretty picture of the phases:
-    lexer -> parser -> organizer -> analyzer -> emitter
-
-...
+Results
+Discussion
+Conclusion
+    Future Work
 
 
 Tests
