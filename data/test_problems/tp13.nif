@@ -228,7 +228,10 @@ acer
 
 viewr
 {
-    card_1
+    /* Documentation names the first two cards as card 1. Use card 0 to denote
+       the first card, just like in plotr.
+     */
+    card_0
     {
         infile = 33;
         nps = 36;
