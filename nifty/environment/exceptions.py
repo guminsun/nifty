@@ -4,7 +4,7 @@ class NiftyError(Exception):
     Attributes:
         msg -- explanation of the error
     '''
-    def __init__(self, msg):
+    def __init__(self, msg=None):
         self.msg = msg
 
     def __str__(self):
@@ -31,6 +31,9 @@ class OrganizeError(NiftyError):
     '''
     pass
 
+def organize_error():
+    raise OrganizeError(None)
+
 class SemanticError(NiftyError):
     '''Exception raised for semantical errors.
 
@@ -40,15 +43,8 @@ class SemanticError(NiftyError):
     pass
 
 def semantic_error(msg, node):
-    try:
-        line = node['line_number']
-    # Catch nodes which doesn't have the key 'line_number' defined.
-    except KeyError:
-        line = None
-    # Catch None. E.g. in case of undefined identifier.
-    except TypeError:
-        line = None
-    msg = ('--- Semantic error on line %s, %s' % (line, msg))
+    line_number = get_line_number(node)
+    msg = ('--- Semantic error on line %s, %s' % (line_number, msg))
     raise SemanticError(msg)
 
 class SyntaxError(NiftyError):
@@ -66,3 +62,15 @@ def syntax_error(line_number, token):
     else:
         msg = ('--- Syntax error, unexpected token: \'%s\'' % (token))
     raise SyntaxError(msg)
+
+def get_line_number(node):
+    line_number = None
+    try:
+        line_number = node.get('line_number')
+    # Catch nodes which doesn't have the key 'line_number' defined.
+    except KeyError:
+        pass
+    # Catch None. E.g. in case of undefined identifier.
+    except TypeError:
+        pass
+    return line_number
