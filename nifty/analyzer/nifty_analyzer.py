@@ -19,7 +19,7 @@ from analyze_reconr import analyze_reconr
 #from analyze_resxsr import analyze_resxsr
 from analyze_thermr import analyze_thermr
 #from analyze_unresr import analyze_unresr
-#from analyze_viewr import analyze_viewr
+from analyze_viewr import analyze_viewr
 #from analyze_wimsr import analyze_wimsr
 
 ##############################################################################
@@ -62,7 +62,7 @@ def analyze_module(module):
         #'resxsr' : analyze_resxsr,
         'thermr' : analyze_thermr,
         #'unresr' : analyze_unresr,
-        #'viewr' : analyze_viewr,
+        'viewr' : analyze_viewr,
         #'wimsr' : analyze_wimsr,
     }
     module_name = module.get('module_name')
