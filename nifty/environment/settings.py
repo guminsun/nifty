@@ -8,7 +8,7 @@ identifier_map = {
     # If a {better,descriptive,long,...} identifier name is wanted, just add
     # it to the appropriate list. Some example names have been provided.
     'akxy' : ['akxy'], # errorr.
-    'aleg' : ['aleg'], # plotr
+    'aleg' : ['aleg'], # plotr, viewr
     'alpha2' : ['alpha2'], # groupr.
     'alpha3' : ['alpha3'], # groupr.
     'aw' : ['aw'],
@@ -38,36 +38,36 @@ identifier_map = {
     'hdescr' : ['hdescr'], # covr.
     'hk' : ['hk', 'description'],
     'hlibid' : ['hlibid'], # covr.
-    'iccol' : ['iccol'], # plotr
+    'iccol' : ['iccol'], # plotr, viewr
     'icoh' : ['icoh'], # thermr.
     'icolor' : ['icolor'], # covr.
-    'icon' : ['icon'], # plotr
-    'idash' : ['idash'], # plotr
+    'icon' : ['icon'], # plotr, viewr
+    'idash' : ['idash'], # plotr, viewr
     'ielas' : ['ielas'],
     'ifissp' : ['ifissp'], # errorr.
     'ign' : ['ign', 'neutron_group_structure'], # errorr, groupr.
     'igg' : ['igg', 'gamma_group_structure'], # groupr.
-    'igrid' : ['igrid'], # plotr
+    'igrid' : ['igrid'], # plotr, viewr
     'iinc' : ['iinc'], # thermr.
-    'ileg' : ['ileg'], # plotr
+    'ileg' : ['ileg'], # plotr, viewr
     'infile' : ['infile', 'input'], # viewr.
     'iopt' : ['iopt', 'acer_run_option'],
     'iopp' : ['iopp'],
-    'iplot' : ['iplot'], # plotr
+    'iplot' : ['iplot'], # plotr, viewr
     'ipcol' : ['ipcol'], # plotr
     'iprint' : ['iprint', 'print_control'], # errorr, groupr, thermr, ...
     'iread' : ['iread'], # errorr
     'irelco' : ['irelco'], # covr, errorr, ...
     'irespr' : ['irespr'], # errorr
-    'ishade' : ['ishade'], # plotr
+    'ishade' : ['ishade'], # plotr, viewr
     'istart' : ['istart', 'restart'], # broadr.
     'istyle' : ['istyle'], # plotr
     'istrap' : ['istrap', 'bootstrap'], # broadr.
-    'isym' : ['isym'], # plotr
-    'ithick' : ['ithick'], # plotr
-    'itype' : ['itype'], # plotr
+    'isym' : ['isym'], # plotr, viewr
+    'ithick' : ['ithick'], # plotr, viewr
+    'itype' : ['itype'], # plotr, viewr
     'iverf' : ['iverf'], # plotr
-    'iwcol' : ['iwcol'], # plotr
+    'iwcol' : ['iwcol'], # plotr, viewr
     'iwt' : ['iwt'], # errorr, groupr.
     'iz' : ['iz'],
     # XXX: Treat iza as an array?
@@ -75,7 +75,7 @@ identifier_map = {
     'iza02' : ['iza02'],
     'iza03' : ['iza03'],
     'jsigz' : ['jsigz'], # groupr.
-    'jtype' : ['jtype'], # plotr
+    'jtype' : ['jtype'], # plotr, viewr
     'legord' : ['legord'], # errorr.
     'local' : ['local'],
     'lord' : ['lord', 'legendre_order'], # groupr.
@@ -115,7 +115,7 @@ identifier_map = {
     'nendf' : ['nendf', 'endf_input'],
     'newfor' : ['newfor'],
     'nflmax' : ['nflmax', 'max_flux_points'], # groupr.
-    'nform' : ['nform'], # plotr
+    'nform' : ['nform'], # plotr, viewr
     'ngend' : ['ngend', 'multigroup_photon_input'],
     'ngg' : ['ngg', 'number_of_gamma_groups'], # groupr.
     'ngn' : ['ngn', 'number_of_neutron_groups'], # errorr, groupr.
@@ -150,16 +150,18 @@ identifier_map = {
     'qa' : ['qa'],
     'qbar' : ['qbar'],
     'rbot' : ['rbot'], # plotr
-    'rl' : ['rl'], # plotr
+    'rl' : ['rl'], # plotr, viewr
+    'rmax' : ['rmax'], # viewr
+    'rmin' : ['rmin'], # viewr
     'rtop' : ['rtop'], # plotr
-    'rstep' : ['rstep'], # plotr
+    'rstep' : ['rstep'], # plotr, viewr
     'sam' : ['sam'],
     'sigpot' : ['sigpot'], # groupr.
     'sigz' : ['sigz', 'sigma_zero_values'], # groupr.
     'size' : ['size'], # plotr
     'suff' : ['suff'],
-    't1' : ['t1'], # plotr
-    't2' : ['t2'], # plotr
+    't1' : ['t1'], # plotr, viewr
+    't2' : ['t2'], # plotr, viewr
     'tb' : ['tb', 'thermal_temperature'], # errorr, groupr.
     'tc' : ['tc', 'fission_temperature'], # errorr, groupr.
     'temp' : ['temp', 'temperature'], # groupr.
@@ -180,30 +182,37 @@ identifier_map = {
     'tol' : ['tol', 'tolerance'], # thermr.
     'tpid' : ['tpid'], # moder
     'wght' : ['wght'], # errorr, groupr.
-    'wh' : ['wh'], # plotr
-    'wr' : ['wr'], # plotr
-    'ww' : ['ww'], # plotr
-    'x3' : ['x3'], # plotr
-    'xdata' : ['xdata'], # plotr
-    'xerr1' : ['xerr1'], # plotr
-    'xerr2' : ['xerr2'], # plotr
-    'xlabl' : ['xlabl'], # plotr
-    'xll' : ['xll'], # plotr
-    'xpoint' : ['xpoint'], # plotr
+    'wh' : ['wh'], # plotr, viewr
+    'wr' : ['wr'], # plotr, viewr
+    'ww' : ['ww'], # plotr, viewr
+    'x' : ['x'], # viewr
+    'x3' : ['x3'], # plotr, viewr
+    'xdata' : ['xdata'], # plotr, viewr
+    'xerr1' : ['xerr1'], # plotr, viewr
+    'xerr2' : ['xerr2'], # plotr, viewr
+    'xlabl' : ['xlabl'], # plotr, viewr
+    'xll' : ['xll'], # plotr, viewr
+    'xmax' : ['xmax'], # viewr
+    'xmin' : ['xmin'], # viewr
+    'xpoint' : ['xpoint'], # plotr, viewr
     'xstep' : ['xstep'], # plotr
-    'xtag' : ['xtag'], # plotr
-    'xv' : ['xv'], # plotr
-    'y3' : ['y3'], # plotr
-    'ydata' : ['ydata'], # plotr
-    'yerr1' : ['yerr1'], # plotr
-    'yerr2' : ['yerr2'], # plotr
+    'xtag' : ['xtag'], # plotr, viewr
+    'xv' : ['xv'], # plotr, viewr
+    'y' : ['y'], # viewr
+    'y3' : ['y3'], # plotr, viewr
+    'ydata' : ['ydata'], # plotr, viewr
+    'yerr1' : ['yerr1'], # plotr, viewr
+    'yerr2' : ['yerr2'], # plotr, viewr
     'yh' : ['yh'], # plotr
     'yl' : ['yl'], # plotr
-    'ylabl' : ['ylabl'], # plotr
-    'yll' : ['yll'], # plotr
-    'ytag' : ['ytag'], # plotr
-    'ystep' : ['ystep'], # plotr
-    'yv' : ['yv'], # plotr
-    'z3' : ['z3'], # plotr
-    'zv' : ['zv'], # plotr
+    'ylabl' : ['ylabl'], # plotr, viewr
+    'yll' : ['yll'], # plotr, viewr
+    'ymax' : ['ymax'], # viewr
+    'ymin' : ['ymin'], # viewr
+    'ytag' : ['ytag'], # plotr, viewr
+    'ystep' : ['ystep'], # plotr, viewr
+    'yv' : ['yv'], # plotr, viewr
+    'z' : ['z'], # viewr
+    'z3' : ['z3'], # plotr, viewr
+    'zv' : ['zv'], # plotr, viewr
 }
