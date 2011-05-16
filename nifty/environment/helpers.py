@@ -112,6 +112,12 @@ def get_cards(card_name, module_node):
             cards.append(c)
     return cards
 
+def get_internal_identifier_name(id_name):
+    for internal_name in identifier_map:
+        if id_name in identifier_map[internal_name]:
+            return internal_name
+    return None
+
 def get_identifier_name(id_node):
     '''
         Return name of the identifier 'id_node', if it is an valid name, else
