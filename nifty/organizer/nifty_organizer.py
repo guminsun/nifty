@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 from nifty.environment.exceptions import OrganizeError
-from nifty.environment import helpers as helper
+from nifty.environment.exceptions import SemanticError
 
 from organize_acer import organize_acer
 #from organize_broadr import organize_broadr
@@ -35,10 +35,14 @@ def organize(ast):
     # organizing process fails.
     original_ast = deepcopy(ast)
     # Try to organize the program. Restore the original program if an
-    # OrganizeError is raised.
+    # OrganizeError or SemanticError is raised.
     try:
         return organize_program(ast)
     except OrganizeError:
+        return original_ast
+    # Semantic errors are catched since e.g. get_identifier_name/1 is used
+    # when sorting the cards statement lists.
+    except SemanticError:
         return original_ast
 
 def organize_program(program):
@@ -53,7 +57,7 @@ def organize_module_list(module_list):
 
 def organize_module(module):
     organizer_functions = {
-        #'acer' : organize_acer,
+        'acer' : organize_acer,
         #'broadr' : organize_broadr,
         #'ccccr' : organize_ccccr,
         #'covr' : organize_covrr,
