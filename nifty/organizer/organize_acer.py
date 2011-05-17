@@ -4,8 +4,6 @@ from nifty.analyzer import analyzer_rules as rule
 from nifty.environment import helpers as env
 import organizer_helpers as helper
 
-from nifty.environment import syntax_tree as ast
-
 ##############################################################################
 # Organize acer. Put together into an orderly, functional, structured whole.
 
@@ -31,18 +29,21 @@ def organize_card_list(module):
     if iopt == 1:
         c5 = env.next(card_iter)
         organize_card_5(c5, module)
-        # Card 6 does not have to be defined if the organizer is used. Insert
-        # a card 6 such that the program may pass the semantic analysis.
+        # Card 6 may be defaulted. If card 6 is not defined, insert a empty
+        # card.
+        card_list = module.get('card_list')
         if env.get_card('card_6', module) is None:
-            card_list = module.get('card_list')
             index = card_list.index(c5) + 1
-            c6 = ast.make_card(None, 'card_6', list())
-            card_list.insert(index, c6)
+            helper.insert_default_card(index, 'card_6', card_list)
             c6 = env.next(card_iter)
         else:
             c6 = organize_card_6(env.next(card_iter), module)
+        # Likewise, card 7 may be defaulted. If card 6 is not defined, insert
+        # a empty card.
         if env.get_card('card_7', module) is None:
-            pass
+            index = card_list.index(c6) + 1
+            helper.insert_default_card(index, 'card_7', card_list)
+            env.next(card_iter)
         else:
             organize_card_7(env.next(card_iter), module)
     # Card 8, 8a and 9 should only be defined if iopt = 2 in card_2.
@@ -73,7 +74,8 @@ def organize_card_1(card, module):
         4 : ('singleton', 'identifier', ('ndir', None)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_2(card, module):
@@ -93,7 +95,7 @@ def organize_card_2(card, module):
     # supposed to be defined.
     stmt_iter = env.get_statement_iterator(card)
     # First element in 'statement_list' is assumed to be the iopt node after
-    # sorting. 
+    # sorting.
     iopt = get_iopt(env.next(stmt_iter), card, module)
     # Fifth element in 'statement_list' is assumed to be the nxtra node after
     # sorting.
@@ -146,7 +148,8 @@ def organize_card_5(card, module):
         1 : ('singleton', 'identifier', ('tempd', 300)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_6(card, module):
@@ -156,7 +159,8 @@ def organize_card_6(card, module):
         1 : ('singleton', 'identifier', ('iopp', 1)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_7(card, module):
@@ -167,7 +171,8 @@ def organize_card_7(card, module):
         2 : ('singleton', 'identifier', ('thin03', None)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_8(card, module):
@@ -178,7 +183,8 @@ def organize_card_8(card, module):
         2 : ('singleton', 'identifier', ('tname', 'za')),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_8a(card, module):
@@ -189,7 +195,8 @@ def organize_card_8a(card, module):
         2 : ('singleton', 'identifier', ('iza03', 0)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_9(card, module):
@@ -204,7 +211,8 @@ def organize_card_9(card, module):
         6 : ('singleton', 'identifier', ('iwt', 1)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_10(card, module):
@@ -214,7 +222,8 @@ def organize_card_10(card, module):
         1 : ('singleton', 'identifier', ('tempd', 300)),
     }
     statement_list = card.get('statement_list')
-    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    statement_list = helper.sort_statement_list(expected, statement_list)
+    card['statement_list'] = statement_list
     return card
 
 def organize_card_11(card, module):

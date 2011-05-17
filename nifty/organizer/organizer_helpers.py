@@ -24,7 +24,7 @@ def sort_statement_list(expected, statement_list):
         identifier_must_be_unique(internal_id_name, statement_list)
         # The identifier must be one of the expected ones.
         if is_expected(internal_id_name, array_index, expected):
-            # If the identifier is an expected one, insert it on the expected 
+            # If the identifier is an expected one, insert it on the expected
             # index in the new statement list.
             index = get_expected_index(internal_id_name, array_index, expected)
             new_statement_list[index] = statement
@@ -78,6 +78,10 @@ def insert_default_values(expected_map, statement_list):
         index = statement_list.index(None)
         statement_list[index] = make_node(expected_map[index])
     return statement_list
+
+def insert_default_card(index, card_name, card_list):
+    card = ast.make_card(None, card_name, list())
+    card_list.insert(index, card)
 
 ##############################################################################
 # Node Constructor Helpers.
