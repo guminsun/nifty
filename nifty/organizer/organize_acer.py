@@ -25,24 +25,24 @@ def organize_card_list(module):
     # Card 4 should only be defined if nxtra > 0 in card_2.
     if nxtra > 0:
         organize_card_4(nxtra, env.next(card_iter), module)
-    ## Card 5, 6 and 7 should only be defined if iopt = 1 in card_2.
-    #if iopt == 1:
-    #    analyze_acer_card_5(env.next(card_iter), module)
-    #    analyze_acer_card_6(env.next(card_iter), module)
-    #    analyze_acer_card_7(env.next(card_iter), module)
-    ## Card 8, 8a and 9 should only be defined if iopt = 2 in card_2.
-    #if iopt == 2:
-    #    analyze_acer_card_8(env.next(card_iter), module)
-    #    analyze_acer_card_8a(env.next(card_iter), module)
-    #    analyze_acer_card_9(env.next(card_iter), module)
-    ## Card 10 should only be defined if iopt = 3 in card_2.
-    #if iopt == 3:
-    #    analyze_acer_card_10(env.next(card_iter), module)
-    ## Card 11 should only be defined if iopt = 4 or 5 in card_2.
-    #if iopt == 4 or iopt == 5:
-    #    analyze_acer_card_11(env.next(card_iter), module)
-    ## No more cards are allowed. The next card returned by env.next(card_iter)
-    ## should be 'None'.
+    # Card 5, 6 and 7 should only be defined if iopt = 1 in card_2.
+    if iopt == 1:
+        organize_card_5(env.next(card_iter), module)
+        organize_card_6(env.next(card_iter), module)
+        organize_card_7(env.next(card_iter), module)
+    # Card 8, 8a and 9 should only be defined if iopt = 2 in card_2.
+    if iopt == 2:
+        organize_card_8(env.next(card_iter), module)
+        organize_card_8a(env.next(card_iter), module)
+        organize_card_9(env.next(card_iter), module)
+    # Card 10 should only be defined if iopt = 3 in card_2.
+    if iopt == 3:
+        organize_card_10(env.next(card_iter), module)
+    # Card 11 should only be defined if iopt = 4 or 5 in card_2.
+    if iopt == 4 or iopt == 5:
+        organize_card_11(env.next(card_iter), module)
+    # No more cards are allowed. The next card returned by env.next(card_iter)
+    # should be 'None'.
     #rule.no_card_allowed(env.next(card_iter), module)
     return module
 
@@ -125,58 +125,85 @@ def organize_card_4(nxtra, card, module):
     return card
 
 def organize_card_5(card, module):
-    #default_values = [('tempd', None, 300)]
-    #card = helper.organize_default_values(default_values, card)
-    #ordered_id_names = [('matd', None), ('tempd', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_5', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('matd', None)),
+        1 : ('singleton', 'identifier', ('tempd', 300)),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_6(card, module):
-    #default_values = [('newfor', None, 1), ('iopp', None, 1)]
-    #card = helper.organize_default_values(default_values, card)
-    #ordered_id_names = [('newfor', None), ('iopp', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_6', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('newfor', 1)),
+        1 : ('singleton', 'identifier', ('iopp', 1)),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_7(card, module):
-    # XXX: Treat as an array? What about default values?
-    #ordered_id_names = [('thin01', None), ('thin02', None), ('thin03', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_7', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('thin01', None)),
+        1 : ('singleton', 'identifier', ('thin02', None)),
+        2 : ('singleton', 'identifier', ('thin03', None)),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_8(card, module):
-    #default_values = [('tempd', None, 300), ('tname', None, 'za')]
-    #card = helper.organize_default_values(default_values, card)
-    #ordered_id_names = [('matd', None), ('tempd', None), ('tname', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_8', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('matd', None)),
+        1 : ('singleton', 'identifier', ('tempd', 300)),
+        2 : ('singleton', 'identifier', ('tname', 'za')),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_8a(card, module):
-    # XXX: Treat as an array?
-    #default_values = [('iza02', None, 0), ('iza03', None, 0)]
-    #card = helper.organize_default_values(default_values, card)
-    #ordered_id_names = [('iza01', None), ('iza02', None), ('iza03', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_8a', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('iza01', None)),
+        1 : ('singleton', 'identifier', ('iza02', 0)),
+        2 : ('singleton', 'identifier', ('iza03', 0)),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_9(card, module):
-    #default_values = [('nmix', None, 1), ('emax', None, 1000.0),
-    #                  ('iwt', None, 1)]
-    #card = helper.organize_default_values(default_values, card)
-    #ordered_id_names = [('mti', None), ('nbint', None), ('mte', None),
-    #                    ('ielas', None), ('nmix', None), ('emax', None),
-    #                    ('iwt', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_9', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('mti', None)),
+        1 : ('singleton', 'identifier', ('nbint', None)),
+        2 : ('singleton', 'identifier', ('mte', None)),
+        3 : ('singleton', 'identifier', ('ielas', None)),
+        4 : ('singleton', 'identifier', ('nmix', 1)),
+        5 : ('singleton', 'identifier', ('emax', 1000.0)),
+        6 : ('singleton', 'identifier', ('iwt', 1)),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_10(card, module):
-    #default_values = [('tempd', None, 300)]
-    #card = helper.organize_default_values(default_values, card)
-    #ordered_id_names = [('matd', None), ('tempd', None)]
-    #return helper.organize_statement_list(ordered_id_names, card)
-    pass
+    helper.card_must_be_defined('card_10', card)
+    expected = {
+        0 : ('singleton', 'identifier', ('matd', None)),
+        1 : ('singleton', 'identifier', ('tempd', 300)),
+    }
+    statement_list = card.get('statement_list')
+    card['statement_list'] = helper.sort_statement_list(expected, statement_list)
+    return card
 
 def organize_card_11(card, module):
     # No need to organize card 11; it only contains one variable which has no
     # default value.
-    pass
+    helper.card_must_be_defined('card_11', card)
+    return card
