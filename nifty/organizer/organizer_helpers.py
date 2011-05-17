@@ -48,10 +48,9 @@ def organize_statement_list(expected, statement_list):
             organize_error()
     # Trim 'new_statement_list' by removing trailing None's.
     new_statement_list = trim_statement_list(new_statement_list)
-    # Replace possible None's with their default values.
+    # Replace possible None's with default values. Error is raised if no
+    # default value is available (e.g. identifier must be defined).
     new_statement_list = insert_default_values(expected, new_statement_list)
-    # Check if the statement list includes a None value and if it does,
-    # raise error.
     return new_statement_list
 
 def trim_statement_list(statement_list):
@@ -245,6 +244,9 @@ def make_value(value):
         return ast.make_integer(None, value)
     elif isinstance(value, str):
         return ast.make_string(None, value)
+    elif value is None:
+        # No default value. The identifier must be defined. Raise error.
+        organize_error()
     else:
-        # Catch anything else just in case (and return the original AST).
+        # Catch anything else just in case and raise organizer exception.
         organize_error()
