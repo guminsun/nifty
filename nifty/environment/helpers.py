@@ -89,6 +89,12 @@ def is_valid_name(name_to_validate, reserved_id_name):
 ##############################################################################
 # Getter helpers.
 
+def get_array_index(id_node):
+    if is_array(id_node):
+        return id_node.get('index')
+    else:
+        return None
+
 def get_card(card_name, module_node):
     '''
         Return card node of 'card_name' if 'card_name' is in "module_node"'s
@@ -159,9 +165,15 @@ def get_statement_iterator(card_node):
 
 def next(iterator):
     '''
-        Return next node in 'iterator' if there is one, else None.
+        Return next object in 'iterator' if there is one, else None.
     '''
     try:
         return iterator.next()
     except StopIteration:
         return None
+
+def skip(n, iterator):
+    '''
+        Skips 'n' objects in 'iterator'.
+    '''
+    for i in range(n): next(iterator)
