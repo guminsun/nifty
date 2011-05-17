@@ -4,6 +4,8 @@ from nifty.analyzer import analyzer_rules as rule
 from nifty.environment import helpers as env
 import organizer_helpers as helper
 
+from nifty.environment import syntax_tree as ast
+
 ##############################################################################
 # Organize acer. Put together into an orderly, functional, structured whole.
 
@@ -27,9 +29,22 @@ def organize_card_list(module):
         organize_card_4(nxtra, env.next(card_iter), module)
     # Card 5, 6 and 7 should only be defined if iopt = 1 in card_2.
     if iopt == 1:
-        organize_card_5(env.next(card_iter), module)
-        organize_card_6(env.next(card_iter), module)
-        organize_card_7(env.next(card_iter), module)
+        c5 = env.next(card_iter)
+        organize_card_5(c5, module)
+        # Card 6 does not have to be defined if the organizer is used. Insert
+        # a card 6 such that the program may pass the semantic analysis.
+        if env.get_card('card_6', module) is None:
+            card_list = module.get('card_list')
+            index = card_list.index(c5) + 1
+            c6 = ast.make_card(None, 'card_6', list())
+            card_list.insert(index, c6)
+            c6 = env.next(card_iter)
+        else:
+            c6 = organize_card_6(env.next(card_iter), module)
+        if env.get_card('card_7', module) is None:
+            pass
+        else:
+            organize_card_7(env.next(card_iter), module)
     # Card 8, 8a and 9 should only be defined if iopt = 2 in card_2.
     if iopt == 2:
         organize_card_8(env.next(card_iter), module)
@@ -43,7 +58,7 @@ def organize_card_list(module):
         organize_card_11(env.next(card_iter), module)
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
-    #rule.no_card_allowed(env.next(card_iter), module)
+    rule.no_card_allowed(env.next(card_iter), module)
     return module
 
 def organize_card_1(card, module):
