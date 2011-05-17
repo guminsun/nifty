@@ -1,11 +1,29 @@
 import sys
 
+from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import organize_error
+from nifty.environment.exceptions import SemanticError
+
 from nifty.environment import helpers as env
 from nifty.environment import syntax_tree as ast
 
 ##############################################################################
 # Organizer helpers.
+
+def organize_card(expected_map, card_node):
+    statement_list = card_node.get('statement_list')
+    # Try to organize the card's statement list. Restore the original card
+    # node if an OrganizeError or SemanticError is raised.
+    try:
+        statement_list = sort_statement_list(expected_map, statement_list)
+    except OrganizeError:
+        return card_node
+    # Semantic errors are catched since e.g. get_identifier_name/1 is used
+    # when sorting the cards statement lists.
+    except SemanticError:
+        return card_node
+    card_node['statement_list'] = statement_list
+    return card_node
 
 def sort_statement_list(expected, statement_list):
     new_statement_list = list(None for i in range(len(expected)))

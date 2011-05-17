@@ -66,30 +66,25 @@ def organize_card_1(card, module):
     # Card 1 must be defined. OrganizeError is raised if 'card' is not card 1
     # (the original syntax tree will be returned).
     helper.card_must_be_defined('card_1', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('nendf', None)),
         1 : ('singleton', 'identifier', ('npend', None)),
         2 : ('singleton', 'identifier', ('ngend', None)),
         3 : ('singleton', 'identifier', ('nace', None)),
         4 : ('singleton', 'identifier', ('ndir', None)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
     helper.card_must_be_defined('card_2', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('iopt', None)),
         1 : ('singleton', 'identifier', ('iprint', 1)),
         2 : ('singleton', 'identifier', ('ntype', 1)),
         3 : ('singleton', 'identifier', ('suff', 0.00)),
         4 : ('singleton', 'identifier', ('nxtra', 0)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
+    card = helper.organize_card(expected_map, card)
     # The statement iterator is used to get the iopt and nxtra values which
     # are used in organize_card_list/1 to determine which cards that are
     # supposed to be defined.
@@ -133,75 +128,57 @@ def organize_card_3(card, module):
 
 def organize_card_4(nxtra, card, module):
     helper.card_must_be_defined('card_4', card)
-    expected = {}
+    expected_map = {}
     for i in range(nxtra):
-        expected[i] = ('pair', 'array', (('iz', None, i), ('aw', None, i)))
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+        expected_map[i] = ('pair', 'array', (('iz', None, i), ('aw', None, i)))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
     helper.card_must_be_defined('card_5', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('matd', None)),
         1 : ('singleton', 'identifier', ('tempd', 300)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_6(card, module):
     helper.card_must_be_defined('card_6', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('newfor', 1)),
         1 : ('singleton', 'identifier', ('iopp', 1)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_7(card, module):
     helper.card_must_be_defined('card_7', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('thin01', None)),
         1 : ('singleton', 'identifier', ('thin02', None)),
         2 : ('singleton', 'identifier', ('thin03', None)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8(card, module):
     helper.card_must_be_defined('card_8', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('matd', None)),
         1 : ('singleton', 'identifier', ('tempd', 300)),
         2 : ('singleton', 'identifier', ('tname', 'za')),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8a(card, module):
     helper.card_must_be_defined('card_8a', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('iza01', None)),
         1 : ('singleton', 'identifier', ('iza02', 0)),
         2 : ('singleton', 'identifier', ('iza03', 0)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_9(card, module):
     helper.card_must_be_defined('card_9', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('mti', None)),
         1 : ('singleton', 'identifier', ('nbint', None)),
         2 : ('singleton', 'identifier', ('mte', None)),
@@ -210,21 +187,15 @@ def organize_card_9(card, module):
         5 : ('singleton', 'identifier', ('emax', 1000.0)),
         6 : ('singleton', 'identifier', ('iwt', 1)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_10(card, module):
     helper.card_must_be_defined('card_10', card)
-    expected = {
+    expected_map = {
         0 : ('singleton', 'identifier', ('matd', None)),
         1 : ('singleton', 'identifier', ('tempd', 300)),
     }
-    statement_list = card.get('statement_list')
-    statement_list = helper.sort_statement_list(expected, statement_list)
-    card['statement_list'] = statement_list
-    return card
+    return helper.organize_card(expected_map, card)
 
 def organize_card_11(card, module):
     # No need to organize card 11; it only contains one variable which has no
