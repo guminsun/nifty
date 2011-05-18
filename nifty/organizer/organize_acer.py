@@ -65,22 +65,22 @@ def organize_card_1(card, module):
     # (the original syntax tree will be returned).
     helper.card_must_be_defined('card_1', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('nendf', None)),
-        1 : ('singleton', 'identifier', ('npend', None)),
-        2 : ('singleton', 'identifier', ('ngend', None)),
-        3 : ('singleton', 'identifier', ('nace', None)),
-        4 : ('singleton', 'identifier', ('ndir', None)),
+        0 : ('identifier', ('nendf', None)),
+        1 : ('identifier', ('npend', None)),
+        2 : ('identifier', ('ngend', None)),
+        3 : ('identifier', ('nace', None)),
+        4 : ('identifier', ('ndir', None)),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
     helper.card_must_be_defined('card_2', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('iopt', None)),
-        1 : ('singleton', 'identifier', ('iprint', 1)),
-        2 : ('singleton', 'identifier', ('ntype', 1)),
-        3 : ('singleton', 'identifier', ('suff', 0.00)),
-        4 : ('singleton', 'identifier', ('nxtra', 0)),
+        0 : ('identifier', ('iopt', None)),
+        1 : ('identifier', ('iprint', 1)),
+        2 : ('identifier', ('ntype', 1)),
+        3 : ('identifier', ('suff', 0.00)),
+        4 : ('identifier', ('nxtra', 0)),
     }
     card = helper.organize_card(expected_map, card)
     # The statement iterator is used to get the iopt and nxtra values which
@@ -98,7 +98,7 @@ def organize_card_2(card, module):
 
 def get_iopt(node, card, module):
     # Expecting a singleton value.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier; iopt
     rule.identifier_must_be_defined('iopt', l_value, card, module)
     # The r-value of the assignment is expected to be an integer.
@@ -110,7 +110,7 @@ def get_nxtra(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier.
         rule.identifier_must_be_defined('nxtra', l_value, card, module)
         # The r-value of the assignment is expected to be an integer.
@@ -129,73 +129,73 @@ def organize_card_4(nxtra, card, module):
     expected_map = {}
     order = 0
     for i in range(nxtra):
-        expected_map[order] = ('singleton', 'array', ('iz', None, i))
+        expected_map[order] = ('array', ('iz', None, i))
         order += 1
-        expected_map[order] = ('singleton', 'array', ('aw', None, i))
+        expected_map[order] = ('array', ('aw', None, i))
         order += 1
     return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
     helper.card_must_be_defined('card_5', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('matd', None)),
-        1 : ('singleton', 'identifier', ('tempd', 300)),
+        0 : ('identifier', ('matd', None)),
+        1 : ('identifier', ('tempd', 300)),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_6(card, module):
     helper.card_must_be_defined('card_6', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('newfor', 1)),
-        1 : ('singleton', 'identifier', ('iopp', 1)),
+        0 : ('identifier', ('newfor', 1)),
+        1 : ('identifier', ('iopp', 1)),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_7(card, module):
     helper.card_must_be_defined('card_7', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('thin01', None)),
-        1 : ('singleton', 'identifier', ('thin02', None)),
-        2 : ('singleton', 'identifier', ('thin03', None)),
+        0 : ('identifier', ('thin01', None)),
+        1 : ('identifier', ('thin02', None)),
+        2 : ('identifier', ('thin03', None)),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_8(card, module):
     helper.card_must_be_defined('card_8', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('matd', None)),
-        1 : ('singleton', 'identifier', ('tempd', 300)),
-        2 : ('singleton', 'identifier', ('tname', 'za')),
+        0 : ('identifier', ('matd', None)),
+        1 : ('identifier', ('tempd', 300)),
+        2 : ('identifier', ('tname', 'za')),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_8a(card, module):
     helper.card_must_be_defined('card_8a', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('iza01', None)),
-        1 : ('singleton', 'identifier', ('iza02', 0)),
-        2 : ('singleton', 'identifier', ('iza03', 0)),
+        0 : ('identifier', ('iza01', None)),
+        1 : ('identifier', ('iza02', 0)),
+        2 : ('identifier', ('iza03', 0)),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_9(card, module):
     helper.card_must_be_defined('card_9', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('mti', None)),
-        1 : ('singleton', 'identifier', ('nbint', None)),
-        2 : ('singleton', 'identifier', ('mte', None)),
-        3 : ('singleton', 'identifier', ('ielas', None)),
-        4 : ('singleton', 'identifier', ('nmix', 1)),
-        5 : ('singleton', 'identifier', ('emax', 1000.0)),
-        6 : ('singleton', 'identifier', ('iwt', 1)),
+        0 : ('identifier', ('mti', None)),
+        1 : ('identifier', ('nbint', None)),
+        2 : ('identifier', ('mte', None)),
+        3 : ('identifier', ('ielas', None)),
+        4 : ('identifier', ('nmix', 1)),
+        5 : ('identifier', ('emax', 1000.0)),
+        6 : ('identifier', ('iwt', 1)),
     }
     return helper.organize_card(expected_map, card)
 
 def organize_card_10(card, module):
     helper.card_must_be_defined('card_10', card)
     expected_map = {
-        0 : ('singleton', 'identifier', ('matd', None)),
-        1 : ('singleton', 'identifier', ('tempd', 300)),
+        0 : ('identifier', ('matd', None)),
+        1 : ('identifier', ('tempd', 300)),
     }
     return helper.organize_card(expected_map, card)
 
