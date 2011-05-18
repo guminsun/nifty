@@ -14,8 +14,15 @@ def organize_plotr(module):
 
 def organize_card_list(card_list, module):
     card_iter = env.get_card_iterator(module)
-    # Card 1 should always be defined.
-    organize_card_0(env.next(card_iter), module)
+    # Card 0 should always be defined.
+    c0 = organize_card_0(env.next(card_iter), module)
+    # Card 1 may be defaulted. If card 1 is not defined, insert a empty card.
+    if env.get_card('card_1', module) is None:
+        index = card_list.index(c0) + 1
+        helper.insert_default_card(index, 'card_1', card_list)
+        c1 = organize_card_1(env.next(card_iter), module)
+    else:
+        c1 = organize_card_1(env.next(card_iter), module)
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
     # XXX: rule.no_card_allowed(env.next(card_iter), module)
@@ -28,5 +35,15 @@ def organize_card_0(card, module):
     expected_map = {
         0 : ('singleton', 'identifier', ('nplt', None)),
         1 : ('singleton', 'identifier', ('nplt0', 0)),
+    }
+    return helper.organize_card(expected_map, card)
+
+def organize_card_1(card, module):
+    helper.card_must_be_defined('card_1', card)
+    expected_map = {
+        0 : ('singleton', 'identifier', ('lori', 1)),
+        1 : ('singleton', 'identifier', ('istyle', 2)),
+        2 : ('singleton', 'identifier', ('size', 0.30)),
+        3 : ('singleton', 'identifier', ('ipcol', 0)),
     }
     return helper.organize_card(expected_map, card)
