@@ -145,13 +145,8 @@ def analyze_plotr_card_2(lori, card, module):
     analyze_plotr_card_2_iwcol(env.next(stmt_iter), card, module)
     analyze_plotr_card_2_factx(env.next(stmt_iter), card, module)
     analyze_plotr_card_2_facty(env.next(stmt_iter), card, module)
-    # xll and yll is not supposed to be defined as a pair due to possible
-    # float values.
     analyze_plotr_card_2_xll(env.next(stmt_iter), card, module)
     analyze_plotr_card_2_yll(env.next(stmt_iter), card, module)
-    # ww, wh and wr is not supposed to be defined as a triplet due to possible
-    # float values, even though it appears like they should be defined as a
-    # triplet in the documentation.
     analyze_plotr_card_2_ww(lori, env.next(stmt_iter), card, module)
     analyze_plotr_card_2_wh(lori, env.next(stmt_iter), card, module)
     analyze_plotr_card_2_wr(env.next(stmt_iter), card, module)
@@ -292,7 +287,6 @@ def analyze_plotr_card_4(card, module):
     jtype = analyze_plotr_card_4_jtype(env.next(stmt_iter), card, module)
     analyze_plotr_card_4_igrid(env.next(stmt_iter), card, module)
     ileg = analyze_plotr_card_4_ileg(env.next(stmt_iter), card, module)
-    # XXX: Is xtag and ytag a possible pair definition?
     analyze_plotr_card_4_xtag(env.next(stmt_iter), card, module)
     analyze_plotr_card_4_ytag(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
