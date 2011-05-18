@@ -145,10 +145,14 @@ def analyze_plotr_card_2(lori, card, module):
     analyze_plotr_card_2_iwcol(env.next(stmt_iter), card, module)
     analyze_plotr_card_2_factx(env.next(stmt_iter), card, module)
     analyze_plotr_card_2_facty(env.next(stmt_iter), card, module)
-    # xll, yll pair.
-    analyze_plotr_card_2_xll_yll(env.next(stmt_iter), card, module)
-    # ww, wh, wr triplet.
-    analyze_plotr_card_2_ww_wh_wr(lori, env.next(stmt_iter), card, module)
+    # XXX: Is xll and yll supposed to be defined as a pair?
+    analyze_plotr_card_2_xll(env.next(stmt_iter), card, module)
+    analyze_plotr_card_2_yll(env.next(stmt_iter), card, module)
+    # ww, wh and wr is not defined as a triplet even though it appears like it
+    # in the documentation.
+    analyze_plotr_card_2_ww(lori, env.next(stmt_iter), card, module)
+    analyze_plotr_card_2_wh(lori, env.next(stmt_iter), card, module)
+    analyze_plotr_card_2_wr(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card, iplot
 
@@ -190,24 +194,29 @@ def analyze_plotr_card_2_facty(node, card, module):
     # Factor for cross-sections does not have to be defined, defaults to 1.0.
     return analyze_factor('facty', node, card, module)
 
-def analyze_plotr_card_2_xll_yll(node, card, module):
+def analyze_plotr_card_2_xll(node, card, module):
     # Lower left corner of plot area (pair: xll, yll) does not have to be
-    # defined, defaults to 0, 0 (a pair value).
+    # defined, defaults to 0 and 0.
     if node is None:
-        return 0, 0
+        return 0
     else:
-        # Expecting a pair.
-        l_value_pair, r_value_pair = rule.analyze_pair(node, card, module)
-        # xll and yll are expected to be regular identifiers, as such None is
-        # given as the array index to indicate that they have none.
-        expected_pair = (('xll', None), ('yll', None))
-        rule.pair_must_be_defined(expected_pair, l_value_pair, r_value_pair, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xll', l_value, card, module)
         # XXX: Additional checks?
-        xll = r_value_pair[0].get('value')
-        yll = r_value_pair[1].get('value')
-        return xll, yll
+        return r_value.get('value')
 
-def analyze_plotr_card_2_ww_wh_wr(lori, node, card, module):
+def analyze_plotr_card_2_yll(node, card, module):
+    # Lower left corner of plot area (pair: xll, yll) does not have to be
+    # defined, defaults to 0 and 0.
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('yll', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_2_ww(lori, node, card, module):
     # Triplet: window width (ww), height (wh), and rotation angle (wr) does
     # not have to be defined.
     # Default values for ww and wh depends on the page orientation (lori):
@@ -218,27 +227,37 @@ def analyze_plotr_card_2_ww_wh_wr(lori, node, card, module):
     # If page orientation (lori) is portrait then the page size is 7.5 x 10
     # inches, else if the page orientation is landscape then the page size is
     # 10 x 7.5 inches (Rotation angle, 'wr', defaults to 0).
-    if lori == 0:
-        ww = 7.5
-        wh = 10.0
-    else:
-        ww = 10.0
-        wh = 7.5
     if node is None:
-        return ww, wh, 0
+        if lori == 0:
+            return 7.5
+        else:
+            return 10.0
     else:
-        # Expecting a triplet.
-        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
-        # The triplet ww, wh, wr is expected to be defined as regular
-        # identifiers, as such None is given as the array index to indicate
-        # that the identifiers have none.
-        expected_triplet = (('ww', None), ('wh', None), ('wr', None))
-        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ww', l_value, card, module)
         # XXX: Additional checks?
-        ww = r_value_triplet[0].get('value')
-        wh = r_value_triplet[1].get('value')
-        wr = r_value_triplet[2].get('value')
-        return ww, wh, wr
+        return r_value.get('value')
+
+def analyze_plotr_card_2_wh(lori, node, card, module):
+    if node is None:
+        if lori == 0:
+            return 10.0
+        else:
+            return 7.5
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('wh', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_2_wr(node, card, module):
+    if node is None:
+        return 0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('wr', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
 
 def analyze_plotr_card_3(card, module):
     msg = ('expected \'card_3\' since the plot index (\'iplot\') is 1 or ' +
@@ -764,36 +783,70 @@ def analyze_plotr_card_10a_xpoint(node, card, module):
 def analyze_plotr_card_11(card, module):
     rule.card_must_be_defined('card_11', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    analyze_plotr_card_11_xv_yv_zv(env.next(stmt_iter), card, module)
-    analyze_plotr_card_11_x3_y3_z3(env.next(stmt_iter), card, module)
+    # Assuming that xv,yv,zv and x3,y3,z3 should not be defined as triplets
+    # due to possible float values. E.g. 2.56.52.5 is an odd input to NJOY.
+    analyze_plotr_card_11_xv(env.next(stmt_iter), card, module)
+    analyze_plotr_card_11_yv(env.next(stmt_iter), card, module)
+    analyze_plotr_card_11_zv(env.next(stmt_iter), card, module)
+    analyze_plotr_card_11_x3(env.next(stmt_iter), card, module)
+    analyze_plotr_card_11_y3(env.next(stmt_iter), card, module)
+    analyze_plotr_card_11_z3(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
-def analyze_plotr_card_11_xv_yv_zv(node, card, module):
+def analyze_plotr_card_11_xv(node, card, module):
     if node is None:
-        return 15.0, -15.0, 15.0
+        return 15.0
     else:
-        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
-        expected_triplet = (('xv', None), ('yv', None), ('zv', None))
-        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('xv', l_value, card, module)
         # XXX: Additional checks?
-        xv = r_value_triplet[0].get('value')
-        yv = r_value_triplet[1].get('value')
-        zv = r_value_triplet[2].get('value')
-        return xv, yv, zv
+        return r_value.get('value')
 
-def analyze_plotr_card_11_x3_y3_z3(node, card, module):
+def analyze_plotr_card_11_yv(node, card, module):
     if node is None:
-        return 2.5, 6.5, 2.5
+        return -15.0
     else:
-        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
-        expected_triplet = (('x3', None), ('y3', None), ('z3', None))
-        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('yv', l_value, card, module)
         # XXX: Additional checks?
-        x3 = r_value_triplet[0].get('value')
-        y3 = r_value_triplet[1].get('value')
-        z3 = r_value_triplet[2].get('value')
-        return x3, y3, z3
+        return r_value.get('value')
+
+def analyze_plotr_card_11_zv(node, card, module):
+    if node is None:
+        return 15.0
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('zv', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_11_x3(node, card, module):
+    if node is None:
+        return 2.5
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('x3', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_11_y3(node, card, module):
+    if node is None:
+        return 6.5
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('y3', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_11_z3(node, card, module):
+    if node is None:
+        return 2.5
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('z3', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
 
 def analyze_plotr_card_12(card, module):
     msg = ('expected \'card_12\' since the ENDF version (\'iverf\') is 0 ' +
