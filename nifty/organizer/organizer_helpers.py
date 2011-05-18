@@ -1,11 +1,13 @@
 import sys
 
-from nifty.environment.exceptions import OrganizeError
-from nifty.environment.exceptions import organize_error
-from nifty.environment.exceptions import SemanticError
+from nifty.analyzer import analyzer_rules as rule
 
 from nifty.environment import helpers as env
 from nifty.environment import syntax_tree as ast
+
+from nifty.environment.exceptions import OrganizeError
+from nifty.environment.exceptions import organize_error
+from nifty.environment.exceptions import SemanticError
 
 ##############################################################################
 # Organizer helpers.
@@ -74,6 +76,14 @@ def insert_default_values(expected_map, statement_list):
 def insert_default_card(index, card_name, card_list):
     card = ast.make_card(None, card_name, list())
     card_list.insert(index, card)
+
+def get_optional_value(default_value, name, node, card, module):
+    if node is None:
+        return default_value
+    else:
+        l_value, r_value = rule.must_be_assignment(node, card, module)
+        rule.identifier_must_be_defined(name, l_value, card, module)
+        return r_value.get('value')
 
 ##############################################################################
 # Organizer Rules.

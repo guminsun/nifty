@@ -71,7 +71,7 @@ def organize_module(module):
         #'matxsr' : organize_matxsr,
         #'mixr' : organize_mixr,
         #'moder' : organize_moder,
-        #'plotr' : organize_plotr,
+        'plotr' : organize_plotr,
         #'powr' : organize_powr,
         #'purr' : organize_purr,
         #'reconr' : organize_reconr,
