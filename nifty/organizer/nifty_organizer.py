@@ -17,7 +17,7 @@ from organize_acer import organize_acer
 #from organize_matxsr import organize_matxsr
 #from organize_mixr import organize_mixr
 #from organize_moder import organize_moder
-#from organize_plotr import organize_plotr
+from organize_plotr import organize_plotr
 #from organize_powr import organize_powr
 #from organize_purr import organize_purr
 #from organize_reconr import organize_reconr
@@ -47,7 +47,7 @@ def organize(ast):
 
 def organize_program(program):
     module_list = program.get('module_list')
-    module_list = organize_module_list(module_list)
+    organize_module_list(module_list)
     return program
 
 def organize_module_list(module_list):
@@ -71,7 +71,7 @@ def organize_module(module):
         #'matxsr' : organize_matxsr,
         #'mixr' : organize_mixr,
         #'moder' : organize_moder,
-        #'plotr' : organize_plotr,
+        'plotr' : organize_plotr,
         #'powr' : organize_powr,
         #'purr' : organize_purr,
         #'reconr' : organize_reconr,

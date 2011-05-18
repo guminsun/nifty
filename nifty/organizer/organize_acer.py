@@ -9,10 +9,10 @@ import organizer_helpers as helper
 
 def organize_acer(module):
     card_list = module.get('card_list')
-    card_list = organize_card_list(module)
+    organize_card_list(card_list, module)
     return module
 
-def organize_card_list(module):
+def organize_card_list(card_list, module):
     card_iter = env.get_card_iterator(module)
     # Card 1 should always be defined.
     organize_card_1(env.next(card_iter), module)
@@ -31,7 +31,6 @@ def organize_card_list(module):
         organize_card_5(c5, module)
         # Card 6 may be defaulted. If card 6 is not defined, insert a empty
         # card.
-        card_list = module.get('card_list')
         if env.get_card('card_6', module) is None:
             index = card_list.index(c5) + 1
             helper.insert_default_card(index, 'card_6', card_list)
@@ -60,7 +59,7 @@ def organize_card_list(module):
     # No more cards are allowed. The next card returned by env.next(card_iter)
     # should be 'None'.
     rule.no_card_allowed(env.next(card_iter), module)
-    return module
+    return card_list
 
 def organize_card_1(card, module):
     # Card 1 must be defined. OrganizeError is raised if 'card' is not card 1
