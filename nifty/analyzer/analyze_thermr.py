@@ -43,7 +43,7 @@ def analyze_thermr_card_2(card, module):
 
 def analyze_thermr_card_2_nbin(node, card, module):
     # Number of equi-probable angles should be a non-negative number.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('nbin', l_value, card, module)
     nbin = rule.must_be_int(l_value, r_value, card, module)
     if nbin < 0:
@@ -58,7 +58,7 @@ def analyze_thermr_card_2_nbin(node, card, module):
 
 def analyze_thermr_card_2_ntemp(node, card, module):
     # Number of temperatures should be a non-negative number.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ntemp', l_value, card, module)
     ntemp = rule.must_be_int(l_value, r_value, card, module)
     if ntemp < 0:
@@ -73,7 +73,7 @@ def analyze_thermr_card_2_ntemp(node, card, module):
 
 def analyze_thermr_card_2_iinc(node, card, module):
     # Inelastic option should be in the range [0,4]
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('iinc', l_value, card, module)
     iinc = rule.must_be_int(l_value, r_value, card, module)
     if iinc not in range(0,5):
@@ -87,11 +87,11 @@ def analyze_thermr_card_2_iinc(node, card, module):
     return iinc
 
 def analyze_thermr_card_2_icoh(node, card, module):
-    # Elastic option should be in the range [0,1] or [1,3], [11,13] for 
+    # Elastic option should be in the range [0,1] or [1,3], [11,13] for
     # pre-ENDF6 input.
-    # XXX: No check to determine if it's a pre-ENDF6 yet, it just checks 
+    # XXX: No check to determine if it's a pre-ENDF6 yet, it just checks
     # whether the number is in [0,3] or [11,13].
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('icoh', l_value, card, module)
     icoh = rule.must_be_int(l_value, r_value, card, module)
     if ((icoh not in range(0,4)) and
@@ -108,7 +108,7 @@ def analyze_thermr_card_2_icoh(node, card, module):
 
 def analyze_thermr_card_2_natom(node, card, module):
     # Number of principal atoms should be a non-negative number.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('natom', l_value, card, module)
     natom = rule.must_be_int(l_value, r_value, card, module)
     if natom < 0:
@@ -123,7 +123,7 @@ def analyze_thermr_card_2_natom(node, card, module):
 
 def analyze_thermr_card_2_mtref(node, card, module):
     # mt for inelastic reaction should be in the range [221,250].
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mtref', l_value, card, module)
     mtref = rule.must_be_int(l_value, r_value, card, module)
     if mtref not in range(221,251):
@@ -141,7 +141,7 @@ def analyze_thermr_card_2_iprint(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iprint', l_value, card, module)
         iprint = rule.must_be_int(l_value, r_value, card, module)
         if iprint not in range(0,3):
@@ -176,7 +176,7 @@ def analyze_thermr_card_3(ntempr, card, module):
     return card
 
 def analyze_thermr_card_3_tempr(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('tempr', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -192,13 +192,13 @@ def analyze_thermr_card_4(card, module):
     return card
 
 def analyze_thermr_card_4_tol(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('tol', l_value, card, module)
     # XXX: Additional checks? Must be float?
     return r_value.get('value')
 
 def analyze_thermr_card_4_emax(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('emax', l_value, card, module)
     # XXX: Additional checks? Must be float?
     return r_value.get('value')

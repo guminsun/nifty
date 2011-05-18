@@ -56,7 +56,7 @@ def analyze_groupr_card_list(module):
     number_of_card_10 = len(env.get_cards('card_10', module))
     if number_of_card_10 < 1:
         rule.too_few_cards_defined(number_of_card_10, 1, 'card_10', module)
-    # The last card 10 should not be considered as a next material to 
+    # The last card 10 should not be considered as a next material to
     # process, since it is expected to terminate the execution of groupr.
     # Therefore, 'number_of_card_10-1' is used to create the range to iterate
     # over.
@@ -103,46 +103,46 @@ def analyze_groupr_card_2(card, module):
 
 def analyze_groupr_card_2_matb(node, card, module):
     # Expecting a singleton value.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier; matb
     rule.identifier_must_be_defined('matb', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_groupr_card_2_ign(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ign', l_value, card, module)
     ign = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks? Range?
     return ign
 
 def analyze_groupr_card_2_igg(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('igg', l_value, card, module)
     # XXX: Additional checks? Range?
     return r_value.get('value')
 
 def analyze_groupr_card_2_iwt(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('iwt', l_value, card, module)
     iwt = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks? Range?
     return iwt
 
 def analyze_groupr_card_2_lord(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('lord', l_value, card, module)
     # XXX: Additional checks? Range?
     return r_value.get('value')
 
 def analyze_groupr_card_2_ntemp(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ntemp', l_value, card, module)
     # XXX: Additional checks? Range?
     return r_value.get('value')
 
 def analyze_groupr_card_2_nsigz(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('nsigz', l_value, card, module)
     # XXX: Additional checks? Range?
     return r_value.get('value')
@@ -154,7 +154,7 @@ def analyze_groupr_card_2_iprint(node, card, module):
         return 1
     else:
         # If the node is defined, it's expected to be 'iprint'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iprint', l_value, card, module)
         iprint = rule.must_be_int(l_value, r_value, card, module)
         if iprint not in range(0,2):
@@ -173,7 +173,7 @@ def analyze_groupr_card_3(card, module):
     return card
 
 def analyze_groupr_card_3_title(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier.
     rule.identifier_must_be_defined('title', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
@@ -198,7 +198,7 @@ def analyze_groupr_card_4(ntemp, card, module):
     return card
 
 def analyze_groupr_card_4_temp(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('temp', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -222,7 +222,7 @@ def analyze_groupr_card_5(nsigz, card, module):
     return card
 
 def analyze_groupr_card_5_sigz(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('sigz', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -240,7 +240,7 @@ def analyze_groupr_card_6a(card, module):
     return card, ngn
 
 def analyze_groupr_card_6a_ngn(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ngn', l_value, card, module)
     ngn = rule.must_be_int(l_value, r_value, card, module)
     # ngn defines the number of neutron groups, a negative value does not make
@@ -270,7 +270,7 @@ def analyze_groupr_card_6b(ngn, card, module):
     return card
 
 def analyze_groupr_card_6b_egn(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('egn', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -288,7 +288,7 @@ def analyze_groupr_card_7a(card, module):
     return card, ngg
 
 def analyze_groupr_card_7a_ngg(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ngg', l_value, card, module)
     ngg = rule.must_be_int(l_value, r_value, card, module)
     # ngg defines the number of gamma groups, a negative value does not make
@@ -318,7 +318,7 @@ def analyze_groupr_card_7b(ngg, card, module):
     return card
 
 def analyze_groupr_card_7b_egg(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('egg', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -348,19 +348,19 @@ def analyze_groupr_card_8a(card, module):
     return card
 
 def analyze_groupr_card_8a_ehi(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ehi', l_value, card, module)
     # XXX: Additional checks? From documentation: "must be in resolved range"
     return r_value.get('value')
 
 def analyze_groupr_card_8a_sigpot(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('sigpot', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_groupr_card_8a_nflmax(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('nflmax', l_value, card, module)
     nflmax = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks?
@@ -375,7 +375,7 @@ def analyze_groupr_card_8a_jsigz(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('jsigz', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -386,7 +386,7 @@ def analyze_groupr_card_8a_alpha2(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('alpha2', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -396,7 +396,7 @@ def analyze_groupr_card_8a_sam(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('sam', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -407,7 +407,7 @@ def analyze_groupr_card_8a_beta(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('beta', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -418,7 +418,7 @@ def analyze_groupr_card_8a_alpha3(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('alpha3', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -429,7 +429,7 @@ def analyze_groupr_card_8a_gamma(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('gamma', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -473,25 +473,25 @@ def analyze_groupr_card_8c(card, module):
     return card
 
 def analyze_groupr_card_8c_eb(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('eb', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_groupr_card_8c_tb(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('tb', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_groupr_card_8c_ec(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ec', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_groupr_card_8c_tc(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('tc', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
@@ -533,19 +533,19 @@ def analyze_groupr_card_9(card, module):
     return card
 
 def analyze_groupr_card_9_mfd(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mfd', l_value, card, module)
     # XXX: Additional checks? mfd must be unit number?
     return r_value.get('value')
 
 def analyze_groupr_card_9_mtd(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mtd', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_groupr_card_9_mtname(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier.
     rule.identifier_must_be_defined('mtname', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
@@ -562,7 +562,7 @@ def analyze_groupr_card_10(card, module):
     return card
 
 def analyze_groupr_card_10_stop(card, module):
-    msg = ('expected a \'card_10\' with the material set to 0 to indicate ' + 
+    msg = ('expected a \'card_10\' with the material set to 0 to indicate ' +
            'termination of module \'groupr\'.')
     rule.card_must_be_defined('card_10', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)

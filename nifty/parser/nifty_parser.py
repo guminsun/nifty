@@ -65,65 +65,15 @@ def p_statement(p):
 
 def p_expression(p):
     '''
-        expression : singleton_assignment
-                   | pair_assignment
-                   | triplet_assignment
+        expression : assignment
     '''
     p[0] = syntax_tree.make_expression(p[1])
 
-def p_singleton_assignment(p):
+def p_assignment(p):
     '''
-        singleton_assignment : l_value_singleton ASSIGNMENT r_value_singleton
-    '''
-    p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
-
-def p_l_value_singleton(p):
-    '''
-        l_value_singleton : l_value
-    '''
-    p[0] = syntax_tree.make_singleton(p.lineno(0), p[1])
-
-def p_r_value_singleton(p):
-    '''
-        r_value_singleton : r_value
-    '''
-    p[0] = syntax_tree.make_singleton(p.lineno(0), p[1])
-
-def p_pair_assignment(p):
-    '''
-        pair_assignment : l_value_pair ASSIGNMENT r_value_pair
+        assignment : l_value ASSIGNMENT r_value
     '''
     p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
-
-def p_l_value_pair(p):
-    '''
-        l_value_pair : l_value COMMA l_value
-    '''
-    p[0] = syntax_tree.make_pair(p.lineno(0), p[1], p[3])
-
-def p_r_value_pair(p):
-    '''
-        r_value_pair : r_value COMMA r_value
-    '''
-    p[0] = syntax_tree.make_pair(p.lineno(0), p[1], p[3])
-
-def p_triplet_assignment(p):
-    '''
-        triplet_assignment : l_value_triplet ASSIGNMENT r_value_triplet
-    '''
-    p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
-
-def p_l_value_triplet(p):
-    '''
-        l_value_triplet : l_value COMMA l_value COMMA l_value
-    '''
-    p[0] = syntax_tree.make_triplet(p.lineno(0), p[1], p[3], p[5])
-
-def p_r_value_triplet(p):
-    '''
-        r_value_triplet : r_value COMMA r_value COMMA r_value
-    '''
-    p[0] = syntax_tree.make_triplet(p.lineno(0), p[1], p[3], p[5])
 
 def p_l_value(p):
     '''

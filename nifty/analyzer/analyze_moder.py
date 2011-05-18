@@ -16,11 +16,11 @@ def analyze_moder_card_list(module):
         analyze_moder_card_2(env.next(card_iter), module)
         # The number of card 3's cannot be predicted, need to count 'em.
         number_of_card_3 = len(env.get_cards('card_3', module))
-        # Need at least two card 3's? One to indicate the next material and 
+        # Need at least two card 3's? One to indicate the next material and
         # one to terminate the moder run.
         if number_of_card_3 < 2:
             rule.too_few_cards_defined(number_of_card_3, 2, 'card_3', module)
-        # The last card 3 should not be considered as a next material to 
+        # The last card 3 should not be considered as a next material to
         # process, since it is expected to terminate the execution of moder.
         # Therefore, 'number_of_card_3-1' is used to create the range to
         # iterate over.
@@ -30,7 +30,7 @@ def analyze_moder_card_list(module):
         # termination of moder.
         analyze_moder_card_3_stop(env.next(card_iter), module)
     # No more cards are allowed. The next card returned by env.next(card_iter)
-    # should be 'None'.    
+    # should be 'None'.
     rule.no_card_allowed(env.next(card_iter), module)
     return module
 
@@ -43,7 +43,7 @@ def analyze_moder_card_1(card, module):
     return card, nin
 
 def analyze_moder_card_2(card, module):
-    msg = ('expected \'card_2\' since the absolute value of the input unit ' + 
+    msg = ('expected \'card_2\' since the absolute value of the input unit ' +
            '(\'nin\') is in the range [1,19] in \'card_1\'.')
     rule.card_must_be_defined('card_2', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
@@ -52,7 +52,7 @@ def analyze_moder_card_2(card, module):
     return card
 
 def analyze_moder_card_2_tpid(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('tpid', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
     tpid = rule.must_be_string(l_value, r_value, card, module)
@@ -60,7 +60,7 @@ def analyze_moder_card_2_tpid(node, card, module):
     return tpid
 
 def analyze_moder_card_3(card, module):
-    msg = ('expected \'card_3\' since the absolute value of the input unit ' + 
+    msg = ('expected \'card_3\' since the absolute value of the input unit ' +
            '(\'nin\') is in the range [1,19] in \'card_1\'.')
     rule.card_must_be_defined('card_3', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)

@@ -95,13 +95,12 @@ tokens = [
     'INTEGER',
     'FLOAT',
     'STRING',
-    # Delimeters: { } [ ] ; ,
+    # Delimeters: { } [ ] ;
     'LEFT_BRACE',
     'RIGHT_BRACE',
     'LEFT_BRACKET',
     'RIGHT_BRACKET',
     'SEMICOLON',
-    'COMMA',
 ] + list(set(reserved_words.values()))
 
 ##############################################################################
@@ -125,7 +124,6 @@ t_RIGHT_BRACE = r'\}'
 t_LEFT_BRACKET = r'\['
 t_RIGHT_BRACKET = r'\]'
 t_SEMICOLON = r';'
-t_COMMA = r','
 
 # Handle identifiers and reserved words.
 def t_IDENTIFIER(t):

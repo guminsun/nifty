@@ -10,7 +10,7 @@ def analyze_material(name, node, card, module):
     # XXX: material must not be 0? 0 usually denotes termination of material
     # or module. Materials are supposed to be MAT numbers as specified in the
     # ENDF formats, that is; an integer in the range [1,9999].
-    l_value, r_value = analyze_singleton(node, card, module)
+    l_value, r_value = must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier; name
     identifier_must_be_defined(name, l_value, card, module)
     return r_value.get('value')
@@ -22,7 +22,7 @@ def analyze_mat1(name, node, card, module):
 def analyze_mt(name, node, card, module):
     # Reaction types (MT) are identified in the ENDF formats by an integer
     # number from 1 through 999.
-    l_value, r_value = analyze_singleton(node, card, module)
+    l_value, r_value = must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier; name
     identifier_must_be_defined(name, l_value, card, module)
     mt_number = must_be_int(l_value, r_value, card, module)
@@ -40,7 +40,7 @@ def analyze_optional_string(max_length, name, node, card, module):
     if node is None:
         return str()
     else:
-        l_value, r_value = analyze_singleton(node, card, module)
+        l_value, r_value = must_be_assignment(node, card, module)
         identifier_must_be_defined(name, l_value, card, module)
         # The r-value of the assignment is expected to be a string.
         string = must_be_string(l_value, r_value, card, module)
@@ -52,14 +52,14 @@ def analyze_temperature(name, node, card, module):
     if node is None:
         return 300
     else:
-        l_value, r_value = analyze_singleton(node, card, module)
+        l_value, r_value = must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier; tempd
         identifier_must_be_defined(name, l_value, card, module)
         # XXX: Additional checks? E.g. must be number.
         return r_value.get('value')
 
 def analyze_unit_number(id_name, node, card, module):
-    l_value, r_value = analyze_singleton(node, card, module)
+    l_value, r_value = must_be_assignment(node, card, module)
     identifier_must_be_defined(id_name, l_value, card, module)
     unit_number = must_be_unit_number(l_value, r_value, card, module)
     return unit_number
@@ -69,35 +69,11 @@ def analyze_optional_unit_number(id_name, node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = analyze_singleton(node, card, module)
+        l_value, r_value = must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier.
         identifier_must_be_defined(id_name, l_value, card, module)
         unit_number = must_be_unit_number(l_value, r_value, card, module)
         return unit_number
-
-def analyze_singleton(node, card, module):
-    # 'node' is expected to be an assignment node.
-    l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value of 'node' are expected to be a singleton nodes.
-    l_value_singleton = must_be_singleton(l_value, card, module)
-    r_value_singleton = must_be_singleton(r_value, card, module)
-    return l_value_singleton, r_value_singleton
-
-def analyze_pair(node, card, module):
-    # 'node' is expected to be an assignment node.
-    l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value of 'node' are expected to be pair nodes.
-    l_value_pair = must_be_pair(l_value, card, module)
-    r_value_pair = must_be_pair(r_value, card, module)
-    return l_value_pair, r_value_pair
-
-def analyze_triplet(node, card, module):
-    # 'node' is expected to be an assignment node.
-    l_value, r_value = must_be_assignment(node, card, module)
-    # The l-value and r-value of 'node' are expected to be triplet nodes.
-    l_value_triplet = must_be_triplet(l_value, card, module)
-    r_value_triplet = must_be_triplet(r_value, card, module)
-    return l_value_triplet, r_value_triplet
 
 ##############################################################################
 # Semantic rules.

@@ -62,7 +62,7 @@ def analyze_heatr_card_2_npk(node, card, module):
         return 0
     else:
         # If the node is defined, it has to be 'npk'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('npk', l_value, card, module)
         npk = rule.must_be_int(l_value, r_value, card, module)
         # npk defines the number of partial kermas, a negative value does not
@@ -80,7 +80,7 @@ def analyze_heatr_card_2_nqa(node, card, module):
         return 0
     else:
         # If the node is defined, it has to be 'nqa'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('nqa', l_value, card, module)
         nqa = rule.must_be_int(l_value, r_value, card, module)
         # nqa defines the number of user q values, a negative value does not
@@ -99,7 +99,7 @@ def analyze_heatr_card_2_ntemp(node, card, module):
         return 0
     else:
         # If the node is defined, it has to be 'ntemp'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ntemp', l_value, card, module)
         ntemp = rule.must_be_int(l_value, r_value, card, module)
         # ntemp defines the number of temperatures to process, a negative
@@ -118,7 +118,7 @@ def analyze_heatr_card_2_local(node, card, module):
         return 0
     else:
         # If the node is defined, it has to be 'local'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('local', l_value, card, module)
         local = rule.must_be_int(l_value, r_value, card, module)
         if local not in range(0,2):
@@ -137,7 +137,7 @@ def analyze_heatr_card_2_iprint(node, card, module):
         return 0
     else:
         # If the node is defined, it has to be 'iprint'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iprint', l_value, card, module)
         iprint = rule.must_be_int(l_value, r_value, card, module)
         if iprint not in range(0,3):
@@ -155,7 +155,7 @@ def analyze_heatr_card_2_ed(node, card, module):
         return None
     else:
         # If the node is defined, it has to be 'ed'.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ed', l_value, card, module)
         # XXX: Additional checks?
     return r_value.get('value')
@@ -180,7 +180,7 @@ def analyze_heatr_card_3(npk, card, module):
     return card
 
 def analyze_heatr_card_3_mtk(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('mtk', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -209,7 +209,7 @@ def analyze_heatr_card_4(nqa, card, module):
     return card
 
 def analyze_heatr_card_4_mta(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('mta', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -238,7 +238,7 @@ def analyze_heatr_card_5(nqa, card, module):
     return card
 
 def analyze_heatr_card_5_qa(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('qa', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)

@@ -56,7 +56,7 @@ def analyze_covr_card_2_icolor(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('icolor', l_value, card, module)
         icolor = rule.must_be_int(l_value, r_value, card, module)
         if icolor not in range(0,2):
@@ -84,7 +84,7 @@ def analyze_covr_card_2a_epmin(node, card, module):
     if node is None:
         return 0.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('epmin', l_value, card, module)
         # XXX: Additional checks? Must be float?
         return r_value.get('value')
@@ -108,7 +108,7 @@ def analyze_covr_card_3a_irelco(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('irelco', l_value, card, module)
         irelco = rule.must_be_int(l_value, r_value, card, module)
         if irelco not in range(0,2):
@@ -128,7 +128,7 @@ def analyze_covr_ncase(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ncase', l_value, card, module)
         ncase = rule.must_be_int(l_value, r_value, card, module)
         if ncase not in range(0,61):
@@ -146,7 +146,7 @@ def analyze_covr_card_3a_noleg(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('noleg', l_value, card, module)
         noleg = rule.must_be_int(l_value, r_value, card, module)
         if noleg not in range(-1,2):
@@ -155,7 +155,7 @@ def analyze_covr_card_3a_noleg(node, card, module):
             module_name = module.get('module_name')
             msg = ('illegal plot legend option (\'' + id_name + '\') in \'' +
                    card_name + '\' module \'' + module_name +
-                   '\'. Expected -1 for legend for first subcase only, 0 ' + 
+                   '\'. Expected -1 for legend for first subcase only, 0 ' +
                    'for legend for all plots or 1 for no legends ' +
                    '(default = 0).')
             rule.semantic_error(msg, node)
@@ -167,7 +167,7 @@ def analyze_covr_card_3a_nstart(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('nstart', l_value, card, module)
         nstart = rule.must_be_int(l_value, r_value, card, module)
         if nstart < 0:
@@ -186,7 +186,7 @@ def analyze_covr_card_3a_ndiv(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ndiv', l_value, card, module)
         ndiv = rule.must_be_int(l_value, r_value, card, module)
         if ndiv < 0:
@@ -215,7 +215,7 @@ def analyze_covr_card_2b_matype(node, card, module):
     if node is None:
         return 3
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('matype', l_value, card, module)
         matype = rule.must_be_int(l_value, r_value, card, module)
         if matype not in range(3,5):
@@ -239,7 +239,7 @@ def analyze_covr_card_3b(card, module):
 
 def analyze_covr_card_3b_hlibid(node, card, module):
     # Identification (hlibid) must be defined?
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('hlibid', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
     hlibid = rule.must_be_string(l_value, r_value, card, module)
@@ -257,7 +257,7 @@ def analyze_covr_card_3c(card, module):
 
 def analyze_covr_card_3c_hdescr(node, card, module):
     # Descriptive information (hdescr) must be defined?
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('hdescr', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
     hdescr = rule.must_be_string(l_value, r_value, card, module)
@@ -281,8 +281,8 @@ def analyze_covr_card_4_mt(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
-        # Don't use rule.analyze_mt here since the MT numbers are allowed to 
+        l_value, r_value = rule.must_be_assignment(node, card, module)
+        # Don't use rule.analyze_mt here since the MT numbers are allowed to
         # be negative (which means process all MTs for MAT, except for
         # the negative MT numbers.)
         rule.identifier_must_be_defined('mt', l_value, card, module)
@@ -296,7 +296,7 @@ def analyze_covr_card_4_mat1(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # Don't use rule.analyze_mat1 here since the MAT1 numbers are allowed
         # to be negative (which means process all MAT1s for MAT, except
         # for the negative MAT1 numbers.)
@@ -311,7 +311,7 @@ def analyze_covr_card_4_mt1(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # Don't use rule.analyze_mt1 here since the MT1 numbers are allowed
         # to be negative (which means process all MT1s for MAT, except
         # for the negative MT1 numbers.)

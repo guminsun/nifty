@@ -57,47 +57,9 @@ def statement_to_string(node):
 def assignment_to_string(node):
     l_value = node.get('l_value')
     r_value = node.get('r_value')
-    if env.is_singleton(l_value):
-        return singleton_to_string(r_value)
-    elif env.is_pair(l_value):
-        return pair_to_string(r_value)
-    elif env.is_triplet(l_value):
-        return triplet_to_string(r_value)
-    else:
-        # Catch anything else, just in case.
-        print('--- emitter: XXX l-value node not implemented yet:',
-              env.get_node_type(node))
-        return node
+    return r_value_to_string(r_value)
 
-def singleton_to_string(node):
-    element_1 = node.get('element_1')
-    return element_to_string(element_1)
-
-def pair_to_string(node):
-    element_1 = node.get('element_1')
-    element_2 = node.get('element_2')
-    element_1_string = element_to_string(element_1)
-    element_2_string = element_to_string(element_2)
-    # Format the pair as a NJOY pair.
-    # XXX: What if element node types differ? E.g. if element_1 is a string
-    # and element_2 is an integer.
-    string = element_1_string + element_2_string
-    return string
-
-def triplet_to_string(node):
-    element_1 = node.get('element_1')
-    element_2 = node.get('element_2')
-    element_3 = node.get('element_3')
-    element_1_string = element_to_string(element_1)
-    element_2_string = element_to_string(element_2)
-    element_3_string = element_to_string(element_3)
-    # Format the triplet as a NJOY triplet.
-    # XXX: What if element node types differ? E.g. if element_1 is a string
-    # and element_2 is an integer.
-    string = element_1_string + element_2_string + element_3_string
-    return string
-
-def element_to_string(node):
+def r_value_to_string(node):
     if env.is_float(node):
         return float_to_string(node)
     elif env.is_integer(node):

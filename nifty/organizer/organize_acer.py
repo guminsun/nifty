@@ -127,8 +127,12 @@ def organize_card_3(card, module):
 def organize_card_4(nxtra, card, module):
     helper.card_must_be_defined('card_4', card)
     expected_map = {}
+    order = 0
     for i in range(nxtra):
-        expected_map[i] = ('pair', 'array', (('iz', None, i), ('aw', None, i)))
+        expected_map[order] = ('singleton', 'array', ('iz', None, i))
+        order += 1
+        expected_map[order] = ('singleton', 'array', ('aw', None, i))
+        order += 1
     return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):

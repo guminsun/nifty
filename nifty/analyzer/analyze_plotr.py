@@ -90,7 +90,7 @@ def analyze_plotr_card_1_lori(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('lori', l_value, card, module)
         lori = rule.must_be_int(l_value, r_value, card, module)
         if lori not in range(0,2):
@@ -109,7 +109,7 @@ def analyze_plotr_card_1_istyle(node, card, module):
     if node is None:
         return 2
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('istyle', l_value, card, module)
         istyle = rule.must_be_int(l_value, r_value, card, module)
         if istyle not in range(1,3):
@@ -128,7 +128,7 @@ def analyze_plotr_card_1_size(node, card, module):
     if node is None:
         return 0.3
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('size', l_value, card, module)
         # XXX: Additional checks? Must be number?
     return r_value.get('value')
@@ -172,7 +172,7 @@ def analyze_plotr_card_2_iplot(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iplot', l_value, card, module)
         iplot = rule.must_be_int(l_value, r_value, card, module)
         # XXX: Additional checks?
@@ -197,7 +197,7 @@ def analyze_plotr_card_2_xll(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xll', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -208,7 +208,7 @@ def analyze_plotr_card_2_yll(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('yll', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -230,7 +230,7 @@ def analyze_plotr_card_2_ww(lori, node, card, module):
         else:
             return 10.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ww', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -242,7 +242,7 @@ def analyze_plotr_card_2_wh(lori, node, card, module):
         else:
             return 7.5
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('wh', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -251,7 +251,7 @@ def analyze_plotr_card_2_wr(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('wr', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -298,7 +298,7 @@ def analyze_plotr_card_4_itype(node, card, module):
     if node is None:
         return 4
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('itype', l_value, card, module)
         itype = rule.must_be_int(l_value, r_value, card, module)
         if abs(itype) not in range(1,5):
@@ -317,7 +317,7 @@ def analyze_plotr_card_4_jtype(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('jtype', l_value, card, module)
         jtype = rule.must_be_int(l_value, r_value, card, module)
         if jtype not in range(0,3):
@@ -336,7 +336,7 @@ def analyze_plotr_card_4_igrid(node, card, module):
     if node is None:
         return 2
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('igrid', l_value, card, module)
         igrid = rule.must_be_int(l_value, r_value, card, module)
         if igrid not in range(0,4):
@@ -355,7 +355,7 @@ def analyze_plotr_card_4_ileg(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ileg', l_value, card, module)
         ileg = rule.must_be_int(l_value, r_value, card, module)
         if ileg not in range(0,3):
@@ -374,7 +374,7 @@ def analyze_plotr_card_4_xtag(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xtag', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -385,7 +385,7 @@ def analyze_plotr_card_4_ytag(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ytag', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -406,14 +406,14 @@ def analyze_plotr_card_5(card, module):
 
 def analyze_plotr_card_5_el(node, card, module):
     # Lowest energy to be plotted.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('el', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_plotr_card_5_eh(node, card, module):
     # Highest energy to be plotted.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('eh', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
@@ -423,7 +423,7 @@ def analyze_plotr_card_5_xstep(node, card, module):
         return None
     else:
         # x axis step for energy to be plotted, default = automatic scales.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xstep', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -442,7 +442,7 @@ def analyze_plotr_card_5a_xlabl(node, card, module):
     if node is None:
         return 'energy (ev)'
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xlabl', l_value, card, module)
         # The r-value of the assignment is expected to be a string.
         string = rule.must_be_string(l_value, r_value, card, module)
@@ -465,14 +465,14 @@ def analyze_plotr_card_6(card, module):
 
 def analyze_plotr_card_6_yl(node, card, module):
     # Lowest value of y axis.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('yl', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_plotr_card_6_yh(node, card, module):
     # Highest value of y axis.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('yh', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
@@ -482,7 +482,7 @@ def analyze_plotr_card_6_ystep(node, card, module):
         return None
     else:
         # Step for y axis. Default -> automatic scales.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ystep', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -502,7 +502,7 @@ def analyze_plotr_card_6a_ylabl(node, card, module):
     if node is None:
         return 'cross section (barns)'
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ylabl', l_value, card, module)
         # The r-value of the assignment is expected to be a string.
         string = rule.must_be_string(l_value, r_value, card, module)
@@ -526,14 +526,14 @@ def analyze_plotr_card_7(card, module):
 
 def analyze_plotr_card_7_rbot(node, card, module):
     # Lowest value of secondary y axis or z axis.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('rbot', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
 
 def analyze_plotr_card_7_rtop(node, card, module):
     # Highest value of secondary y axis or z axis.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('rtop', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
@@ -543,7 +543,7 @@ def analyze_plotr_card_7_rstep(node, card, module):
         return None
     else:
         # Step for secondary y axis or z axis.
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('rstep', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -578,21 +578,21 @@ def analyze_plotr_card_8(card, module):
 
 def analyze_plotr_card_8_iverf(node, card, module):
     # Version of ENDF tape.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('iverf', l_value, card, module)
     iverf = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks?
     return iverf
 
 def analyze_plotr_card_8_mfd(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mfd', l_value, card, module)
     mfd = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks?
     return mfd
 
 def analyze_plotr_card_8_mtd(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mtd', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')
@@ -601,7 +601,7 @@ def analyze_plotr_card_8_temper(node, card, module):
     if node is None:
         return 0.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('temper', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -610,7 +610,7 @@ def analyze_plotr_card_8_nth(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('nth', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -619,7 +619,7 @@ def analyze_plotr_card_8_ntp(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ntp', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -628,7 +628,7 @@ def analyze_plotr_card_8_nkh(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('nkh', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -651,7 +651,7 @@ def analyze_plotr_card_9_icon(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('icon', l_value, card, module)
         icon = rule.must_be_int(l_value, r_value, card, module)
         # XXX: Additional checks?
@@ -662,7 +662,7 @@ def analyze_plotr_card_9_isym(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('isym', l_value, card, module)
         isym = rule.must_be_int(l_value, r_value, card, module)
         if isym not in range(0,19):
@@ -680,7 +680,7 @@ def analyze_plotr_card_9_idash(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('idash', l_value, card, module)
         idash = rule.must_be_int(l_value, r_value, card, module)
         if idash not in range(0,5):
@@ -698,7 +698,7 @@ def analyze_plotr_card_9_iccol(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iccol', l_value, card, module)
         iccol = rule.must_be_int(l_value, r_value, card, module)
         if iccol not in range(0,8):
@@ -716,7 +716,7 @@ def analyze_plotr_card_9_ithick(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ithick', l_value, card, module)
         ithick = rule.must_be_int(l_value, r_value, card, module)
         # XXX: Additional checks?
@@ -727,7 +727,7 @@ def analyze_plotr_card_9_ishade(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ishade', l_value, card, module)
         ishade = rule.must_be_int(l_value, r_value, card, module)
         if ishade not in range(0,81):
@@ -762,7 +762,7 @@ def analyze_plotr_card_10a_xtag(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xtag', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -771,7 +771,7 @@ def analyze_plotr_card_10a_ytag(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ytag', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -780,7 +780,7 @@ def analyze_plotr_card_10a_xpoint(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xpoint', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -801,7 +801,7 @@ def analyze_plotr_card_11_xv(node, card, module):
     if node is None:
         return 15.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xv', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -810,7 +810,7 @@ def analyze_plotr_card_11_yv(node, card, module):
     if node is None:
         return -15.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('yv', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -819,7 +819,7 @@ def analyze_plotr_card_11_zv(node, card, module):
     if node is None:
         return 15.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('zv', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -828,7 +828,7 @@ def analyze_plotr_card_11_x3(node, card, module):
     if node is None:
         return 2.5
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('x3', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -837,7 +837,7 @@ def analyze_plotr_card_11_y3(node, card, module):
     if node is None:
         return 6.5
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('y3', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -846,7 +846,7 @@ def analyze_plotr_card_11_z3(node, card, module):
     if node is None:
         return 2.5
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('z3', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -862,7 +862,7 @@ def analyze_plotr_card_12(card, module):
 
 def analyze_plotr_card_12_nform(node, card, module):
     # Format code for input data.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('nform', l_value, card, module)
     nform = rule.must_be_int(l_value, r_value, card, module)
     # XXX: Additional checks?
@@ -889,7 +889,7 @@ def analyze_plotr_card_13_xdata(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xdata', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -898,7 +898,7 @@ def analyze_plotr_card_13_ydata(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ydata', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -907,7 +907,7 @@ def analyze_plotr_card_13_yerr1(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('yerr1', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -916,7 +916,7 @@ def analyze_plotr_card_13_yerr2(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('yerr2', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -925,7 +925,7 @@ def analyze_plotr_card_13_xerr1(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xerr1', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -934,7 +934,7 @@ def analyze_plotr_card_13_xerr2(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('xerr2', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -947,7 +947,7 @@ def analyze_color(name, node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined(name, l_value, card, module)
         color = rule.must_be_int(l_value, r_value, card, module)
         if color not in range(0,8):
@@ -965,7 +965,7 @@ def analyze_factor(name, node, card, module):
     if node is None:
         return 1.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined(name, l_value, card, module)
         # XXX: Additional checks? Must be float?
         return r_value.get('value')

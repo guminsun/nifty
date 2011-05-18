@@ -50,7 +50,7 @@ def analyze_errorr_card_2_ign(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ign', l_value, card, module)
         ign = rule.must_be_int(l_value, r_value, card, module)
         # XXX: Additional checks? Range?
@@ -62,7 +62,7 @@ def analyze_errorr_card_2_iwt(node, card, module):
     if node is None:
         return 6
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iwt', l_value, card, module)
         iwt = rule.must_be_int(l_value, r_value, card, module)
         # XXX: Additional checks? Range?
@@ -74,7 +74,7 @@ def analyze_errorr_card_2_iprint(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iprint', l_value, card, module)
         iprint = rule.must_be_int(l_value, r_value, card, module)
         if iprint not in range(0,2):
@@ -83,7 +83,7 @@ def analyze_errorr_card_2_iprint(node, card, module):
             module_name = module.get('module_name')
             msg = ('illegal print option in \'' + card_name + '\', module ' +
                    ' \'' + module_name + '\': ' + id_name + ' = ' +
-                   str(iprint) + ', expected 0 for min, 1 for max ' + 
+                   str(iprint) + ', expected 0 for min, 1 for max ' +
                    '(default = 1).')
             rule.semantic_error(msg, node)
         return iprint
@@ -94,7 +94,7 @@ def analyze_errorr_card_2_irelco(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('irelco', l_value, card, module)
         irelco = rule.must_be_int(l_value, r_value, card, module)
         if irelco not in range(0,2):
@@ -119,7 +119,7 @@ def analyze_errorr_card_3(card, module):
 
 def analyze_errorr_card_3_mprint(node, card, module):
     # Does mprint have to be defined?
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mprint', l_value, card, module)
     mprint = rule.must_be_int(l_value, r_value, card, module)
     if mprint not in range(0,2):

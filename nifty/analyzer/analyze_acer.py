@@ -72,7 +72,7 @@ def analyze_acer_card_2(card, module):
 
 def analyze_acer_card_2_iopt(node, card, module):
     # Expecting a singleton value.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier; iopt
     rule.identifier_must_be_defined('iopt', l_value, card, module)
     # The r-value of the assignment is expected to be an integer.
@@ -92,7 +92,7 @@ def analyze_acer_card_2_iprint(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier; iopt
         rule.identifier_must_be_defined('iprint', l_value, card, module)
         # The r-value of the assignment is expected to be an integer.
@@ -109,7 +109,7 @@ def analyze_acer_card_2_ntype(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier; iopt
         rule.identifier_must_be_defined('ntype', l_value, card, module)
         # The r-value of the assignment is expected to be an integer.
@@ -126,7 +126,7 @@ def analyze_acer_card_2_suff(node, card, module):
     if node is None:
         return 0.00
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier.
         rule.identifier_must_be_defined('suff', l_value, card, module)
         # XXX: Check if r_value is a float? Not sure it must be a float
@@ -138,7 +138,7 @@ def analyze_acer_card_2_nxtra(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         # The l-value of the assignment is expected to be an identifier.
         rule.identifier_must_be_defined('nxtra', l_value, card, module)
         # The r-value of the assignment is expected to be an integer.
@@ -159,7 +159,7 @@ def analyze_acer_card_3(card, module):
     return card
 
 def analyze_acer_card_3_hk(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier.
     rule.identifier_must_be_defined('hk', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
@@ -187,7 +187,7 @@ def analyze_acer_card_4(nxtra, card, module):
     return card
 
 def analyze_acer_card_4_iz(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('iz', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -195,7 +195,7 @@ def analyze_acer_card_4_iz(expected_index, node, card, module):
     return r_value.get('value')
 
 def analyze_acer_card_4_aw(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('aw', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -228,7 +228,7 @@ def analyze_acer_card_6_newfor(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('newfor', l_value, card, module)
         newfor = rule.must_be_int(l_value, r_value, card, module)
         if newfor not in range(0,2):
@@ -243,7 +243,7 @@ def analyze_acer_card_6_iopp(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iopp', l_value, card, module)
         iopp = rule.must_be_int(l_value, r_value, card, module)
         if iopp not in range(0,2):
@@ -271,7 +271,7 @@ def analyze_acer_card_7_thin01(node, card, module):
     if node is None:
         return None
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('thin01', l_value, card, module)
         # XXX: Which type (int, float)? Specific range?
     return r_value.get('value')
@@ -280,7 +280,7 @@ def analyze_acer_card_7_thin02(node, card, module):
     if node is None:
         return None
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('thin02', l_value, card, module)
         # XXX: Which type (int, float)? Specific range?
     return r_value.get('value')
@@ -289,7 +289,7 @@ def analyze_acer_card_7_thin03(node, card, module):
     if node is None:
         return None
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('thin03', l_value, card, module)
         # XXX: Which type (int, float)? Specific range?
     return r_value.get('value')
@@ -311,7 +311,7 @@ def analyze_acer_card_8_tname(node, card, module):
     if node is None:
         return "za"
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('tname', l_value, card, module)
         rule.must_be_string(l_value, r_value, card, module)
         tname = rule.string_must_not_exceed_length(l_value, r_value, 6, card, module)
@@ -331,7 +331,7 @@ def analyze_acer_card_8a(card, module):
     return card
 
 def analyze_acer_card_8a_iza01(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('iza01', l_value, card, module)
     # XXX: Must be an integer? Ignore for now.
     return r_value.get('value')
@@ -341,7 +341,7 @@ def analyze_acer_card_8a_iza02(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iza02', l_value, card, module)
         # XXX: Must be an integer? Pass for now.
     return r_value.get('value')
@@ -351,7 +351,7 @@ def analyze_acer_card_8a_iza03(iza03_node, card_8a, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iza03', l_value, card, module)
         # XXX: Must be an integer? Pass for now.
     return r_value.get('value')
@@ -373,13 +373,13 @@ def analyze_acer_card_9(card, module):
     return card
 
 def analyze_acer_card_9_mti(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mti', l_value, card, module)
     # XXX: Type of mti? Ignore for now.
     return r_value.get('value')
 
 def analyze_acer_card_9_nbint(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('nbint', l_value, card, module)
     nbint = rule.must_be_int(l_value, r_value, card, module)
     # nbint defines the number of bins for incoherent scattering, therefore,
@@ -394,14 +394,14 @@ def analyze_acer_card_9_nbint(node, card, module):
 
 def analyze_acer_card_9_mte(node, card, module):
     # XXX: Type of mte? Ignore for now.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('mte', l_value, card, module)
     return r_value.get('value')
 
 def analyze_acer_card_9_ielas(node, card, module):
     # ielas = 0 denotes coherent elastic,
     # ielas = 1 denotes incoherent elastic.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ielas', l_value, card, module)
     ielas = rule.must_be_int(l_value, r_value, card, module)
     if ielas not in range(0,2):
@@ -417,7 +417,7 @@ def analyze_acer_card_9_nmix(node, card, module):
     if node is None:
         return 1
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('nmix', l_value, card, module)
         nmix = rule.must_be_int(l_value, r_value, card, module)
         # XXX: must be non-negative?
@@ -430,7 +430,7 @@ def analyze_acer_card_9_emax(node, card, module):
     if node is None:
         return 1000.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('emax', l_value, card, module)
         # XXX: Must be float? Pass for now.
     return r_value.get('value')
@@ -441,7 +441,7 @@ def analyze_acer_card_9_iwt(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('iwt', l_value, card, module)
         iwt = rule.must_be_int(l_value, r_value, card, module)
         if iwt not in range(0,3):

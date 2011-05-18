@@ -46,30 +46,6 @@ def make_assignment(line_number, node_type, l_value, r_value):
     node['r_value'] = r_value
     return node
 
-def make_singleton(line_number, element_1):
-    node = dict()
-    node['line_number'] = line_number
-    node['node_type'] = 'singleton'
-    node['element_1'] = element_1
-    return node
-
-def make_pair(line_number, element_1, element_2):
-    node = dict()
-    node['line_number'] = line_number
-    node['node_type'] = 'pair'
-    node['element_1'] = element_1
-    node['element_2'] = element_2
-    return node
-
-def make_triplet(line_number, element_1, element_2, element_3):
-    node = dict()
-    node['line_number'] = line_number
-    node['node_type'] = 'triplet'
-    node['element_1'] = element_1
-    node['element_2'] = element_2
-    node['element_3'] = element_3
-    return node
-
 def make_l_value(l_value):
     return l_value
 

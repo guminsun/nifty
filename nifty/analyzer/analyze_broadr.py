@@ -55,7 +55,7 @@ def analyze_broadr_card_2(card, module):
     return card, ntemp2
 
 def analyze_broadr_card_2_ntemp2(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('ntemp2', l_value, card, module)
     ntemp2 = rule.must_be_int(l_value, r_value, card, module)
     if ntemp2 < 0:
@@ -76,7 +76,7 @@ def analyze_broadr_card_2_istart(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('istart', l_value, card, module)
         istart = rule.must_be_int(l_value, r_value, card, module)
         if istart not in range(0,2):
@@ -93,7 +93,7 @@ def analyze_broadr_card_2_istrap(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('istrap', l_value, card, module)
         istrap = rule.must_be_int(l_value, r_value, card, module)
         if istrap not in range(0,2):
@@ -110,7 +110,7 @@ def analyze_broadr_card_2_temp1(node, card, module):
     if node is None:
         return 0.0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('temp1', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -126,7 +126,7 @@ def analyze_broadr_card_3(card, module):
     return card
 
 def analyze_broadr_card_3_errthn(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('errthn', l_value, card, module)
     errthn = rule.must_be_float(l_value, r_value, card, module)
     # XXX: Additional checks?
@@ -136,7 +136,7 @@ def analyze_broadr_card_3_thnmax(node, card, module):
     if node is None:
         return None
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('thnmax', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -148,7 +148,7 @@ def analyze_broadr_card_3_errmax(errthn, node, card, module):
     if node is None:
         return 10*float(errthn)
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('errmax', l_value, card, module)
         # XXX: Additional checks? criterion: errmax_value >= err
         return r_value.get('value')
@@ -162,7 +162,7 @@ def analyze_broadr_card_3_errint(errthn, node, card, module):
         #      translator.
         return float(errthn)/20000
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('errint', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -184,7 +184,7 @@ def analyze_broadr_card_4(ntemp2, card, module):
     return card
 
 def analyze_broadr_card_4_temp2(expected_index, node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an array.
     expected = ('temp2', expected_index)
     rule.array_must_be_defined(expected, l_value, card, module)
@@ -199,7 +199,7 @@ def analyze_broadr_card_5(card, module):
     return card
 
 def analyze_broadr_card_5_stop(card, module):
-    msg = ('expected a \'card_5\' with the material set to 0 to indicate ' + 
+    msg = ('expected a \'card_5\' with the material set to 0 to indicate ' +
            'termination of module \'broadr\'.')
     rule.card_must_be_defined('card_5', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)

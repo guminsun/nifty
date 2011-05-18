@@ -17,7 +17,7 @@ def analyze_reconr_card_list(module):
     # Card 2 must always be defined.
     analyze_reconr_card_2(env.next(card_iter), module)
     # Number of card_3's should at least be 2 since one card 3 must always be
-    # supplied, and there must be an ending card 3 (with mat = 0) to indicate 
+    # supplied, and there must be an ending card 3 (with mat = 0) to indicate
     # termination of reconr.
     number_of_card_3 = len(env.get_cards('card_3', module))
     if number_of_card_3 < 2:
@@ -68,7 +68,7 @@ def analyze_reconr_card_2(card, module):
     return card
 
 def analyze_reconr_card_2_tlabel(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier.
     rule.identifier_must_be_defined('tlabel', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
@@ -91,7 +91,7 @@ def analyze_reconr_card_3_ncards(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ncards', l_value, card, module)
         ncards = rule.must_be_int(l_value, r_value, card, module)
         # ncards defines the number of cards of descriptive data for new mf1,
@@ -108,7 +108,7 @@ def analyze_reconr_card_3_ngrid(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('ngrid', l_value, card, module)
         ngrid = rule.must_be_int(l_value, r_value, card, module)
         # ngrid defines the number of user energy grid points to be added,
@@ -129,7 +129,7 @@ def analyze_reconr_card_3_stop(card, module):
     # The last card is expected to be a card 3 with mat = 0, to indicate
     # termination of reconr.
     if mat != 0:
-        msg = ('expected a \'card_3\' with the material set to 0 to ' + 
+        msg = ('expected a \'card_3\' with the material set to 0 to ' +
                'indicate termination of module \'reconr\'.')
         rule.semantic_error(msg, card)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
@@ -149,7 +149,7 @@ def analyze_reconr_card_4(card, module):
 def analyze_reconr_card_4_err(node, card, module):
     # Fractional reconstruction tolerance used when resonance-integral error
     # criterion (see errint) is not satisfied.
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('err', l_value, card, module)
     err = rule.must_be_float(l_value, r_value, card, module)
     return err
@@ -160,7 +160,7 @@ def analyze_reconr_card_4_tempr(node, card, module):
     if node is None:
         return 0
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('tempr', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -172,7 +172,7 @@ def analyze_reconr_card_4_errmax(err, node, card, module):
     if node is None:
         return 10*float(err)
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('errmax', l_value, card, module)
         # XXX: Additional checks? criterion: errmax_value >= err
         return r_value.get('value')
@@ -186,7 +186,7 @@ def analyze_reconr_card_4_errint(err, node, card, module):
         #      translator.
         return float(err)/20000
     else:
-        l_value, r_value = rule.analyze_singleton(node, card, module)
+        l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('errint', l_value, card, module)
         # XXX: Additional checks?
         return r_value.get('value')
@@ -201,7 +201,7 @@ def analyze_reconr_card_5(ncards, card, module):
     return card
 
 def analyze_reconr_card_5_cards(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     # The l-value of the assignment is expected to be an identifier.
     rule.identifier_must_be_defined('cards', l_value, card, module)
     # The r-value of the assignment is expected to be a string.
@@ -219,7 +219,7 @@ def analyze_reconr_card_6(ngrid, card, module):
     return card
 
 def analyze_reconr_card_6_enode(node, card, module):
-    l_value, r_value = rule.analyze_singleton(node, card, module)
+    l_value, r_value = rule.must_be_assignment(node, card, module)
     rule.identifier_must_be_defined('enode', l_value, card, module)
     # XXX: Additional checks?
     return r_value.get('value')

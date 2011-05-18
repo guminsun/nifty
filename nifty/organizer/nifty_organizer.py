@@ -57,7 +57,7 @@ def organize_module_list(module_list):
 
 def organize_module(module):
     organizer_functions = {
-        'acer' : organize_acer,
+        #'acer' : organize_acer,
         #'broadr' : organize_broadr,
         #'ccccr' : organize_ccccr,
         #'covr' : organize_covrr,
@@ -71,7 +71,7 @@ def organize_module(module):
         #'matxsr' : organize_matxsr,
         #'mixr' : organize_mixr,
         #'moder' : organize_moder,
-        'plotr' : organize_plotr,
+        #'plotr' : organize_plotr,
         #'powr' : organize_powr,
         #'purr' : organize_purr,
         #'reconr' : organize_reconr,
