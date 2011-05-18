@@ -12,7 +12,7 @@ def analyze_acer_card_list(module):
     card_iter = env.get_card_iterator(module)
     # Card 1 should always be defined.
     analyze_acer_card_1(env.next(card_iter), module)
-    # Card 2 should always be defined. 
+    # Card 2 should always be defined.
     # Extract the identifiers iopt and nxtra from card 2 since they are used
     # to determine which cards that should be defined.
     card_2, iopt, nxtra = analyze_acer_card_2(env.next(card_iter), module)
@@ -129,7 +129,7 @@ def analyze_acer_card_2_suff(node, card, module):
         l_value, r_value = rule.analyze_singleton(node, card, module)
         # The l-value of the assignment is expected to be an identifier.
         rule.identifier_must_be_defined('suff', l_value, card, module)
-        # XXX: Check if r_value is a float? Not sure it must be a float 
+        # XXX: Check if r_value is a float? Not sure it must be a float
         #      though. Pass for now.
     return r_value.get('value')
 
@@ -146,7 +146,7 @@ def analyze_acer_card_2_nxtra(node, card, module):
         # nxtra defines the number of iz,aw pairs to read in (default = 0), a
         # negative value does not make sense.
         if nxtra < 0:
-            msg = ('expected a non-negative number of iz,aw pairs to read ' + 
+            msg = ('expected a non-negative number of iz,aw pairs to read ' +
                    'in (default = 0) in \'card_2\', module \'acer\'.')
             rule.semantic_error(msg, node)
     return nxtra
@@ -174,9 +174,10 @@ def analyze_acer_card_4(nxtra, card, module):
     rule.card_must_be_defined('card_4', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(stmt_iter)
-    if stmt_len == nxtra:
-        for i in range(stmt_len):
-            analyze_acer_card_4_iz_aw(i, env.next(stmt_iter), card, module)
+    if stmt_len == nxtra * 2:
+        for i in range(nxtra):
+            analyze_acer_card_4_iz(i, env.next(stmt_iter), card, module)
+            analyze_acer_card_4_aw(i, env.next(stmt_iter), card, module)
     else:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
                ' but expected ' + str(nxtra) + ' since ' +
@@ -185,13 +186,21 @@ def analyze_acer_card_4(nxtra, card, module):
         rule.semantic_error(msg, card)
     return card
 
-def analyze_acer_card_4_iz_aw(expected_index, node, card, module):
-    l_value_pair, r_value_pair = rule.analyze_pair(node, card, module)
-    expected_pair = (('iz', expected_index), ('aw', expected_index))
-    rule.pair_must_be_defined(expected_pair, l_value_pair, r_value_pair, card, module)
-    iz = r_value_pair[0].get('value')
-    aw = r_value_pair[1].get('value')
-    return iz, aw
+def analyze_acer_card_4_iz(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
+    expected = ('iz', expected_index)
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
+
+def analyze_acer_card_4_aw(expected_index, node, card, module):
+    l_value, r_value = rule.analyze_singleton(node, card, module)
+    # The l-value of the assignment is expected to be an array.
+    expected = ('aw', expected_index)
+    rule.array_must_be_defined(expected, l_value, card, module)
+    # XXX: Additional checks?
+    return r_value.get('value')
 
 def analyze_acer_card_5(card, module):
     # Note that card 5 should only be defined if iopt = 1 in card_2, check if
