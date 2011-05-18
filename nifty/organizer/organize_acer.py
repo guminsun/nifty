@@ -27,14 +27,13 @@ def organize_card_list(card_list, module):
         organize_card_4(nxtra, env.next(card_iter), module)
     # Card 5, 6 and 7 should only be defined if iopt = 1 in card_2.
     if iopt == 1:
-        c5 = env.next(card_iter)
-        organize_card_5(c5, module)
+        c5 = organize_card_5(env.next(card_iter), module)
         # Card 6 may be defaulted. If card 6 is not defined, insert a empty
         # card.
         if env.get_card('card_6', module) is None:
             index = card_list.index(c5) + 1
             helper.insert_default_card(index, 'card_6', card_list)
-            c6 = env.next(card_iter)
+            c6 = organize_card_6(env.next(card_iter), module)
         else:
             c6 = organize_card_6(env.next(card_iter), module)
         # Likewise, card 7 may be defaulted. If card 6 is not defined, insert
