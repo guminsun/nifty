@@ -11,7 +11,7 @@ def analyze_plotr(module):
 def analyze_plotr_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_plotr_card_0(env.next(card_iter), module)
-    analyze_plotr_card_1(env.next(card_iter), module)
+    card_1, lori = analyze_plotr_card_1(env.next(card_iter), module)
     # The number of card 2's defines the number of cards 3 through 13.
     number_of_card_2 = len(env.get_cards('card_2', module))
     # XXX: Check for at least two card 2's? There's at least one definition
@@ -20,7 +20,7 @@ def analyze_plotr_card_list(module):
     # expected to terminate the execution of plotr. Therefore,
     # 'number_of_card_2-1' is used to create the range to iterate over.
     for c2 in range(number_of_card_2-1):
-        card_2, iplot = analyze_plotr_card_2(env.next(card_iter), module)
+        card_2, iplot = analyze_plotr_card_2(lori, env.next(card_iter), module)
         # Card 3 through 7 should only be defined if iplot = 1 or iplot = -1.
         if abs(iplot) == 1:
             analyze_plotr_card_3(env.next(card_iter), module)
@@ -54,7 +54,7 @@ def analyze_plotr_card_list(module):
             card_12, nform = analyze_plotr_card_12(env.next(card_iter), module)
             # Card 13 should only be defined when nform = 0 in card 12.
             if nform == 0:
-                # An unknown number of card 13's can be defined, keep 
+                # An unknown number of card 13's can be defined, keep
                 # analyzing them until an empty card 13 is seen.
                 while True:
                     card_13, card_13_stmt_len = analyze_plotr_card_13(env.next(card_iter), module)
@@ -77,12 +77,12 @@ def analyze_plotr_card_0(card, module):
 def analyze_plotr_card_1(card, module):
     rule.card_must_be_defined('card_1', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    analyze_plotr_card_1_lori(env.next(stmt_iter), card, module)
+    lori = analyze_plotr_card_1_lori(env.next(stmt_iter), card, module)
     analyze_plotr_card_1_istyle(env.next(stmt_iter), card, module)
     analyze_plotr_card_1_size(env.next(stmt_iter), card, module)
     analyze_plotr_card_1_ipcol(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
-    return card
+    return card, lori
 
 def analyze_plotr_card_1_lori(node, card, module):
     # Page orientation (lori) does not have to be defined, defaults to 1
@@ -138,7 +138,7 @@ def analyze_plotr_card_1_ipcol(node, card, module):
     # white page color.
     return analyze_color('ipcol', node, card, module)
 
-def analyze_plotr_card_2(card, module):
+def analyze_plotr_card_2(lori, card, module):
     rule.card_must_be_defined('card_2', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     iplot = analyze_plotr_card_2_iplot(env.next(stmt_iter), card, module)
@@ -148,7 +148,7 @@ def analyze_plotr_card_2(card, module):
     # xll, yll pair.
     analyze_plotr_card_2_xll_yll(env.next(stmt_iter), card, module)
     # ww, wh, wr triplet.
-    analyze_plotr_card_2_ww_wh_wr(env.next(stmt_iter), card, module)
+    analyze_plotr_card_2_ww_wh_wr(lori, env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card, iplot
 
@@ -207,14 +207,25 @@ def analyze_plotr_card_2_xll_yll(node, card, module):
         yll = r_value_pair[1].get('value')
         return xll, yll
 
-def analyze_plotr_card_2_ww_wh_wr(node, card, module):
+def analyze_plotr_card_2_ww_wh_wr(lori, node, card, module):
     # Triplet: window width (ww), height (wh), and rotation angle (wr) does
-    # not have to be defined, defaults to XXX?
+    # not have to be defined.
+    # Default values for ww and wh depends on the page orientation (lori):
+    #
+    # According to the NJOY source code: default paper size is US letter size,
+    # default page size is paper size with 0.5in margins all around.
+    #
+    # If page orientation (lori) is portrait then the page size is 7.5 x 10
+    # inches, else if the page orientation is landscape then the page size is
+    # 10 x 7.5 inches (Rotation angle, 'wr', defaults to 0).
+    if lori == 0:
+        ww = 7.5
+        wh = 10.0
+    else:
+        ww = 10.0
+        wh = 7.5
     if node is None:
-        # XXX: Defaults not documented. Investigate NJOY source code to dig it
-        # up. Pass None triplet for now since the return value of this
-        # function isn't used in the translator anyway.
-        return None, None, None
+        return ww, wh, 0
     else:
         # Expecting a triplet.
         l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
@@ -471,7 +482,7 @@ def analyze_plotr_card_6a(card, module):
     return card
 
 def analyze_plotr_card_6a_ylabl(node, card, module):
-    # Label for y axis does not have to be defined, defaults to 
+    # Label for y axis does not have to be defined, defaults to
     # "cross section (barns)".
     if node is None:
         return 'cross section (barns)'
@@ -637,7 +648,7 @@ def analyze_plotr_card_9_isym(node, card, module):
             msg = ('illegal symbol option (\'' + id_name +
                    '\') in \'' + card_name + '\', ' + 'module \'' +
                    module_name + '\' (default = 0, meaning square).')
-            rule.semantic_error(msg, node)            
+            rule.semantic_error(msg, node)
         return isym
 
 def analyze_plotr_card_9_idash(node, card, module):
@@ -655,7 +666,7 @@ def analyze_plotr_card_9_idash(node, card, module):
             msg = ('illegal line option (\'' + id_name +
                    '\') in \'' + card_name + '\', ' + 'module \'' +
                    module_name + '\' (default = 0, meaning solid line).')
-            rule.semantic_error(msg, node)            
+            rule.semantic_error(msg, node)
         return idash
 
 def analyze_plotr_card_9_iccol(node, card, module):
@@ -673,7 +684,7 @@ def analyze_plotr_card_9_iccol(node, card, module):
             msg = ('illegal curve color option (\'' + id_name +
                    '\') in \'' + card_name + '\', ' + 'module \'' +
                    module_name + '\' (default = 0, meaning black).')
-            rule.semantic_error(msg, node)            
+            rule.semantic_error(msg, node)
         return iccol
 
 def analyze_plotr_card_9_ithick(node, card, module):
@@ -684,7 +695,7 @@ def analyze_plotr_card_9_ithick(node, card, module):
         l_value, r_value = rule.analyze_singleton(node, card, module)
         rule.identifier_must_be_defined('ithick', l_value, card, module)
         ithick = rule.must_be_int(l_value, r_value, card, module)
-        # XXX: Additional checks? 
+        # XXX: Additional checks?
         return ithick
 
 def analyze_plotr_card_9_ishade(node, card, module):
@@ -702,7 +713,7 @@ def analyze_plotr_card_9_ishade(node, card, module):
             msg = ('illegal shade pattern option (\'' + id_name +
                    '\') in \'' + card_name + '\', ' + 'module \'' +
                    module_name + '\' (default = 0, meaning none).')
-            rule.semantic_error(msg, node) 
+            rule.semantic_error(msg, node)
         return ishade
 
 def analyze_plotr_card_10(card, module):
