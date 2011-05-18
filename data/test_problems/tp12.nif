@@ -260,8 +260,9 @@ plotr
         iverf = 6;
         nin = 22;
         matd = 2834;
-        mfd = 203;
-        mtd = 0.0;
+        mfd = 3;
+        mtd = 203;
+        temper = 0.0;
     }
 
     /* itype is positive, resulting in 2d plot. */
