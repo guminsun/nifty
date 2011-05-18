@@ -234,8 +234,33 @@ def make_pair(e):
     return ast.make_assignment(None, '=', l_value, r_value)
 
 def make_triplet(e):
-    # XXX: Implement.
-    return None
+    node_type = e[1]
+    e1_name = e[2][0][0]
+    e2_name = e[2][1][0]
+    e3_name = e[2][2][0]
+    if node_type == 'array':
+        e1_array_index = e[2][0][2]
+        e2_array_index = e[2][1][2]
+        e3_array_index = e[2][2][2]
+        e1 = ast.make_array(None, e1_name, e1_array_index)
+        e2 = ast.make_array(None, e2_name, e2_array_index)
+        e3 = ast.make_array(None, e3_name, e3_array_index)
+        l_value = ast.make_triplet(None, e1, e2, e3)
+    elif node_type == 'identifier':
+        e1 = ast.make_identifier(None, e1_name)
+        e2 = ast.make_identifier(None, e2_name)
+        e3 = ast.make_identifier(None, e3_name)
+        l_value = ast.make_triplet(None, e1, e2, e3)
+    else:
+        organize_error()
+    e1_value = e[2][0][1]
+    e2_value = e[2][1][1]
+    e3_value = e[2][2][1]
+    e1 = make_value(e1_value)
+    e2 = make_value(e2_value)
+    e3 = make_value(e3_value)
+    r_value = ast.make_triplet(None, e1, e2, e3)
+    return ast.make_assignment(None, '=', l_value, r_value)
 
 def make_value(value):
     if isinstance(value, float):
