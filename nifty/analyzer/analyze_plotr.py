@@ -570,8 +570,9 @@ def analyze_plotr_card_8(card, module):
         analyze_plotr_card_8_mfd(env.next(stmt_iter), card, module)
         analyze_plotr_card_8_mtd(env.next(stmt_iter), card, module)
         analyze_plotr_card_8_temper(env.next(stmt_iter), card, module)
-        # Triplet nth,ntp,nkh
-        analyze_plotr_card_8_nth_ntp_nkh(env.next(stmt_iter), card, module)
+        analyze_plotr_card_8_nth(env.next(stmt_iter), card, module)
+        analyze_plotr_card_8_ntp(env.next(stmt_iter), card, module)
+        analyze_plotr_card_8_nkh(env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card, iverf
 
@@ -605,24 +606,32 @@ def analyze_plotr_card_8_temper(node, card, module):
         # XXX: Additional checks?
         return r_value.get('value')
 
-def analyze_plotr_card_8_nth_ntp_nkh(node, card, module):
+def analyze_plotr_card_8_nth(node, card, module):
     if node is None:
-        return 1, 1, 1
+        return 1
     else:
-        # Expecting a triplet.
-        l_value_triplet, r_value_triplet = rule.analyze_triplet(node, card, module)
-        # The triplet nth, ntp, nkh is expected to be defined as regular
-        # identifiers, as such None is given as the array index to indicate
-        # that the identifiers have none.
-        # The order in which the identifiers appears in 'expected_triplet'
-        # denotes the expected order of the identifiers in the NIF program.
-        expected_triplet = (('nth', None), ('ntp', None), ('nkh', None))
-        rule.triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card, module)
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('nth', l_value, card, module)
         # XXX: Additional checks?
-        nth = r_value_triplet[0].get('value')
-        ntp = r_value_triplet[1].get('value')
-        nkh = r_value_triplet[2].get('value')
-        return nth, ntp, nkh
+        return r_value.get('value')
+
+def analyze_plotr_card_8_ntp(node, card, module):
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('ntp', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
+
+def analyze_plotr_card_8_nkh(node, card, module):
+    if node is None:
+        return 1
+    else:
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        rule.identifier_must_be_defined('nkh', l_value, card, module)
+        # XXX: Additional checks?
+        return r_value.get('value')
 
 def analyze_plotr_card_9(card, module):
     # XXX: Provide a descriptive message of why card 9 should be supplied.
@@ -779,8 +788,6 @@ def analyze_plotr_card_10a_xpoint(node, card, module):
 def analyze_plotr_card_11(card, module):
     rule.card_must_be_defined('card_11', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    # Assuming that xv,yv,zv and x3,y3,z3 should not be defined as triplets
-    # due to possible float values. E.g. 2.56.52.5 is an odd input to NJOY.
     analyze_plotr_card_11_xv(env.next(stmt_iter), card, module)
     analyze_plotr_card_11_yv(env.next(stmt_iter), card, module)
     analyze_plotr_card_11_zv(env.next(stmt_iter), card, module)
