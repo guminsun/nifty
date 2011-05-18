@@ -492,11 +492,7 @@ plotr
         mfd = 5;
         mtd = 24;
         temper = 0.0;
-        /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
-           I.e. could also be defined as a pair: "nth,ntp = 1,2;" if the
-           analyzer allows it.
-         */
-        nth, ntp, nkh = 1, 2, NULL; // NULL is used to denote an empty value.
+        nth = 12;
     }
 
     card_9 {}
@@ -527,11 +523,7 @@ plotr
         mfd = 5;
         mtd = 24;
         temper = 0.0;
-        /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
-           I.e. could also be defined as a pair: "nth,ntp = 1,6;" if the
-           analyzer allows it.
-         */
-        nth, ntp, nkh = 1, 6, NULL; // NULL is used to denote an empty value.
+        nth = 16;
     }
 
     card_9 {}
@@ -563,11 +555,7 @@ plotr
         mfd = 5;
         mtd = 24;
         temper = 0.0;
-        /* nth,ntp,nkh triplet, although nkh is not used for iverf = 5.
-           I.e. could also be defined as a pair: "nth,ntp = 2,0;" if the
-           analyzer allows it.
-         */
-        nth, ntp, nkh = 2, 0, NULL; // NULL is used to denote an empty value.
+        nth = 20;
     }
 
     card_9 {}
