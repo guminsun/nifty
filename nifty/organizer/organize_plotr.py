@@ -107,3 +107,17 @@ def organize_card_2(lori, card, module):
         8 : ('singleton', 'identifier', ('wr', 0)),
     }
     return helper.organize_card(expected_map, card)
+
+def get_iplot(node, card, module):
+    # iplot does not have to be defined, defaults to 1.
+    if node is None:
+        return 1
+    else:
+        # Expecting a singleton value.
+        l_value, r_value = rule.analyze_singleton(node, card, module)
+        # The l-value of the assignment is expected to be an identifier; lori
+        rule.identifier_must_be_defined('lori', l_value, card, module)
+        # The r-value of the assignment is expected to be an integer.
+        lori = rule.must_be_int(l_value, r_value, card, module)
+        # Expecting lori to be either 0 or 1.
+        return lori
