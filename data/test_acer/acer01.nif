@@ -37,11 +37,14 @@ acer
 
            First pair: iz = 1 and aw = 1
            Second pair: iz = 2 and aw = 2
-           Third pair: iz = 5 and aw = 8
+           Third pair: iz = 3 and aw = 3
          */
-        iz[0], aw[0] = 1, 1;
-        iz[1], aw[1] = 2, 2;
-        iz[2], aw[2] = 5, 8;
+        iz[0] = 1;
+        aw[0] = 1;
+        iz[1] = 2;
+        aw[1] = 2;
+        iz[2] = 3;
+        aw[2] = 3;
     }
 
     card_11
