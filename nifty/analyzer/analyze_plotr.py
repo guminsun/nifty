@@ -564,7 +564,7 @@ def analyze_plotr_card_8(card, module):
     iverf = analyze_plotr_card_8_iverf(env.next(stmt_iter), card, module)
     # Ignore rest of parameters on card if data on input file is used (i.e. if
     # iverf = 0.)
-    if iverf != 0:
+    if iverf > 0:
         rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
         rule.analyze_material('matd', env.next(stmt_iter), card, module)
         analyze_plotr_card_8_mfd(env.next(stmt_iter), card, module)
