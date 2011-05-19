@@ -606,7 +606,11 @@ key "key-11"
 
 \end_inset
 
- was used to generate a lexical analyzer (lexer) for the input format.
+ was used to generate a lexical analyzer (
+\shape italic
+lexer
+\shape default
+) for the input format.
  The method of identifying the tokens was implemented by using the notation
  of regular expressions 
 \begin_inset CommandInset citation
@@ -645,8 +649,11 @@ key "key-11"
 
 \end_inset
 
- was used to generate a syntax analyzer (parser) for the grammar definition
- of the input format.
+ was used to generate a syntax analyzer (
+\shape italic
+parser
+\shape default
+) for the grammar definition of the input format.
  The method of building the syntax tree was implemented by using the facilities
  provided by the PLY tools.
 \end_layout
@@ -1053,18 +1060,59 @@ empty
 \end_layout
 
 \begin_layout Standard
-An assignment denotes that a left hand side tuple is assigned to hold the
- values of a right hand side tuple.
- A left hand side tuple is an ordered list of elements, where the elements
- can be an array or identifier.
- A right hand side tuple is an ordered list of elements, where the elements
- can be a float, integer, null or a string.
+An assignment denotes that a left hand side is assigned to hold the values
+ of a right hand side.
+ A left hand side is an ordered list of elements, where the elements can
+ be an array or identifier.
+ A right hand side is an ordered list of elements, where the elements can
+ be a float, integer, null or a string.
+ As such, a value definition is an array or identifier that has been declared
+ to hold the value of either a floating-point number, natural number, empty
+ string or a character string.
 \end_layout
 
 \begin_layout Standard
-As such, a value definition is an array or identifier that has been declared
- to hold the value of either a floating-point number, natural number, empty
- string or a character string.
+As indicated by the grammar, NIF supports multiple assignment.
+ That is, multiple identifiers can be assigned in the same expression.
+ For example, the expression
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+material, temp = 9237, 300.0;
+\end_layout
+
+\begin_layout Standard
+denotes that the identifier 
+\family typewriter
+material
+\family default
+ holds the integer 9237, and the identifier 
+\family typewriter
+temp
+\family default
+ holds the float 300.0.
+\end_layout
+
+\begin_layout Standard
+Note that the number of elements on the left hand side of an assignment
+ does not have to be equal to the number of elements on the right hand side.
+ According to the grammar, an assignment such as
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+material = 8225, 9237;
+\end_layout
+
+\begin_layout Standard
+is allowed even though it does not make sense.
+ However, the syntax analysis in the parser enforces that the number of
+ elements on both sides are the same.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1262,7 +1310,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
