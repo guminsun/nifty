@@ -42,19 +42,64 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('nendf', None)),
+        1 : ('identifier', ('nin', None)),
+        2 : ('identifier', ('nout', None)),
+        3 : ('identifier', ('nplot', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('matd', None)),
+        1 : ('identifier', ('npk', 0)),
+        2 : ('identifier', ('nqa', 0)),
+        3 : ('identifier', ('ntemp', 0)),
+        4 : ('identifier', ('local', 0)),
+        5 : ('identifier', ('iprint', 0)),
+        6 : ('identifier', ('ed', '')), # Default from built-in table in NJOY.
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_3(card, module):
-    pass
+    card_2 = env.get_card('card_2', module)
+    npk = helper.get_identifier_value('npk', card_2)
+    # XXX: Ugly default value assignment. Fix with global dictionary for each
+    # module card? (with type info, default value info, etc)
+    if npk is None:
+        npk = 0
+    expected_map = {}
+    for i in range(npk):
+        expected_map[i] = ('array', ('mtk', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_4(card, module):
-    pass
+    card_2 = env.get_card('card_2', module)
+    nqa = helper.get_identifier_value('nqa', card_2)
+    # XXX: Ugly.
+    if nqa is None:
+        nqa = 0
+    expected_map = {}
+    for i in range(nqa):
+        expected_map[i] = ('array', ('mta', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
-    pass
+    card_2 = env.get_card('card_2', module)
+    nqa = helper.get_identifier_value('nqa', card_2)
+    # XXX: Ugly.
+    if nqa is None:
+        nqa = 0
+    expected_map = {}
+    for i in range(nqa):
+        expected_map[i] = ('array', ('qa', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_5a(card, module):
-    pass
+    # XXX: Variable qbar; assuming ENDF TAB1 record defined as a NIF array.
+    stmt_len = len(card.get('statement_list'))
+    expected_map = {}
+    for i in range(stmt_len):
+        expected_map[i] = ('array', ('qbar', None, i))
+    return helper.organize_card(expected_map, card)
