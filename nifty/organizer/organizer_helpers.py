@@ -41,7 +41,7 @@ def organize_statement_list(expected, statement_list):
         # Note that 'array_index' is None if the l-value isn't an array node.
         array_index = env.get_array_index(l_value)
         # The identifier must be one of the expected ones.
-        if is_expected(internal_id_name, array_index, expected):
+        if is_expected_name(internal_id_name, array_index, expected):
             # If the identifier is an expected one, insert it on the expected
             # index in the new statement list.
             index = get_expected_index(internal_id_name, array_index, expected)
@@ -77,13 +77,18 @@ def insert_default_card(index, card_name, card_list):
     card = ast.make_card(None, card_name, list())
     card_list.insert(index, card)
 
-def get_optional_value(default_value, name, node, card, module):
-    if node is None:
-        return default_value
-    else:
-        l_value, r_value = rule.must_be_assignment(node, card, module)
-        rule.identifier_must_be_defined(name, l_value, card, module)
-        return r_value.get('value')
+def get_identifier_value(id_name, card):
+    if card is None:
+        return None
+    statement_list = card.get('statement_list')
+    for statement in statement_list:
+        must_be_assignment(statement)
+        id_node = statement.get('l_value')
+        name = env.get_identifier_name(id_node)
+        internal_name = env.get_internal_identifier_name(name)
+        if internal_name == id_name:
+            return statement.get('r_value').get('value')
+    return None
 
 ##############################################################################
 # Organizer Rules.
@@ -125,7 +130,7 @@ def must_be_card(node):
 ##############################################################################
 # Boolean Helpers.
 
-def is_expected(name, index, expected_map):
+def is_expected_name(name, index, expected_map):
     if index is None:
         return is_expected_identifier(name, expected_map)
     else:
