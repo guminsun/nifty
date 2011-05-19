@@ -543,59 +543,29 @@ material
  could be represented as tokens of the form
 \end_layout
 
-\begin_layout Description
+\begin_layout Standard
+\align center
 
 \family typewriter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
- <IDENTIFIER, material>
+<IDENTIFIER, material>
 \family default
 ,
 \end_layout
 
-\begin_layout Description
+\begin_layout Standard
+\align center
 
 \family typewriter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
- <ASSIGNMENT, =>
+<ASSIGNMENT, =>
 \family default
 , and
 \end_layout
 
-\begin_layout Description
+\begin_layout Standard
+\align center
 
 \family typewriter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
- <INTEGER, 9237>
+<INTEGER, 9237>
 \end_layout
 
 \begin_layout Standard
@@ -1116,11 +1086,11 @@ is allowed even though it does not make sense.
 \end_layout
 
 \begin_layout Subsubsection
-NIF Example
+NIF Examples
 \end_layout
 
 \begin_layout Standard
-For an example, in algorithm 3, the lines 1 through 7 in algorithm 1 are
+For an example, in algorithm 3, the lines 1 through 7 from algorithm 1 are
  expressed in NIF.
 \end_layout
 
@@ -1267,6 +1237,183 @@ NIF version of
 Algorithm 1
 \shape default
 , lines 1-7
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Descriptive names have been speciﬁed for the identiﬁers.
+ Algorithm 4 illustrates how lines 8 through 14 from algorithm 1 are expressed
+ in NIF.
+ Note the difference of the identifier names compared to algorithm 3.
+ The names in algorithm 4 has been chosen to reflect the documentation in
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+.
+ The 
+\family typewriter
+stop
+\family default
+ instruction on line 14 in algorithm 1 does not have to be specified, the
+ translator will automatically append it in the translation process.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+acer {
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_1 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		nendf = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+		npend = 31;
+\end_layout
+
+\begin_layout Plain Layout
+
+		ngend = 33;
+\end_layout
+
+\begin_layout Plain Layout
+
+		nace = 34;
+\end_layout
+
+\begin_layout Plain Layout
+
+    	ndir = 35;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_2 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		iopt = 7;
+\end_layout
+
+\begin_layout Plain Layout
+
+		iprint = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+		ntype = 2;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_3 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+viewr {
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_1 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		infile = 33;
+\end_layout
+
+\begin_layout Plain Layout
+
+		nps = 36;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NIF version of 
+\shape italic
+Algorithm 1
+\shape default
+, lines 8-14
 \end_layout
 
 \end_inset
