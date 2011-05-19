@@ -5,6 +5,8 @@ from ply import lex
 from ply import yacc
 
 from nifty.environment import syntax_tree
+
+from nifty.environment.exceptions import SyntaxError
 from nifty.environment.exceptions import syntax_error
 
 from nifty.lexer import nifty_lexer
@@ -55,7 +57,11 @@ def p_statement_list(p):
                        | empty
     '''
     if len(p) == 3:
-        p[0] = [p[1]] + p[2]
+        if isinstance(p[1], list):
+            # Unpack the list produced by p_assignment.
+            p[0] = p[1] + p[2]
+        else:
+            p[0] = [p[1]] + p[2]
     if p[0] is None:
         p[0] = []
 
@@ -71,9 +77,28 @@ def p_expression(p):
 
 def p_assignment(p):
     '''
-        assignment : l_value ASSIGNMENT r_value
+        assignment : l_value_list ASSIGNMENT r_value_list
     '''
-    p[0] = syntax_tree.make_assignment(p.lineno(2), p[2], p[1], p[3])
+    if len(p[1]) == len(p[3]):
+        p[0] = []
+        for i in range(len(p[1])):
+            p[0].append(syntax_tree.make_assignment(p.lineno(2), p[2], p[1][i], p[3][i]))
+    else:
+        msg = ('number of elements in the left hand side differs from the ' +
+               'right hand side')
+        msg = ('--- Syntax error on line %d, %s.'
+               % (p.lineno(2), msg))
+        raise SyntaxError(msg)
+
+def p_l_value_list(p):
+    '''
+        l_value_list : l_value
+                     | l_value COMMA l_value_list
+    '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
 
 def p_l_value(p):
     '''
@@ -89,6 +114,16 @@ def p_array(p):
 def p_identifier(p):
     'identifier : IDENTIFIER'
     p[0] = syntax_tree.make_identifier(p.lineno(0), p[1])
+
+def p_r_value_list(p):
+    '''
+        r_value_list : r_value
+                     | r_value COMMA r_value_list
+    '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
 
 def p_r_value(p):
     '''
