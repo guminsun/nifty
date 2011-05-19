@@ -1,9 +1,5 @@
-import sys
-
-from nifty.analyzer import analyzer_rules as rule
 from nifty.environment import helpers as env
 from nifty.environment.exceptions import OrganizeError
-from nifty.environment.exceptions import organize_error
 from nifty.environment.exceptions import SemanticError
 import organizer_helpers as helper
 
