@@ -2,7 +2,7 @@
 This test file is just used for testing the translator for the acer module. It
 is not intended to be run by NJOY.
 
-Illustrates how iz,aw pairs are speficied in NIF.
+Illustrates how iz,aw pairs can be speficied in NIF.
 
 *****************************************************************************/
 
@@ -33,18 +33,12 @@ acer
 
     card_4
     {
-        /* Input format of iz,aw pairs.
-
-           First pair: iz = 1 and aw = 1
-           Second pair: iz = 2 and aw = 2
-           Third pair: iz = 3 and aw = 3
-         */
+        /* First pair defined as usual. */
         iz[0] = 1;
-        aw[0] = 1;
-        iz[1] = 2;
-        aw[1] = 2;
-        iz[2] = 3;
-        aw[2] = 3;
+        aw[0] = 2;
+        /* Second and third pair defined as tuple assignments. */
+        iz[1], aw[1] = 3, 4;
+        iz[2], aw[2] = 5, 6;
     }
 
     card_11
