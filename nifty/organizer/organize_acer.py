@@ -6,6 +6,19 @@ import organizer_helpers as helper
 
 ##############################################################################
 # Organize acer. Put together into an orderly, functional, structured whole.
+#
+# Compare the organizer implementation for this module with the organizer
+# implementation for e.g. the plotr module.
+#
+# For acer, the organisation process is similar to the semantic analysis in
+# the analyzer. It iterates over the card's statement list, inspecting the
+# next card, and only organises expected cards. If an unexpected card is seen,
+# an exception is raised and the original syntax tree is returned.
+# This approach allows more detailed analysis and makes it possible to e.g.
+# insert missing cards with default values (e.g. card 6 may be defaulted in
+# this module). The drawbacks are that it takes more time to implement and
+# that the implementation is not as straightforward as the approach used for
+# plotr.
 
 def organize_acer(module):
     card_list = module.get('card_list')
@@ -28,7 +41,7 @@ def organize_card_list(card_list, module):
     # Card 5, 6 and 7 should only be defined if iopt = 1 in card_2.
     if iopt == 1:
         c5 = organize_card_5(env.next(card_iter), module)
-        # Card 6 may be defaulted. If card 6 is not defined, insert a empty
+        # Card 6 may be defaulted. If card 6 is not defined, insert an empty
         # card.
         if env.get_card('card_6', module) is None:
             index = card_list.index(c5) + 1
@@ -37,7 +50,7 @@ def organize_card_list(card_list, module):
         else:
             c6 = organize_card_6(env.next(card_iter), module)
         # Likewise, card 7 may be defaulted. If card 6 is not defined, insert
-        # a empty card.
+        # an empty card.
         if env.get_card('card_7', module) is None:
             index = card_list.index(c6) + 1
             helper.insert_default_card(index, 'card_7', card_list)
@@ -84,7 +97,7 @@ def organize_card_2(card, module):
     }
     card = helper.organize_card(expected_map, card)
     # The statement iterator is used to get the iopt and nxtra values which
-    # are used in organize_card_list/1 to determine which cards that are
+    # are used in organize_card_list/2 to determine which cards that are
     # supposed to be defined.
     stmt_iter = env.get_statement_iterator(card)
     # First element in 'statement_list' is assumed to be the iopt node after
@@ -97,11 +110,8 @@ def organize_card_2(card, module):
     return card, iopt, nxtra
 
 def get_iopt(node, card, module):
-    # Expecting a singleton value.
     l_value, r_value = rule.must_be_assignment(node, card, module)
-    # The l-value of the assignment is expected to be an identifier; iopt
     rule.identifier_must_be_defined('iopt', l_value, card, module)
-    # The r-value of the assignment is expected to be an integer.
     iopt = rule.must_be_int(l_value, r_value, card, module)
     return iopt
 
@@ -111,9 +121,7 @@ def get_nxtra(node, card, module):
         return 0
     else:
         l_value, r_value = rule.must_be_assignment(node, card, module)
-        # The l-value of the assignment is expected to be an identifier.
         rule.identifier_must_be_defined('nxtra', l_value, card, module)
-        # The r-value of the assignment is expected to be an integer.
         nxtra = rule.must_be_int(l_value, r_value, card, module)
         return nxtra
 
