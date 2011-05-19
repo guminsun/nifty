@@ -932,17 +932,7 @@ expression ::= assignment
 
 \begin_layout Plain Layout
 
-assignment ::= l_value_singleton "=" r_value_singleton
-\end_layout
-
-\begin_layout Plain Layout
-
-             | l_value_pair "=" r_value_pair
-\end_layout
-
-\begin_layout Plain Layout
-
-             | l_value_triplet "=" r_value_triplet
+assignment ::= l_value_list "=" r_value_list
 \end_layout
 
 \begin_layout Plain Layout
@@ -951,40 +941,22 @@ assignment ::= l_value_singleton "=" r_value_singleton
 
 \begin_layout Plain Layout
 
-l_value_singleton ::= l_value
+l_value_list ::= l_value
 \end_layout
 
 \begin_layout Plain Layout
 
-r_value_singleton ::= r_value
+			   | l_value "," l_value_list
 \end_layout
 
 \begin_layout Plain Layout
 
+r_value_list ::= r_value
 \end_layout
 
 \begin_layout Plain Layout
 
-l_value_pair ::= l_value "," l_value
-\end_layout
-
-\begin_layout Plain Layout
-
-r_value_pair ::= r_value "," r_value
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-l_value_triplet ::= l_value "," l_value "," l_value
-\end_layout
-
-\begin_layout Plain Layout
-
-r_value_triplet ::= r_value "," r_value "," r_value
+			   | r_value "," r_value_list
 \end_layout
 
 \begin_layout Plain Layout
@@ -1092,7 +1064,7 @@ An assignment denotes that a left hand side tuple is assigned to hold the
 \begin_layout Standard
 As such, a value definition is an array or identifier that has been declared
  to hold the value of either a floating-point number, natural number, empty
- value or a character string.
+ string or a character string.
 \end_layout
 
 \begin_layout Subsubsection
