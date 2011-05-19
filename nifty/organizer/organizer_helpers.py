@@ -74,13 +74,16 @@ def insert_default_values(expected_map, statement_list):
     return statement_list
 
 def insert_default_card(index, card_name, card_list):
+    if index is None:
+        return card_list
     card = ast.make_card(None, card_name, list())
     card_list.insert(index, card)
+    return card_list
 
-def get_identifier_value(id_name, card):
-    if card is None:
+def get_identifier_value(id_name, card_node):
+    if card_node is None:
         return None
-    statement_list = card.get('statement_list')
+    statement_list = card_node.get('statement_list')
     for statement in statement_list:
         must_be_assignment(statement)
         id_node = statement.get('l_value')
@@ -90,16 +93,27 @@ def get_identifier_value(id_name, card):
             return statement.get('r_value').get('value')
     return None
 
+def next_card_list_index(previous_card_node, card_list):
+    try:
+        index = card_list.index(previous_card_node) + 1
+    except ValueError:
+        index = None
+    return index
+
+def get_value(node):
+    if node is None:
+        return None
+    l_value, r_value = must_be_assignment(node)
+    return r_value.get('value')
+
+def get_optional_value(default_value, node):
+    if node is None:
+        return default_value
+    l_value, r_value = must_be_assignment(node)
+    return r_value.get('value')
+
 ##############################################################################
 # Organizer Rules.
-
-def card_must_be_defined(expected_card_name, card_node):
-    must_be_card(card_node)
-    card_name = card_node.get('card_name')
-    if expected_card_name == card_name:
-        return card_node
-    else:
-        organize_error()
 
 def identifier_must_be_unique(internal_id_name, statement_list):
     count = 0
@@ -117,7 +131,7 @@ def identifier_must_be_unique(internal_id_name, statement_list):
 
 def must_be_assignment(node):
     if env.is_assignment(node):
-        return node
+        return node.get('l_value'), node.get('r_value')
     else:
         organize_error()
 
@@ -129,6 +143,11 @@ def must_be_card(node):
 
 ##############################################################################
 # Boolean Helpers.
+
+def is_expected_card(expected_card_name, card_node):
+    if card_node is None:
+        return False
+    return expected_card_name == card_node.get('card_name')
 
 def is_expected_name(name, index, expected_map):
     if index is None:

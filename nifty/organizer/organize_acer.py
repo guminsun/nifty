@@ -1,5 +1,3 @@
-import sys
-
 from nifty.analyzer import analyzer_rules as rule
 from nifty.environment import helpers as env
 import organizer_helpers as helper
@@ -44,7 +42,7 @@ def organize_card_list(card_list, module):
         # Card 6 may be defaulted. If card 6 is not defined, insert an empty
         # card.
         if env.get_card('card_6', module) is None:
-            index = card_list.index(c5) + 1
+            index = helper.next_card_list_index(c5, card_list)
             helper.insert_default_card(index, 'card_6', card_list)
             c6 = organize_card_6(env.next(card_iter), module)
         else:
@@ -52,9 +50,9 @@ def organize_card_list(card_list, module):
         # Likewise, card 7 may be defaulted. If card 6 is not defined, insert
         # an empty card.
         if env.get_card('card_7', module) is None:
-            index = card_list.index(c6) + 1
+            index = helper.next_card_list_index(c6, card_list)
             helper.insert_default_card(index, 'card_7', card_list)
-            env.next(card_iter)
+            organize_card_7(env.next(card_iter), module)
         else:
             organize_card_7(env.next(card_iter), module)
     # Card 8, 8a and 9 should only be defined if iopt = 2 in card_2.
@@ -68,15 +66,13 @@ def organize_card_list(card_list, module):
     # Card 11 should only be defined if iopt = 4 or 5 in card_2.
     if iopt == 4 or iopt == 5:
         organize_card_11(env.next(card_iter), module)
-    # No more cards are allowed. The next card returned by env.next(card_iter)
-    # should be 'None'.
-    rule.no_card_allowed(env.next(card_iter), module)
     return card_list
 
 def organize_card_1(card, module):
-    # Card 1 must be defined. OrganizeError is raised if 'card' is not card 1
-    # (the original syntax tree will be returned).
-    helper.card_must_be_defined('card_1', card)
+    # If 'card' is not card 1, then return the original card such that e.g.
+    # the analyzer is able to report any semantical errors.
+    if not helper.is_expected_card('card_1', card):
+        return card
     expected_map = {
         0 : ('identifier', ('nendf', None)),
         1 : ('identifier', ('npend', None)),
@@ -87,7 +83,8 @@ def organize_card_1(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
-    helper.card_must_be_defined('card_2', card)
+    if not helper.is_expected_card('card_2', card):
+        return card
     expected_map = {
         0 : ('identifier', ('iopt', None)),
         1 : ('identifier', ('iprint', 1)),
@@ -102,38 +99,21 @@ def organize_card_2(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # First element in 'statement_list' is assumed to be the iopt node after
     # sorting.
-    iopt = get_iopt(env.next(stmt_iter), card, module)
+    iopt = helper.get_value(env.next(stmt_iter))
     # Fifth element in 'statement_list' is assumed to be the nxtra node after
     # sorting.
     env.skip(3, stmt_iter)
-    nxtra = get_nxtra(env.next(stmt_iter), card, module)
+    nxtra = helper.get_optional_value(0, env.next(stmt_iter))
     return card, iopt, nxtra
-
-def get_iopt(node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    rule.identifier_must_be_defined('iopt', l_value, card, module)
-    iopt = rule.must_be_int(l_value, r_value, card, module)
-    return iopt
-
-def get_nxtra(node, card, module):
-    # nxtra does not have to be defined, defaults to 0.
-    if node is None:
-        return 0
-    else:
-        l_value, r_value = rule.must_be_assignment(node, card, module)
-        rule.identifier_must_be_defined('nxtra', l_value, card, module)
-        nxtra = rule.must_be_int(l_value, r_value, card, module)
-        return nxtra
 
 def organize_card_3(card, module):
     # No need to organize card 3; it only contains one variable which has no
-    # default value. Card 3 must be defined though. If card 3 is not defined
-    # then there's no need to organize the rest of the program
-    helper.card_must_be_defined('card_3', card)
+    # default value.
     return card
 
 def organize_card_4(nxtra, card, module):
-    helper.card_must_be_defined('card_4', card)
+    if not helper.is_expected_card('card_4', card):
+        return card
     expected_map = {}
     order = 0
     for i in range(nxtra):
@@ -144,7 +124,8 @@ def organize_card_4(nxtra, card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
-    helper.card_must_be_defined('card_5', card)
+    if not helper.is_expected_card('card_5', card):
+        return card
     expected_map = {
         0 : ('identifier', ('matd', None)),
         1 : ('identifier', ('tempd', 300)),
@@ -152,7 +133,8 @@ def organize_card_5(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_6(card, module):
-    helper.card_must_be_defined('card_6', card)
+    if not helper.is_expected_card('card_6', card):
+        return card
     expected_map = {
         0 : ('identifier', ('newfor', 1)),
         1 : ('identifier', ('iopp', 1)),
@@ -160,7 +142,8 @@ def organize_card_6(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_7(card, module):
-    helper.card_must_be_defined('card_7', card)
+    if not helper.is_expected_card('card_7', card):
+        return card
     expected_map = {
         0 : ('identifier', ('thin01', None)),
         1 : ('identifier', ('thin02', None)),
@@ -169,7 +152,8 @@ def organize_card_7(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_8(card, module):
-    helper.card_must_be_defined('card_8', card)
+    if not helper.is_expected_card('card_8', card):
+        return card
     expected_map = {
         0 : ('identifier', ('matd', None)),
         1 : ('identifier', ('tempd', 300)),
@@ -178,7 +162,8 @@ def organize_card_8(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_8a(card, module):
-    helper.card_must_be_defined('card_8a', card)
+    if not helper.is_expected_card('card_8a', card):
+        return card
     expected_map = {
         0 : ('identifier', ('iza01', None)),
         1 : ('identifier', ('iza02', 0)),
@@ -187,7 +172,8 @@ def organize_card_8a(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_9(card, module):
-    helper.card_must_be_defined('card_9', card)
+    if not helper.is_expected_card('card_9', card):
+        return card
     expected_map = {
         0 : ('identifier', ('mti', None)),
         1 : ('identifier', ('nbint', None)),
@@ -200,7 +186,8 @@ def organize_card_9(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_10(card, module):
-    helper.card_must_be_defined('card_10', card)
+    if not helper.is_expected_card('card_10', card):
+        return card
     expected_map = {
         0 : ('identifier', ('matd', None)),
         1 : ('identifier', ('tempd', 300)),
@@ -210,5 +197,4 @@ def organize_card_10(card, module):
 def organize_card_11(card, module):
     # No need to organize card 11; it only contains one variable which has no
     # default value.
-    helper.card_must_be_defined('card_11', card)
     return card
