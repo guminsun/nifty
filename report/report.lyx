@@ -1251,10 +1251,99 @@ Algorithm 1
 
 \begin_layout Standard
 Descriptive names have been speciﬁed for the identiﬁers.
- Algorithm 4 illustrates how lines 8 through 14 from algorithm 1 are expressed
+ As illustrated in algorithm 3, a typical NIF program is vertically long
+ compared to the compact notation of the NJOY input instructions.
+ NIF programs can of course be specified in a compact form as well, e.g.
+ on a single line, but this is not the intended usage of NIF.
+\end_layout
+
+\begin_layout Standard
+Algorithm 4 is another example of NJOY input instructions, which is expressed
+ as a NIF program in algorithm 5.
+ Algorithm 4 only serves illustrational purposes.
+ It is not intended to be run by the NJOY software system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+acer
+\end_layout
+
+\begin_layout Plain Layout
+
+20 21 0 31 32/
+\end_layout
+
+\begin_layout Plain Layout
+
+5 1 1 0.00 3/
+\end_layout
+
+\begin_layout Plain Layout
+
+'Descriptive character string.'/
+\end_layout
+
+\begin_layout Plain Layout
+
+1 2 3 4 5 6/
+\end_layout
+
+\begin_layout Plain Layout
+
+9237/
+\end_layout
+
+\begin_layout Plain Layout
+
+stop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Simple 
+\family typewriter
+acer
+\family default
+ example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Algorithm 5 shows how arrays, comments, and multiple assignments are expressed
  in NIF.
  Note the difference of the identifier names compared to algorithm 3.
- The names in algorithm 4 has been chosen to reflect the documentation in
+ The names in algorithm 5 has been chosen to reflect the documentation in
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1263,12 +1352,18 @@ key "key-4"
 \end_inset
 
 .
- The 
+ Line 20 and 23 are comments.
+ The NIF grammar does not specify the structure of the comments.
+ They are handled by the lexer in the NIF translator.
+\end_layout
+
+\begin_layout Standard
+The 
 \family typewriter
 stop
 \family default
- instruction on line 14 in algorithm 1 does not have to be specified, the
- translator will automatically append it in the translation process.
+ instruction on line 7 in algorithm 4 does not have to be speciﬁed in NIF,
+ the NIF translator will automatically append it in the translation process.
 \end_layout
 
 \begin_layout Standard
@@ -1297,27 +1392,27 @@ acer {
 
 \begin_layout Plain Layout
 
-		nendf = 0;
+		nendf = 20;         
 \end_layout
 
 \begin_layout Plain Layout
 
-		npend = 31;
+		npend = 21;         
 \end_layout
 
 \begin_layout Plain Layout
 
-		ngend = 33;
+		ngend = 0;         
 \end_layout
 
 \begin_layout Plain Layout
 
-		nace = 34;
+		nace = 31;         
 \end_layout
 
 \begin_layout Plain Layout
 
-    	ndir = 35;
+		ndir = 32;
 \end_layout
 
 \begin_layout Plain Layout
@@ -1332,32 +1427,27 @@ acer {
 
 \begin_layout Plain Layout
 
-		iopt = 7;
+		iopt = 5;
 \end_layout
 
 \begin_layout Plain Layout
 
-		iprint = 1;
+		iprint = 1;         
 \end_layout
 
 \begin_layout Plain Layout
 
-		ntype = 2;
+		ntype = 1;         
 \end_layout
 
 \begin_layout Plain Layout
 
-	}
+		suff = 0.00;         
 \end_layout
 
 \begin_layout Plain Layout
 
-	card_3 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		hk = "proton + 7-n-14 apt la150 njoy99 mcnpx";
+		nxtra = 3;     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1367,27 +1457,69 @@ acer {
 
 \begin_layout Plain Layout
 
-}
+	card_3 {         
 \end_layout
 
 \begin_layout Plain Layout
 
-viewr {
+		hk = "Descriptive character string.";     
 \end_layout
 
 \begin_layout Plain Layout
 
-	card_1 {
+	}
 \end_layout
 
 \begin_layout Plain Layout
 
-		infile = 33;
+	card_4 {
 \end_layout
 
 \begin_layout Plain Layout
 
-		nps = 36;
+		/* First iz,aw pair defined as a single assignment.
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
+		iz[0] = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        aw[0] = 2;         
+\end_layout
+
+\begin_layout Plain Layout
+
+		/* Second and third iz,aw pair defined as multiple assignments.
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
+		iz[1], aw[1] = 3, 4;
+\end_layout
+
+\begin_layout Plain Layout
+
+		iz[2], aw[2] = 5, 6;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_11 {         
+\end_layout
+
+\begin_layout Plain Layout
+
+		matd = 9237;
 \end_layout
 
 \begin_layout Plain Layout
@@ -1411,9 +1543,7 @@ viewr {
 \begin_layout Plain Layout
 NIF version of 
 \shape italic
-Algorithm 1
-\shape default
-, lines 8-14
+Algorithm 4
 \end_layout
 
 \end_inset
@@ -1457,7 +1587,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Users/ceh/Desktop/nifty.eps
+	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
 
 \end_inset
 
@@ -1507,7 +1637,7 @@ key "key-5"
 
 .
  The organizer is a phase where the order of the statements in a card are
- analysed and possible rearranged.
+ analyzed and possible rearranged.
 \end_layout
 
 \begin_layout Standard
@@ -1559,6 +1689,9 @@ key "key-4"
 
 , thus enforcing the use of a specific set of cards and modules as mentioned
  previously.
+ The lexer also recognizes comments in the input program.
+ The comments will be discarded during the lexical analysis and thus won't
+ be passed on to the next phase in the translation process.
 \end_layout
 
 \begin_layout Paragraph
@@ -1580,7 +1713,7 @@ Organizer
 \end_layout
 
 \begin_layout Standard
-The organizer analyses the syntax tree produced by the parser.
+The organizer analyzes the syntax tree produced by the parser.
  Its purpose is to rearrange the statements in a card such that they appear
  in the expected, working order.
  As such, it should be possible to write a NIF program without having to
@@ -1624,7 +1757,7 @@ Analyzer
 
 \begin_layout Standard
 The analyzer expects a syntax tree as its input.
- Like in the organizer phase, the modules needs to be analysed separately
+ Like in the organizer phase, the modules needs to be analyzed separately
  since each module has its specific set of rules as described in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1654,12 +1787,11 @@ key "key-4"
 \end_layout
 
 \begin_layout Standard
-The analyzer does not alter the syntax tree, it just analyses it.
+The analyzer does not alter the syntax tree, it just analyzes it.
  The input syntax tree will be the output of the analyzer if the syntax
  tree is semantically correct according to the translator.
- If the analyzer detects a semantical error in the syntax tree, an error
- message will be reported and the translation process will stop at this
- phase.
+ If the analyzer detects a semantic error in the syntax tree, an error message
+ will be reported and the translation process will stop at this phase.
 \end_layout
 
 \begin_layout Paragraph
