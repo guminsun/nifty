@@ -302,7 +302,8 @@ acer
 
 \begin_layout Standard
 The input instructions can be annotated with descriptive comments, but even
- then, working with a large and complex job easily becomes a daunting task.
+ then, working with a large and complex job easily becomes a daunting and
+ error-prone task.
 \end_layout
 
 \begin_layout Standard
@@ -350,7 +351,7 @@ Introduction
 \begin_layout Standard
 The NJOY input instructions had to be understood in order to design the
  new input format.
- Each module of the NJOY software system, as described in 
+ Each module of the NJOY software system, as described in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -362,7 +363,7 @@ key "key-4"
 \end_layout
 
 \begin_layout Standard
-As stated in 
+As stated in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-5"
@@ -376,7 +377,7 @@ compiler
 ) is a program that can read a program in one language and translate it
  into an equivalent program in another language.
  In the following subsections, principles and techniques for constructing
- a translator presented in 
+ a translator presented in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-5"
@@ -457,7 +458,7 @@ Building the Translator
 \end_layout
 
 \begin_layout Standard
-In 
+In reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-5"
@@ -656,7 +657,7 @@ key "key-14"
 \end_layout
 
 \begin_layout Standard
-For example, according to 
+For example, according to reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -688,7 +689,7 @@ hk
 acer
 \family default
 , is used to denote a descriptive character string.
- According to 
+ According to reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -747,12 +748,19 @@ http://t2.lanl.gov/codes/njoy99/
 
 \end_inset
 
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
  was used to test the functionality of both the input format and the translator.
 \end_layout
 
 \begin_layout Standard
-The NJOY test problems was manually translated into equivalent NJOY jobs
- in the new input format, which were run through the translator.
+NJOY test problems was manually translated into equivalent NJOY jobs in
+ the new input format, which were run through the translator.
  The resulting output was compared with the expected output, to verify that
  the translator was working appropriately.
 \end_layout
@@ -792,15 +800,6 @@ The new input format, NJOY Input Format (NIF), is basically the NJOY input
  instructions which have been annotated with a syntax to make it easier
  to read and express.
  NIF has been designed to appear more like a high-level programming language.
- It was also designed to resemble the NJOY input instructions such that
- the documentation in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
- can be used when specifying NJOY jobs in NIF.
 \end_layout
 
 \begin_layout Subsubsection
@@ -808,10 +807,13 @@ Grammar Definition
 \end_layout
 
 \begin_layout Standard
-The resulting NJOY Input Format (NIF) is illustrated as a context-free grammar
- definition in algorithm 2.
+The proposed NJOY Input Format (
+\family typewriter
+NIF
+\family default
+) is illustrated as a context-free grammar definition in algorithm 2.
  The structure of the grammar is simple.
- Just like in 
+ Just like in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -1090,8 +1092,8 @@ NIF Examples
 \end_layout
 
 \begin_layout Standard
-For an example, in algorithm 3, the lines 1 through 7 from algorithm 1 are
- expressed in NIF.
+In algorithm 3, the lines 1 through 7 from algorithm 1 are expressed in
+ NIF.
 \end_layout
 
 \begin_layout Standard
@@ -1251,8 +1253,8 @@ Algorithm 1
 
 \begin_layout Standard
 Descriptive names have been speciﬁed for the identiﬁers.
- As illustrated in algorithm 3, a typical NIF program is vertically long
- compared to the compact notation of the NJOY input instructions.
+ As indicated by algorithm 3, a typical NIF program is vertically long compared
+ to the compact notation of the NJOY input instructions.
  NIF programs can of course be specified in a compact form as well, e.g.
  on a single line, but this is not the intended usage of NIF.
 \end_layout
@@ -1344,7 +1346,7 @@ Algorithm 5 shows how arrays, comments, and multiple assignments are expressed
  in NIF.
  Note the difference of the identifier names compared to algorithm 3.
  The names in algorithm 5 has been chosen to reflect the documentation in
- 
+ reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -1477,7 +1479,7 @@ acer {
 
 \begin_layout Plain Layout
 
-		/* First iz,aw pair defined as a single assignment.
+		/* First iz,aw pair defined as single assignments.
  */
 \end_layout
 
@@ -1587,7 +1589,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
@@ -1613,9 +1615,12 @@ Translation process in nifty
 \end_layout
 
 \begin_layout Standard
-The translator, NJOY Input Format Translator (nifty), was constructed as
- a set of modules where each module implements a specific phase in the translati
-on process.
+The translator, NJOY Input Format Translator (
+\family typewriter
+nifty
+\family default
+), was constructed as a set of modules where each module implements a specific
+ phase in the translation process.
  Five phases have been implemented as part of the translation process and
  are shown in figure 1.
 \end_layout
@@ -1628,16 +1633,8 @@ The first phase is the lexical analysis which is implemented by the lexer
 
 \begin_layout Standard
 The third phase, implemented by the organizer module, is a special phase
- which is not found in a translator as described in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-5"
-
-\end_inset
-
-.
- The organizer is a phase where the order of the statements in a card are
- analyzed and possible rearranged.
+ where the order of the statements in a card are analyzed and possible rearrange
+d.
 \end_layout
 
 \begin_layout Standard
@@ -1680,7 +1677,7 @@ The lexer is responsible for recognizing character patterns and generating
  If a lexical error is detected, an error message will be reported and the
  translation process will stop at this phase.
  The lexer will only recognize card and module names which are specified
- in 
+ in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -1699,9 +1696,9 @@ Parser
 \end_layout
 
 \begin_layout Standard
-The parser is responsible of enforcing the structure of the NIF grammar
+The parser is responsible for enforcing the structure of the NIF grammar
  and constructing the syntax tree.
- As input, the parser expects a token stream generated by the lexer.
+ As input, the parser expects a stream of tokens generated by the lexer.
  The parser will produce a syntax tree as its output, which represents the
  structure of the NIF program.
  If the parser detects a syntax error, an error message will be reported
@@ -1717,7 +1714,8 @@ The organizer analyzes the syntax tree produced by the parser.
  Its purpose is to rearrange the statements in a card such that they appear
  in the expected, working order.
  As such, it should be possible to write a NIF program without having to
- list the statements in a card in the expected order as indicated by 
+ list the statements in a card in the expected order as indicated by reference
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -1725,12 +1723,13 @@ key "key-4"
 \end_inset
 
 .
- The modules and cards still needs to be given in the correct order though.
+ The NJOY modules and cards still needs to be given in the correct order
+ though.
 \end_layout
 
 \begin_layout Standard
-Each module requires its own organizer implementation since each module
- has its specific set of rules as described in 
+Each NJOY module requires its own organizer implementation since each module
+ has its specific set of rules as described in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -1738,7 +1737,7 @@ key "key-4"
 \end_inset
 
 .
- Since the identifier names are hard coded into the translator, the organizer
+ Since the identifier names are hardwired in the translator, the organizer
  is able to do a detailed analysis of the syntax tree and easily detect
  if a specific identifier has been defined out of order.
 \end_layout
@@ -1748,7 +1747,8 @@ If any statements have been provided out of order in a card, and the organizer
  is able to arrange the statements, a new syntax tree is returned where
  the statements have been ordered in the expected sequence.
  If the organizer somehow fails, it will return the original syntax tree
- as produced by the parser and pass it on to the next phase in the translator.
+ as produced by the parser and pass it on to the next phase in the translation
+ process.
 \end_layout
 
 \begin_layout Paragraph
@@ -1757,8 +1757,17 @@ Analyzer
 
 \begin_layout Standard
 The analyzer expects a syntax tree as its input.
- Like in the organizer phase, the modules needs to be analyzed separately
- since each module has its specific set of rules as described in 
+ Like in the organizer phase, the NJOY modules needs to be analyzed separately
+ since each module has its specific set of rules.
+ As such, each module also requires its own analyzer implementation.
+\end_layout
+
+\begin_layout Standard
+The analyzer basically visits every node in the order they appear in the
+ syntax tree and checks if it is the expected one.
+ The analysis can be made very detailed since the translator can, to some
+ extent, predict the next card or identifier due to the ordered nature described
+ in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -1766,24 +1775,12 @@ key "key-4"
 \end_inset
 
 .
- As such, each module requires its own analyzer implementation.
-\end_layout
-
-\begin_layout Standard
-The analyzer basically visits every node in the order they appear in the
- syntax tree and checks if it is the expected one.
- The analysis can be made very detailed since the translator can, to some
- extent, predict the next card or identifier due the ordered nature in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
- and since the cards and the identifiers have reserved names.
- As such, it can in a simple fashion determine whether a card or an identifier
- has been defined or not and whether an identifier has been defined as the
- expected type, et cetera.
+ Since the cards and the identifiers have reserved names, the analyzer is
+ able to easily determine whether a card or an identifier is the expected
+ one.
+ Using reserved names also makes type checking easy, since a reserved identifier
+ in a specific card may be associated with a specific type, range, size,
+ length, et cetera.
 \end_layout
 
 \begin_layout Standard
@@ -1816,6 +1813,45 @@ The emitter expects a syntax tree as its input and it is responsible for
 Discussion
 \end_layout
 
+\begin_layout Subsection
+NJOY Input Format (
+\family typewriter
+NIF
+\family default
+)
+\end_layout
+
+\begin_layout Standard
+The proposed grammar does not differ much from the NJOY input instructions
+ since it basically is an annotated version of them.
+ The NIF grammar could have been expanded to include more complex programming
+ idioms, such as an 
+\family typewriter
+if
+\family default
+ expression to allow flow control in a NIF program.
+ Although, the structure of NIF was designed to be simple and to closely
+ resemble the original input instructions such that a user does not need
+ to learn a completely new programming language to specify NJOY jobs.
+ Another intention of this design choice is that the NJOY input instructions
+ documented in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ can be used to specify NJOY jobs in NIF.
+\end_layout
+
+\begin_layout Subsection
+NJOY Input Format Translator (
+\family typewriter
+nifty
+\family default
+)
+\end_layout
+
 \begin_layout Standard
 An organizer and analyzer has not been provided for all modules in the NJOY
  software system due to time constraints of this thesis.
@@ -1828,16 +1864,34 @@ An organizer and analyzer has not been provided for all modules in the NJOY
 \begin_layout Standard
 The implementation of the analyzer module has been the most time consuming
  task when designing the translator.
- It requires detailed analysis of what kind of input the modules expect
+ It requires detailed analysis of what kind of input the NJOY modules expect
  and how they operate on it.
  To fully check the semantics of a NIF program, the source code for the
  NJOY software system must be studied in greater detail.
  The ENDF formats must also be studied in greater detail in order to understand
- the semantics of the NJOY modules.
+ the semantics and what kind of values that the NJOY modules accept.
 \end_layout
 
 \begin_layout Standard
-The testing that was conducted within this work is not rigorous enough.
+The efficiency of the translator has not been tested.
+ If a large set of NIF programs should be translated, like in the MACRO
+ project 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-3"
+
+\end_inset
+
+, the total runtime may be found too inefficient for production use.
+\end_layout
+
+\begin_layout Subsection
+Testing
+\end_layout
+
+\begin_layout Standard
+The testing that was conducted within this work is not rigorous enough due
+ to time constraints of this thesis.
  NJOY is a large and complex program
 \begin_inset Foot
 status open
@@ -1849,39 +1903,38 @@ The source files for the NJOY software system consists of more than 100
 
 \end_inset
 
-.
- The NJOY test problems which were used to test the translation functionality
- is a very small set of possible NJOY jobs.
- Hence, there is a lot of possible scenarios that has not been tested.
+ with many possible combinations of input within each NJOY module and card.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Comment
-status open
+status collapsed
 
-\begin_layout Itemize
-Efficiency?
-\end_layout
-
-\begin_layout Itemize
-Answer the 
-\begin_inset Quotes eld
-\end_inset
-
-Why?
-\begin_inset Quotes erd
-\end_inset
-
- questions.
-\end_layout
-
-\begin_layout Itemize
-Significant findings?
+\begin_layout Plain Layout
+The number of possible NJOY jobs is infinite (all may not be functional
+ in the NJOY software system, though).
+ An infinite number of NJOY jobs can simply be created by just appending
+ another module specification to an existing NJOY job in order to create
+ a new one.
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The NJOY test problems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+ which were used to test the translation functionality is a very small set
+ of possible NJOY jobs.
+ Hence, there is a lot of scenarios within each NJOY module that has not
+ been tested.
 \end_layout
 
 \begin_layout Standard
@@ -1895,93 +1948,56 @@ Significant findings?
 Conclusions
 \end_layout
 
-\begin_layout Itemize
-Improvement on the existing situation?
+\begin_layout Standard
+In this thesis, a new input format, NJOY Input Format (
+\family typewriter
+NIF
+\family default
+), has been proposed.
+ A translator which is able to translate NIF into NJOY input instructions
+ has been implemented.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-Readable?
+\begin_layout Standard
+It is possible to specify basic NJOY jobs in NIF with a syntax to make them
+ easier to read and express.
+ The resulting NIF programs can be translated into NJOY input instructions,
+ which can be run by the NJOY software system.
+ Production use is although not advisable, since it has been challenging
+ to conduct rigorous and complete testing.
+ It has also been evident that analysing the NJOY input instructions is
+ not enough to design a new input format for the NJOY software system.
+ Analysing the ENDF formats and the source code for the NJOY software system
+ is required in order to build a translator which can conduct a complete
+ semantic analysis for a NJOY job.
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-Challenges?
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Constructing a decent input format.
-\end_layout
-
-\begin_layout Itemize
-The physics (even if it's not within the scope).
- Documentation is full of it, kind of.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Usable?
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Production: not advisable.
- Grammar not verified.
- 
-\begin_inset Quotes eld
-\end_inset
-
-Toy
-\begin_inset Quotes erd
-\end_inset
-
- translator.
-\end_layout
-
-\end_deeper
 \begin_layout Subsection
 Future Work
 \end_layout
 
-\begin_layout Itemize
-Possible improvements?
+\begin_layout Standard
+Future work includes completing the semantic analysis and the organizer
+ feature for all modules in the NJOY software system.
+ The NJOY Input Format and the translator also needs to be systematically
+ evaluated and verified by a complete software quality assurance process
+ as described in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-15"
+
+\end_inset
+
+.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-Recognize more data-types.
- E.g.
- materials, temperatures, etc.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Complete context-free grammar?
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Expand grammar.
- More tokens (
-\family typewriter
-TEMPERATURE
-\family default
-, 
-\family typewriter
-MATERIAL
-\family default
-, etc).
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-GUI editor?
-\end_layout
-
-\begin_layout Itemize
-Efficient implementation, e.g.
- C?
+\begin_layout Standard
+It might be interesting to implement an efficient version of the translator,
+ in e.g.
+ the C programming language.
+ A spin-off project, that is related to developing a user friendly and readable
+ input format, is to construct a graphical user interface editor which can
+ display and produce NJOY input instructions in a user friendly fashion.
 \end_layout
 
 \begin_layout Standard
@@ -2438,6 +2454,27 @@ Compilers: Principles, Techniques, & Tools
  1, sec.
  1.2, pp.
  8-9.
+\end_layout
+
+\begin_layout Bibliography
+\paragraph_spacing single
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-15"
+
+\end_inset
+
+C.
+ Kaner 
+\shape italic
+et al.
+\shape default
+, 
+\shape italic
+Testing Computer Software
+\shape default
+, Second Edition.
+ New York: John Wiley and Sons, Inc., 1999.
 \end_layout
 
 \end_body
