@@ -316,13 +316,6 @@ groupr
     card_9
     {
         mfd = 3;
-        mtd = 4;
-        mtname = "inelastic";
-    }
-
-    card_9
-    {
-        mfd = 3;
         mtd = 51;
         mtname = "discrete inelastic";
     }
