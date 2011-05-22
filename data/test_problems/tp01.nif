@@ -155,7 +155,7 @@ broadr
 
     card_4
     {
-        temp2[0] = 300; // Use C-style floats.
+        temp2[0] = 300.0; // Use C-style floats.
     }
 
     card_5
@@ -211,7 +211,7 @@ thermr
 
     card_3
     {
-        tempr[0] = 300; // Use C-style floats.
+        tempr[0] = 300.0; // Use C-style floats.
     }
 
     card_4
@@ -245,7 +245,7 @@ thermr
 
     card_3
     {
-        tempr[0] = 300; // Use C-style floats.
+        tempr[0] = 300.0; // Use C-style floats.
     }
 
     card_4
@@ -289,7 +289,7 @@ groupr
 
     card_5
     {
-        sigz[0] = 1e10; // No trailing dots. Use C-style floats.
+        sigz[0] = 1.0e10; // No trailing dots. Use C-style floats.
     }
 
     card_9
