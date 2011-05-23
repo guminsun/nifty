@@ -72,46 +72,118 @@ def organize_card_2(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_3(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('mprint', None)),
+        1 : ('identifier', ('tempin', 300)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_4(card, module):
+    # No need to organize card 4 since it only contains one identifier which
+    # has no default value.
     pass
 
 def organize_card_5(card, module):
-    pass
+    # XXX: Need to verify with NJOY source code. Documentation fuzzy.
+    card_4 = env.get_card('card_4', module)
+    nek = helper.get_identifier_value('nek', card_4)
+    if nek is None:
+        organize_error()
+    expected_map = {}
+    for i in range(nek+1):
+        expected_map[i] = ('array', ('ek', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_6(card, module):
+    # XXX: Need to verify with NJOY source code. Documentation fuzzy.
     pass
 
 def organize_card_7(card, module):
-    pass
+    ifissp = helper.get_identifier_value('ifissp', card)
+    if ifissp == -1:
+        efmean = 2.0
+    else:
+        efmean = None
+    expected_map = {
+        0 : ('identifier', ('iread', 0)),
+        1 : ('identifier', ('mfcov', 33)),
+        2 : ('identifier', ('irespr', 1)),
+        3 : ('identifier', ('legord', 1)),
+        4 : ('identifier', ('ifissp', -1)),
+        5 : ('identifier', ('efmean', efmean)), # XXX: None?
+        5 : ('identifier', ('dap', 0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('nmt', None)),
+        1 : ('identifier', ('nek', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8a(card, module):
-    pass
+    card_8 = env.get_card('card_8', module)
+    nmt = helper.get_identifier_value('nmt', card_8)
+    if nmt is None:
+        organize_error()
+    expected_map = {}
+    for i in range(nmt):
+        expected_map[i] = ('array', ('mts', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8b(card, module):
-    pass
+    card_8 = env.get_card('card_8', module)
+    nek = helper.get_identifier_value('nek', card_4)
+    if nek is None:
+        organize_error()
+    expected_map = {}
+    for i in range(nek+1):
+        expected_map[i] = ('array', ('ek', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_9(card, module):
+    # XXX: Need to verify with NJOY source code. Documentation fuzzy.
     pass
 
 def organize_card_10(card, module):
+    # XXX: Need to verify with NJOY source code. Documentation fuzzy.
     pass
 
 def organize_card_11(card, module):
+    # XXX: Need to verify with NJOY source code. Documentation fuzzy.
     pass
 
 def organize_card_12a(card, module):
+    # No need to organize card 12a since it only contains one identifier which
+    # has no default value.
     pass
 
 def organize_card_12b(card, module):
-    pass
+    card_12a = env.get_card('card_12a', module)
+    ngn = helper.get_identifier_value('ngn', card_12a)
+    if ngn is None:
+        organize_error()
+    expected_map = {}
+    for i in range(ngn+1):
+        expected_map[i] = ('array', ('egn', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_13a(card, module):
-    pass
+    # Length of TAB1 record is user defined, retrieve it so that it is
+    # possible to sort the statement list.
+    wght_length = len(card.get('statement_list'))
+    expected_map = {}
+    # Assuming TAB1 records are defined as NIF arrays.
+    for i in range(wght_length):
+        expected_map[i] = ('array', ('wght', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_13b(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('eb', None)),
+        1 : ('identifier', ('tb', None)),
+        2 : ('identifier', ('ec', None)),
+        3 : ('identifier', ('tc', None)),
+    }
+    return helper.organize_card(expected_map, card)

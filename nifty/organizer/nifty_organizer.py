@@ -8,7 +8,7 @@ from organize_broadr import organize_broadr
 #from organize_ccccr import organize_ccccr
 from organize_covr import organize_covr
 #from organize_dtfr import organize_dtfr
-#from organize_errorr import organize_errorr
+from organize_errorr import organize_errorr
 #from organize_gaminr import organize_gaminr
 #from organize_gaspr import organize_gaspr
 from organize_groupr import organize_groupr
@@ -62,7 +62,7 @@ def organize_module(module):
         #'ccccr' : organize_ccccr,
         'covr' : organize_covr,
         #'dtfr' : organize_dtfr,
-        #'errorr' : organize_errorr,
+        'errorr' : organize_errorr,
         #'gaminr' : organize_gaminr,
         #'gaspr' : organize_gaspr,
         'groupr' : organize_groupr,
