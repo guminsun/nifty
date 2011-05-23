@@ -47,7 +47,14 @@ def organize_card_1(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('mat1', None)),
+        1 : ('identifier', ('ntemp2', None)),
+        2 : ('identifier', ('istart', 0)),
+        3 : ('identifier', ('istrap', 0)),
+        4 : ('identifier', ('temp1', 0.0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_3(card, module):
     pass
