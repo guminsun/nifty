@@ -71,6 +71,8 @@ def organize_card_3(card, module):
 def organize_card_4(card, module):
     card_2 = env.get_card('card_2', module)
     ntemp2 = helper.get_identifier_value('ntemp2', card_2)
+    if ntemp2 is None:
+        organize_error()
     expected_map = {}
     for i in range(ntemp2):
         expected_map[i] = ('array', ('temp2', None, i))
