@@ -93,10 +93,9 @@ def organize_card_5(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_6a(card, module):
-    expected_map = {
-        0 : ('identifier', ('ngn', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    # No need to organize card 6a since it only contains one value which has
+    # no default value.
+    pass
 
 def organize_card_6b(card, module):
     card_6a = env.get_card('card_6a', module)
@@ -110,10 +109,9 @@ def organize_card_6b(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_7a(card, module):
-    expected_map = {
-        0 : ('identifier', ('ngg', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    # No need to organize card 7a since it only contains one value which has
+    # no default value.
+    pass
 
 def organize_card_7b(card, module):
     card_7a = env.get_card('card_7a', module)
@@ -161,10 +159,19 @@ def organize_card_8c(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_8d(card, module):
+    # No need to organize card 8d since it only contains one value which has
+    # no default value.
     pass
 
 def organize_card_9(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('mfd', None)),
+        1 : ('identifier', ('mtd', None)),
+        2 : ('identifier', ('mtname', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_10(card, module):
+    # No need to organize card 10 since it only contains one value which has
+    # no default value.
     pass
