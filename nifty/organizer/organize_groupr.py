@@ -1,5 +1,6 @@
 from nifty.environment import helpers as env
 from nifty.environment.exceptions import OrganizeError
+from nifty.environment.exceptions import organize_error
 from nifty.environment.exceptions import SemanticError
 import organizer_helpers as helper
 
@@ -92,10 +93,21 @@ def organize_card_5(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_6a(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('ngn', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_6b(card, module):
-    pass
+    card_6a = env.get_card('card_6a', module)
+    ngn = helper.get_identifier_value('ngn', card_6a)
+    # Ugly? 'ngn' must be defined in order to sort the 'egn' array.
+    if ngn is None:
+        organize_error()
+    expected_map = {}
+    for i in range(ngn+1):
+        expected_map[i] = ('array', ('egn', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_7a(card, module):
     pass
