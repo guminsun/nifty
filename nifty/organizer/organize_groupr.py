@@ -79,6 +79,8 @@ def organize_card_3(card, module):
 def organize_card_4(card, module):
     card_2 = env.get_card('card_2', module)
     ntemp = helper.get_identifier_value('ntemp', card_2)
+    if ntemp is None:
+        organize_error()
     expected_map = {}
     for i in range(ntemp):
         expected_map[i] = ('array', ('temp', None, i))
@@ -87,6 +89,8 @@ def organize_card_4(card, module):
 def organize_card_5(card, module):
     card_2 = env.get_card('card_2', module)
     nsigz = helper.get_identifier_value('nsigz', card_2)
+    if nsigz is None:
+        organize_error()
     expected_map = {}
     for i in range(nsigz):
         expected_map[i] = ('array', ('sigz', None, i))
