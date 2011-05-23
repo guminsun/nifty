@@ -39,7 +39,12 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('nendf', None)),
+        1 : ('identifier', ('nin', None)),
+        2 : ('identifier', ('nout', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
     pass
