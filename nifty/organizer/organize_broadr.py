@@ -57,10 +57,26 @@ def organize_card_2(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_3(card, module):
-    pass
+    errthn = helper.get_identifier_value('errthn', card)
+    if errthn is None:
+        organize_error()
+    expected_map = {
+        0 : ('identifier', ('errthn', None)),
+        1 : ('identifier', ('thnmax', 1)),
+        2 : ('identifier', ('errmax', 10*float(errthn))),
+        3 : ('identifier', ('errint', float(errthn)/20000)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_4(card, module):
-    pass
+    card_2 = env.get_card('card_2', module)
+    ntemp2 = helper.get_identifier_value('ntemp2', card_2)
+    expected_map = {}
+    for i in range(ntemp2):
+        expected_map[i] = ('array', ('temp2', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
+    # No need to organize card 5 since it only contains one value which has
+    # no default value.
     pass
