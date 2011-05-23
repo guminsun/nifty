@@ -82,7 +82,7 @@ def insert_default_card(index, card_name, card_list):
 
 def get_identifier_value(id_name, card_node):
     if card_node is None:
-        return None
+        organize_error()
     statement_list = card_node.get('statement_list')
     for statement in statement_list:
         must_be_assignment(statement)
