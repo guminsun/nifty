@@ -1,85 +1,85 @@
 reconr
-21 41/ card_1
-'processing jendl-3.3 238u.'/ card_2
-9237 0 0/ card_3
-0.001/ card_4
-0/ card_3
+21 41/ ### card_1
+'processing jendl-3.3 238u.'/ ### card_2
+9237 0 0/ ### card_3
+0.001/ ### card_4
+0/ ### card_3
 broadr
-21 41 31/ card_1
-9237 1 0 0 0/ card_2
-0.001/ card_3
-300.0/ card_4
-0/ card_5
+21 41 31/ ### card_1
+9237 1 0 0 0/ ### card_2
+0.001/ ### card_3
+300.0/ ### card_4
+0/ ### card_5
 reconr
-22 42/ card_1
-'processing jendl-3.3 235u.'/ card_2
-9228 0 0/ card_3
-0.001/ card_4
-0/ card_3
+22 42/ ### card_1
+'processing jendl-3.3 235u.'/ ### card_2
+9228 0 0/ ### card_3
+0.001/ ### card_4
+0/ ### card_3
 broadr
-22 42 32/ card_1
-9228 1 0 0 0/ card_2
-0.001/ card_3
-300.0/ card_4
-0/ card_5
+22 42 32/ ### card_1
+9228 1 0 0 0/ ### card_2
+0.001/ ### card_3
+300.0/ ### card_4
+0/ ### card_5
 reconr
-23 43/ card_1
-'processing jendl-3.3 239pu.'/ card_2
-9437 0 0/ card_3
-0.001/ card_4
-0/ card_3
+23 43/ ### card_1
+'processing jendl-3.3 239pu.'/ ### card_2
+9437 0 0/ ### card_3
+0.001/ ### card_4
+0/ ### card_3
 broadr
-23 43 33/ card_1
-9437 1 0 0 0/ card_2
-0.001/ card_3
-300.0/ card_4
-0/ card_5
+23 43 33/ ### card_1
+9437 1 0 0 0/ ### card_2
+0.001/ ### card_3
+300.0/ ### card_4
+0/ ### card_5
 groupr
-21 31 0 91/ card_1
-9237 3 0 6 1 1 1 0/ card_2
-'u-238'/ card_3
-300.0/ card_4
-1.0e10/ card_5
-3/ card_9
-3 251 'mubar'/ card_9
-3 252 'xi'/ card_9
-3 452 'nu'/ card_9
-3 455 'nu'/ card_9
-3 456 'nu'/ card_9
-5 18 'xi'/ card_9
-0/ card_9
-0/ card_10
+21 31 0 91/ ### card_1
+9237 3 0 6 1 1 1 0/ ### card_2
+'u-238'/ ### card_3
+300.0/ ### card_4
+1.0e10/ ### card_5
+3/ ### card_9
+3 251 'mubar'/ ### card_9
+3 252 'xi'/ ### card_9
+3 452 'nu'/ ### card_9
+3 455 'nu'/ ### card_9
+3 456 'nu'/ ### card_9
+5 18 'xi'/ ### card_9
+0/ ### card_9
+0/ ### card_10
 groupr
-22 32 0 92/ card_1
-9228 3 0 6 1 1 1 0/ card_2
-'u-235'/ card_3
-300.0/ card_4
-1.0e10/ card_5
-3/ card_9
-0/ card_9
-0/ card_10
+22 32 0 92/ ### card_1
+9228 3 0 6 1 1 1 0/ ### card_2
+'u-235'/ ### card_3
+300.0/ ### card_4
+1.0e10/ ### card_5
+3/ ### card_9
+0/ ### card_9
+0/ ### card_10
 groupr
-23 33 0 93/ card_1
-9437 3 0 6 1 1 1 0/ card_2
-'pu-239'/ card_3
-300.0/ card_4
-1.0e10/ card_5
-3/ card_9
-0/ card_9
-0/ card_10
+23 33 0 93/ ### card_1
+9437 3 0 6 1 1 1 0/ ### card_2
+'pu-239'/ ### card_3
+300.0/ ### card_4
+1.0e10/ ### card_5
+3/ ### card_9
+0/ ### card_9
+0/ ### card_10
 moder
-2 99/ card_1
-'merge u235, u-238 and pu-239'/ card_2
-92 9228/ card_3
-91 9237/ card_3
-93 9437/ card_3
-0/ card_3
+2 99/ ### card_1
+'merge u235, u-238 and pu-239'/ ### card_2
+92 9228/ ### card_3
+91 9237/ ### card_3
+93 9437/ ### card_3
+0/ ### card_3
 errorr
-21 0 99 26 0 0/ card_1
-9237 3 6 1/ card_2
-2 33 1 1 -1/ card_7
-9228 18/ card_10
-9437 18/ card_10
-0/ card_10
+21 0 99 26 0 0/ ### card_1
+9237 3 6 1/ ### card_2
+2 33 1 1 -1/ ### card_7
+9228 18/ ### card_10
+9437 18/ ### card_10
+0/ ### card_10
 stop
 

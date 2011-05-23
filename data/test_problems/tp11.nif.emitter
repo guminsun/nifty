@@ -1,75 +1,75 @@
 moder
-20 -21/ card_1
+20 -21/ ### card_1
 reconr
--21 -22/ card_1
-'pendf tape for pu-238 from endf/b-iv tape 404'/ card_2
-1050 3/ card_3
-0.005/ card_4
-'94-pu-238 from endf/b tape t404'/ card_5
-'processed by the njoy nuclear data processing system'/ card_5
-'see original endf/b-iv tape for details of evaluation'/ card_5
-0/ card_3
+-21 -22/ ### card_1
+'pendf tape for pu-238 from endf/b-iv tape 404'/ ### card_2
+1050 3/ ### card_3
+0.005/ ### card_4
+'94-pu-238 from endf/b tape t404'/ ### card_5
+'processed by the njoy nuclear data processing system'/ ### card_5
+'see original endf/b-iv tape for details of evaluation'/ ### card_5
+0/ ### card_3
 broadr
--21 -22 -23/ card_1
-1050 3 0 1 0/ card_2
-0.005/ card_3
-300.0 900.0 2100.0/ card_4
-0/ card_5
+-21 -22 -23/ ### card_1
+1050 3 0 1 0/ ### card_2
+0.005/ ### card_3
+300.0 900.0 2100.0/ ### card_4
+0/ ### card_5
 unresr
--21 -23 -24/ card_1
-1050 3 7 1/ card_2
-300 900 2100/ card_3
-1.0e10 1.0e5 1.0e4 1000.0 100.0 10.0 1/ card_4
-0/ card_2
+-21 -23 -24/ ### card_1
+1050 3 7 1/ ### card_2
+300 900 2100/ ### card_3
+1.0e10 1.0e5 1.0e4 1000.0 100.0 10.0 1/ ### card_4
+0/ ### card_2
 thermr
-0 -24 -25/ card_1
-0 1050 8 3 1 0 1 221 0/ card_2
-300.0 900.0 2100.0/ card_3
-0.05 4.2/ card_4
+0 -24 -25/ ### card_1
+0 1050 8 3 1 0 1 221 0/ ### card_2
+300.0 900.0 2100.0/ ### card_3
+0.05 4.2/ ### card_4
 groupr
--21 -25 0 -26/ card_1
-1050 9 0 5 3 3 7 1/ card_2
-'94-pu-238'/ card_3
-300.0 900.0 2100.0/ card_4
-1.0e10 1.0e5 1.0e4 1000.0 100.0 10.0 1/ card_5
-3 1 'total'/ card_9
-3 2 'elastic'/ card_9
-3 16 'n2n'/ card_9
-3 17 'n3n'/ card_9
-3 18 'fission'/ card_9
-3 102 'capture'/ card_9
-3 221 'free gas thermal'/ card_9
-6 2 'elastic'/ card_9
-6 16 'n2n'/ card_9
-6 17 'n,3n'/ card_9
-6 18 'fission'/ card_9
-6 51 'discrete inelastic'/ card_9
-6 -59 'continued'/ card_9
-6 91 'continuum inelastic'/ card_9
-6 221 'free gas thermal'/ card_9
-0/ card_9
-3 1 'total'/ card_9
-3 2 'elastic'/ card_9
-3 18 'fission'/ card_9
-3 102 'capture'/ card_9
-3 221 'free gas thermal'/ card_9
-6 2 'elastic'/ card_9
-6 221 'free gas thermal'/ card_9
-0/ card_9
-3 1 'total'/ card_9
-3 2 'elastic'/ card_9
-3 18 'fission'/ card_9
-3 102 'capture'/ card_9
-3 221 'free gas thermal'/ card_9
-6 2 'elastic'/ card_9
-6 221 'free gas thermal'/ card_9
-0/ card_9
-0/ card_10
+-21 -25 0 -26/ ### card_1
+1050 9 0 5 3 3 7 1/ ### card_2
+'94-pu-238'/ ### card_3
+300.0 900.0 2100.0/ ### card_4
+1.0e10 1.0e5 1.0e4 1000.0 100.0 10.0 1/ ### card_5
+3 1 'total'/ ### card_9
+3 2 'elastic'/ ### card_9
+3 16 'n2n'/ ### card_9
+3 17 'n3n'/ ### card_9
+3 18 'fission'/ ### card_9
+3 102 'capture'/ ### card_9
+3 221 'free gas thermal'/ ### card_9
+6 2 'elastic'/ ### card_9
+6 16 'n2n'/ ### card_9
+6 17 'n,3n'/ ### card_9
+6 18 'fission'/ ### card_9
+6 51 'discrete inelastic'/ ### card_9
+6 -59 'continued'/ ### card_9
+6 91 'continuum inelastic'/ ### card_9
+6 221 'free gas thermal'/ ### card_9
+0/ ### card_9
+3 1 'total'/ ### card_9
+3 2 'elastic'/ ### card_9
+3 18 'fission'/ ### card_9
+3 102 'capture'/ ### card_9
+3 221 'free gas thermal'/ ### card_9
+6 2 'elastic'/ ### card_9
+6 221 'free gas thermal'/ ### card_9
+0/ ### card_9
+3 1 'total'/ ### card_9
+3 2 'elastic'/ ### card_9
+3 18 'fission'/ ### card_9
+3 102 'capture'/ ### card_9
+3 221 'free gas thermal'/ ### card_9
+6 2 'elastic'/ ### card_9
+6 221 'free gas thermal'/ ### card_9
+0/ ### card_9
+0/ ### card_10
 wimsr
--26 27/ card_1
-1/ card_2
-1050 1 1050.0/ card_3
-3 7 1e10 3 10.890 221 0/ card_4
-1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0/ card_7
+-26 27/ ### card_1
+1/ ### card_2
+1050 1 1050.0/ ### card_3
+3 7 1e10 3 10.890 221 0/ ### card_4
+1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0/ ### card_7
 stop
 
