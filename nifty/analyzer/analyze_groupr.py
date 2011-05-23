@@ -173,13 +173,16 @@ def analyze_groupr_card_3(card, module):
     return card
 
 def analyze_groupr_card_3_title(node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    # The l-value of the assignment is expected to be an identifier.
-    rule.identifier_must_be_defined('title', l_value, card, module)
-    # The r-value of the assignment is expected to be a string.
-    title = rule.must_be_string(l_value, r_value, card, module)
-    rule.string_must_not_exceed_length(l_value, r_value, 80, card, module)
-    return title
+    if node is None:
+        return ''
+    else:
+        l_value, r_value = rule.must_be_assignment(node, card, module)
+        # The l-value of the assignment is expected to be an identifier.
+        rule.identifier_must_be_defined('title', l_value, card, module)
+        # The r-value of the assignment is expected to be a string.
+        title = rule.must_be_string(l_value, r_value, card, module)
+        rule.string_must_not_exceed_length(l_value, r_value, 80, card, module)
+        return title
 
 def analyze_groupr_card_4(ntemp, card, module):
     # Note that the number of temperatures in card 4 should be equal to the
@@ -378,7 +381,7 @@ def analyze_groupr_card_8a_jsigz(node, card, module):
         l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('jsigz', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_groupr_card_8a_alpha2(node, card, module):
     # Alpha for admixed moderator does not have to be defined,
@@ -389,7 +392,7 @@ def analyze_groupr_card_8a_alpha2(node, card, module):
         l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('alpha2', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_groupr_card_8a_sam(node, card, module):
     # Admixed moderator does not have to be defined, defaults to 0 (none).
@@ -399,7 +402,7 @@ def analyze_groupr_card_8a_sam(node, card, module):
         l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('sam', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_groupr_card_8a_beta(node, card, module):
     # Heterogeniety parameter does not have to be defined, defaults to 0
@@ -410,7 +413,7 @@ def analyze_groupr_card_8a_beta(node, card, module):
         l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('beta', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_groupr_card_8a_alpha3(node, card, module):
     # Alpha for external moderator does not have to be defined, defaults to 0
@@ -421,7 +424,7 @@ def analyze_groupr_card_8a_alpha3(node, card, module):
         l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('alpha3', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_groupr_card_8a_gamma(node, card, module):
     # Fraction of admixed moderator cross section in external moderator cross
@@ -432,7 +435,7 @@ def analyze_groupr_card_8a_gamma(node, card, module):
         l_value, r_value = rule.must_be_assignment(node, card, module)
         rule.identifier_must_be_defined('gamma', l_value, card, module)
         # XXX: Additional checks?
-    return r_value.get('value')
+        return r_value.get('value')
 
 def analyze_groupr_card_8b(card, module):
     # Note that card 8b should only be defined if iwt = 1 or iwt = -1 in
