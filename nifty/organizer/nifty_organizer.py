@@ -6,7 +6,7 @@ from nifty.environment.exceptions import SemanticError
 from organize_acer import organize_acer
 from organize_broadr import organize_broadr
 #from organize_ccccr import organize_ccccr
-#from organize_covr import organize_covr
+from organize_covr import organize_covr
 #from organize_dtfr import organize_dtfr
 #from organize_errorr import organize_errorr
 #from organize_gaminr import organize_gaminr
@@ -60,8 +60,8 @@ def organize_module(module):
         'acer' : organize_acer,
         'broadr' : organize_broadr,
         #'ccccr' : organize_ccccr,
-        #'covr' : organize_covrr,
-        #'dtfr' : organize_dtfrr,
+        'covr' : organize_covr,
+        #'dtfr' : organize_dtfr,
         #'errorr' : organize_errorr,
         #'gaminr' : organize_gaminr,
         #'gaspr' : organize_gaspr,
