@@ -31,7 +31,7 @@ def card_list_to_string(card_list):
 
 def card_to_string(card):
     statement_list = card.get('statement_list')
-    string = statement_list_to_string(statement_list) + default() + newline()
+    string = statement_list_to_string(statement_list) + default() + space() + card_name(card) + newline()
     return string
 
 def statement_list_to_string(statement_list):
@@ -95,6 +95,9 @@ def string_to_string(node):
 
 ##############################################################################
 # Helpers.
+
+def card_name(card):
+    return card.get('card_name')
 
 def default():
     return '/'

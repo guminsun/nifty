@@ -1,8 +1,8 @@
 acer
-20 21 0 31 32/
-5 1 1 0.00 3/
-'Descriptive character string.'/
-1 2 3 4 5 6/
-9237/
+20 21 0 31 32/ card_1
+5 1 1 0.00 3/ card_2
+'Descriptive character string.'/ card_3
+1 2 3 4 5 6/ card_4
+9237/ card_11
 stop
 

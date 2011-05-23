@@ -1,15 +1,15 @@
 acer
-20 21 0 31 32/
-1 0 1/
-'proton + 7-n-14 apt la150 njoy99 mcnpx'/
-725 0/
-/
-/
+20 21 0 31 32/ card_1
+1 0 1/ card_2
+'proton + 7-n-14 apt la150 njoy99 mcnpx'/ card_3
+725 0/ card_5
+/ card_6
+/ card_7
 acer
-0 31 33 34 35/
-7 1 2/
-'proton + 7-n-14 apt la150 njoy99 mcnpx'/
+0 31 33 34 35/ card_1
+7 1 2/ card_2
+'proton + 7-n-14 apt la150 njoy99 mcnpx'/ card_3
 viewr
-33 36/
+33 36/ card_0
 stop
 
