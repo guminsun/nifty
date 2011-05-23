@@ -4,7 +4,7 @@ from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import SemanticError
 
 from organize_acer import organize_acer
-#from organize_broadr import organize_broadr
+from organize_broadr import organize_broadr
 #from organize_ccccr import organize_ccccr
 #from organize_covr import organize_covr
 #from organize_dtfr import organize_dtfr
@@ -58,7 +58,7 @@ def organize_module_list(module_list):
 def organize_module(module):
     organizer_functions = {
         'acer' : organize_acer,
-        #'broadr' : organize_broadr,
+        'broadr' : organize_broadr,
         #'ccccr' : organize_ccccr,
         #'covr' : organize_covrr,
         #'dtfr' : organize_dtfrr,
