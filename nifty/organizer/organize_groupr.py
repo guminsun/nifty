@@ -1,3 +1,11 @@
+from nifty.environment import helpers as env
+from nifty.environment.exceptions import OrganizeError
+from nifty.environment.exceptions import SemanticError
+import organizer_helpers as helper
+
+##############################################################################
+# Organize groupr. Put together into an orderly, functional, structured whole.
+
 def organize_groupr(module):
     card_list = module.get('card_list')
     organize_card_list(card_list, module)
@@ -40,7 +48,13 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('nendf', None)),
+        1 : ('identifier', ('npend', None)),
+        2 : ('identifier', ('ngout1', 0)),
+        3 : ('identifier', ('ngout2', 0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
     pass
