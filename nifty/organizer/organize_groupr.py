@@ -142,7 +142,14 @@ def organize_card_8a(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_8b(card, module):
-    pass
+    # Length of TAB1 record is user defined, retrieve it so that it is
+    # possible to sort the statement list.
+    wght_length = len(card.get('statement_list'))
+    expected_map = {}
+    # Assuming TAB1 records are defined as NIF arrays.
+    for i in range(wght_length):
+        expected_map[i] = ('array', ('wght', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8c(card, module):
     pass
