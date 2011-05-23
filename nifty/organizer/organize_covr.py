@@ -42,25 +42,57 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('nin', None)),
+        1 : ('identifier', ('nout', 0)),
+        2 : ('identifier', ('nplot', 0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('icolor', 0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2a(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('epmin', 0.0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_3a(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('irelco', 1)),
+        1 : ('identifier', ('ncase', 1)),
+        2 : ('identifier', ('noleg', 0)),
+        3 : ('identifier', ('nstart', 1)),
+        4 : ('identifier', ('ndiv', 1)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_2b(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('matype', 3)),
+        1 : ('identifier', ('ncase', 1)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_3b(card, module):
+    # No need to organize card 3b since it only contains one value which has
+    # no default value.
     pass
 
 def organize_card_3c(card, module):
+    # No need to organize card 3c since it only contains one value which has
+    # no default value.
     pass
 
 def organize_card_4(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('mat', None)),
+        1 : ('identifier', ('mt', 0)),
+        2 : ('identifier', ('mat1', 0)),
+        3 : ('identifier', ('mt1', 0)),
+    }
+    return helper.organize_card(expected_map, card)
