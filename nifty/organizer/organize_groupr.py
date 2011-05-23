@@ -152,7 +152,13 @@ def organize_card_8b(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_8c(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('eb', None)),
+        1 : ('identifier', ('tb', None)),
+        2 : ('identifier', ('ec', None)),
+        3 : ('identifier', ('tc', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8d(card, module):
     pass
