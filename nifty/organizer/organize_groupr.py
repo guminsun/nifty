@@ -84,7 +84,12 @@ def organize_card_4(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
-    pass
+    card_2 = env.get_card('card_2', module)
+    nsigz = helper.get_identifier_value('nsigz', card_2)
+    expected_map = {}
+    for i in range(nsigz):
+        expected_map[i] = ('array', ('sigz', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_6a(card, module):
     pass
