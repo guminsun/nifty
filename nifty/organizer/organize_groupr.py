@@ -110,10 +110,21 @@ def organize_card_6b(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_7a(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('ngg', None)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_7b(card, module):
-    pass
+    card_7a = env.get_card('card_7a', module)
+    ngg = helper.get_identifier_value('ngg', card_7a)
+    # Ugly? 'ngg' must be defined in order to sort the 'egg' array.
+    if ngg is None:
+        organize_error()
+    expected_map = {}
+    for i in range(ngg+1):
+        expected_map[i] = ('array', ('egg', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8a(card, module):
     pass
