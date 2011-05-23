@@ -127,7 +127,19 @@ def organize_card_7b(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_8a(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('ehi', None)),
+        1 : ('identifier', ('sigpot', None)),
+        2 : ('identifier', ('nflmax', None)),
+        3 : ('identifier', ('ninwt', 0)),
+        4 : ('identifier', ('jsigz', 0)),
+        5 : ('identifier', ('alpha2', 0)),
+        6 : ('identifier', ('sam', 0)),
+        7 : ('identifier', ('beta', 0)),
+        8 : ('identifier', ('alpha3', 0)),
+        9 : ('identifier', ('gamma', 0)),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_8b(card, module):
     pass
