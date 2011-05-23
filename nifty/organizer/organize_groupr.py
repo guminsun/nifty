@@ -70,10 +70,18 @@ def organize_card_2(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_3(card, module):
-    pass
+    expected_map = {
+        0 : ('identifier', ('title', '')),
+    }
+    return helper.organize_card(expected_map, card)
 
 def organize_card_4(card, module):
-    pass
+    card_2 = env.get_card('card_2', module)
+    ntemp = helper.get_identifier_value('ntemp', card_2)
+    expected_map = {}
+    for i in range(ntemp):
+        expected_map[i] = ('array', ('temp', None, i))
+    return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
     pass
