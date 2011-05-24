@@ -176,7 +176,14 @@ key "key-4"
 
  are complex and hard to read compared to e.g.
  a high-level programming language.
- For example, algorithm 1 is a 
+ For example, algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 1"
+
+\end_inset
+
+ is a 
 \emph on
 short
 \emph default
@@ -278,6 +285,13 @@ stop
 
 \begin_layout Plain Layout
 NJOY Test Problem 14
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:NJOY Example 1"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -455,6 +469,13 @@ r_value
 
 \begin_layout Subsection
 Building the Translator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Methodology - Building the Translator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -500,7 +521,7 @@ key "key-9"
 
 \end_inset
 
-, in an Unix-like environment.
+, in a Unix-like environment.
 \end_layout
 
 \begin_layout Standard
@@ -784,7 +805,7 @@ key "key-9"
 \end_layout
 
 \begin_layout Section
-Results
+Implementation
 \end_layout
 
 \begin_layout Subsection
@@ -793,6 +814,13 @@ NJOY Input Format (
 NIF
 \family default
 )
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:nif"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1085,480 +1113,6 @@ material = 128, 9237;
 is allowed even though it does not make sense.
  However, the syntax analysis in the parser enforces that the number of
  elements on both sides are the same.
-\end_layout
-
-\begin_layout Subsubsection
-NIF Examples
-\end_layout
-
-\begin_layout Standard
-In algorithm 3, the lines 1 through 7 from algorithm 1 are expressed in
- NIF.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset listings
-lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-acer {
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_1 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		endf_input = 20;
-\end_layout
-
-\begin_layout Plain Layout
-
-		pendf_input = 21;
-\end_layout
-
-\begin_layout Plain Layout
-
-		multigroup_photon_input = 0;
-\end_layout
-
-\begin_layout Plain Layout
-
-		ace_output = 31;
-\end_layout
-
-\begin_layout Plain Layout
-
-    	mcnp_directory_output = 32;
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_2 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		acer_run_option = 1;
-\end_layout
-
-\begin_layout Plain Layout
-
-		print_control = 0;
-\end_layout
-
-\begin_layout Plain Layout
-
-		ace_output_type = 1;
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_3 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		description = "proton + 7-n-14 apt la150 njoy99 mcnpx";
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_5 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		material = 725;
-\end_layout
-
-\begin_layout Plain Layout
-
-		temperature = 0.0;
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_6 {}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_7 {}
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-NIF version of 
-\shape italic
-Algorithm 1
-\shape default
-, lines 1-7
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Descriptive names have been speciﬁed for the identiﬁers.
- As indicated by algorithm 3, a typical NIF program is vertically long compared
- to the compact notation of the NJOY input instructions.
- NIF programs can of course be specified in a compact form as well, e.g.
- on a single line, but this is not the intended usage of NIF.
-\end_layout
-
-\begin_layout Standard
-Algorithm 4 is another example of NJOY input instructions, which is expressed
- as a NIF program in algorithm 5.
- Algorithm 4 only serves illustrational purposes.
- It is not intended to be run by the NJOY software system.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset listings
-lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-acer
-\end_layout
-
-\begin_layout Plain Layout
-
-20 21 0 31 32/
-\end_layout
-
-\begin_layout Plain Layout
-
-5 1 1 0.00 3/
-\end_layout
-
-\begin_layout Plain Layout
-
-'Descriptive character string.'/
-\end_layout
-
-\begin_layout Plain Layout
-
-1 2 3 4 5 6/
-\end_layout
-
-\begin_layout Plain Layout
-
-9237/
-\end_layout
-
-\begin_layout Plain Layout
-
-stop
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Simple 
-\family typewriter
-acer
-\family default
- example
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Algorithm 5 shows how arrays, comments, and multiple assignments are expressed
- in NIF.
- Note the difference of the identifier names compared to algorithm 3.
- The names in algorithm 5 has been chosen to reflect the documentation in
- reference 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
-.
- Line 20 and 23 are comments.
- The NIF grammar does not specify the structure of the comments.
- They are handled by the lexer in the NIF translator.
-\end_layout
-
-\begin_layout Standard
-The 
-\family typewriter
-stop
-\family default
- instruction on line 7 in algorithm 4 does not have to be speciﬁed in NIF,
- the NIF translator will automatically append it in the translation process.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset listings
-lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-acer {
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_1 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		nendf = 20;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		npend = 21;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		ngend = 0;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		nace = 31;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		ndir = 32;
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_2 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		iopt = 5;
-\end_layout
-
-\begin_layout Plain Layout
-
-		iprint = 1;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		ntype = 1;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		suff = 0.00;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		nxtra = 3;     
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_3 {         
-\end_layout
-
-\begin_layout Plain Layout
-
-		hk = "Descriptive character string.";     
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-	card_4 {
-\end_layout
-
-\begin_layout Plain Layout
-
-		/* First iz,aw pair defined as single assignments.
- */
-\end_layout
-
-\begin_layout Plain Layout
-
-		iz[0] = 1;
-\end_layout
-
-\begin_layout Plain Layout
-
-        aw[0] = 2;         
-\end_layout
-
-\begin_layout Plain Layout
-
-		/* Second and third iz,aw pair defined as multiple assignments.
- */
-\end_layout
-
-\begin_layout Plain Layout
-
-		iz[1], aw[1] = 3, 4;
-\end_layout
-
-\begin_layout Plain Layout
-
-		iz[2], aw[2] = 5, 6;
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-    card_11 {         
-\end_layout
-
-\begin_layout Plain Layout
-
-		matd = 9237;
-\end_layout
-
-\begin_layout Plain Layout
-
-	}
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-NIF version of 
-\shape italic
-Algorithm 4
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
 
@@ -1571,6 +1125,13 @@ NJOY Input Format Translator (
 nifty
 \family default
 )
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:nifty"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1589,7 +1150,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Users/ceh/Desktop/nifty.eps
+	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
 
 \end_inset
 
@@ -1602,6 +1163,13 @@ status open
 
 \begin_layout Plain Layout
 Translation process in nifty
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Translation process in nifty"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1645,7 +1213,7 @@ The fourth phase is the semantic analysis which is implemented by the module
 \end_layout
 
 \begin_layout Subsubsection
-Reserved Words
+Reserved Keywords
 \end_layout
 
 \begin_layout Standard
@@ -1659,10 +1227,19 @@ An important design choice is that the translator will enforce the use of
  been defined in the translator.
  This restricts the expressiveness of the input format, but allows detailed
  analysis of the semantics in the organizer and analyzer modules.
+ As a consequence, it also forces the user to write consistent and readable
+ input files -- which has been the objective of this work.
 \end_layout
 
 \begin_layout Subsubsection
 The Modules
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Implementation, The Modules"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -1689,6 +1266,17 @@ key "key-4"
  The lexer also recognizes comments in the input program.
  The comments will be discarded during the lexical analysis and thus won't
  be passed on to the next phase in the translation process.
+ Note that the lexer only recognizes real numbers that starts with a digit.
+ Numbers which has a leading dot, such as 
+\family typewriter
+.005
+\family default
+ or 
+\family typewriter
+.5e-2
+\family default
+, which are allowed as input to the NJOY software system are thus not allowed
+ by the lexer.
 \end_layout
 
 \begin_layout Paragraph
@@ -1723,8 +1311,24 @@ key "key-4"
 \end_inset
 
 .
- The NJOY modules and cards still needs to be given in the correct order
- though.
+\end_layout
+
+\begin_layout Standard
+The NJOY modules and the cards within the modules still needs to be given
+ in the correct order though.
+ This is due to the fact that the number of possible NJOY jobs is infinite
+ (all may not be functional in the NJOY software system, though).
+ An infinite number of NJOY jobs can simply be created by just appending
+ another module specification to an existing NJOY job in order to create
+ a new one.
+ Simply stated, the translator can not guess the intention of the job due
+ to the number of possible combinations the modules may be listed in.
+ Hence, the modules must be provided in the expected order by the user.
+ Cards are not arrangeable either, since they also are prone to be repetitive.
+ It is not possible to determine which card should go first from a set of
+ cards (with the same name) which e.g.
+ only contains a descriptive title.
+ The cards must also be provided in the expected order by the user.
 \end_layout
 
 \begin_layout Standard
@@ -1800,6 +1404,2713 @@ The emitter expects a syntax tree as its input and it is responsible for
  generating NJOY input instructions from the syntax tree.
  The emitter simply flattens the tree structure and formats the instructions
  to their corresponding counterparts in the NJOY input instructions format.
+ The emitter returns a string with the resulting NJOY input instructions.
+ Each card in the resulting output has been annotated with a descriptive
+ comment, indicating which card it is, to make it easier to find errors.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Subsection
+NJOY Input Format Examples
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:NJOY Input Format Examples"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The result of the proposed grammar described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:nif"
+
+\end_inset
+
+ is best illustrated with examples.
+ Algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+ illustrates the NJOY input instructions (slightly modified to make it shorter
+ for illustrational purposes) from NJOY Test Problem 2 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+.
+ In algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NIF version of NJOY Example 2, lines 1 through 9"
+
+\end_inset
+
+, lines 1 through 9 from algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+ are expressed in NIF.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+moder
+\end_layout
+
+\begin_layout Plain Layout
+
+20 -21/
+\end_layout
+
+\begin_layout Plain Layout
+
+reconr
+\end_layout
+
+\begin_layout Plain Layout
+
+-21 -22/
+\end_layout
+
+\begin_layout Plain Layout
+
+'pendf tape for pu-238 from endf/b-iv tape 404'/
+\end_layout
+
+\begin_layout Plain Layout
+
+1050 1/
+\end_layout
+
+\begin_layout Plain Layout
+
+0.005/
+\end_layout
+
+\begin_layout Plain Layout
+
+'94-pu-238 from endf/b tape t404'/
+\end_layout
+
+\begin_layout Plain Layout
+
+0/
+\end_layout
+
+\begin_layout Plain Layout
+
+broadr
+\end_layout
+
+\begin_layout Plain Layout
+
+-21 -22 -23/
+\end_layout
+
+\begin_layout Plain Layout
+
+1050 3 0 1/
+\end_layout
+
+\begin_layout Plain Layout
+
+0.005/
+\end_layout
+
+\begin_layout Plain Layout
+
+300.0 900.0 2100.0/
+\end_layout
+
+\begin_layout Plain Layout
+
+0/
+\end_layout
+
+\begin_layout Plain Layout
+
+stop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Modified subset of NJOY Test Problem 2 
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:NJOY Example 2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+moder {
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_1 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		pendf_input = 20;
+\end_layout
+
+\begin_layout Plain Layout
+
+		pendf_output = -21;
+\end_layout
+
+\begin_layout Plain Layout
+
+	} 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+reconr {
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_1 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		nendf = -21;
+\end_layout
+
+\begin_layout Plain Layout
+
+		npend = -22;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_2 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		tlabel =  "pendf tape for pu-238 from endf/b-iv tape 404";
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_3 {
+\end_layout
+
+\begin_layout Plain Layout
+
+		mat = 1050;
+\end_layout
+
+\begin_layout Plain Layout
+
+		ncards = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_4 {         
+\end_layout
+
+\begin_layout Plain Layout
+
+		err = 0.005;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_5 {         
+\end_layout
+
+\begin_layout Plain Layout
+
+		cards = "94-pu-238 from endf/b tape t404";     
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+    /* Card 6 not defined since 'ngrid' defaults to 0 in first card 3.
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_3 { mat = 0; } // Terminate reconr.
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NIF version of Algorithm
+\shape italic
+ 
+\shape default
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+, lines 1 through 9
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:NIF version of NJOY Example 2, lines 1 through 9"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Descriptive names for the identiﬁers on line 3 and 4 have been speciﬁed
+ in the translator.
+ The other identifier names has been chosen to reflect the documentation
+ in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ (the identifier names are hardwired in the translator).
+ Line 30 and 31 shows how comments are expressed in NIF.
+ Line 30 illustrates the structure of multiline comments while line 31 illustrat
+es the structure of single line comments.
+\end_layout
+
+\begin_layout Standard
+Algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NIF version of NJOY Example 2, lines 10 through 16"
+
+\end_inset
+
+ is a NIF version of the lines 10 through 16 from algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+.
+ It shows how arrays are expressed in NIF (lines 24 through 26).
+ The 
+\family typewriter
+stop
+\family default
+ instruction on line 16 in algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+ does not have to be speciﬁed in NIF, the NIF translator will automatically
+ append it in the translation process.
+\end_layout
+
+\begin_layout Standard
+When combined, algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NIF version of NJOY Example 2, lines 1 through 9"
+
+\end_inset
+
+ and algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NIF version of NJOY Example 2, lines 10 through 16"
+
+\end_inset
+
+ forms the complete NJOY job as listed in algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+broadr {
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_1 
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\end_layout
+
+\begin_layout Plain Layout
+
+		nendf = -21;
+\end_layout
+
+\begin_layout Plain Layout
+
+		nin = -22;
+\end_layout
+
+\begin_layout Plain Layout
+
+		nout = -23;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_2 
+\end_layout
+
+\begin_layout Plain Layout
+
+	{         
+\end_layout
+
+\begin_layout Plain Layout
+
+		mat1 = 1050;
+\end_layout
+
+\begin_layout Plain Layout
+
+		ntemp2 = 3;
+\end_layout
+
+\begin_layout Plain Layout
+
+		istart = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+		istrap = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_3 
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\end_layout
+
+\begin_layout Plain Layout
+
+		errthn = 0.005;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	card_4 
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\end_layout
+
+\begin_layout Plain Layout
+
+		temp2[0] = 300.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+		temp2[1] = 900.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+		temp2[2] = 2100.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	/* Terminate execution of broadr with mat1 = 0 as usual.
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
+    card_5
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\end_layout
+
+\begin_layout Plain Layout
+
+		mat1 = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+NIF version of Algorithm
+\shape italic
+ 
+\shape default
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:NJOY Example 2"
+
+\end_inset
+
+, lines 10 through 16
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:NIF version of NJOY Example 2, lines 10 through 16"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+NJOY Input Format Translator Implementation
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "tab:Implementation status for the NJOY modules"
+
+\end_inset
+
+ shows the implementation status for the NJOY modules.
+ Each column entry indicates the completeness of a translator phase for
+ a given NJOY module.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="23" columns="6">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+NJOY module
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Lexer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Parser
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Organizer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Analyzer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Emitter
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+acer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+broadr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ccccr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+covr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+dtfr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+errorr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+70%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+gaminr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+gaspr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+groupr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+heatr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+leapr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+matxsr
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+mixr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+moder
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+95%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+plotr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+powr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+purr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+reconr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+resxsr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+thermr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+unresr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0%
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+viewr
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Implementation status for the NJOY modules
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Implementation status for the NJOY modules"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The completeness of the implementation has been rated in a grading scale
+ with percentage.
+ The grades has been set with respect to whether the functionality of the
+ phases presented in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Implementation, The Modules"
+
+\end_inset
+
+ (also see section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Methodology - Building the Translator"
+
+\end_inset
+
+) has been fulfilled or not.
+ 100% indicates that the functionality has been finished.
+ 0% indicates that the implementation of the functionality has not been
+ started.
+ The other percentages are rough approximations of how much functionality
+ that has been implemented.
+\end_layout
+
+\begin_layout Subsection
+Testing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+The test results are summarized in table 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "tab:Test results"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ All test problems listed in Appendix 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:Appendix - Test Problems"
+
+\end_inset
+
+ passed all the phases in the translation process, i.e.
+ they were successfully translated (no lexical, syntax, nor semantic errors
+ were found)
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Note that the organizer's ability to arrange statements in the correct order
+ has not been tested for the test problems, since the instructions in the
+ test problems have been provided in the expected order.
+\end_layout
+
+\end_inset
+
+.
+ No differences between the expected output and the resulting output were
+ detected for the test problems.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="15" columns="3">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Problem
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Translator Phases
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp03
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp06
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp07
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Passed
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Expected
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Test Results
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Test results"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1844,6 +4155,23 @@ key "key-4"
  can be used to specify NJOY jobs in NIF.
 \end_layout
 
+\begin_layout Standard
+As indicated by the examples listed in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:NJOY Input Format Examples"
+
+\end_inset
+
+, a typical NIF program is vertically long compared to the compact notation
+ of the NJOY input instructions.
+ NIF programs can of course be specified in a compact form as well, e.g.
+ on a single line, but this is not the intended usage of NIF.
+ The purpose of NIF is to make NJOY jobs readable.
+ The readability would be limited if the jobs were expressed on a single
+ line.
+\end_layout
+
 \begin_layout Subsection
 NJOY Input Format Translator (
 \family typewriter
@@ -1859,6 +4187,10 @@ An organizer and analyzer has not been provided for all modules in the NJOY
  However, much of the needed functionality and structure is provided by
  the existing implementation such that both the organizer and the analyzer
  should be easy to complete.
+ Even though the organizer and analyzer phase has not been implemented for
+ all NJOY modules in the translator, NIF programs which includes these modules
+ can still be translated into functional NJOY input instructions.
+ These modules just can't be organized or checked for semantic errors.
 \end_layout
 
 \begin_layout Standard
@@ -1866,6 +4198,17 @@ The implementation of the analyzer module has been the most time consuming
  task when designing the translator.
  It requires detailed analysis of what kind of input the NJOY modules expect
  and how they operate on it.
+ The documentation in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ was the main resource used while implementing the semantic analysis in
+ the analyzer.
+ It was evident that this was not a sufficient resource for the task at
+ hand.
  To fully check the semantics of a NIF program, the source code for the
  NJOY software system must be studied in greater detail.
  The ENDF formats must also be studied in greater detail in order to understand
@@ -1873,6 +4216,10 @@ The implementation of the analyzer module has been the most time consuming
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 The efficiency of the translator has not been tested.
  If a large set of NIF programs should be translated, like in the MACRO
  project 
@@ -1883,6 +4230,11 @@ key "key-3"
 \end_inset
 
 , the total runtime may be found too inefficient for production use.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1907,23 +4259,6 @@ The source files for the NJOY software system consists of more than 100
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-The number of possible NJOY jobs is infinite (all may not be functional
- in the NJOY software system, though).
- An infinite number of NJOY jobs can simply be created by just appending
- another module specification to an existing NJOY job in order to create
- a new one.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The NJOY test problems 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1935,6 +4270,44 @@ key "key-1"
  of possible NJOY jobs.
  Hence, there is a lot of scenarios within each NJOY module that has not
  been tested.
+\end_layout
+
+\begin_layout Standard
+Note that modified versions of the original NJOY test problems had to be
+ used as the expected output when when comparing the output from the translator.
+ The floating-point numbers had to be specified such that the lexer in the
+ translator could recognize them, as described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Implementation, The Modules"
+
+\end_inset
+
+, and thus be changed into this form in the expected output as well.
+ Since the emitter appends descriptive comments to every card (which are
+ not present in the original test problems) as described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Implementation, The Modules"
+
+\end_inset
+
+, these comments also had to be appended to the expected output such that
+ the comparison could be performed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+One python instance.
+ Translate programs in parallell.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2475,6 +4848,41 @@ Testing Computer Software
 \shape default
 , Second Edition.
  New York: John Wiley and Sons, Inc., 1999.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Users Manual
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Appendix - Users Manual"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Installation
+\end_layout
+
+\begin_layout Subsection
+Running the Translator
+\end_layout
+
+\begin_layout Section
+Test Problems
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Appendix - Test Problems"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
