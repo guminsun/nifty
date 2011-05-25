@@ -10,7 +10,7 @@ from organize_covr import organize_covr
 #from organize_dtfr import organize_dtfr
 from organize_errorr import organize_errorr
 #from organize_gaminr import organize_gaminr
-#from organize_gaspr import organize_gaspr
+from organize_gaspr import organize_gaspr
 from organize_groupr import organize_groupr
 from organize_heatr import organize_heatr
 #from organize_leapr import organize_leapr
@@ -64,7 +64,7 @@ def organize_module(module):
         #'dtfr' : organize_dtfr,
         'errorr' : organize_errorr,
         #'gaminr' : organize_gaminr,
-        #'gaspr' : organize_gaspr,
+        'gaspr' : organize_gaspr,
         'groupr' : organize_groupr,
         'heatr' : organize_heatr,
         #'leapr' : organize_leapr,
