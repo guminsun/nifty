@@ -47,6 +47,23 @@
 
 \begin_layout Standard
 \paragraph_spacing single
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing single
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
@@ -780,8 +797,8 @@ key "key-1"
 \end_layout
 
 \begin_layout Standard
-NJOY test problems was manually translated into equivalent NJOY jobs in
- the new input format, which were run through the translator.
+The NJOY test problems was manually translated into equivalent NJOY jobs
+ in the new input format, which were run through the translator.
  The resulting output was compared with the expected output, to verify that
  the translator was working appropriately.
 \end_layout
@@ -1447,7 +1464,7 @@ reference "alg:NJOY Example 2"
 
 \end_inset
 
- illustrates the NJOY input instructions (slightly modified to make it shorter
+ illustrates NJOY input instructions (slightly modified to make it shorter
  for illustrational purposes) from NJOY Test Problem 2 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1851,7 +1868,7 @@ reference "alg:NJOY Example 2"
 
 \end_inset
 
- does not have to be speciﬁed in NIF, the NIF translator will automatically
+ does not have to be speciﬁed in NIF, the translator will automatically
  append it in the translation process.
 \end_layout
 
@@ -4172,6 +4189,13 @@ reference "sub:NJOY Input Format Examples"
  line.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 NJOY Input Format Translator (
 \family typewriter
@@ -4188,9 +4212,8 @@ An organizer and analyzer has not been provided for all modules in the NJOY
  the existing implementation such that both the organizer and the analyzer
  should be easy to complete.
  Even though the organizer and analyzer phase has not been implemented for
- all NJOY modules in the translator, NIF programs which includes these modules
+ all NJOY modules in the translator, NIF programs which include these modules
  can still be translated into functional NJOY input instructions.
- These modules just can't be organized or checked for semantic errors.
 \end_layout
 
 \begin_layout Standard
@@ -4209,6 +4232,17 @@ key "key-4"
  the analyzer.
  It was evident that this was not a sufficient resource for the task at
  hand.
+ It does not clearly indicate the expected type for all identifiers, nor
+ the expected integer ranges or length of the character strings.
+ In some cases, it has also been hard to deduce which cards that must be
+ supplied by just reading the documentation in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+.
  To fully check the semantics of a NIF program, the source code for the
  NJOY software system must be studied in greater detail.
  The ENDF formats must also be studied in greater detail in order to understand
@@ -4216,22 +4250,7 @@ key "key-4"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-The efficiency of the translator has not been tested.
- If a large set of NIF programs should be translated, like in the MACRO
- project 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-3"
-
-\end_inset
-
-, the total runtime may be found too inefficient for production use.
-\end_layout
-
+\begin_inset Newpage pagebreak
 \end_inset
 
 
@@ -4297,20 +4316,6 @@ reference "sub:Implementation, The Modules"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-One python instance.
- Translate programs in parallell.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
 
@@ -4345,7 +4350,14 @@ It is possible to specify basic NJOY jobs in NIF with a syntax to make them
  semantic analysis for a NJOY job.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Future Work
 \end_layout
 
@@ -4365,10 +4377,7 @@ key "key-15"
 \end_layout
 
 \begin_layout Standard
-It might be interesting to implement an efficient version of the translator,
- in e.g.
- the C programming language.
- A spin-off project, that is related to developing a user friendly and readable
+A spin-off project, that is related to developing a user friendly and readable
  input format, is to construct a graphical user interface editor which can
  display and produce NJOY input instructions in a user friendly fashion.
 \end_layout
