@@ -14,27 +14,28 @@ from nifty.environment.exceptions import SemanticError
 
 def organize_card(expected_map, card_node):
     '''
-        The expected_map is assumed to have the form:
+        The expected_map is assumed to be a dictionary with key-value pairs
+        on the form:
 
-            ('identifier', (internal_id_name, default_value))
+            expected_order : ('identifier', (internal_id_name, default_value))
 
         or,
 
-            ('array', (internal_id_name, default_value, array_index))
+            expected_order : ('array', (internal_id_name, default_value, array_index))
 
-        where internal_id_name is the name of the identifier used internally
-        by the translator (e.g. the identifier name that appears in the NJOY
-        Input Instructions), default_value is the default value if no value
-        has been given, and array_index denotes the expected array index for
-        array nodes.
-
-        Set default_value to None to indicate that a identifier must be
-        defined, or '' to indicate a blank/empty value.
+        where expected_order is an integer number which denotes the expected
+        order of the statement in the card. internal_id_name is the name of
+        the identifier used internally by the translator (e.g. the identifier
+        name that appears in the NJOY Input Instructions).
+        default_value is the default value if no value has been given. Set
+        default_value to None to indicate that a identifier must be defined.
+        array_index denotes the expected array index for array nodes.
 
         If the expected default_value is None, denoting that a identifier must
-        be defined, but no value has been given, an exception will be raised
-        such that the card will be passed on to the next phase in its original
-        form such that e.g. the analyzer may report any semantic errors.
+        be defined, but no value has been given in the input program, an
+        exception will be raised such that the card will be passed on to the
+        next phase in its original form such that e.g. the analyzer may report
+        any semantic errors.
     '''
     statement_list = card_node.get('statement_list')
     # Try to organize the card's statement list. Restore the original card
