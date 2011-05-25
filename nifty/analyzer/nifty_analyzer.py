@@ -5,7 +5,7 @@ from analyze_covr import analyze_covr
 #from analyze_dtfr import analyze_dtfr
 from analyze_errorr import analyze_errorr
 #from analyze_gaminr import analyze_gaminr
-#from analyze_gaspr import analyze_gaspr
+from analyze_gaspr import analyze_gaspr
 from analyze_groupr import analyze_groupr
 from analyze_heatr import analyze_heatr
 #from analyze_leapr import analyze_leapr
@@ -48,7 +48,7 @@ def analyze_module(module):
         #'dtfr' : analyze_dtfrr,
         'errorr' : analyze_errorr,
         #'gaminr' : analyze_gaminr,
-        #'gaspr' : analyze_gaspr,
+        'gaspr' : analyze_gaspr,
         'groupr' : analyze_groupr,
         'heatr' : analyze_heatr,
         #'leapr' : analyze_leapr,
