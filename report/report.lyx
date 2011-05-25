@@ -20,7 +20,7 @@
 
 \graphics default
 \paperfontsize 12
-\spacing double
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -337,13 +337,6 @@ The input instructions can be annotated with descriptive comments, but even
  error-prone task.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Objective
 \end_layout
@@ -541,13 +534,6 @@ key "key-9"
 , in a Unix-like environment.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Lexical Analysis
 \end_layout
@@ -667,13 +653,6 @@ parser
  provided by the PLY tools.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Semantic Analysis
 \end_layout
@@ -747,13 +726,6 @@ hk
 \family default
  has been declared as an integer, or when the character string contains
  more than 70 characters.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -856,7 +828,14 @@ The proposed NJOY Input Format (
 \family typewriter
 NIF
 \family default
-) is illustrated as a context-free grammar definition in algorithm 2.
+) is illustrated as a context-free grammar definition in algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:NJOY Input Format Grammar Definition"
+
+\end_inset
+
+.
  The structure of the grammar is simple.
  Just like in reference 
 \begin_inset CommandInset citation
@@ -872,7 +851,6 @@ key "key-4"
 
 \begin_layout Standard
 \begin_inset Float algorithm
-placement H
 wide false
 sideways false
 status open
@@ -1041,7 +1019,9 @@ r_value ::= FLOAT
 
 \begin_layout Plain Layout
 NJOY Input Format (NIF) Grammar Definition
-\end_layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:NJOY Input Format Grammar Definition"
 
 \end_inset
 
@@ -1053,7 +1033,8 @@ NJOY Input Format (NIF) Grammar Definition
 
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
 The start symbol is 
 \family typewriter
 program
@@ -1130,10 +1111,6 @@ material = 128, 9237;
 is allowed even though it does not make sense.
  However, the syntax analysis in the parser enforces that the number of
  elements on both sides are the same.
-\begin_inset Newpage pagebreak
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -1167,7 +1144,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
@@ -2169,7 +2146,7 @@ status open
 \begin_layout Plain Layout
 
 \series bold
-NJOY module
+NJOY Module
 \end_layout
 
 \end_inset
@@ -2666,20 +2643,20 @@ gaspr
 
 \end_inset
 </cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-0%
+100%
 \end_layout
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+99%
 \end_layout
 
 \end_inset
@@ -3188,20 +3165,20 @@ purr
 
 \end_inset
 </cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-0%
+100%
 \end_layout
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0%
 \end_layout
 
 \end_inset
@@ -3420,20 +3397,20 @@ unresr
 
 \end_inset
 </cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-0%
+100%
 \end_layout
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0%
 \end_layout
 
 \end_inset
@@ -3573,10 +3550,6 @@ Testing
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
 The test results are summarized in table 
 \begin_inset CommandInset ref
 LatexCommand vref
@@ -3585,10 +3558,6 @@ reference "tab:Test results"
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
  All test problems listed in Appendix 
 \begin_inset CommandInset ref
 LatexCommand vref
@@ -3616,10 +3585,6 @@ Note that the organizer's ability to arrange statements in the correct order
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
 \begin_inset Float table
 placement H
 wide false
@@ -4134,11 +4099,6 @@ name "tab:Test results"
 
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
@@ -4198,13 +4158,6 @@ reference "sub:NJOY Input Format Examples"
  line.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 NJOY Input Format Translator (
 \family typewriter
@@ -4256,13 +4209,6 @@ key "key-4"
  NJOY software system must be studied in greater detail.
  The ENDF formats must also be studied in greater detail in order to understand
  the semantics and what kind of values that the NJOY modules accept.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
