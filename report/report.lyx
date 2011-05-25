@@ -4727,7 +4727,7 @@ PLY (Python Lex-Yacc)
  [Online].
  Available: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -4863,8 +4863,74 @@ Testing Computer Software
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
 \start_of_appendix
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{algorithm}{0} 
+\backslash
+renewcommand{
+\backslash
+thealgorithm}{A.
+\backslash
+arabic{algorithm}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{figure}{0} 
+\backslash
+renewcommand{
+\backslash
+thefigure}{A.
+\backslash
+arabic{figure}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{table}{0} 
+\backslash
+renewcommand{
+\backslash
+thetable}{A.
+\backslash
+arabic{table}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Users Manual
 \begin_inset CommandInset label
 LatexCommand label
@@ -4876,11 +4942,451 @@ name "sec:Appendix - Users Manual"
 \end_layout
 
 \begin_layout Subsection
+Structure of 
+\family typewriter
+nifty
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+nifty
+\family default
+ directory structure is organized as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Appendix - Directory Structure of nifty"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+nifty/
+\end_layout
+
+\begin_layout Plain Layout
+
+	bin/
+\end_layout
+
+\begin_layout Plain Layout
+
+		analyzer
+\end_layout
+
+\begin_layout Plain Layout
+
+		emitter
+\end_layout
+
+\begin_layout Plain Layout
+
+		lexer
+\end_layout
+
+\begin_layout Plain Layout
+
+		nifty
+\end_layout
+
+\begin_layout Plain Layout
+
+		organizer
+\end_layout
+
+\begin_layout Plain Layout
+
+		parser
+\end_layout
+
+\begin_layout Plain Layout
+
+		test
+\end_layout
+
+\begin_layout Plain Layout
+
+	data/
+\end_layout
+
+\begin_layout Plain Layout
+
+		...
+\end_layout
+
+\begin_layout Plain Layout
+
+		test_problems/
+\end_layout
+
+\begin_layout Plain Layout
+
+	nifty/
+\end_layout
+
+\begin_layout Plain Layout
+
+		analyzer/
+\end_layout
+
+\begin_layout Plain Layout
+
+		emitter/
+\end_layout
+
+\begin_layout Plain Layout
+
+		environment/
+\end_layout
+
+\begin_layout Plain Layout
+
+		lexer/
+\end_layout
+
+\begin_layout Plain Layout
+
+		organizer/
+\end_layout
+
+\begin_layout Plain Layout
+
+		parser/
+\end_layout
+
+\begin_layout Plain Layout
+
+		tests/
+\end_layout
+
+\begin_layout Plain Layout
+
+	[ply/]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Directory Structure of 
+\family typewriter
+nifty
+\family default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Appendix - Directory Structure of nifty"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+nifty/bin/
+\family default
+ directory includes all executable Python scripts which are used for running
+ and testing the translator.
+ The 
+\family typewriter
+nifty
+\family default
+ executable in the 
+\family typewriter
+nifty/bin/
+\family default
+ directory runs the complete translation process on an input NIF program.
+ The 
+\family typewriter
+test
+\family default
+ executable runs the test suite.
+ The other executables runs their corresponding named phase in the translation
+ process (and all the successive phases that they depend on).
+\end_layout
+
+\begin_layout Standard
+The test problems are located in the 
+\family typewriter
+nifty/data/test_problems/
+\family default
+ directory.
+ The 
+\family typewriter
+nifty/nifty/
+\family default
+ directory contains the source code for the translator.
+ The optional directory 
+\family typewriter
+ply/
+\family default
+ indicates where PLY can be placed such that the translator is able to locate
+ it.
+\end_layout
+
+\begin_layout Subsection
 Installation
+\end_layout
+
+\begin_layout Standard
+PLY 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-11"
+
+\end_inset
+
+ is required to run the translator.
+ It is sufficient to download PLY and put it in the 
+\family typewriter
+nifty/
+\family default
+ top directory as indicated by figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Appendix - Directory Structure of nifty"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
 Running the Translator
+\end_layout
+
+\begin_layout Standard
+The translator has been implemented as a command-line based interface.
+ To run the entire translation process, the 
+\family typewriter
+nifty
+\family default
+ executable in the 
+\family typewriter
+nifty/bin
+\family default
+ directory should be used.
+ Issuing the command
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+bin/nifty -h
+\end_layout
+
+\begin_layout Standard
+in the 
+\family typewriter
+nifty/
+\family default
+ top directory, will print the help message shown in figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Appendix - Running bin/nifty"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily},breaklines=true,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+usage: nifty [options] [input_file] [output_file]
+\end_layout
+
+\begin_layout Plain Layout
+
+options:
+\end_layout
+
+\begin_layout Plain Layout
+
+	-h, --help  show this help message and exit
+\end_layout
+
+\begin_layout Plain Layout
+
+	-a          don't analyze the input
+\end_layout
+
+\begin_layout Plain Layout
+
+	-o          don't organize the input
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Running 
+\family typewriter
+bin/nifty
+\family default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Appendix - Running bin/nifty"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+options
+\family default
+ flag(s) are optional.
+ The 
+\family typewriter
+input_file
+\family default
+ and 
+\family typewriter
+output_file
+\family default
+ are also optional.
+ If no input file is given, standard input (
+\family typewriter
+stdin
+\family default
+) will be used as the input source.
+ If no output file is given, the result will be redirected to standard output
+ (
+\family typewriter
+stdout
+\family default
+).
+\end_layout
+
+\begin_layout Standard
+As an example, the command
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+bin/nifty input.nif output
+\end_layout
+
+\begin_layout Standard
+will simply run the translator on a file named 
+\family typewriter
+input.nif
+\family default
+ and output the resulting NJOY input instructions on a file named 
+\family typewriter
+output
+\family default
+.
+ The analyzer and organizer phase can be skipped by giving the 
+\family typewriter
+-a
+\family default
+ and 
+\family typewriter
+-o
+\family default
+ flag
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+bin/nifty -a input.nif output
+\family default
+, to skip the analyzer phase
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+bin/nifty -o input.nif output
+\family default
+, to skip the organizer phase
+\end_layout
+
+\begin_layout Standard
+To skip both the organizer and analyzer phase, run 
+\family typewriter
+nifty
+\family default
+ with both flags specified
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+bin/nifty -ao input.nif output
 \end_layout
 
 \begin_layout Section
