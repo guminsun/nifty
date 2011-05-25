@@ -23,7 +23,7 @@ from organize_purr import organize_purr
 from organize_reconr import organize_reconr
 #from organize_resxsr import organize_resxsr
 from organize_thermr import organize_thermr
-#from organize_unresr import organize_unresr
+from organize_unresr import organize_unresr
 from organize_viewr import organize_viewr
 #from organize_wimsr import organize_wimsr
 
@@ -77,7 +77,7 @@ def organize_module(module):
         'reconr' : organize_reconr,
         #'resxsr' : organize_resxsr,
         'thermr' : organize_thermr,
-        #'unresr' : organize_unresr,
+        'unresr' : organize_unresr,
         'viewr' : organize_viewr,
         #'wimsr' : organize_wimsr,
     }
