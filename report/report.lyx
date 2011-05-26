@@ -5,6 +5,7 @@
 \textclass article
 \begin_preamble
 \usepackage[nottoc]{tocbibind}
+\usepackage{colortbl}
 \end_preamble
 \use_default_options true
 \language english
@@ -1144,7 +1145,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Users/ceh/Desktop/nifty.eps
+	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
 
 \end_inset
 
@@ -3178,7 +3179,7 @@ purr
 \begin_inset Text
 
 \begin_layout Plain Layout
-0%
+90%
 \end_layout
 
 \end_inset
@@ -3410,7 +3411,7 @@ unresr
 \begin_inset Text
 
 \begin_layout Plain Layout
-0%
+95%
 \end_layout
 
 \end_inset
