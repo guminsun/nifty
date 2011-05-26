@@ -1147,7 +1147,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
@@ -4260,7 +4260,7 @@ Process Time
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.55
+18.92
 \end_layout
 
 \end_inset
@@ -4280,7 +4280,7 @@ Wall Time
 \begin_inset Text
 
 \begin_layout Plain Layout
-723.49
+578.26
 \end_layout
 
 \end_inset
@@ -4318,9 +4318,9 @@ name "tab:Bench Table"
 \end_layout
 
 \begin_layout Standard
-The repeated runs were conducted on a dedicated, single user, system equipped
- with a Intel Core i3 2100 CPU at 3,1GHz and 8GiB of RAM.
- The system was running Mac OS X 10.6.7 and Python 2.XXX.
+The repeated runs were conducted on a dedicated, single user, desktop system
+ equipped with a Intel Core i3-2100 Processor at 3.1GHz and 8GiB of RAM.
+ The system was running Mac OS X 10.6.7 and Python 2.6.1.
 \end_layout
 
 \begin_layout Standard
@@ -4563,14 +4563,16 @@ key "key-9"
  the time it takes until the system delivers the computed result, whereas
  process time is the time that it took to compute the result.
  Wall time includes latency such as the time it takes to transfer data back
- and forth between the units in the system, context-switches between different
- processes, et cetera.
+ and forth between the units in the system, the time it takes for the operating
+ system to switch between different processes, et cetera.
 \end_layout
 
 \begin_layout Standard
 Hence, the performance obstacles are related to other issues in the computer
  system rather than the raw performance of the translator, since the wall
  time is much greater than the process time.
+ Also note that a low-end desktop system was used for producing these numbers.
+ A high-end system will greatly reduce the process time.
 \end_layout
 
 \begin_layout Standard
@@ -5438,11 +5440,16 @@ Installation
 \end_layout
 
 \begin_layout Standard
-Python 2.2 or greater is required to use 
+Python version 2.2 or greater is required to use 
 \family typewriter
 nifty
 \family default
 .
+ Python version 2.4.3 and 2.6.1 has been tested with 
+\family typewriter
+nifty
+\family default
+ and are known to work.
  
 \family typewriter
 nifty
@@ -5460,7 +5467,7 @@ key "key-11"
 \family typewriter
 ply/
 \family default
- directory in the 
+ directory from PLY in the 
 \family typewriter
 nifty/
 \family default
