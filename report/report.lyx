@@ -375,7 +375,7 @@ Introduction
 \begin_layout Standard
 The NJOY input instructions had to be understood in order to design the
  new input format.
- Each module of the NJOY software system, as described in reference 
+ Each module in the NJOY software system, as described in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
@@ -420,8 +420,8 @@ Syntax Definition
 \end_layout
 
 \begin_layout Standard
-The syntax definition of the input format was specified in a notation called
- context-free grammar 
+The syntax definition of the new input format was specified in a notation
+ called context-free grammar 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-6"
@@ -813,9 +813,12 @@ name "sub:nif"
 \end_layout
 
 \begin_layout Standard
-The new input format, NJOY Input Format (NIF), is basically the NJOY input
- instructions which have been annotated with a syntax to make it easier
- to read and express.
+The new input format, NJOY Input Format (
+\family typewriter
+NIF
+\family default
+), is basically the NJOY input instructions which have been annotated with
+ a syntax to make it easier to read and express.
  NIF has been designed to appear more like a high-level programming language.
 \end_layout
 
@@ -830,7 +833,7 @@ NIF
 \family default
 ) is illustrated as a context-free grammar definition in algorithm 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "alg:NJOY Input Format Grammar Definition"
 
 \end_inset
@@ -4329,28 +4332,6 @@ time.clock()
 \family typewriter
 time.time()
 \family default
- was used to measure the process time and wall time, respectively.
-\end_layout
-
-\begin_layout Standard
-Process time is the time that the entire task spent executing on the processor,
- measured by 
-\family typewriter
-time.clock()
-\family default
- which should be used for timing algorithms 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-9"
-
-\end_inset
-
-.
- Wall time is the time that elapsed from when the task was started to when
- the task finished, measured by checking the difference in time using 
-\family typewriter
-time.time()
-\family default
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4358,7 +4339,7 @@ key "key-9"
 
 \end_inset
 
-.
+ was used to measure the process time and wall time, respectively.
 \end_layout
 
 \begin_layout Standard
@@ -4510,7 +4491,7 @@ key "key-1"
 
 \begin_layout Standard
 Note that modified versions of the original NJOY test problems had to be
- used as the expected output when when comparing the output from the translator.
+ used as the expected output when comparing the output from the translator.
  The floating-point numbers had to be specified such that the lexer in the
  translator could recognize them, as described in section 
 \begin_inset CommandInset ref
@@ -4549,30 +4530,47 @@ reference "sub:Results - Translation Efficiency"
  Other test problems may reveal higher runtimes.
  Nonetheless, the resulting runtimes reveals that the performance of the
  translator implementation is not a bottleneck.
- The performance obstacles are related to other issues in the computer system,
- since the wall time is much greater than the process time.
- Reducing wall time runtimes are described elsewhere
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-See e.g.
- A.
- Grama 
-\shape italic
-et al.
-\shape default
-, 
-\shape italic
-Introduction to Parallel Computing
-\shape default
-, Second Edition.
- Boston: Pearson Educ., 2003.
 \end_layout
+
+\begin_layout Standard
+Process time is the time that the entire task spent executing on the processor,
+ measured by 
+\family typewriter
+time.clock()
+\family default
+ which should be used for timing algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
 
 \end_inset
 
 .
+ Wall time is the time that elapsed from when the task was started to when
+ the task finished, measured by checking the difference in time using 
+\family typewriter
+time.time()
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+ The difference between process time and wall time is that wall time is
+ the time it takes until the system delivers the computed result, whereas
+ process time is the time that it took to compute the result.
+ Wall time includes latency such as the time it takes to transfer data back
+ and forth between the units in the system, context-switches between different
+ processes, et cetera.
+\end_layout
+
+\begin_layout Standard
+Hence, the performance obstacles are related to other issues in the computer
+ system rather than the raw performance of the translator, since the wall
+ time is much greater than the process time.
 \end_layout
 
 \begin_layout Standard
@@ -5192,7 +5190,7 @@ arabic{table}}
 \end_layout
 
 \begin_layout Section
-Users Manual
+User Manual
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Appendix - Users Manual"
