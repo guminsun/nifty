@@ -176,7 +176,7 @@ key "key-3"
 \end_inset
 
  at the Division of Applied Nuclear Physics, at the Department of Physics
- and Astronomy at Uppsala University.
+ and Astronomy at Uppsala University, where this work has been conducted.
 \end_layout
 
 \begin_layout Subsection
@@ -4549,8 +4549,8 @@ reference "sub:Results - Translation Efficiency"
  Other test problems may reveal higher runtimes.
  Nonetheless, the resulting runtimes reveals that the performance of the
  translator implementation is not a bottleneck.
- The performance obstacles are related to other issues in computer systems,
- as indicated by that the wall time is much greater than the process time.
+ The performance obstacles are related to other issues in the computer system,
+ since the wall time is much greater than the process time.
  Reducing wall time runtimes are described elsewhere
 \begin_inset Foot
 status open
@@ -5260,6 +5260,11 @@ nifty/
 
 \begin_layout Plain Layout
 
+		bench
+\end_layout
+
+\begin_layout Plain Layout
+
 		emitter
 \end_layout
 
@@ -5402,6 +5407,11 @@ nifty/bin/
 test
 \family default
  executable runs the test suite.
+ The 
+\family typewriter
+bench
+\family default
+ executable is a script used for testing the efficiency of the translator.
  The other executables runs their corresponding named phase in the translation
  process (and all the successive phases that they depend on).
 \end_layout
@@ -5430,7 +5440,17 @@ Installation
 \end_layout
 
 \begin_layout Standard
-PLY 
+Python 2.2 or greater is required to use 
+\family typewriter
+nifty
+\family default
+.
+ 
+\family typewriter
+nifty
+\family default
+ itself does not require any special installation methods, although PLY
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-11"
@@ -5454,6 +5474,7 @@ reference "fig:Appendix - Directory Structure of nifty"
 \end_inset
 
 .
+ (Note the non-restrictive license of PLY generously provided by its author.)
 \end_layout
 
 \begin_layout Subsection
@@ -5461,7 +5482,8 @@ Running the Translator
 \end_layout
 
 \begin_layout Standard
-The translator has been implemented as a command-line based interface.
+The translator has been implemented as a command-line based interface for
+ a Unix-like environment.
  To run the entire translation process, the 
 \family typewriter
 nifty
