@@ -105,7 +105,7 @@ identifier_map = {
     'mts' : ['mts'], # errorr
     'nace' : ['nace', 'ace_output'],
     'natom' : ['natom'], # thermr.
-    'nbin' : ['nbin'], # thermr.
+    'nbin' : ['nbin'], # thermr, purr.
     'nbint' : ['nbint'],
     'ncards' : ['ncards'],
     'ncase' : ['ncase'], # covr, ...
@@ -126,6 +126,7 @@ identifier_map = {
     'nin' : ['nin', 'pendf_input'], # covr, ...
     'ninwt' : ['ninwt'], # groupr.
     'nkh' : ['nkh'], # plotr.
+    'nladr' : ['nladr'], # purr.
     'nmix' : ['nmix'],
     'nmt' : ['nmt'], # errorr
     'noleg' : ['noleg'], # covr, ...
@@ -146,6 +147,7 @@ identifier_map = {
     'nth' : ['nth'], # plotr
     'ntk' : ['ntk'], # plotr
     'ntp' : ['ntp'], # plotr
+    'nunx' : ['nunx'], # purr.
     'nxtra' : ['nxtra'],
     'qa' : ['qa'],
     'qbar' : ['qbar'],
@@ -165,7 +167,7 @@ identifier_map = {
     'tb' : ['tb', 'thermal_temperature'], # errorr, groupr.
     'tc' : ['tc', 'fission_temperature'], # errorr, groupr.
     'temp' : ['temp', 'temperature'], # groupr.
-    'temp1' : ['temp1', 'start_temp'], # broadr. 
+    'temp1' : ['temp1', 'start_temp'], # broadr.
     'temp2' : ['temp2', 'final_temp'], # broadr.
     'tempd' : ['tempd', 'temperature'],
     'tempin' : ['tempin'], # errorr.
