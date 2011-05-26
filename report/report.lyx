@@ -3604,10 +3604,14 @@ reference "sub:Methodology - Building the Translator"
 \end_layout
 
 \begin_layout Subsection
-Testing
+Test Results
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 The test results are summarized in table 
 \begin_inset CommandInset ref
 LatexCommand vref
@@ -3616,6 +3620,10 @@ reference "tab:Test results"
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
  All test problems listed in Appendix 
 \begin_inset CommandInset ref
 LatexCommand vref
@@ -3643,6 +3651,10 @@ Note that the organizer's ability to arrange statements in the correct order
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 \begin_inset Float table
 placement H
 wide false
@@ -4157,6 +4169,198 @@ name "tab:Test results"
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Translation Efficiency
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Results - Translation Efficiency"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Bench Table"
+
+\end_inset
+
+ shows the resulting runtimes, both process time and wall time, for 10 000
+ repeated runs of the entire translation process on Test Problem 02.
+ Test Problem 02 is listed in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Appendix - Test Problem 02"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Runtime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Seconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Process Time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.55
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Wall Time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+723.49
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Runtimes for Test Problem 02 repeated 10 000 times
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Bench Table"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The repeated runs were conducted on a dedicated, single user, system equipped
+ with a Intel Core i3 2100 CPU at 3,1GHz and 8GiB of RAM.
+ The system was running Mac OS X 10.6.7 and Python 2.XXX.
+\end_layout
+
+\begin_layout Standard
+The Python library functions 
+\family typewriter
+time.clock()
+\family default
+ and 
+\family typewriter
+time.time()
+\family default
+ was used to measure the process time and wall time, respectively.
+\end_layout
+
+\begin_layout Standard
+Process time is the time that the entire task spent executing on the processor,
+ measured by 
+\family typewriter
+time.clock()
+\family default
+ which should be used for timing algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+ Wall time is the time that elapsed from when the task was started to when
+ the task finished, measured by checking the difference in time using 
+\family typewriter
+time.time()
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
@@ -4326,6 +4530,49 @@ reference "sub:Implementation, The Modules"
 
 , these comments also had to be appended to the expected output such that
  the comparison could be performed.
+\end_layout
+
+\begin_layout Subsection
+Efficiency
+\end_layout
+
+\begin_layout Standard
+The efficiency testing of the translator as described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Results - Translation Efficiency"
+
+\end_inset
+
+ was conducted in a simple fashion.
+ Only one test problem was used for testing.
+ Other test problems may reveal higher runtimes.
+ Nonetheless, the resulting runtimes reveals that the performance of the
+ translator implementation is not a bottleneck.
+ The performance obstacles are related to other issues in computer systems,
+ as indicated by that the wall time is much greater than the process time.
+ Reducing wall time runtimes are described elsewhere
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See e.g.
+ A.
+ Grama 
+\shape italic
+et al.
+\shape default
+, 
+\shape italic
+Introduction to Parallel Computing
+\shape default
+, Second Edition.
+ Boston: Pearson Educ., 2003.
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -4675,7 +4922,7 @@ Python v2.7.1 documentation
  [Online].
  Available: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -7908,6 +8155,13 @@ Test Problem 02 (
 tp0
 \family default
 2)
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Appendix - Test Problem 02"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
