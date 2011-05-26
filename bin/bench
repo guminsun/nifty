@@ -1,0 +1,87 @@
+#! /usr/bin/env python
+
+import os, sys
+from optparse import OptionParser
+
+import subprocess
+import time
+
+def run():
+    arg_parser = setup_arg_parser()
+    (options, args) = arg_parser.parse_args()
+    (input_file, number_of_times) = setup_bench_args(args, arg_parser)
+    nifty_args = setup_nifty_args(args, options, input_file)
+    clock_translation_process(number_of_times, nifty_args)
+
+def setup_arg_parser():
+    usage_msg = '%prog [options] input_file [number_of_times]'
+    arg_parser = OptionParser(usage_msg)
+    arg_parser.add_option(
+        '-a',
+        action='store_false',
+        default=True,
+        dest='run_analyzer',
+        help='don\'t benchmark the analyzer',
+    )
+    arg_parser.add_option(
+        '-o',
+        action='store_false',
+        default=True,
+        dest='run_organizer',
+        help='don\'t benchmark the organizer',
+    )
+    return arg_parser
+
+def setup_bench_args(args, arg_parser):
+    if len(args) == 0:
+        arg_parser.error('incorrect number of arguments')
+    elif len(args) == 1:
+        input_file = args[0]
+        number_of_times = 100
+    elif len(args) == 2:
+        input_file = args[0]
+        number_of_times = int(args[1])
+    else:
+        arg_parser.error('incorrect number of arguments')
+    return input_file, number_of_times
+
+def setup_nifty_args(args, options, input_file):
+    nifty_args = ['bin/nifty']
+    if options.run_organizer and options.run_analyzer:
+        nifty_options = '-ao'
+        nifty_args.append(nifty_options)
+    elif options.run_organizer:
+        nifty_options = '-o'
+        nifty_args.append(nifty_options)
+    elif options.run_analyzer:
+        nifty_options = '-a'
+        nifty_args.append(nifty_options)
+    else:
+        pass
+    output_file = input_file + '.bench'
+    nifty_args.append(input_file)
+    nifty_args.append(output_file)
+    return nifty_args
+
+def clock_translation_process(number_of_times, nifty_args):
+    print 'Running ...', '\n'
+    process_time0 = time.clock()
+    wall_time0 = time.time()
+
+    # Run bin/nifty number_of_times
+    for i in range(number_of_times):
+        subprocess.Popen(nifty_args)
+
+    wall_elapsed = time.time() - wall_time0
+    process_elapsed = time.clock() - process_time0
+
+    heading = ('Ran translation process ' + str(number_of_times) + ' times:')
+    process_msg = ('  Process Time: ' + str(process_elapsed) + ' seconds')
+    wall_msg = ('  Wall Time   : ' + str(wall_elapsed) + ' seconds')
+
+    print heading, '\n'
+    print process_msg
+    print wall_msg, '\n'
+
+if __name__ == '__main__':
+    run()
