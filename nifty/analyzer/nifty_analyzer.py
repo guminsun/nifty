@@ -14,7 +14,7 @@ from analyze_heatr import analyze_heatr
 from analyze_moder import analyze_moder
 from analyze_plotr import analyze_plotr
 #from analyze_powr import analyze_powr
-#from analyze_purr import analyze_purr
+from analyze_purr import analyze_purr
 from analyze_reconr import analyze_reconr
 #from analyze_resxsr import analyze_resxsr
 from analyze_thermr import analyze_thermr
@@ -57,7 +57,7 @@ def analyze_module(module):
         'moder' : analyze_moder,
         'plotr' : analyze_plotr,
         #'powr' : analyze_powr,
-        #'purr' : analyze_purr,
+        'purr' : analyze_purr,
         'reconr' : analyze_reconr,
         #'resxsr' : analyze_resxsr,
         'thermr' : analyze_thermr,
