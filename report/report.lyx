@@ -4518,21 +4518,6 @@ Efficiency
 \end_layout
 
 \begin_layout Standard
-The efficiency testing of the translator as described in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Results - Translation Efficiency"
-
-\end_inset
-
- was conducted in a simple fashion.
- Only one test problem was used for testing.
- Other test problems may reveal higher runtimes.
- Nonetheless, the resulting runtimes reveals that the performance of the
- translator implementation is not a bottleneck.
-\end_layout
-
-\begin_layout Standard
 Process time is the time that the entire task spent executing on the processor,
  measured by 
 \family typewriter
@@ -4562,16 +4547,23 @@ key "key-9"
  The difference between process time and wall time is that wall time is
  the time it takes until the system delivers the computed result, whereas
  process time is the time that it took to compute the result.
- Wall time includes latency such as the time it takes to transfer data back
- and forth between the units in the system, the time it takes for the operating
- system to switch between different processes, et cetera.
 \end_layout
 
 \begin_layout Standard
-Hence, the performance obstacles are related to other issues in the computer
- system rather than the raw performance of the translator, since the wall
- time is much greater than the process time.
- Also note that a low-end desktop system was used for producing these numbers.
+The efficiency testing of the translator as described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Results - Translation Efficiency"
+
+\end_inset
+
+ was conducted in a simple fashion.
+ Only one test problem was used for testing.
+ Other test problems may reveal higher runtimes.
+ Nonetheless, the resulting process runtime revealed that the performance
+ of the translator implementation is not a huge bottleneck, compared to
+ the much greater wall time.
+ Also note that a low-end desktop system was used for producing these runtimes.
  A high-end system will greatly reduce the process time.
 \end_layout
 
