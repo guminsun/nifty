@@ -1,0 +1,21 @@
+moder
+30 -31/ ### card_1
+moder
+-31 -32/ ### card_1
+errorr
+-31 -32 0 -33/ ### card_1
+1306 19 2 1/ ### card_2
+0 0/ ### card_3
+0 33/ ### card_7
+1/ ### card_12a
+1e-5 2e7/ ### card_12b
+covr
+-33 0 34/ ### card_1
+1/ ### card_2
+/ ### card_2a
+/ ### card_3a
+1306/ ### card_4
+viewr
+34 35/ ### card_0
+stop
+

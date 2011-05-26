@@ -1,0 +1,95 @@
+plotr
+31/ ### card_0
+/ ### card_1
+1/ ### card_2
+'<endf/b-v carbon'/ ### card_3
+'<t>otal <c>ross <s>ection'/ ### card_3a
+4/ ### card_4
+1e3 2e7/ ### card_5
+/ ### card_5a
+0.5 10/ ### card_6
+/ ### card_6a
+5 30 1306 3 1/ ### card_8
+/ ### card_9
+1/ ### card_2
+'<endf/b-v carbon'/ ### card_3
+'(n,]a>) with fake data'/ ### card_3a
+1 0 2 1 1.3e7 0.32/ ### card_4
+/ ### card_5
+/ ### card_5a
+/ ### card_6
+/ ### card_6a
+5 30 1306 3 107/ ### card_8
+/ ### card_9
+'<endf/b-v mat1306'/ ### card_10
+2/ ### card_2
+0/ ### card_8
+-1 0/ ### card_9
+'<s>mith & <s>mith 1914'/ ### card_10
+0/ ### card_12
+1.1e7 0.08 0.05 0.05/ ### card_13
+1.2e7 0.10 0.05 0.05/ ### card_13
+1.3e7 0.09 0.04 0.04/ ### card_13
+1.4e7 0.08 0.03 0.03/ ### card_13
+/ ### card_13
+3/ ### card_2
+0/ ### card_8
+-1 2/ ### card_9
+'<b>lack & <b>lue 2008'/ ### card_10
+0/ ### card_12
+1.15e7 0.07 0.02 0.0 0.2e6 0.0/ ### card_13
+1.25e7 0.11 0.02 0.0 0.2e6 0.0/ ### card_13
+1.35e7 0.08 0.015 0.0 0.2e6 0.0/ ### card_13
+1.45e7 0.075 0.01 0.0 0.2e6 0.0/ ### card_13
+/ ### card_13
+1/ ### card_2
+'<endf/b-v carbon'/ ### card_3
+'<e>lastic <mf4>'/ ### card_3a
+-1 2/ ### card_4
+/ ### card_5
+/ ### card_5a
+/ ### card_6
+/ ### card_6a
+/ ### card_7
+/ ### card_7a
+5 30 1306 4 2/ ### card_8
+/ ### card_11
+1/ ### card_2
+'<endf/b-v l>i-6'/ ### card_3
+'(n,2n)]a >neutron distribution'/ ### card_3a
+-1 2/ ### card_4
+/ ### card_5
+/ ### card_5a
+0 12e6 2e6/ ### card_6
+/ ### card_6a
+/ ### card_7
+/ ### card_7a
+5 30 1303 5 24/ ### card_8
+/ ### card_11
+1/ ### card_2
+'<endf/b-v l>i-6'/ ### card_3
+'(n,2n)]a >neutron spectra vs <E>'/ ### card_3a
+4 0 2 2/ ### card_4
+10.0 2.0e7/ ### card_5
+/ ### card_5a
+1e-11 1e-6/ ### card_6
+'<c>ross <s>ection (barns/e<v>)'/ ### card_6a
+5 30 1303 5 24 0.0 12/ ### card_8
+/ ### card_9
+'10 <m>e<v'/ ### card_10
+1e3 2e-11 1e2/ ### card_10a
+2/ ### card_2
+5 30 1303 5 24 0.0 16/ ### card_8
+/ ### card_9
+'14 <m>e<v'/ ### card_10
+1e4 2e-10 2e3/ ### card_10a
+3/ ### card_2
+5 30 1303 5 24 0.0 20/ ### card_8
+/ ### card_9
+'20 <m>e<v'/ ### card_10
+1e5 2e-9 4e4/ ### card_10a
+99/ ### card_2
+viewr
+31 32/ ### card_0
+stop
+

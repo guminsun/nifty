@@ -15,31 +15,30 @@ broadr
 0.005/ ### card_3
 300.0 900.0 2100.0/ ### card_4
 0/ ### card_5
-moder
--23 33/ ### card_1
 unresr
 -21 -23 -24/ ### card_1
 1050 3 7 1/ ### card_2
 300 900 2100/ ### card_3
 1.0e10 1.0e5 1.0e4 1000.0 100.0 10.0 1/ ### card_4
 0/ ### card_2
+thermr
+0 -24 -25/ ### card_1
+0 1050 8 3 1 0 1 221 0/ ### card_2
+300.0 900.0 2100.0/ ### card_3
+0.05 4.2/ ### card_4
 groupr
--21 -24 0 -25/ ### card_1
-1050 5 0 4 3 3 7 1/ ### card_2
+-21 -25 0 -26/ ### card_1
+1050 9 0 5 3 3 7 1/ ### card_2
 '94-pu-238'/ ### card_3
 300.0 900.0 2100.0/ ### card_4
 1.0e10 1.0e5 1.0e4 1000.0 100.0 10.0 1/ ### card_5
-0.1 0.025 0.8208e06 1.4e06/ ### card_8c
 3 1 'total'/ ### card_9
 3 2 'elastic'/ ### card_9
 3 16 'n2n'/ ### card_9
 3 17 'n3n'/ ### card_9
 3 18 'fission'/ ### card_9
 3 102 'capture'/ ### card_9
-3 251 'mubar'/ ### card_9
-3 252 'xi'/ ### card_9
-3 253 'gamma'/ ### card_9
-3 259 '1/v'/ ### card_9
+3 221 'free gas thermal'/ ### card_9
 6 2 'elastic'/ ### card_9
 6 16 'n2n'/ ### card_9
 6 17 'n,3n'/ ### card_9
@@ -47,32 +46,30 @@ groupr
 6 51 'discrete inelastic'/ ### card_9
 6 -59 'continued'/ ### card_9
 6 91 'continuum inelastic'/ ### card_9
+6 221 'free gas thermal'/ ### card_9
 0/ ### card_9
 3 1 'total'/ ### card_9
 3 2 'elastic'/ ### card_9
 3 18 'fission'/ ### card_9
 3 102 'capture'/ ### card_9
+3 221 'free gas thermal'/ ### card_9
 6 2 'elastic'/ ### card_9
+6 221 'free gas thermal'/ ### card_9
 0/ ### card_9
 3 1 'total'/ ### card_9
 3 2 'elastic'/ ### card_9
 3 18 'fission'/ ### card_9
 3 102 'capture'/ ### card_9
+3 221 'free gas thermal'/ ### card_9
 6 2 'elastic'/ ### card_9
+6 221 'free gas thermal'/ ### card_9
 0/ ### card_9
 0/ ### card_10
-ccccr
--25 26 27 0/ ### card_1
-1 1 't2lanl njoy'/ ### card_2
-'ccccr tests for njoy87'/ ### card_3
-50 0 1 4 1/ ### card_4
-'pu238' 'pu238' 'endfb4' '1050' 1050 10.89/ ### card_5
-1 0 50 -1/ ### card_1
-0 2.3821e02 3.3003e-11 1.7461e-12 0.0 1.0e10 0.0/ ### card_4
-3 6/ ### card_1
-300 900 2100/ ### card_2
-1.0e5 1.0e4 1000.0 100.0 10.0 1/ ### card_3
-moder
--24 28/ ### card_1
+wimsr
+-26 27/ ### card_1
+1/ ### card_2
+1050 1 1050.0/ ### card_3
+3 7 1e10 3 10.890 221 0/ ### card_4
+1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0/ ### card_7
 stop
 
