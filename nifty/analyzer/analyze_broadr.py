@@ -172,7 +172,7 @@ def analyze_broadr_card_4(ntemp2, card, module):
     # number of temperatures ('ntemp2') defined in card 2.
     rule.card_must_be_defined('card_4', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == ntemp2:
         for i in range(stmt_len):
             analyze_broadr_card_4_temp2(i, env.next(stmt_iter), card, module)

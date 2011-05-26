@@ -397,7 +397,7 @@ def analyze_plotr_card_5(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # 'el' and 'eh' are either both defined, or both undefined. 'xstep' is
     # optional.
-    if len(stmt_iter) > 0:
+    if len(card.get('statement_list')) > 0:
         analyze_plotr_card_5_el(env.next(stmt_iter), card, module)
         analyze_plotr_card_5_eh(env.next(stmt_iter), card, module)
         analyze_plotr_card_5_xstep(env.next(stmt_iter), card, module)
@@ -456,7 +456,7 @@ def analyze_plotr_card_6(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # 'yl' and 'yh' are either both defined, or both undefined. 'ystep' is
     # optional.
-    if len(stmt_iter) > 0:
+    if len(card.get('statement_list')) > 0:
         analyze_plotr_card_6_yl(env.next(stmt_iter), card, module)
         analyze_plotr_card_6_yh(env.next(stmt_iter), card, module)
         analyze_plotr_card_6_ystep(env.next(stmt_iter), card, module)
@@ -517,7 +517,7 @@ def analyze_plotr_card_7(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # 'rbot' and 'rtop' are either both defined, or both undefined. 'rstep' is
     # optional.
-    if len(stmt_iter) > 0:
+    if len(card.get('statement_list')) > 0:
         analyze_plotr_card_7_rbot(env.next(stmt_iter), card, module)
         analyze_plotr_card_7_rtop(env.next(stmt_iter), card, module)
         analyze_plotr_card_7_rstep(env.next(stmt_iter), card, module)
@@ -872,7 +872,7 @@ def analyze_plotr_card_13(card, module):
     msg = ('expected a \'card_13\' since \'nform\' is 0 in \'card_12\'.')
     rule.card_must_be_defined('card_13', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == 0:
         return card, stmt_len
     else:

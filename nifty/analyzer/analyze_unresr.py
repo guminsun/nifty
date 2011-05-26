@@ -114,7 +114,7 @@ def analyze_card_3(ntemp, card, module):
            '(\'ntemp\') in \'card_2\' is greater than zero.')
     rule.card_must_be_defined('card_3', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == ntemp:
         for i in range(stmt_len):
             analyze_card_3_temp(i, env.next(stmt_iter), card, module)
@@ -138,7 +138,7 @@ def analyze_card_4(nsigz, card, module):
     # the number of sigma zero values ('nsigz') defined in card 2.
     rule.card_must_be_defined('card_4', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == nsigz:
         for i in range(stmt_len):
             analyze_card_4_sigz(i, env.next(stmt_iter), card, module)

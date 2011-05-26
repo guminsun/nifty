@@ -131,7 +131,7 @@ def organize_card_5(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # 'xmin' and 'xmax' are either both defined, or both undefined. 'xstep' is
     # optional. Hence, only organize when there are statements to organize.
-    if len(stmt_iter) > 0:
+    if len(card.get('statement_list')) > 0:
         return helper.organize_card(expected_map, card)
     else:
         return card
@@ -151,7 +151,7 @@ def organize_card_6(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # 'ymin' and 'ymax' are either both defined, or both undefined. 'ystep' is
     # optional. Hence, only organize when there are statements to organize.
-    if len(stmt_iter) > 0:
+    if len(card.get('statement_list')) > 0:
         return helper.organize_card(expected_map, card)
     else:
         return card
@@ -171,7 +171,7 @@ def organize_card_7(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # 'rmin' and 'rmax' are either both defined, or both undefined. 'rstep' is
     # optional. Hence, only organize when there are statements to organize.
-    if len(stmt_iter) > 0:
+    if len(card.get('statement_list')) > 0:
         return helper.organize_card(expected_map, card)
     else:
         return card

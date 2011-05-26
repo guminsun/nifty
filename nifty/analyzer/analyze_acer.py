@@ -173,7 +173,7 @@ def analyze_acer_card_4(nxtra, card, module):
     msg = ('expected \'card_4\' since nxtra > 0 in \'card_2\'')
     rule.card_must_be_defined('card_4', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == nxtra * 2:
         for i in range(nxtra):
             analyze_acer_card_4_iz(i, env.next(stmt_iter), card, module)

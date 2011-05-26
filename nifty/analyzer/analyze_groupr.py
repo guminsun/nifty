@@ -189,7 +189,7 @@ def analyze_groupr_card_4(ntemp, card, module):
     # number of temperatures ('ntemp') defined in card 2.
     rule.card_must_be_defined('card_4', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == ntemp:
         for i in range(stmt_len):
             analyze_groupr_card_4_temp(i, env.next(stmt_iter), card, module)
@@ -213,7 +213,7 @@ def analyze_groupr_card_5(nsigz, card, module):
     # the number of sigma zero values ('nsigz') defined in card 2.
     rule.card_must_be_defined('card_5', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == nsigz:
         for i in range(stmt_len):
             analyze_groupr_card_5_sigz(i, env.next(stmt_iter), card, module)
@@ -259,7 +259,7 @@ def analyze_groupr_card_6b(ngn, card, module):
     msg = ('expected \'card_6b\' since ign = 1 in \'card_2\'')
     rule.card_must_be_defined('card_6b', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == ngn+1:
         for i in range(stmt_len):
             # XXX: The ngn+1 group breaks (ev) should be in increasing order.
@@ -307,7 +307,7 @@ def analyze_groupr_card_7b(ngg, card, module):
     msg = ('expected \'card_7b\' since igg = 1 in \'card_2\'')
     rule.card_must_be_defined('card_7b', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == ngg+1:
         for i in range(stmt_len):
             # XXX: The ngg+1 group breaks (ev) should be in increasing order.
@@ -518,7 +518,7 @@ def analyze_groupr_card_9(card, module):
     stmt_iter = env.get_statement_iterator(card)
     # Save the number of statements here since the lenght of stmt_iter
     # decreases when getting the next element from the iterator.
-    stmt_length = len(stmt_iter)
+    stmt_length = len(card.get('statement_list'))
     # mfd must always be defined.
     analyze_groupr_card_9_mfd(env.next(stmt_iter), card, module)
     # If the number of statements is one, then:
