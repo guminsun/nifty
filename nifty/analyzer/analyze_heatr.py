@@ -164,7 +164,7 @@ def analyze_heatr_card_3(npk, card, module):
     msg = ('expected \'card_3\' since npk > 0 in \'card_2\'')
     rule.card_must_be_defined('card_3', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == npk:
         for i in range(stmt_len):
             analyze_heatr_card_3_mtk(i, env.next(stmt_iter), card, module)
@@ -193,7 +193,7 @@ def analyze_heatr_card_4(nqa, card, module):
     msg = ('expected \'card_4\' since nqa > 0 in \'card_2\'')
     rule.card_must_be_defined('card_4', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == nqa:
         for i in range(stmt_len):
             analyze_heatr_card_4_mta(i, env.next(stmt_iter), card, module)
@@ -220,7 +220,7 @@ def analyze_heatr_card_5(nqa, card, module):
     msg = ('expected \'card_5\' since nqa > 0 in \'card_2\'')
     rule.card_must_be_defined('card_5', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == nqa:
         for i in range(stmt_len):
             analyze_heatr_card_5_qa(i, env.next(stmt_iter), card, module)

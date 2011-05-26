@@ -331,7 +331,7 @@ def pair_must_be_defined(expected_pair, l_value_pair, r_value_pair, card_node, m
 def string_must_not_exceed_length(lval, rval, max_length, card_node, module_node):
     # Make sure it's a string before continuing.
     string = must_be_string(lval, rval, card_node, module_node)
-    if len(string) > max_length:
+    if len(card_node.get('statement_list')) > max_length:
         id_name = lval.get('name')
         card_name = card_node.get('card_name')
         module_name = module_node.get('module_name')

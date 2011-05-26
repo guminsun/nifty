@@ -160,7 +160,7 @@ def analyze_thermr_card_3(ntempr, card, module):
     # number of temperatures ('ntempr') defined in card 2.
     rule.card_must_be_defined('card_3', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    stmt_len = len(stmt_iter)
+    stmt_len = len(card.get('statement_list'))
     if stmt_len == ntempr:
         for i in range(stmt_len):
             analyze_thermr_card_3_tempr(i, env.next(stmt_iter), card, module)
