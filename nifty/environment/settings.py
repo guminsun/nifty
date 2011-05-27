@@ -19,7 +19,7 @@ identifier_map = {
     'ec' : ['ec', 'fission_break'], # errorr, groupr.
     'ed' : ['ed'],
     'efmean' : ['efmean'], # errorr.
-    'egg' : ['egg', 'gamma_group_breaks'], # groupr.
+    'egg' : ['egg', 'gamma_group_breaks'], # gaminr, groupr.
     'egn' : ['egn', 'neutron_group_breaks'], # errorr, groupr.
     'eh' : ['eh'], # plotr
     'ehi' : ['ehi'], # groupr.
@@ -46,7 +46,7 @@ identifier_map = {
     'ielas' : ['ielas'],
     'ifissp' : ['ifissp'], # errorr.
     'ign' : ['ign', 'neutron_group_structure'], # errorr, groupr.
-    'igg' : ['igg', 'gamma_group_structure'], # groupr.
+    'igg' : ['igg', 'gamma_group_structure'], # gaminr, groupr.
     'igrid' : ['igrid'], # plotr, viewr
     'iinc' : ['iinc'], # thermr.
     'ileg' : ['ileg'], # plotr, viewr
@@ -68,7 +68,7 @@ identifier_map = {
     'itype' : ['itype'], # plotr, viewr
     'iverf' : ['iverf'], # plotr
     'iwcol' : ['iwcol'], # plotr, viewr
-    'iwt' : ['iwt'], # errorr, groupr.
+    'iwt' : ['iwt'], # errorr, gaminr, groupr.
     'iz' : ['iz'],
     # XXX: Treat iza as an array?
     'iza01' : ['iza01'],
@@ -78,29 +78,29 @@ identifier_map = {
     'jtype' : ['jtype'], # plotr, viewr
     'legord' : ['legord'], # errorr.
     'local' : ['local'],
-    'lord' : ['lord', 'legendre_order'], # groupr.
+    'lord' : ['lord', 'legendre_order'], # gaminr, groupr.
     'lori' : ['lori'], # plotr
     'mat' : ['mat'], # covr, ...
     'mat1' : ['mat1'], # broadr, covr, ...
-    'matb' : ['matb'], # errorr, groupr.
+    'matb' : ['matb'], # errorr, gaminr, groupr.
     'matc' : ['matc'], # errorr
     'matd' : ['matd', 'material'], # errorr, groupr, ...
     'matde' : ['matde'], # thermr.
     'matdp' : ['matdp'], # thermr.
     'matype' : ['matype'], # covr, ...
     'mfcov' : ['mfcov'], # errorr.
-    'mfd' : ['mfd'], # groupr, plotr
+    'mfd' : ['mfd'], # gaminr, groupr, plotr
     'mprint' : ['mprint'], # errorr
     'mt' : ['mt'], # covr,
     'mt1' : ['mt1'], # covr,
     'mta' : ['mta'],
     'mtb' : ['mtb'], # errorr
     'mtc' : ['mtc'], # errorr
-    'mtd' : ['mtd'], # groupr, plotr
+    'mtd' : ['mtd'], # gaminr, groupr, plotr
     'mte' : ['mte'],
     'mti' : ['mti'],
     'mtk' : ['mtk'],
-    'mtname' : ['mtname'], # groupr.
+    'mtname' : ['mtname'], # gaminr, groupr.
     'mtref' : ['mtref'], # thermr.
     'mts' : ['mts'], # errorr
     'nace' : ['nace', 'ace_output'],
@@ -116,8 +116,10 @@ identifier_map = {
     'newfor' : ['newfor'],
     'nflmax' : ['nflmax', 'max_flux_points'], # groupr.
     'nform' : ['nform'], # plotr, viewr
+    'ngam1' : ['ngam1'], # gaminr.
+    'ngam2' : ['ngam2'], # gaminr.
     'ngend' : ['ngend', 'multigroup_photon_input'],
-    'ngg' : ['ngg', 'number_of_gamma_groups'], # groupr.
+    'ngg' : ['ngg', 'number_of_gamma_groups'], # gaminr, groupr.
     'ngn' : ['ngn', 'number_of_neutron_groups'], # errorr, groupr.
     'ngrid' : ['ngrid'],
     'ngout' : ['ngout', 'group_xsec_input'], # errorr.
@@ -183,7 +185,7 @@ identifier_map = {
     'tname' : ['tname'],
     'tol' : ['tol', 'tolerance'], # thermr.
     'tpid' : ['tpid'], # moder
-    'wght' : ['wght'], # errorr, groupr.
+    'wght' : ['wght'], # errorr, gaminr, groupr.
     'wh' : ['wh'], # plotr, viewr
     'wr' : ['wr'], # plotr, viewr
     'ww' : ['ww'], # plotr, viewr
