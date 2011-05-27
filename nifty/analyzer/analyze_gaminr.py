@@ -12,6 +12,7 @@ def analyze_card_list(module):
     card_iter = env.get_card_iterator(module)
     analyze_card_1(env.next(card_iter), module)
     card_2, igg, iwt = analyze_card_2(env.next(card_iter), module)
+    analyze_card_3(env.next(card_iter), module)
     return module
 
 def analyze_card_1(card, module):
@@ -78,3 +79,22 @@ def analyze_card_2_iprint(node, card, module):
                    '1 for max (default = 1).')
             rule.semantic_error(msg, node)
         return iprint
+
+def analyze_card_3(card, module):
+    rule.card_must_be_defined('card_3', card, module, None)
+    stmt_iter = env.get_statement_iterator(card)
+    analyze_card_3_title(env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    return card
+
+def analyze_card_3_title(node, card, module):
+    if node is None:
+        return ''
+    else:
+        l_value, r_value = rule.must_be_assignment(node, card, module)
+        # The l-value of the assignment is expected to be an identifier.
+        rule.identifier_must_be_defined('title', l_value, card, module)
+        # The r-value of the assignment is expected to be a string.
+        title = rule.must_be_string(l_value, r_value, card, module)
+        rule.string_must_not_exceed_length(l_value, r_value, 80, card, module)
+        return title
