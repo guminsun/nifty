@@ -13,31 +13,36 @@ def organize_purr(module):
     return module
 
 def organize_card_list(card_list, module):
-    for card in card_list:
-        card = organize_card(card, module)
-    return card_list
-
-def organize_card(card, module):
-    function_map = {
-        'card_1' : organize_card_1,
-        'card_2' : organize_card_2,
-        'card_3' : organize_card_3,
-        'card_4' : organize_card_4,
-    }
-    card_name = card.get('card_name')
-    card_function = function_map.get(card_name, card_dummy)
-    try:
-        card = card_function(card, module)
-    except OrganizeError:
-        pass
-    except SemanticError:
-        pass
-    return card
-
-def card_dummy(card):
-    return card
+    card_iter = env.get_card_iterator(module)
+    organize_card_1(env.next(card_iter), module)
+    # Number of card_2's denotes the number of materials to process. Each
+    # card_2 is assumed to have an accompanying card_3 and card_4 which
+    # defines the temperatures and sigma zero values, respectively.
+    number_of_card_2 = len(env.get_cards('card_2', module))
+    # The last card 2 should not be considered as a next material to process,
+    # since it is expected to terminate the execution of purr.
+    # Therefore, 'number_of_card_2-1' is used to create the range to iterate
+    # over.
+    for c2 in range(number_of_card_2-1):
+        card_2, ntemp, nsigz = organize_card_2(env.next(card_iter), module)
+        # XXX: Assuming card 3 is only defined when there actually are temps
+        # that should be defined.
+        if ntemp > 0:
+            organize_card_3(ntemp, env.next(card_iter), module)
+        # XXX: Assuming card 4 is only defined when there actually are sigz
+        # that should be defined.
+        if nsigz > 0:
+            organize_card_4(nsigz, env.next(card_iter), module)
+    # The last card is expected to be a card 2 with matd = 0, to indicate
+    # termination of purr.
+    organize_card_2_stop(env.next(card_iter), module)
+    return module
 
 def organize_card_1(card, module):
+    # If 'card' is not card 1, then return the original card such that e.g.
+    # the analyzer is able to report any semantical errors.
+    if not helper.is_expected_card('card_1', card):
+        return card
     expected_map = {
         0 : ('identifier', ('nendf', None)),
         1 : ('identifier', ('nin', None)),
@@ -46,6 +51,8 @@ def organize_card_1(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
+    if not helper.is_expected_card('card_2', card):
+        return card
     expected_map = {
         0 : ('identifier', ('matd', None)),
         1 : ('identifier', ('ntemp', None)),
@@ -55,11 +62,14 @@ def organize_card_2(card, module):
         5 : ('identifier', ('iprint', 1)),
         6 : ('identifier', ('nunx', 0)),
     }
-    return helper.organize_card(expected_map, card)
+    card = helper.organize_card(expected_map, card)
+    ntemp = helper.get_identifier_value('ntemp', card)
+    nsigz = helper.get_identifier_value('nsigz', card)
+    return card, ntemp, nsigz
 
-def organize_card_3(card, module):
-    card_2 = env.get_card('card_2', module)
-    ntemp = helper.get_identifier_value('ntemp', card_2)
+def organize_card_3(ntemp, card, module):
+    if not helper.is_expected_card('card_3', card):
+        return card
     if ntemp is None:
         organize_error()
     expected_map = {}
@@ -67,12 +77,17 @@ def organize_card_3(card, module):
         expected_map[i] = ('array', ('ntemp', None, i))
     return helper.organize_card(expected_map, card)
 
-def organize_card_4(card, module):
-    card_2 = env.get_card('card_2', module)
-    nsigz = helper.get_identifier_value('nsigz', card_2)
+def organize_card_4(nsigz, card, module):
+    if not helper.is_expected_card('card_4', card):
+        return card
     if nsigz is None:
         organize_error()
     expected_map = {}
     for i in range(nsigz):
         expected_map[i] = ('array', ('sigz', None, i))
     return helper.organize_card(expected_map, card)
+
+def organize_card_2_stop(card, module):
+    # No need to organize the last card 2 since it only should contain one
+    # identifier.
+    return card
