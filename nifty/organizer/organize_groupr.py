@@ -99,7 +99,7 @@ def organize_card_5(card, module):
 def organize_card_6a(card, module):
     # No need to organize card 6a since it only contains one value which has
     # no default value.
-    pass
+    return card
 
 def organize_card_6b(card, module):
     card_6a = env.get_card('card_6a', module)
@@ -115,7 +115,7 @@ def organize_card_6b(card, module):
 def organize_card_7a(card, module):
     # No need to organize card 7a since it only contains one value which has
     # no default value.
-    pass
+    return card
 
 def organize_card_7b(card, module):
     card_7a = env.get_card('card_7a', module)
@@ -165,7 +165,7 @@ def organize_card_8c(card, module):
 def organize_card_8d(card, module):
     # No need to organize card 8d since it only contains one value which has
     # no default value.
-    pass
+    return card
 
 def organize_card_9(card, module):
     expected_map = {
@@ -178,4 +178,4 @@ def organize_card_9(card, module):
 def organize_card_10(card, module):
     # No need to organize card 10 since it only contains one value which has
     # no default value.
-    pass
+    return card

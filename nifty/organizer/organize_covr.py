@@ -81,12 +81,12 @@ def organize_card_2b(card, module):
 def organize_card_3b(card, module):
     # No need to organize card 3b since it only contains one value which has
     # no default value.
-    pass
+    return card
 
 def organize_card_3c(card, module):
     # No need to organize card 3c since it only contains one value which has
     # no default value.
-    pass
+    return card
 
 def organize_card_4(card, module):
     expected_map = {

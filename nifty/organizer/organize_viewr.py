@@ -102,12 +102,12 @@ def organize_card_2(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_3(card, module):
-    # No need to organize card 3 since it only contains one value.
-    pass
+    # No need to organize card 3 since it only contains one identifier.
+    return card
 
 def organize_card_3a(card, module):
-    # No need to organize card 3a since it only contains one value.
-    pass
+    # No need to organize card 3a since it only contains one identifier.
+    return card
 
 def organize_card_4(card, module):
     expected_map = {
@@ -136,8 +136,8 @@ def organize_card_5(card, module):
         return card
 
 def organize_card_5a(card, module):
-    # No need to organize card 5a since it only contains one value.
-    pass
+    # No need to organize card 5a since it only contains one identifier.
+    return card
 
 def organize_card_6(card, module):
     expected_map = {
@@ -155,8 +155,8 @@ def organize_card_6(card, module):
         return card
 
 def organize_card_6a(card, module):
-    # No need to organize card 6a since it only contains one value.
-    pass
+    # No need to organize card 6a since it only contains one identifier.
+    return card
 
 def organize_card_7(card, module):
     expected_map = {
@@ -174,12 +174,12 @@ def organize_card_7(card, module):
         return card
 
 def organize_card_7a(card, module):
-    # No need to organize card 7a since it only contains one value.
-    pass
+    # No need to organize card 7a since it only contains one identifier.
+    return card
 
 def organize_card_8(card, module):
-    # No need to organize card 8 since it only contains one value.
-    pass
+    # No need to organize card 8 since it only contains one identifier.
+    return card
 
 def organize_card_9(card, module):
     expected_map = {
@@ -193,8 +193,8 @@ def organize_card_9(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_10(card, module):
-    # No need to organize card 10 since it only contains one value.
-    pass
+    # No need to organize card 10 since it only contains one identifier.
+    return card
 
 def organize_card_10a(card, module):
     expected_map = {
@@ -216,8 +216,8 @@ def organize_card_11(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_12(card, module):
-    # No need to organize card 12 since it only contains one value.
-    pass
+    # No need to organize card 12 since it only contains one identifier.
+    return card
 
 def organize_card_13(card, module):
     expected_map = {
@@ -233,8 +233,8 @@ def organize_card_13(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_14(card, module):
-    # No need to organize card 14 since it only contains one value.
-    pass
+    # No need to organize card 14 since it only contains one identifier.
+    return card
 
 def organize_card_14a(card, module):
     expected_map = {

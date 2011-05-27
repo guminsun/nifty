@@ -81,7 +81,7 @@ def organize_card_3(card, module):
 def organize_card_4(card, module):
     # No need to organize card 4 since it only contains one identifier which
     # has no default value.
-    pass
+    return card
 
 def organize_card_5(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
@@ -96,7 +96,7 @@ def organize_card_5(card, module):
 
 def organize_card_6(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
-    pass
+    return card
 
 def organize_card_7(card, module):
     ifissp = helper.get_identifier_value('ifissp', card)
@@ -144,20 +144,20 @@ def organize_card_8b(card, module):
 
 def organize_card_9(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
-    pass
+    return card
 
 def organize_card_10(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
-    pass
+    return card
 
 def organize_card_11(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
-    pass
+    return card
 
 def organize_card_12a(card, module):
     # No need to organize card 12a since it only contains one identifier which
     # has no default value.
-    pass
+    return card
 
 def organize_card_12b(card, module):
     card_12a = env.get_card('card_12a', module)

@@ -46,9 +46,8 @@ def organize_card_1(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_2(card, module):
-    # No need to organize card 2 since it only contains one identifier which
-    # has no default value.
-    pass
+    # No need to organize card 2 since it only contains one identifier.
+    return card
 
 def organize_card_3(card, module):
     expected_map = {
@@ -71,11 +70,9 @@ def organize_card_4(card, module):
     return helper.organize_card(expected_map, card)
 
 def organize_card_5(card, module):
-    # No need to organize card 5 since it only contains one identifier which
-    # has no default value.
-    pass
+    # No need to organize card 5 since it only contains one identifier.
+    return card
 
 def organize_card_6(card, module):
-    # No need to organize card 6 since it only contains one identifier which
-    # has no default value.
-    pass
+    # No need to organize card 6 since it only contains one identifier.
+    return card

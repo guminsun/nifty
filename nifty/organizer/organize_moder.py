@@ -43,7 +43,7 @@ def organize_card_1(card, module):
 
 def organize_card_2(card, module):
     # No need to organize card 2 since it only contains one value.
-    pass
+    return card
 
 def organize_card_3(card, module):
     expected_map = {

@@ -81,4 +81,4 @@ def organize_card_4(card, module):
 def organize_card_5(card, module):
     # No need to organize card 5 since it only contains one value which has
     # no default value.
-    pass
+    return card
