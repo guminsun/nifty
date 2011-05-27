@@ -83,3 +83,8 @@ def organize_card_4(nsigz, card, module):
     for i in range(nsigz):
         expected_map[i] = ('array', ('sigz', None, i))
     return helper.organize_card(expected_map, card)
+
+def organize_card_2_stop(card, module):
+    # No need to organize the last card 2 since it only should contain one
+    # identifier.
+    return card
