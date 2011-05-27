@@ -730,6 +730,13 @@ hk
 
 \begin_layout Subsection
 Testing
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Testing"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1147,7 +1154,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Users/ceh/Desktop/nifty.eps
+	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
 
 \end_inset
 
@@ -1413,6 +1420,128 @@ The emitter expects a syntax tree as its input and it is responsible for
  The emitter returns a string with the resulting NJOY input instructions.
  Each card in the resulting output has been annotated with a descriptive
  comment, indicating which card it is, to make it easier to find errors.
+\end_layout
+
+\begin_layout Subsection
+Translation Verification
+\end_layout
+
+\begin_layout Standard
+As previously described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Testing"
+
+\end_inset
+
+, the NJOY test problems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+ were manually translated into NIF programs expressing the equivalent NJOY
+ jobs.
+ The resulting NIF programs were used for verifying that the implementation
+ was working appropriately by setting up a test suite using the Python unit
+ testing framework 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+ Each test problem was set up to be run through each individual phase in
+ the translation process, and each run were expected to be successful since
+ the NIF programs should be an equivalent and functional version of the
+ original test problems.
+ 
+\end_layout
+
+\begin_layout Standard
+The resulting output, as produced by the emitter, was compared with the
+ expected output.
+ That is, each NIF version of the test problems were compared with its correspon
+ding original NJOY test problem.
+\end_layout
+
+\begin_layout Standard
+Note that modified versions of the original NJOY test problems had to be
+ used as the expected output when comparing the resulting output from the
+ translator.
+ The floating-point numbers had to be specified such that the lexer in the
+ translator could recognize them, as described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Implementation, The Modules"
+
+\end_inset
+
+, and thus had to be changed into this form in the expected output as well.
+ Since the emitter appends descriptive comments to every card (which are
+ not present in the original test problems) as described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Implementation, The Modules"
+
+\end_inset
+
+, these comments also had to be appended to the expected output such that
+ the comparison could be performed.
+\end_layout
+
+\begin_layout Subsection
+Translation Efficiency
+\end_layout
+
+\begin_layout Standard
+The scope of this work did not include implementing an optimal translator
+ to make the translation process as efficient as possible.
+ However, a simple Python script was written to test the translation efficiency
+ of the translator.
+ Two different notions of timing were used in the script, namely 
+\shape italic
+process time
+\shape default
+ and 
+\shape italic
+wall time
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+Process time is the time that the entire task spent executing on the processor,
+ measured by 
+\family typewriter
+time.clock()
+\family default
+ which should be used for timing algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+ Wall time is the time that elapsed from when the task was started to when
+ the task finished, measured by checking the difference in time using 
+\family typewriter
+time.time()
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+ The main difference between process time and wall time is that wall time
+ is the time it takes until the system delivers the computed result, whereas
+ process time is the time that it took to actually compute the result.
 \end_layout
 
 \begin_layout Standard
@@ -3607,26 +3736,18 @@ reference "sub:Methodology - Building the Translator"
 \end_layout
 
 \begin_layout Subsection
-Test Results
+Translation Verification
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-The test results are summarized in table 
+The result of the translation verification is summarized in table 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "tab:Test results"
+reference "tab:Translation Verification"
 
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
  All test problems listed in Appendix 
 \begin_inset CommandInset ref
 LatexCommand vref
@@ -3634,11 +3755,10 @@ reference "sec:Appendix - Test Problems"
 
 \end_inset
 
- passed all the phases in the translation process, i.e.
- they were successfully translated (no lexical, syntax, nor semantic errors
- were found)
+ passed all the phases in the translation process.
+ That is, the test problems were successfully translated
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Note that the organizer's ability to arrange statements in the correct order
@@ -3648,16 +3768,12 @@ Note that the organizer's ability to arrange statements in the correct order
 
 \end_inset
 
-.
+; no lexical, syntax, nor semantic errors were found.
  No differences between the expected output and the resulting output were
  detected for the test problems.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
 \begin_inset Float table
 placement H
 wide false
@@ -4152,10 +4268,10 @@ tp17
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Test Results
+Translation verification results for the test problems
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:Test results"
+name "tab:Translation Verification"
 
 \end_inset
 
@@ -4172,6 +4288,8 @@ name "tab:Test results"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
 \end_inset
 
 
@@ -4189,23 +4307,25 @@ name "sub:Results - Translation Efficiency"
 \end_layout
 
 \begin_layout Standard
-Table 
+The efficiency of the translator was tested by running the entire translation
+ process for each test problem, listed in Appendix 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:Appendix - Test Problems"
+
+\end_inset
+
+, 10 000 times.
+ Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Bench Table"
 
 \end_inset
 
- shows the resulting runtimes, both process time and wall time, for 10 000
- repeated runs of the entire translation process on Test Problem 02.
- Test Problem 02 is listed in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Appendix - Test Problem 02"
-
-\end_inset
-
-.
+ shows the resulting runtimes, both process time and wall time, in seconds.
+ The resulting runtimes denotes the aggregated time for the 10 000 repeated
+ runs for the given test problem.
 \end_layout
 
 \begin_layout Standard
@@ -4218,8 +4338,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="2">
+<lyxtabular version="3" rows="16" columns="3">
 <features>
+<column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
@@ -4229,7 +4350,18 @@ status open
 \begin_layout Plain Layout
 
 \series bold
-Runtime
+Test Problem
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Process Time
 \end_layout
 
 \end_inset
@@ -4240,7 +4372,7 @@ Runtime
 \begin_layout Plain Layout
 
 \series bold
-Seconds
+Wall Time
 \end_layout
 
 \end_inset
@@ -4251,7 +4383,18 @@ Seconds
 \begin_inset Text
 
 \begin_layout Plain Layout
-Process Time
+
+\family typewriter
+tp01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.66
 \end_layout
 
 \end_inset
@@ -4260,7 +4403,100 @@ Process Time
 \begin_inset Text
 
 \begin_layout Plain Layout
-18.92
+358.92
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.49
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+381.62
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp03
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.92
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+302.80
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+281.72
 \end_layout
 
 \end_inset
@@ -4271,7 +4507,18 @@ Process Time
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wall Time
+
+\family typewriter
+tp05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.37
 \end_layout
 
 \end_inset
@@ -4280,7 +4527,317 @@ Wall Time
 \begin_inset Text
 
 \begin_layout Plain Layout
-578.26
+254.14
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp06
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+359.27
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp07
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+278.44
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.44
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+309.21
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.78
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+288.20
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.89
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+363.84
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.96
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+291.66
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+271.63
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.62
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+242.39
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+tp17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.98
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+342.49
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Average Time:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.69
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+309.02
 \end_layout
 
 \end_inset
@@ -4297,7 +4854,7 @@ Wall Time
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Runtimes for Test Problem 02 repeated 10 000 times
+Runtimes (in seconds) for the test problems repeated 10 000 times
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Bench Table"
@@ -4318,9 +4875,10 @@ name "tab:Bench Table"
 \end_layout
 
 \begin_layout Standard
-The repeated runs were conducted on a dedicated, single user, desktop system
- equipped with a Intel Core i3-2100 Processor at 3.1GHz and 8GiB of RAM.
- The system was running Mac OS X 10.6.7 and Python 2.6.1.
+The repeated runs were conducted on a multi-user system equipped with three
+ Dual Core AMD Opteron Processor 280 at 2.4GHz each, and a total of 3.6GB
+ RAM.
+ The system was running Linux 2.6.18 and Python 2.4.3.
 \end_layout
 
 \begin_layout Standard
@@ -4339,7 +4897,7 @@ key "key-9"
 
 \end_inset
 
- was used to measure the process time and wall time, respectively.
+ were used to measure the process time and wall time, respectively.
 \end_layout
 
 \begin_layout Standard
@@ -4455,7 +5013,7 @@ key "key-4"
 \end_layout
 
 \begin_layout Subsection
-Testing
+Translation Verification
 \end_layout
 
 \begin_layout Standard
@@ -4489,64 +5047,8 @@ key "key-1"
  been tested.
 \end_layout
 
-\begin_layout Standard
-Note that modified versions of the original NJOY test problems had to be
- used as the expected output when comparing the output from the translator.
- The floating-point numbers had to be specified such that the lexer in the
- translator could recognize them, as described in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Implementation, The Modules"
-
-\end_inset
-
-, and thus be changed into this form in the expected output as well.
- Since the emitter appends descriptive comments to every card (which are
- not present in the original test problems) as described in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Implementation, The Modules"
-
-\end_inset
-
-, these comments also had to be appended to the expected output such that
- the comparison could be performed.
-\end_layout
-
 \begin_layout Subsection
-Efficiency
-\end_layout
-
-\begin_layout Standard
-Process time is the time that the entire task spent executing on the processor,
- measured by 
-\family typewriter
-time.clock()
-\family default
- which should be used for timing algorithms 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-9"
-
-\end_inset
-
-.
- Wall time is the time that elapsed from when the task was started to when
- the task finished, measured by checking the difference in time using 
-\family typewriter
-time.time()
-\family default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-9"
-
-\end_inset
-
-.
- The difference between process time and wall time is that wall time is
- the time it takes until the system delivers the computed result, whereas
- process time is the time that it took to compute the result.
+Translation Efficiency
 \end_layout
 
 \begin_layout Standard
@@ -4558,13 +5060,19 @@ reference "sub:Results - Translation Efficiency"
 \end_inset
 
  was conducted in a simple fashion.
- Only one test problem was used for testing.
- Other test problems may reveal higher runtimes.
- Nonetheless, the resulting process runtime revealed that the performance
- of the translator implementation is not a huge bottleneck, compared to
- the much greater wall time.
- Also note that a low-end desktop system was used for producing these runtimes.
- A high-end system will greatly reduce the process time.
+ Although, the resulting process runtimes presented in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Results - Translation Efficiency"
+
+\end_inset
+
+ revealed that the performance of the translator implementation is not a
+ huge bottleneck, compared to the much greater wall times.
+ Hence, more elaborate testing was not conducted since the performance appeared
+ to be good enough to fit the purpose of the translator.
+ It was never within the scope of this work to implement a optimal translator
+ to make the translation process as efficient as possible
 \end_layout
 
 \begin_layout Standard
