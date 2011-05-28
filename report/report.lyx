@@ -345,7 +345,7 @@ Objective
 The NJOY input instructions is not an optimal input format.
  Therefore, the scope of this thesis has been to design and implement a
  more user friendly, and readable input format.
- The design of the new input format had to be based on some commonly known
+ The design of the new input format could be based on some commonly known
  existing format that is fitting to the task.
  The basis could for example be a programming language.
 \end_layout
@@ -1154,7 +1154,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
@@ -1497,9 +1497,7 @@ Translation Efficiency
 \end_layout
 
 \begin_layout Standard
-The scope of this work did not include implementing an optimal translator
- to make the translation process as efficient as possible.
- However, a simple Python script was written to test the translation efficiency
+A simple Python script was written to check the resulting translation efficiency
  of the translator.
  Two different notions of timing were used in the script, namely 
 \shape italic
@@ -1541,7 +1539,7 @@ key "key-9"
 .
  The main difference between process time and wall time is that wall time
  is the time it takes until the system delivers the computed result, whereas
- process time is the time that it took to actually compute the result.
+ process time is the time that it took to compute the result.
 \end_layout
 
 \begin_layout Standard
@@ -1556,7 +1554,11 @@ Results
 \end_layout
 
 \begin_layout Subsection
-NJOY Input Format Examples
+NJOY Input Format (
+\family typewriter
+NIF
+\family default
+)
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:NJOY Input Format Examples"
@@ -2237,7 +2239,11 @@ name "alg:NIF version of NJOY Example 2, lines 10 through 16"
 \end_layout
 
 \begin_layout Subsection
-NJOY Input Format Translator Implementation
+NJOY Input Format Translator (
+\family typewriter
+nifty
+\family default
+)
 \end_layout
 
 \begin_layout Standard
@@ -4324,8 +4330,8 @@ reference "tab:Bench Table"
 \end_inset
 
  shows the resulting runtimes, both process time and wall time, in seconds.
- The resulting runtimes denotes the aggregated time for the 10 000 repeated
- runs for the given test problem.
+ The resulting runtimes denotes the aggregate of 10 000 repeated runs for
+ a given test problem.
 \end_layout
 
 \begin_layout Standard
@@ -4854,7 +4860,7 @@ Average Time:
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Runtimes (in seconds) for the test problems repeated 10 000 times
+Aggregated runtimes (in seconds) for 10 000 runs
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Bench Table"
@@ -5031,10 +5037,7 @@ The source files for the NJOY software system consists of more than 100
 \end_inset
 
  with many possible combinations of input within each NJOY module and card.
-\end_layout
-
-\begin_layout Standard
-The NJOY test problems 
+ The NJOY test problems 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-1"
@@ -5070,9 +5073,9 @@ reference "sub:Results - Translation Efficiency"
  revealed that the performance of the translator implementation is not a
  huge bottleneck, compared to the much greater wall times.
  Hence, more elaborate testing was not conducted since the performance appeared
- to be good enough to fit the purpose of the translator.
- It was never within the scope of this work to implement a optimal translator
- to make the translation process as efficient as possible
+ to be good enough to fit the purpose of the translator and since the scope
+ of this work did not include implementing the translation process as efficient
+ as possible in the first place.
 \end_layout
 
 \begin_layout Standard
@@ -5103,8 +5106,11 @@ It is possible to specify basic NJOY jobs in NIF with a syntax to make them
  which can be run by the NJOY software system.
  Production use is although not advisable, since it has been challenging
  to conduct rigorous and complete testing.
- It has also been evident that analyzing the NJOY input instructions is
- not enough to design a new input format for the NJOY software system.
+\end_layout
+
+\begin_layout Standard
+It has also been evident that analyzing the NJOY input instructions is not
+ enough to design a new input format for the NJOY software system.
  Analyzing the ENDF formats and the source code for the NJOY software system
  is required in order to build a translator which can conduct a complete
  semantic analysis for a NJOY job.
@@ -5134,6 +5140,9 @@ key "key-15"
 \end_inset
 
 .
+ The project may also be expanded to include default scenarios, which uses
+ normal mode of operation per default, such that the user does not have
+ to specify exhaustive NJOY jobs just to convert a library into another.
 \end_layout
 
 \begin_layout Standard
