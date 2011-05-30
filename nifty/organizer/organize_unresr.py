@@ -52,7 +52,7 @@ def organize_card_1(card, module):
 
 def organize_card_2(card, module):
     if not helper.is_expected_card('card_2', card):
-        return card
+        return card, None, None
     expected_map = {
         0 : ('identifier', ('matd', None)),
         1 : ('identifier', ('ntemp', None)),
