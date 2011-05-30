@@ -57,153 +57,304 @@
 # the key 1, and so on.
 #
 
-unit_number_range = range(0, 100), range(-99, 0)
+material_number = [slice(0, 10000)]
+unit_number = [slice(-99, 0), slice(0, 100)]
 
-### acer card 1:
+##############################################################################
+# acer card 1:
 
 card_1_identifier_map = {
     'nendf' : {
         'node_type' : 'identifier',
+        # nendf must be defined, it is not optional.
+        'optional' : False,
         'value' : {
             'node_type' : 'integer',
+            # nendf has no default value since it must be defined.
             'default_value' : None,
-            'range' : unit_number_range
+            # The integer range of allowed values represented as a list of slices.
+            'slice_list' : unit_number,
         },
+        # Valid, alternative, names for nendf represented by a list of strings.
+        # It is good practice to keep the internal name as the first element
+        # in the list, but not required.
         'valid_name_list' : ['nendf', 'endf_input'],
     },
     'npend' : {
         'node_type' : 'identifier',
+        'optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'range' : unit_number_range
+            'slice_list' : unit_number,
         },
         'valid_name_list' : ['npend', 'pendf_input'],
     },
     'ngend' : {
         'node_type' : 'identifier',
+        'optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'range' : unit_number_range
+            'slice_list' : unit_number,
         },
         'valid_name_list' : ['ngend', 'multigroup_photon_input'],
     },
     'nace' : {
         'node_type' : 'identifier',
+        'optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'range' : unit_number_range
+            'slice_list' : unit_number,
         },
         'valid_name_list' : ['nace', 'ace_output'],
     },
     'ndir' : {
         'node_type' : 'identifier',
+        'optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'range' : unit_number_range
+            'slice_list' : unit_number,
         },
         'valid_name_list' : ['ndir', 'mcnp_directory_output'],
     },
 }
 
 card_1_order_map = {
-    0 : card_1_identifier_map['nendf'],
-    1 : card_1_identifier_map['npend'],
-    2 : card_1_identifier_map['ngend'],
-    3 : card_1_identifier_map['nace'],
-    4 : card_1_identifier_map['ndir'],
+    0 : card_1_identifier_map.get('nendf'),
+    1 : card_1_identifier_map.get('npend'),
+    2 : card_1_identifier_map.get('ngend'),
+    3 : card_1_identifier_map.get('nace'),
+    4 : card_1_identifier_map.get('ndir'),
 }
 
-
-### acer card 2:
+##############################################################################
+# acer card 2:
 
 card_2_identifier_map = {
-    'iopt' : ['iopt'],
-    'iprint' : ['iprint'],
-    'ntype' : ['ntype'],
-    'suff' : ['suff'],
-    'nxtra' : ['nxtra'],
+    'iopt' : {
+        'node_type' : 'identifier',
+        'optional' : False,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : None,
+            'slice_list' : [slice(-8, -6), slice(-5, 0), slice(1, 6), slice(7, 9)],
+        },
+        'valid_name_list' : ['iopt', 'acer_run_option'],
+    },
+    'iprint' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : 1,
+            # iprint is expected to be either 0 or 1.
+            'slice_list' : [slice(0, 2)],
+        },
+        'valid_name_list' : ['iprint', 'print_control'],
+    },
+    'ntype' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : 1,
+            # ntype is expected to be either 1, 2 or 3.
+            'slice_list' : [slice(1, 4)],
+        },
+        'valid_name_list' : ['ntype', 'ace_output_type'],
+    },
+    'suff' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            # XXX: Unknown type, may be either integer or float?
+            'node_type' : None,
+            'default_value' : 0.00,
+        },
+        'valid_name_list' : ['suff'],
+    },
+    'nxtra' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : 0,
+            # Expecting a non-negative number.
+            'slice_list' : [slice(0, float('inf'))],
+        },
+        'valid_name_list' : ['nxtra'],
+    },
 }
 
-expected_card_2_map = {
-    0 : ('identifier', ('iopt', None)),
-    1 : ('identifier', ('iprint', 1)),
-    2 : ('identifier', ('ntype', 1)),
-    3 : ('identifier', ('suff', 0.00)),
-    4 : ('identifier', ('nxtra', 0)),
+card_2_order_map = {
+    0 : card_2_identifier_map.get('iopt'),
+    1 : card_2_identifier_map.get('iprint'),
+    2 : card_2_identifier_map.get('ntype'),
+    3 : card_2_identifier_map.get('suff'),
+    4 : card_2_identifier_map.get('nxtra'),
 }
 
-
-### acer card 1:
+##############################################################################
+# acer card 3:
 
 card_3_identifier_map = {
-    'hk' : ['hk'],
+    'hk' : {
+        'node_type' : 'identifier',
+        # hk must be defined, it is not optional.
+        'optional' : False,
+        'value' : {
+            'node_type' : 'string',
+            # hk has no default value since it must be defined.
+            'default_value' : None,
+            # Allowed length of hk.
+            'length' : 70,
+        },
+        'valid_name_list' : ['hk', 'description'],
+    },
 }
 
-expected_card_3_map = {}
+card_3_order_map = {
+    0 : card_3_identifier_map.get('hk'),
+}
 
+##############################################################################
+# acer card 4:
 
-### acer card 1:
+card_4_identifier_map = {
+    'iz' : {
+        'node_type' : 'array',
+        'optional' : False,
+        'value' : {
+            # XXX: Unknown value type.
+            'node_type' : None,
+            'default_value' : None,
+        },
+        'valid_name_list' : ['iz'],
+    },
+    'aw' : {
+        'node_type' : 'array',
+        'optional' : False,
+        'value' : {
+            # XXX: Unknown value type.
+            'node_type' : None,
+            'default_value' : None,
+        },
+        'valid_name_list' : ['aw'],
+    },
+}
 
-card_2_identifier_map = {}
+# The expected order is unknown until nxtra has been defined in card 2. The
+# expected order map will be constructed locally in the acer analyzer,
+# function analyze_acer_card_4.
+card_4_order_map = {}
 
-expected_card_2_map = {}
+##############################################################################
+# acer card 5:
 
+card_5_identifier_map = {
+    'matd' : {
+        'node_type' : 'identifier',
+        'optional' : False,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : None,
+            'slice_list' : material_number,
+        },
+        'valid_name_list' : ['matd', 'material'],
+    },
+    'tempd' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            # XXX: Not fixed value type. May be either float or integer.
+            # Introduce 'number' and must_be_number?
+            'node_type' : None,
+            'default_value' : 300,
+        },
+        'valid_name_list' : ['tempd', 'temperature'],
+    },
+}
 
-### acer card 1:
+card_5_order_map = {
+    0 : card_5_identifier_map.get('matd'),
+    1 : card_5_identifier_map.get('tempd'),
+}
 
-card_2_identifier_map = {}
+##############################################################################
+# acer card 6:
 
-expected_card_2_map = {}
+card_6_identifier_map = {
+    'newfor' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : 1,
+            'slice_list' : [slice(0, 2)],
+        },
+        'valid_name_list' : ['newfor'],
+    },
+    'iopp' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            'node_type' : 'integer',
+            'default_value' : 1,
+            'slice_list' : [slice(0, 2)],
+        },
+        'valid_name_list' : ['iopp'],
+    },
+}
 
+card_6_order_map = {
+    0 : card_6_identifier_map.get('newfor'),
+    1 : card_6_identifier_map.get('iopp'),
+}
 
-### acer card 1:
+##############################################################################
+# acer card 7:
 
-card_2_identifier_map = {}
+# Note the names of the identifiers. Differs slightly from the NJOY
+# documentation. Consider defining thin as an array declaration instead?
 
-expected_card_2_map = {}
+card_7_identifier_map = {
+    'thin01' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            # XXX: Must be number?
+            'node_type' : None,
+            'default_value' : None,
+        },
+        'valid_name_list' : ['thin01'],
+    },
+    'thin02' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            # XXX: Must be number?
+            'node_type' : None,
+            'default_value' : None,
+        },
+        'valid_name_list' : ['thin02'],
+    },
+    'thin03' : {
+        'node_type' : 'identifier',
+        'optional' : True,
+        'value' : {
+            # XXX: Must be number?
+            'node_type' : None,
+            'default_value' : None,
+        },
+        'valid_name_list' : ['thin03'],
+    },
+}
 
-
-### acer card 1:
-
-card_2_identifier_map = {}
-
-expected_card_2_map = {}
-
-
-### acer card 1:
-
-card_2_identifier_map = {}
-
-expected_card_2_map = {}
-
-
-### acer card 1:
-
-card_2_identifier_map = {}
-
-expected_card_2_map = {}
-
-
-### acer card 1:
-
-card_2_identifier_map = {}
-
-expected_card_2_map = {}
-
-
-### acer card 1:
-
-card_2_identifier_map = {}
-
-expected_card_2_map = {}
-
-
-### acer card 1:
-
-card_2_identifier_map = {}
-
-expected_card_2_map = {}
+card_7_order_map = {
+    0 : card_7_identifier_map.get('thin01'),
+    1 : card_7_identifier_map.get('thin02'),
+    2 : card_7_identifier_map.get('thin03'),
+}

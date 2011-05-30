@@ -100,12 +100,6 @@ def get_cards(card_name, module_node):
             cards.append(c)
     return cards
 
-def get_internal_identifier_name(id_name):
-    for internal_name in identifier_map:
-        if id_name in identifier_map[internal_name]:
-            return internal_name
-    return None
-
 def get_identifier_name(id_node):
     '''
         Return name of the identifier 'id_node', if it is an valid name, else
@@ -118,6 +112,30 @@ def get_identifier_name(id_node):
     else:
         msg = '\'' + id_name + '\' is not a valid identifier name.'
         semantic_error(msg, id_node)
+
+def get_identifier_value(id_name, expected_map, card_node):
+    if card_node is None:
+        return None
+    statement_list = card_node.get('statement_list')
+    for statement in statement_list:
+        name = statement.get('l_value').get('name')
+        internal_name = get_internal_name(name, expected_map)
+        if internal_name == id_name:
+            return statement.get('r_value').get('value')
+    # Return default value if the identifier wasn't defined in card_node.
+    return expected_map.get(id_name).get('value').get('default_value')
+
+def get_internal_name(name, expected_map):
+    for internal_name in expected_map:
+        if name in expected_map.get(internal_name).get('valid_name_list'):
+            return internal_name
+    return None
+
+def get_internal_identifier_name(id_name):
+    for internal_name in identifier_map:
+        if id_name in identifier_map[internal_name]:
+            return internal_name
+    return None
 
 def get_node_type(node):
     if node is None:
