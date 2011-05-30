@@ -51,29 +51,11 @@ def is_null(node):
     '''
     return get_node_type(node) == 'null'
 
-def is_pair(node):
-    '''
-        Return True if 'node' is a pair node, else False.
-    '''
-    return get_node_type(node) == 'pair'
-
-def is_singleton(node):
-    '''
-        Return True if 'node' is a singleton node, else False.
-    '''
-    return get_node_type(node) == 'singleton'
-
 def is_string(node):
     '''
         Return True if 'node' is a string node, else False.
     '''
     return get_node_type(node) == 'string'
-
-def is_triplet(node):
-    '''
-        Return True if 'node' is a triplet node, else False.
-    '''
-    return get_node_type(node) == 'triplet'
 
 def is_valid_name(name_to_validate, reserved_id_name):
     '''
