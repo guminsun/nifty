@@ -2,6 +2,111 @@ import sys
 
 from nifty.environment.exceptions import semantic_error
 from nifty.environment import helpers as env
+from nifty.settings import settings
+
+##############################################################################
+# EXPERIMENTAL
+
+def analyze_statement_E(expected, node, card, module):
+    # XXX: The only statements implemented so far are assignments.
+    # Note that if node is None, must_be_assignment will return two None's.
+    l_value, r_value = must_be_assignment(node, card, module)
+    if env.is_identifier(expected):
+        analyze_identifier_E(expected, l_value, card, module)
+    elif env.is_array(expected):
+        analyze_array_E(expected, l_value, card, module)
+    else:
+        raise TypeError('unknown node type', expected.get('node_type'))
+    analyze_value_E(expected, l_value, r_value, card, module)
+    return node
+
+def analyze_identifier_E(expected, node, card, module):
+    must_be_identifier_E(expected, node, card, module)
+    must_be_valid_name_E(expected, node, card, module)
+    return node
+
+def must_be_identifier_E(expected, node, card_node, module_node):
+    card_name = card_node.get('card_name')
+    module_name = module_node.get('module_name')
+    expected_name = settings.expected_name(expected)
+    if env.is_identifier(node):
+        return node
+    elif node is None:
+        msg = ('expected identifier \'' + expected_name + '\' in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, card_node)
+    else:
+        node_type = env.get_node_type(node)
+        msg = ('expected an identifier declaration of \'' + expected_name +
+               '\' but saw a ' + node_type + ' declaration in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, node)
+
+def analyze_array_E(expected, node, card, module):
+    must_be_array_E(expected, node, card, module)
+    must_be_valid_name_E(expected, node, card, module)
+    return node
+
+def must_be_array_E(expected, node, card_node, module_node):
+    # XXX: Untouched. Needs fixing.
+    card_name = card_node.get('card_name')
+    module_name = module_node.get('module_name')
+    expected_name = settings.expected_name(expected)
+    if env.is_array(node):
+        return node
+    elif node is None:
+        msg = ('expected array \'' + expected_name + '\' in \'' + card_name +
+               '\', module \'' + module_name + '\'.')
+        semantic_error(msg, card_node)
+    else:
+        node_type = env.get_node_type(node)
+        msg = ('expected an array declaration of \'' + expected_name +
+               '\' but saw a ' + node_type + ' declaration in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, node)
+
+def must_be_valid_name_E(expected, node, card_node, module_node):
+    '''
+        Precondition: node is an array or identifier node.
+    '''
+    name = node.get('name')
+    valid_name_list = expected.get('valid_name_list')
+    if name in valid_name_list:
+        return name
+    else:
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        expected_name = settings.expected_name(expected)
+        msg = ('expected identifier \'' + expected_name + '\' but saw \'' +
+               name + '\' in \'' + card_name + '\', module \'' + module_name +
+               '\'.')
+        semantic_error(msg, node)
+
+def analyze_value_E(expected, l_value, r_value, card_node, module_node):
+    value = expected.get('value')
+    if env.is_integer(value):
+        analyze_integer_E(expected, l_value, r_value, card_node, module_node)
+    #elif env.is_float
+    #elif env.is_string
+    #elif env.is_null
+    #else
+    #   raise TypeError('unknown value type', value.get('node_type'))
+    return r_value
+
+def analyze_integer_E(expected, l_value, r_value, card_node, module_node):
+    must_be_integer_E(l_value, r_value, card_node, module_node)
+    # XXX: Range check.
+    return r_value
+
+def must_be_integer_E(l_value, r_value, card_node, module_node):
+    if not env.is_integer(r_value):
+        name = l_value.get('name')
+        card_name = card_node.get('card_name')
+        module_name = module_node.get('module_name')
+        msg = ('expected \'' + name + '\' to be defined as an integer in \'' +
+               card_name + '\', module \'' + module_name + '\'.')
+        semantic_error(msg, l_value)
+    return r_value.get('value')
 
 ##############################################################################
 # Common identifiers are analyzed exactly the same.
@@ -205,7 +310,6 @@ def must_be_float(lval, rval, card_node, module_node):
     return rval.get('value')
 
 def must_be_int(lval, rval, card_node, module_node):
-    value = rval.get('value')
     if not env.is_integer(rval):
         name = lval.get('name')
         card_name = card_node.get('card_name')
@@ -214,35 +318,6 @@ def must_be_int(lval, rval, card_node, module_node):
                card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, lval)
     return rval.get('value')
-
-def must_be_pair(node, card_node, module_node):
-    # XXX: Supply expected pair to generate a better error message?
-    if env.is_pair(node):
-        return node.get('element_1'), node.get('element_2')
-    elif node is None:
-        return None, None
-    else:
-        node_type = env.get_node_type(node)
-        card_name = card_node.get('card_name')
-        module_name = module_node.get('module_name')
-        msg = ('expected a pair declaration but saw ' + node_type +
-               ' declaration, in \'' + card_name + '\' module \'' +
-               module_name + '\'.')
-        semantic_error(msg, card_node)
-
-def must_be_singleton(node, card_node, module_node):
-    if env.is_singleton(node):
-        return node.get('element_1')
-    elif node is None:
-        return None
-    else:
-        node_type = env.get_node_type(node)
-        card_name = card_node.get('card_name')
-        module_name = module_node.get('module_name')
-        msg = ('expected a singleton declaration but saw ' + node_type +
-               ' declaration, in \'' + card_name + '\' module \'' +
-               module_name + '\'.')
-        semantic_error(msg, card_node)
 
 def must_be_string(lval, rval, card_node, module_node):
     if not env.is_string(rval):
@@ -253,21 +328,6 @@ def must_be_string(lval, rval, card_node, module_node):
                '\'' + card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, lval)
     return rval.get('value')
-
-def must_be_triplet(node, card_node, module_node):
-    # XXX: Supply expected triplet to generate a better error message?
-    if env.is_triplet(node):
-        return node.get('element_1'), node.get('element_2'), node.get('element_3')
-    elif node is None:
-        return None, None, None
-    else:
-        node_type = env.get_node_type(node)
-        card_name = card_node.get('card_name')
-        module_name = module_node.get('module_name')
-        msg = ('expected a triplet declaration but saw ' + node_type +
-               ' declaration, in \'' + card_name + '\' module \'' +
-               module_name + '\'.')
-        semantic_error(msg, card_node)
 
 def must_be_unit_number(lval, rval, card_node, module_node):
     must_be_int(lval, rval, card_node, module_node)
@@ -302,32 +362,6 @@ def no_statement_allowed(node, card_node, module_node):
                card_name + '\', module \'' + module_name + '\'.')
         semantic_error(msg, node)
 
-def pair_must_be_defined(expected_pair, l_value_pair, r_value_pair, card_node, module_node):
-    # XXX: Describe workflow with analyze_pair and pair_must_be_defined.
-    card_name = card_node.get('card_name')
-    module_name = module_node.get('module_name')
-    # Unpack expected data.
-    expected_name_1 = expected_pair[0][0]
-    expected_name_2 = expected_pair[1][0]
-    expected_index_1 = expected_pair[0][1]
-    expected_index_2 = expected_pair[1][1]
-    expected_pair_name = expected_name_1 + ',' + expected_name_2
-    # Make sure both nodes are defined.
-    if (l_value_pair is None) or (r_value_pair is None):
-        msg = ('expected pair \'' + expected_pair_name + '\' in \'' +
-               card_name + '\', module \'' + module_name + '\'.')
-        semantic_error(msg, card_node)
-    # Check the expected pair depending on whether they are supposed to be
-    # defined as regular identifiers or arrays.
-    if (expected_index_1 is None) and (expected_index_2 is None):
-        identifier_must_be_defined(expected_name_1, l_value_pair[0], card_node, module_node)
-        identifier_must_be_defined(expected_name_2, l_value_pair[1], card_node, module_node)
-    else:
-        array_must_be_defined(expected_pair[0], l_value_pair[0], card_node, module_node)
-        array_must_be_defined(expected_pair[1], l_value_pair[1], card_node, module_node)
-    # XXX: Check the type of the nodes? Must not differ?
-    return l_value_pair, r_value_pair
-
 def string_must_not_exceed_length(lval, rval, max_length, card_node, module_node):
     # Make sure it's a string before continuing.
     string = must_be_string(lval, rval, card_node, module_node)
@@ -347,35 +381,3 @@ def too_few_cards_defined(number_of_cards, expected_number, card_name, module):
            'but saw ' + str(number_of_cards) + ', in module \'' +
            module_name + '\'.')
     semantic_error(msg, module)
-
-def triplet_must_be_defined(expected_triplet, l_value_triplet, r_value_triplet, card_node, module_node):
-    # XXX: Describe workflow with analyze_triplet and triplet_must_be_defined.
-    # XXX: Ugly. Needs cleaning.
-    card_name = card_node.get('card_name')
-    module_name = module_node.get('module_name')
-    # Unpack expected data.
-    expected_name_1 = expected_triplet[0][0]
-    expected_name_2 = expected_triplet[1][0]
-    expected_name_3 = expected_triplet[2][0]
-    expected_index_1 = expected_triplet[0][1]
-    expected_index_2 = expected_triplet[1][1]
-    expected_index_3 = expected_triplet[2][1]
-    expected_triplet_name = (expected_name_1 + ',' + expected_name_2 + ',' +
-                             expected_name_3)
-    # Make sure both nodes are defined.
-    if (l_value_triplet is None) or (r_value_triplet is None):
-        msg = ('expected triplet \'' + expected_triplet_name + '\' in \'' +
-               card_name + '\', module \'' + module_name + '\'.')
-        semantic_error(msg, card_node)
-    # Check the expected triplet depending on whether they are supposed to be
-    # defined as regular identifiers or arrays.
-    if (expected_index_1 is None) and (expected_index_2 is None) and (expected_index_3 is None):
-        identifier_must_be_defined(expected_name_1, l_value_triplet[0], card_node, module_node)
-        identifier_must_be_defined(expected_name_2, l_value_triplet[1], card_node, module_node)
-        identifier_must_be_defined(expected_name_3, l_value_triplet[2], card_node, module_node)
-    else:
-        array_must_be_defined(expected_triplet[0], l_value_triplet[0], card_node, module_node)
-        array_must_be_defined(expected_triplet[1], l_value_triplet[1], card_node, module_node)
-        array_must_be_defined(expected_triplet[2], l_value_triplet[2], card_node, module_node)
-    # XXX: Check the type of the nodes? Must not differ?
-    return l_value_triplet, r_value_triplet

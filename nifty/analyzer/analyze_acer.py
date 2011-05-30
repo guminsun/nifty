@@ -1,6 +1,8 @@
 from nifty.environment import helpers as env
 import analyzer_rules as rule
 
+from nifty.settings.acer_settings import card_1_order_map
+
 ##############################################################################
 # Analyze acer. Checks if acer is somewhat semantically correct.
 
@@ -42,20 +44,28 @@ def analyze_acer_card_list(module):
     rule.no_card_allowed(env.next(card_iter), module)
     return module
 
+#def analyze_acer_card_1(card, module):
+#    # Card 1 must be defined.
+#    rule.card_must_be_defined('card_1', card, module, None)
+#    # Use a statement iterator to check whether the identifiers have been
+#    # defined in the expected order.
+#    stmt_iter = env.get_statement_iterator(card)
+#    # Unit numbers that must be defined.
+#    rule.analyze_unit_number('nendf', env.next(stmt_iter), card, module)
+#    rule.analyze_unit_number('npend', env.next(stmt_iter), card, module)
+#    rule.analyze_unit_number('ngend', env.next(stmt_iter), card, module)
+#    rule.analyze_unit_number('nace', env.next(stmt_iter), card, module)
+#    rule.analyze_unit_number('ndir', env.next(stmt_iter), card, module)
+#    # No more statements are allowed. The next statement returned by
+#    # env.next(card_iter) should be 'None'.
+#    rule.no_statement_allowed(env.next(stmt_iter), card, module)
+#    return card
+
 def analyze_acer_card_1(card, module):
-    # Card 1 must be defined.
     rule.card_must_be_defined('card_1', card, module, None)
-    # Use a statement iterator to check whether the identifiers have been
-    # defined in the expected order.
     stmt_iter = env.get_statement_iterator(card)
-    # Unit numbers that must be defined.
-    rule.analyze_unit_number('nendf', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('npend', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('ngend', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nace', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('ndir', env.next(stmt_iter), card, module)
-    # No more statements are allowed. The next statement returned by
-    # env.next(card_iter) should be 'None'.
+    for i in range(len(card_1_order_map)):
+        rule.analyze_statement_E(card_1_order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
