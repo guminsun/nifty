@@ -13,30 +13,6 @@ from nifty.environment.exceptions import SemanticError
 # Organizer helpers.
 
 def organize_card(expected_map, card_node):
-    '''
-        The expected_map is assumed to be a dictionary with key-value pairs
-        on the form:
-
-            expected_order : ('identifier', (internal_id_name, default_value))
-
-        or,
-
-            expected_order : ('array', (internal_id_name, default_value, array_index))
-
-        where expected_order is an integer number which denotes the expected
-        order of the statement in the card. internal_id_name is the name of
-        the identifier used internally by the translator (e.g. the identifier
-        name that appears in the NJOY Input Instructions).
-        default_value is the default value if no value has been given. Set
-        default_value to None to indicate that a identifier must be defined.
-        array_index denotes the expected array index for array nodes.
-
-        If the expected default_value is None, denoting that a identifier must
-        be defined, but no value has been given in the input program, an
-        exception will be raised such that the card will be passed on to the
-        next phase in its original form such that e.g. the analyzer may report
-        any semantic errors.
-    '''
     statement_list = card_node.get('statement_list')
     # Try to organize the card's statement list. Restore the original card
     # node if an OrganizeError or SemanticError is raised.
@@ -54,8 +30,7 @@ def organize_card(expected_map, card_node):
 def organize_statement_list(expected, statement_list):
     new_statement_list = list(None for i in range(len(expected)))
     for statement in statement_list:
-        must_be_assignment(statement)
-        l_value = statement.get('l_value')
+        l_value, r_value = must_be_assignment(statement)
         # The l-value must hold a valid identifier name.
         id_name = env.get_identifier_name(l_value)
         internal_id_name = env.get_internal_identifier_name(id_name)
