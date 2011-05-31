@@ -113,6 +113,26 @@ def get_identifier_name(id_node):
         msg = '\'' + id_name + '\' is not a valid identifier name.'
         semantic_error(msg, id_node)
 
+def get_identifier_value(id_name, identifier_map, card_node):
+    # XXXXXXXXXXXX: Use order_map instead, such that it is possible to get
+    # specific values for arrays as well (compare array indices)
+    if card_node is None:
+        return None
+    statement_list = card_node.get('statement_list')
+    for statement in statement_list:
+        name = statement.get('l_value').get('name')
+        internal_name = get_internal_name(name, identifier_map)
+        if internal_name == id_name:
+            return statement.get('r_value').get('value')
+    # Return default value if the identifier wasn't defined in card_node.
+    return identifier_map.get(id_name).get('value').get('default_value')
+
+def get_internal_name(name, expected_map):
+    for internal_name in expected_map:
+        if name in expected_map.get(internal_name).get('valid_name_list'):
+            return internal_name
+    return None
+
 def get_internal_identifier_name(id_name):
     for internal_name in identifier_map:
         if id_name in identifier_map[internal_name]:

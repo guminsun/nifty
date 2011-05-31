@@ -1,3 +1,5 @@
+import settings
+
 ##############################################################################
 # acer identifier settings
 #
@@ -20,9 +22,9 @@
 #
 #   internal_name : {
 #       'internal_name' : internal_name,
-#       'optional' : boolean,
-#       'value' : value_dict,
 #       'valid_name_list' : name_list
+#       'is_optional' : boolean,
+#       'value' : value_dict,
 #   }
 #
 # * boolean is either True or False. True indicates that the identifier is
@@ -70,8 +72,8 @@
 # dictionary lookup, in this case) to the expected identifier in the
 # identifier map.
 
-material_number = [slice(0, 10000)]
-unit_number = [slice(-99, 0), slice(0, 100)]
+material_number = settings.material_number
+unit_number = settings.unit_number
 
 ##############################################################################
 # acer card 1:
@@ -87,7 +89,7 @@ card_1_identifier_map = {
     nendf : {
         'internal_name' : nendf,
         # nendf must be defined, it is not optional.
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             # nendf has no default value since it must be defined.
@@ -99,7 +101,7 @@ card_1_identifier_map = {
     },
     npend : {
         'internal_name' : npend,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -109,7 +111,7 @@ card_1_identifier_map = {
     },
     ngend : {
         'internal_name' : ngend,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -119,7 +121,7 @@ card_1_identifier_map = {
     },
     nace : {
         'internal_name' : nace,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -129,7 +131,7 @@ card_1_identifier_map = {
     },
     ndir : {
         'internal_name' : ndir,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -160,7 +162,7 @@ nxtra = 'nxtra'
 card_2_identifier_map = {
     iopt : {
         'internal_name' : iopt,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -170,7 +172,7 @@ card_2_identifier_map = {
     },
     iprint : {
         'internal_name' : iprint,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 1,
@@ -181,7 +183,7 @@ card_2_identifier_map = {
     },
     ntype : {
         'internal_name' : ntype,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 1,
@@ -192,7 +194,7 @@ card_2_identifier_map = {
     },
     suff : {
         'internal_name' : suff,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Unknown type, may be either integer or float?
             'node_type' : None,
@@ -202,7 +204,7 @@ card_2_identifier_map = {
     },
     nxtra : {
         'internal_name' : nxtra,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 0,
@@ -231,7 +233,7 @@ card_3_identifier_map = {
     hk : {
         'internal_name' : hk,
         # hk must be defined, it is not optional.
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'string',
             # hk has no default value since it must be defined.
@@ -257,7 +259,7 @@ aw = 'aw'
 card_4_identifier_map = {
     iz : {
         'internal_name' : iz,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             # XXX: Unknown value type.
             'node_type' : None,
@@ -267,7 +269,7 @@ card_4_identifier_map = {
     },
     aw : {
         'internal_name' : aw,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             # XXX: Unknown value type.
             'node_type' : None,
@@ -292,7 +294,7 @@ tempd = 'tempd'
 card_5_identifier_map = {
     matd : {
         'internal_name' : matd,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -302,7 +304,7 @@ card_5_identifier_map = {
     },
     tempd : {
         'internal_name' : tempd,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Not fixed value type. May be either float or integer.
             # Introduce 'number' and must_be_number?
@@ -328,7 +330,7 @@ iopp = 'iopp'
 card_6_identifier_map = {
     newfor : {
         'internal_name' : newfor,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 1,
@@ -338,7 +340,7 @@ card_6_identifier_map = {
     },
     iopp : {
         'internal_name' : iopp,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 1,
@@ -367,7 +369,7 @@ thin03 = 'thin03'
 card_7_identifier_map = {
     thin01 : {
         'internal_name' : thin01,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be number?
             'node_type' : None,
@@ -377,7 +379,7 @@ card_7_identifier_map = {
     },
     thin02 : {
         'internal_name' : thin02,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be number?
             'node_type' : None,
@@ -387,7 +389,7 @@ card_7_identifier_map = {
     },
     thin03 : {
         'internal_name' : thin03,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be number?
             'node_type' : None,
@@ -414,7 +416,7 @@ tname = 'tname'
 card_8_identifier_map = {
     matd : {
         'internal_name' : matd,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -424,7 +426,7 @@ card_8_identifier_map = {
     },
     tempd : {
         'internal_name' : tempd,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be number?
             'node_type' : None,
@@ -434,7 +436,7 @@ card_8_identifier_map = {
     },
     tname : {
         'internal_name' : tname,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'string',
             'default_value' : 'za',
@@ -463,7 +465,7 @@ iza03 = 'iza03'
 card_8a_identifier_map = {
     iza01 : {
         'internal_name' : iza01,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             # XXX: Must be an integer?
             'node_type' : None,
@@ -473,7 +475,7 @@ card_8a_identifier_map = {
     },
     iza02 : {
         'internal_name' : iza02,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be an integer?
             'node_type' : None,
@@ -483,7 +485,7 @@ card_8a_identifier_map = {
     },
     iza03 : {
         'internal_name' : iza03,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be an integer?
             'node_type' : None,
@@ -514,7 +516,7 @@ iwt = 'iwt'
 card_9_identifier_map = {
     mti : {
         'internal_name' : mti,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             # XXX: Type?
             'node_type' : None,
@@ -524,7 +526,7 @@ card_9_identifier_map = {
     },
     nbint : {
         'internal_name' : nbint,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -535,7 +537,7 @@ card_9_identifier_map = {
     },
     mte : {
         'internal_name' : mte,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             # XXX: Type?
             'node_type' : None,
@@ -545,7 +547,7 @@ card_9_identifier_map = {
     },
     ielas : {
         'internal_name' : ielas,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -555,7 +557,7 @@ card_9_identifier_map = {
     },
     nmix : {
         'internal_name' : nmix,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 1,
@@ -566,7 +568,7 @@ card_9_identifier_map = {
     },
     emax : {
         'internal_name' : emax,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be number?
             'node_type' : None,
@@ -576,7 +578,7 @@ card_9_identifier_map = {
     },
     iwt : {
         'internal_name' : iwt,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             'node_type' : 'integer',
             'default_value' : 1,
@@ -606,7 +608,7 @@ tempd = 'tempd'
 card_10_identifier_map = {
     matd : {
         'internal_name' : matd,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
@@ -616,7 +618,7 @@ card_10_identifier_map = {
     },
     tempd : {
         'internal_name' : tempd,
-        'optional' : True,
+        'is_optional' : True,
         'value' : {
             # XXX: Must be number?
             'node_type' : None,
@@ -640,7 +642,7 @@ matd = 'matd'
 card_11_identifier_map = {
     matd : {
         'internal_name' : matd,
-        'optional' : False,
+        'is_optional' : False,
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
