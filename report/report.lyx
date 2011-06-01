@@ -844,8 +844,8 @@ The new input format, NJOY Input Format (
 \family typewriter
 NIF
 \family default
-), is basically the NJOY input instructions which have been annotated with
- a syntax to make it easier to read and express.
+), is basically the original NJOY input instructions which have been annotated
+ with a syntax to make it easier to read and express.
  NIF has been designed to appear more like a high-level programming language.
 \end_layout
 
@@ -1290,26 +1290,6 @@ key "key-4"
  The lexer also recognizes comments in the input program.
  The comments will be discarded during the lexical analysis and thus won't
  be passed on to the next phase in the translation process.
- Note that the lexer only recognizes real numbers that starts with a digit.
- Numbers which has a leading or trailing dot, such as 
-\family typewriter
-.005
-\family default
-, 
-\family typewriter
-.5e-2
-\family default
-, 
-\family typewriter
-300.
-
-\family default
- or 
-\family typewriter
-3.e2
-\family default
-, which are allowed as input to the NJOY software system are thus not allowed
- by the lexer.
 \end_layout
 
 \begin_layout Paragraph
@@ -1491,25 +1471,16 @@ ding original NJOY test problem.
 Note that modified versions of the original NJOY test problems had to be
  used as the expected output when comparing the resulting output from the
  translator.
- The floating-point numbers had to be specified such that the lexer in the
- translator could recognize them, as described in section 
+ The comments that the emitter appends to every card, as described in section
+ 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "sub:Implementation, The Modules"
 
 \end_inset
 
-, and thus had to be changed into this form in the expected output as well.
- Since the emitter appends descriptive comments to every card (which are
- not present in the original test problems) as described in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Implementation, The Modules"
-
-\end_inset
-
-, these comments also had to be appended to the expected output such that
- the comparison could be performed.
+, had to be appended to the expected output such that the comparison could
+ be performed.
 \end_layout
 
 \begin_layout Subsection
@@ -4946,8 +4917,8 @@ NIF
 \end_layout
 
 \begin_layout Standard
-The proposed grammar does not differ much from the NJOY input instructions
- since it basically is an annotated version of them.
+The proposed grammar does not differ much from the original NJOY input instructi
+ons since it basically is an annotated version of them.
  The NIF grammar could have been expanded to include more complex programming
  idioms, such as an 
 \family typewriter
@@ -5083,7 +5054,7 @@ reference "sub:Results - Translation Efficiency"
 \end_inset
 
  was conducted in a simple fashion.
- Although, the resulting process runtimes presented in section 
+ The resulting process runtimes presented in section 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "sub:Results - Translation Efficiency"
@@ -5092,10 +5063,8 @@ reference "sub:Results - Translation Efficiency"
 
  revealed that the performance of the translator implementation is not a
  huge bottleneck, compared to the much greater wall times.
- Hence, more elaborate testing was not conducted since the performance appeared
- to be good enough to fit the purpose of the translator and since the scope
- of this work did not include implementing the translation process as efficient
- as possible in the first place.
+ The performance appeared to be good enough to fit the purpose of the translator.
+ Hence, more elaborate testing of the efficiency was not conducted.
 \end_layout
 
 \begin_layout Standard
