@@ -167,6 +167,14 @@ Background
 \end_layout
 
 \begin_layout Standard
+Usability of software systems is important.
+ The usability of a software system is determined by its user interface.
+ The user interface of a software system should provide means of interaction
+ between the users and the system such that the desired result can be produced
+ in a easy, elegant, and efficient fashion.
+\end_layout
+
+\begin_layout Standard
 The NJOY Nuclear Data Processing System 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -185,18 +193,18 @@ key "key-2"
 
  into different formats, as well as performing operations on the nuclear
  data.
-\end_layout
-
-\begin_layout Standard
-NJOY is currently being used within the MACRO project 
+ NJOY is widely used, and as such, it is important that it has a user friendly
+ interface.
+ NJOY is currently being used within the MACRO project 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-3"
 
 \end_inset
 
- at the Division of Applied Nuclear Physics, at the Department of Physics
- and Astronomy at Uppsala University, where this work has been conducted.
+ and while using the system it has been apparent that the non-interactive
+ user interface used for specifying NJOY jobs is not as user friendly as
+ one would like.
 \end_layout
 
 \begin_layout Subsection
@@ -211,7 +219,14 @@ key "key-4"
 
 \end_inset
 
- are complex and hard to read compared to e.g.
+ are used for specifying jobs to be run by NJOY.
+ It is a non-interactive user interface in the sense that the entire job
+ needs to be specified prior to feeding the job to NJOY.
+ No further input will be given when the processing of the job has started.
+\end_layout
+
+\begin_layout Standard
+The NJOY input instructions are complex and hard to read compared to e.g.
  a high-level programming language.
  For example, algorithm 
 \begin_inset CommandInset ref
@@ -1174,7 +1189,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
