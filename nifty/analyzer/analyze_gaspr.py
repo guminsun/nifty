@@ -1,6 +1,8 @@
 from nifty.environment import helpers as env
 import analyzer_rules as rule
 
+from nifty.settings import gaspr_settings
+
 ##############################################################################
 # Analyze gaspr. Checks if gaspr is somewhat semantically correct.
 
@@ -17,8 +19,8 @@ def analyze_card_list(module):
 def analyze_card_1(card, module):
     rule.card_must_be_defined('card_1', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_unit_number('nendf', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nout', env.next(stmt_iter), card, module)
+    order_map = gaspr_settings.card_1_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card

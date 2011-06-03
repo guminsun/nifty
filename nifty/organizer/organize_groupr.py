@@ -1,8 +1,12 @@
-from nifty.environment import helpers as env
 from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import organize_error
 from nifty.environment.exceptions import SemanticError
+
+from nifty.environment import helpers as env
+
 import organizer_helpers as helper
+
+from nifty.settings import groupr_settings
 
 ##############################################################################
 # Organize groupr. Put together into an orderly, functional, structured whole.
@@ -49,133 +53,95 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    expected_map = {
-        0 : ('identifier', ('nendf', None)),
-        1 : ('identifier', ('npend', None)),
-        2 : ('identifier', ('ngout1', 0)),
-        3 : ('identifier', ('ngout2', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(groupr_settings.card_1_order_map, card)
 
 def organize_card_2(card, module):
-    expected_map = {
-        0 : ('identifier', ('matb', None)),
-        1 : ('identifier', ('ign', None)),
-        2 : ('identifier', ('igg', None)),
-        3 : ('identifier', ('iwt', None)),
-        4 : ('identifier', ('lord', None)),
-        5 : ('identifier', ('ntemp', None)),
-        6 : ('identifier', ('nsigz', None)),
-        7 : ('identifier', ('iprint', 1)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(groupr_settings.card_2_order_map, card)
 
 def organize_card_3(card, module):
-    expected_map = {
-        0 : ('identifier', ('title', '')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(groupr_settings.card_3_order_map, card)
 
 def organize_card_4(card, module):
     card_2 = env.get_card('card_2', module)
-    ntemp = helper.get_identifier_value('ntemp', card_2)
+    order_map = groupr_settings.card_2_order_map
+    ntemp = env.get_identifier_value('ntemp', order_map, card_2)
     if ntemp is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = groupr_settings.card_4_identifier_map
     for i in range(ntemp):
-        expected_map[i] = ('array', ('temp', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('temp', i, identifier_map.get('temp'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_5(card, module):
     card_2 = env.get_card('card_2', module)
-    nsigz = helper.get_identifier_value('nsigz', card_2)
+    order_map = groupr_settings.card_2_order_map
+    nsigz = env.get_identifier_value('nsigz', order_map, card_2)
     if nsigz is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = groupr_settings.card_5_identifier_map
     for i in range(nsigz):
-        expected_map[i] = ('array', ('sigz', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('sigz', i, identifier_map.get('sigz'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_6a(card, module):
-    # No need to organize card 6a since it only contains one value which has
-    # no default value.
+    # No need to organize card 6a since it only contains one identifier.
     return card
 
 def organize_card_6b(card, module):
     card_6a = env.get_card('card_6a', module)
-    ngn = helper.get_identifier_value('ngn', card_6a)
+    order_map = groupr_settings.card_6a_order_map
+    ngn = env.get_identifier_value('ngn', order_map, card_6a)
     # Ugly? 'ngn' must be defined in order to sort the 'egn' array.
     if ngn is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = groupr_settings.card_6b_identifier_map
     for i in range(ngn+1):
-        expected_map[i] = ('array', ('egn', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('egn', i, identifier_map.get('egn'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_7a(card, module):
-    # No need to organize card 7a since it only contains one value which has
-    # no default value.
+    # No need to organize card 7a since it only contains one identifier.
     return card
 
 def organize_card_7b(card, module):
     card_7a = env.get_card('card_7a', module)
-    ngg = helper.get_identifier_value('ngg', card_7a)
+    order_map = groupr_settings.card_7a_order_map
+    ngg = env.get_identifier_value('ngg', order_map, card_7a)
     # Ugly? 'ngg' must be defined in order to sort the 'egg' array.
     if ngg is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = groupr_settings.card_7b_identifier_map
     for i in range(ngg+1):
-        expected_map[i] = ('array', ('egg', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('egg', i, identifier_map.get('egg'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_8a(card, module):
-    expected_map = {
-        0 : ('identifier', ('ehi', None)),
-        1 : ('identifier', ('sigpot', None)),
-        2 : ('identifier', ('nflmax', None)),
-        3 : ('identifier', ('ninwt', 0)),
-        4 : ('identifier', ('jsigz', 0)),
-        5 : ('identifier', ('alpha2', 0)),
-        6 : ('identifier', ('sam', 0)),
-        7 : ('identifier', ('beta', 0)),
-        8 : ('identifier', ('alpha3', 0)),
-        9 : ('identifier', ('gamma', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(groupr_settings.card_8a_order_map, card)
 
 def organize_card_8b(card, module):
     # Length of TAB1 record is user defined, retrieve it so that it is
     # possible to sort the statement list.
     wght_length = len(card.get('statement_list'))
-    expected_map = {}
-    # Assuming TAB1 records are defined as NIF arrays.
+    order_map = {}
+    identifier_map = groupr_settings.card_8b_identifier_map
     for i in range(wght_length):
-        expected_map[i] = ('array', ('wght', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('wght', i, identifier_map.get('wght'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_8c(card, module):
-    expected_map = {
-        0 : ('identifier', ('eb', None)),
-        1 : ('identifier', ('tb', None)),
-        2 : ('identifier', ('ec', None)),
-        3 : ('identifier', ('tc', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(groupr_settings.card_8c_order_map, card)
 
 def organize_card_8d(card, module):
-    # No need to organize card 8d since it only contains one value which has
-    # no default value.
+    # No need to organize card 8d since it only contains one identifier.
     return card
 
 def organize_card_9(card, module):
-    expected_map = {
-        0 : ('identifier', ('mfd', None)),
-        1 : ('identifier', ('mtd', None)),
-        2 : ('identifier', ('mtname', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(groupr_settings.card_9_order_map, card)
 
 def organize_card_10(card, module):
-    # No need to organize card 10 since it only contains one value which has
-    # no default value.
+    # No need to organize card 10 since it only contains one identifier.
     return card

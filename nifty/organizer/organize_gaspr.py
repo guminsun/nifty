@@ -2,6 +2,8 @@ from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import SemanticError
 import organizer_helpers as helper
 
+from nifty.settings import gaspr_settings
+
 ##############################################################################
 # Organize gaspr. Put together into an orderly, functional, structured whole.
 
@@ -33,9 +35,4 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    expected_map = {
-        0 : ('identifier', ('nendf', None)),
-        1 : ('identifier', ('nin', None)),
-        2 : ('identifier', ('nout', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(gaspr_settings.card_1_order_map, card)

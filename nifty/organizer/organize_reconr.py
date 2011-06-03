@@ -1,7 +1,13 @@
 from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import organize_error
 from nifty.environment.exceptions import SemanticError
+
+from nifty.environment import helpers as env
+
 import organizer_helpers as helper
+
+from nifty.settings import settings
+from nifty.settings import reconr_settings
 
 ##############################################################################
 # Organize reconr. Put together into an orderly, functional, structured whole.
@@ -39,35 +45,29 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    expected_map = {
-        0 : ('identifier', ('nendf', None)),
-        1 : ('identifier', ('npend', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(reconr_settings.card_1_order_map, card)
 
 def organize_card_2(card, module):
     # No need to organize card 2 since it only contains one identifier.
     return card
 
 def organize_card_3(card, module):
-    expected_map = {
-        0 : ('identifier', ('mat', None)),
-        1 : ('identifier', ('ncards', 0)),
-        1 : ('identifier', ('ngrid', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(reconr_settings.card_2_order_map, card)
 
 def organize_card_4(card, module):
-    err = helper.get_identifier_value('err', card)
+    order_map = reconr_settings.card_4_order_map
+    err = env.get_identifier_value('err', order_map, card)
     if err is None:
         organize_error()
-    expected_map = {
-        0 : ('identifier', ('err', None)),
-        1 : ('identifier', ('tempr', 0)),
-        2 : ('identifier', ('errmax', 10*float(err))),
-        3 : ('identifier', ('errint', float(err)/20000)),
-    }
-    return helper.organize_card(expected_map, card)
+    # XXX: Ugly.
+    errmax = 10.0 * float(err)
+    errint = float(err) / 20000.0
+    for k in order_map:
+        if settings.expected_name(order_map.get(k)) == 'errmax':
+            order_map[k][2]['value']['default_value'] = errmax
+        if settings.expected_name(order_map.get(k)) == 'errint':
+            order_map[k][2]['value']['default_value'] = errint
+    return helper.organize_card(order_map, card)
 
 def organize_card_5(card, module):
     # No need to organize card 5 since it only contains one identifier.

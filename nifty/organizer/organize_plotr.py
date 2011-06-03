@@ -1,7 +1,12 @@
-from nifty.environment import helpers as env
 from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import SemanticError
+
+from nifty.environment import helpers as env
+
 import organizer_helpers as helper
+
+from nifty.settings import settings
+from nifty.settings import plotr_settings
 
 ##############################################################################
 # Organize plotr. Put together into an orderly, functional, structured whole.
@@ -52,20 +57,10 @@ def card_dummy(card):
     return card
 
 def organize_card_0(card, module):
-    expected_map = {
-        0 : ('identifier', ('nplt', None)),
-        1 : ('identifier', ('nplt0', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_0_order_map, card)
 
 def organize_card_1(card, module):
-    expected_map = {
-        0 : ('identifier', ('lori', 1)),
-        1 : ('identifier', ('istyle', 2)),
-        2 : ('identifier', ('size', 0.30)),
-        3 : ('identifier', ('ipcol', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_1_order_map, card)
 
 def organize_card_2(card, module):
     # Default values for ww and wh depends on the page orientation (lori),
@@ -79,180 +74,87 @@ def organize_card_2(card, module):
     # then the page size is 10 x 7.5 inches.
     # Rotation angle, 'wr', defaults to 0.
     card_1 = env.get_card('card_1', module)
-    lori = helper.get_identifier_value('lori', card_1)
+    order_map = plotr_settings.card_1_order_map
+    lori = env.get_identifier_value('lori', order_map, card_1)
     if lori == 0:
         ww = 7.5
         wh = 10.0
     else:
         ww = 10.0
         wh = 7.5
-    expected_map = {
-        0 : ('identifier', ('iplot', 1)),
-        1 : ('identifier', ('iwcol', 0)),
-        2 : ('identifier', ('factx', 1.0)),
-        3 : ('identifier', ('facty', 1.0)),
-        4 : ('identifier', ('xll', 0.0)),
-        5 : ('identifier', ('yll', 0.0)),
-        6 : ('identifier', ('ww', ww)),
-        7 : ('identifier', ('wh', wh)),
-        8 : ('identifier', ('wr', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    order_map = plotr_settings.card_2_order_map
+    # XXX: Ugly.
+    for k in order_map:
+        if settings.expected_name(order_map.get(k)) == 'ww':
+            order_map[k][2]['value']['default_value'] = ww
+        if settings.expected_name(order_map.get(k)) == 'wh':
+            order_map[k][2]['value']['default_value'] = wh
+    return helper.organize_card(order_map, card)
 
 def organize_card_3(card, module):
-    expected_map = {
-        0 : ('identifier', ('t1', '')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_3_order_map, card)
 
 def organize_card_3a(card, module):
-    expected_map = {
-        0 : ('identifier', ('t2', '')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_3a_order_map, card)
 
 def organize_card_4(card, module):
-    expected_map = {
-        0 : ('identifier', ('itype', 4)),
-        1 : ('identifier', ('jtype', 0)),
-        2 : ('identifier', ('igrid', 2)),
-        3 : ('identifier', ('ileg', 0)),
-        4 : ('identifier', ('xtag', 0)),
-        5 : ('identifier', ('ytag', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_4_order_map, card)
 
 def organize_card_5(card, module):
-    expected_map = {
-        0 : ('identifier', ('el', None)),
-        1 : ('identifier', ('eh', None)),
-        # XXX: empty string is used to denote default automatic scales, since
-        # it will be outputted as a blank.
-        2 : ('identifier', ('xstep', '')),
-    }
     # 'el' and 'eh' are either both defined, or both undefined. 'xstep' is
     # optional. Hence, only organize when there are statements to organize.
     if len(card.get('statement_list')) > 0:
-        return helper.organize_card(expected_map, card)
+        return helper.organize_card(plotr_settings.card_5_order_map, card)
     else:
         return card
 
 def organize_card_5a(card, module):
-    expected_map = {
-        0 : ('identifier', ('xlabl', 'energy (ev)')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_5a_order_map, card)
 
 def organize_card_6(card, module):
-    expected_map = {
-        0 : ('identifier', ('yl', None)),
-        1 : ('identifier', ('yh', None)),
-        # XXX: empty string is used to denote default automatic scales, since
-        # it will be outputted as a blank.
-        2 : ('identifier', ('ystep', '')),
-    }
     # 'yl' and 'yh' are either both defined, or both undefined. 'ystep' is
     # optional. Hence, only organize when there are statements to organize.
     if len(card.get('statement_list')) > 0:
-        return helper.organize_card(expected_map, card)
+        return helper.organize_card(plotr_settings.card_6_order_map, card)
     else:
         return card
 
 def organize_card_6a(card, module):
-    expected_map = {
-        0 : ('identifier', ('ylabl', 'cross section (barns)')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_6a_order_map, card)
 
 def organize_card_7(card, module):
-    expected_map = {
-        0 : ('identifier', ('rbot', None)),
-        1 : ('identifier', ('rtop', None)),
-        # XXX: empty string is used to denote default automatic scales, since
-        # it will be outputted as a blank.
-        2 : ('identifier', ('rstep', '')),
-    }
     # 'rbot' and 'rtop' are either both defined, or both undefined. 'rstep' is
     # optional. Hence, only organize when there are statements to organize.
     if len(card.get('statement_list')) > 0:
-        return helper.organize_card(expected_map, card)
+        return helper.organize_card(plotr_settings.card_7_order_map, card)
     else:
         return card
 
 def organize_card_7a(card, module):
-    expected_map = {
-        0 : ('identifier', ('rl', '')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_7a_order_map, card)
 
 def organize_card_8(card, module):
-    expected_map = {
-        0 : ('identifier', ('iverf', 0)),
-        1 : ('identifier', ('nin', 0)),
-        2 : ('identifier', ('matd', 0)),
-        3 : ('identifier', ('mfd', 0)),
-        4 : ('identifier', ('mtd', 0)),
-        5 : ('identifier', ('temper', 0)),
-        6 : ('identifier', ('nth', 1)),
-        7 : ('identifier', ('ntp', 1)),
-        8 : ('identifier', ('nkh', 1)),
-    }
-    iverf = helper.get_identifier_value('iverf', card)
+    order_map = plotr_settings.card_8_order_map
+    iverf = env.get_identifier_value('iverf', order_map, card)
     if iverf > 0:
-        return helper.organize_card(expected_map, card)
+        return helper.organize_card(order_map, card)
     else:
         return card
 
 def organize_card_9(card, module):
-    expected_map = {
-        0 : ('identifier', ('icon', 0)),
-        1 : ('identifier', ('isym', 0)),
-        2 : ('identifier', ('idash', 0)),
-        3 : ('identifier', ('iccol', 0)),
-        4 : ('identifier', ('ithick', 1)),
-        5 : ('identifier', ('ishade', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_9_order_map, card)
 
 def organize_card_10(card, module):
-    expected_map = {
-        0 : ('identifier', ('aleg', '')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_10_order_map, card)
 
 def organize_card_10a(card, module):
-    expected_map = {
-        0 : ('identifier', ('xtag', 0)),
-        1 : ('identifier', ('ytag', 0)),
-        2 : ('identifier', ('xpoint', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_10a_order_map, card)
 
 def organize_card_11(card, module):
-    expected_map = {
-        0 : ('identifier', ('xv', 15.0)),
-        1 : ('identifier', ('yv', -15.0)),
-        2 : ('identifier', ('zv', 15.0)),
-        3 : ('identifier', ('x3', 2.5)),
-        4 : ('identifier', ('y3', 6.5)),
-        5 : ('identifier', ('z3', 2.5)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_11_order_map, card)
 
 def organize_card_12(card, module):
-    expected_map = {
-        0 : ('identifier', ('nform', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_12_order_map, card)
 
 def organize_card_13(card, module):
-    expected_map = {
-        # Default values unknown.
-        0 : ('identifier', ('xdata', '')),
-        1 : ('identifier', ('ydata', '')),
-        2 : ('identifier', ('yerr1', '')),
-        3 : ('identifier', ('yerr2', '')),
-        4 : ('identifier', ('xerr1', '')),
-        5 : ('identifier', ('xerr2', '')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(plotr_settings.card_13_order_map, card)

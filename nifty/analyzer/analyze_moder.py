@@ -1,6 +1,8 @@
 from nifty.environment import helpers as env
 import analyzer_rules as rule
 
+from nifty.settings import moder_settings
+
 ##############################################################################
 # Analyze moder. Checks if moder is somewhat semantically correct.
 
@@ -37,35 +39,32 @@ def analyze_moder_card_list(module):
 def analyze_moder_card_1(card, module):
     rule.card_must_be_defined('card_1', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    nin = rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nout', env.next(stmt_iter), card, module)
+    order_map = moder_settings.card_1_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    nin = env.get_identifier_value('nin', order_map, card)
     return card, nin
 
 def analyze_moder_card_2(card, module):
     msg = ('expected \'card_2\' since the absolute value of the input unit ' +
-           '(\'nin\') is in the range [1,19] in \'card_1\'.')
+           '(\'nin\') is in the range [1,19] in \'card_1\', module \'moder\'.')
     rule.card_must_be_defined('card_2', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    analyze_moder_card_2_tpid(env.next(stmt_iter), card, module)
+    order_map = moder_settings.card_2_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
-
-def analyze_moder_card_2_tpid(node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    rule.identifier_must_be_defined('tpid', l_value, card, module)
-    # The r-value of the assignment is expected to be a string.
-    tpid = rule.must_be_string(l_value, r_value, card, module)
-    rule.string_must_not_exceed_length(l_value, r_value, 66, card, module)
-    return tpid
 
 def analyze_moder_card_3(card, module):
     msg = ('expected \'card_3\' since the absolute value of the input unit ' +
            '(\'nin\') is in the range [1,19] in \'card_1\'.')
     rule.card_must_be_defined('card_3', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
-    rule.analyze_material('matd', env.next(stmt_iter), card, module)
+    order_map = moder_settings.card_3_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -74,7 +73,9 @@ def analyze_moder_card_3_stop(card, module):
            'to indicate termination of module \'moder\'.')
     rule.card_must_be_defined('card_3', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    nin = rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
+    order_map = moder_settings.card_3_order_map
+    rule.analyze_statement(order_map.get(0), env.next(stmt_iter), card, module)
+    nin = env.get_identifier_value('nin', order_map, card)
     if nin != 0:
         rule.semantic_error(msg, card)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)

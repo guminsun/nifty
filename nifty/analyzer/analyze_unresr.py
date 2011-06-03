@@ -1,6 +1,8 @@
 from nifty.environment import helpers as env
 import analyzer_rules as rule
 
+from nifty.settings import unresr_settings
+
 ##############################################################################
 # Analyze unresr. Checks if unresr is somewhat semantically correct.
 
@@ -42,70 +44,22 @@ def analyze_card_list(module):
 def analyze_card_1(card, module):
     rule.card_must_be_defined('card_1', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_unit_number('nendf', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nin', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nout', env.next(stmt_iter), card, module)
+    order_map = unresr_settings.card_1_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
 def analyze_card_2(card, module):
     rule.card_must_be_defined('card_2', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_material('matd', env.next(stmt_iter), card, module)
-    ntemp = analyze_card_2_ntemp(env.next(stmt_iter), card, module)
-    nsigz = analyze_card_2_nsigz(env.next(stmt_iter), card, module)
-    analyze_card_2_iprint(env.next(stmt_iter), card, module)
+    order_map = unresr_settings.card_2_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
+    ntemp = env.get_identifier_value('ntemp', order_map, card)
+    nsigz = env.get_identifier_value('nsigz', order_map, card)
     return card, ntemp, nsigz
-
-def analyze_card_2_ntemp(node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    rule.identifier_must_be_defined('ntemp', l_value, card, module)
-    ntemp = rule.must_be_int(l_value, r_value, card, module)
-    if ntemp < 0:
-        id_name = l_value.get('name')
-        msg = ('expected a non-negative number of temperatures (\'' +
-               id_name + '\') ' + 'in \'card_2\', module \'unresr\'.')
-        rule.semantic_error(msg, node)
-    if ntemp > 10:
-        id_name = l_value.get('name')
-        msg = ('expected at most 10 temperatures (\'' + id_name + '\') ' +
-               'in \'card_2\', module \'unresr\'.')
-        rule.semantic_error(msg, node)
-    return ntemp
-
-def analyze_card_2_nsigz(node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    rule.identifier_must_be_defined('nsigz', l_value, card, module)
-    nsigz = rule.must_be_int(l_value, r_value, card, module)
-    if nsigz < 0:
-        id_name = l_value.get('name')
-        msg = ('expected a non-negative number of sigma zero values (\'' +
-               id_name + '\') in \'card_2\', module \'unresr\'.')
-        rule.semantic_error(msg, node)
-    if nsigz > 10:
-        id_name = l_value.get('name')
-        msg = ('expected at most 10 sigma zero values (\'' + id_name +
-               '\') in \'card_2\', module \'unresr\'.')
-        rule.semantic_error(msg, node)
-    return nsigz
-
-def analyze_card_2_iprint(node, card, module):
-    # iprint (0 = min, 1 = max) does not have to be defined, defaults to 0
-    # meaning minimum print option.
-    if node is None:
-        return 0
-    else:
-        l_value, r_value = rule.must_be_assignment(node, card, module)
-        rule.identifier_must_be_defined('iprint', l_value, card, module)
-        iprint = rule.must_be_int(l_value, r_value, card, module)
-        if iprint not in range(0,2):
-            id_name = l_value.get('name')
-            msg = ('illegal print option in \'card_2\', module \'unresr\': ' +
-                   id_name + ' = ' + str(iprint) + ', expected 0 for min, ' +
-                   '1 for max (default = 1).')
-            rule.semantic_error(msg, node)
-        return iprint
 
 def analyze_card_3(ntemp, card, module):
     # Note that the number of temperatures in card 3 should be equal to the
@@ -115,23 +69,19 @@ def analyze_card_3(ntemp, card, module):
     rule.card_must_be_defined('card_3', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(card.get('statement_list'))
-    if stmt_len == ntemp:
-        for i in range(stmt_len):
-            analyze_card_3_temp(i, env.next(stmt_iter), card, module)
-    else:
+    if not stmt_len == ntemp:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_3\'' +
                ' but expected ' + str(ntemp) + ' since ' + 'ntemp = ' +
                str(ntemp) + ' in \'card_2\', module ' + '\'unresr\'.')
         rule.semantic_error(msg, card)
+    order_map = {}
+    identifier_map = unresr_settings.card_3_identifier_map
+    for i in range(ntemp):
+        order_map[i] = ('temp', i, identifier_map.get('temp'))
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
-
-def analyze_card_3_temp(expected_index, node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    # The l-value of the assignment is expected to be an array.
-    expected = ('temp', expected_index)
-    rule.array_must_be_defined(expected, l_value, card, module)
-    # XXX: Additional checks?
-    return r_value.get('value')
 
 def analyze_card_4(nsigz, card, module):
     # Note that the number of sigma zero values in card 4 should be equal to
@@ -139,30 +89,28 @@ def analyze_card_4(nsigz, card, module):
     rule.card_must_be_defined('card_4', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
     stmt_len = len(card.get('statement_list'))
-    if stmt_len == nsigz:
-        for i in range(stmt_len):
-            analyze_card_4_sigz(i, env.next(stmt_iter), card, module)
-    else:
+    if not stmt_len == nsigz:
         msg = ('saw ' + str(stmt_len) + ' statements in \'card_4\'' +
                ' but expected ' + str(nsigz) + ' since ' + 'nsigz = ' +
                str(nsigz) + ' in \'card_2\', module ' + '\'unresr\'.')
         rule.semantic_error(msg, card)
+    order_map = {}
+    identifier_map = unresr_settings.card_4_identifier_map
+    for i in range(nsigz):
+        order_map[i] = ('sigz', i, identifier_map.get('sigz'))
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
+    rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
-
-def analyze_card_4_sigz(expected_index, node, card, module):
-    l_value, r_value = rule.must_be_assignment(node, card, module)
-    # The l-value of the assignment is expected to be an array.
-    expected = ('sigz', expected_index)
-    rule.array_must_be_defined(expected, l_value, card, module)
-    # XXX: Additional checks?
-    return r_value.get('value')
 
 def analyze_card_2_stop(card, module):
     msg = ('expected a \'card_2\' with the material set to 0 to indicate ' +
            'termination of module \'unresr\'.')
     rule.card_must_be_defined('card_2', card, module, msg)
     stmt_iter = env.get_statement_iterator(card)
-    matd = rule.analyze_material('matd', env.next(stmt_iter), card, module)
+    order_map = unresr_settings.card_2_order_map
+    rule.analyze_statement(order_map.get(0), env.next(stmt_iter), card, module)
+    matd = env.get_identifier_value('matd', order_map, card)
     # The last card is expected to be a card 2 with matd = 0, to indicate
     # termination of unresr.
     if matd != 0:
