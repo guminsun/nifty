@@ -1,8 +1,12 @@
-from nifty.environment import helpers as env
 from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import organize_error
 from nifty.environment.exceptions import SemanticError
+
+from nifty.environment import helpers as env
+
 import organizer_helpers as helper
+
+from nifty.settings import errorr_settings
 
 ##############################################################################
 # Organize errorr. Put together into an orderly, functional, structured whole.
@@ -51,96 +55,55 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    expected_map = {
-        0 : ('identifier', ('nendf', None)),
-        1 : ('identifier', ('npend', None)),
-        2 : ('identifier', ('ngout', 0)),
-        3 : ('identifier', ('nout', 0)),
-        4 : ('identifier', ('nin', 0)),
-        5 : ('identifier', ('nstan', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(errorr_settings.card_1_order_map, card)
 
 def organize_card_2(card, module):
-    expected_map = {
-        0 : ('identifier', ('matd', None)),
-        1 : ('identifier', ('ign', 1)),
-        2 : ('identifier', ('iwt', 6)),
-        3 : ('identifier', ('iprint', 1)),
-        4 : ('identifier', ('irelco', 1)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(errorr_settings.card_2_order_map, card)
 
 def organize_card_3(card, module):
-    expected_map = {
-        0 : ('identifier', ('mprint', None)),
-        1 : ('identifier', ('tempin', 300)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(errorr_settings.card_3_order_map, card)
 
 def organize_card_4(card, module):
-    # No need to organize card 4 since it only contains one identifier which
-    # has no default value.
+    # No need to organize card 4 since it only contains one identifier.
     return card
 
 def organize_card_5(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
-    card_4 = env.get_card('card_4', module)
-    nek = helper.get_identifier_value('nek', card_4)
-    if nek is None:
-        organize_error()
-    expected_map = {}
-    for i in range(nek+1):
-        expected_map[i] = ('array', ('ek', None, i))
-    return helper.organize_card(expected_map, card)
+    return card
 
 def organize_card_6(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
     return card
 
 def organize_card_7(card, module):
-    ifissp = helper.get_identifier_value('ifissp', card)
-    if ifissp == -1:
-        efmean = 2.0
-    else:
-        efmean = None
-    expected_map = {
-        0 : ('identifier', ('iread', 0)),
-        1 : ('identifier', ('mfcov', 33)),
-        2 : ('identifier', ('irespr', 1)),
-        3 : ('identifier', ('legord', 1)),
-        4 : ('identifier', ('ifissp', -1)),
-        5 : ('identifier', ('efmean', efmean)), # XXX: None?
-        5 : ('identifier', ('dap', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(errorr_settings.card_7_order_map, card)
 
 def organize_card_8(card, module):
-    expected_map = {
-        0 : ('identifier', ('nmt', None)),
-        1 : ('identifier', ('nek', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(errorr_settings.card_8_order_map, card)
 
 def organize_card_8a(card, module):
     card_8 = env.get_card('card_8', module)
-    nmt = helper.get_identifier_value('nmt', card_8)
+    order_map = errorr_settings.card_8_order_map
+    nmt = env.get_identifier_value('nmt', order_map, card_8)
     if nmt is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = errorr_settings.card_8a_identifier_map
     for i in range(nmt):
-        expected_map[i] = ('array', ('mts', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('mts', i, identifier_map.get('mts'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_8b(card, module):
     card_8 = env.get_card('card_8', module)
-    nek = helper.get_identifier_value('nek', card_4)
+    order_map = errorr_settings.card_8_order_map
+    nek = env.get_identifier_value('nek', order_map, card_8)
     if nek is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = errorr_settings.card_8b_identifier_map
     for i in range(nek+1):
-        expected_map[i] = ('array', ('ek', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('ek', i, identifier_map.get('ek'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_9(card, module):
     # XXX: Need to verify with NJOY source code. Documentation fuzzy.
@@ -155,35 +118,30 @@ def organize_card_11(card, module):
     return card
 
 def organize_card_12a(card, module):
-    # No need to organize card 12a since it only contains one identifier which
-    # has no default value.
+    # No need to organize card 12a since it only contains one identifier.
     return card
 
 def organize_card_12b(card, module):
     card_12a = env.get_card('card_12a', module)
-    ngn = helper.get_identifier_value('ngn', card_12a)
+    order_map = errorr_settings.card_12a_order_map
+    ngn = env.get_identifier_value('ngn', order_map, card_12a)
     if ngn is None:
         organize_error()
-    expected_map = {}
+    order_map = {}
+    identifier_map = errorr_settings.card_12b_identifier_map
     for i in range(ngn+1):
-        expected_map[i] = ('array', ('egn', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('egn', i, identifier_map.get('egn'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_13a(card, module):
     # Length of TAB1 record is user defined, retrieve it so that it is
     # possible to sort the statement list.
     wght_length = len(card.get('statement_list'))
-    expected_map = {}
-    # Assuming TAB1 records are defined as NIF arrays.
+    order_map = {}
+    identifier_map = errorr_settings.card_13a_identifier_map
     for i in range(wght_length):
-        expected_map[i] = ('array', ('wght', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('wght', i, identifier_map.get('wght'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_13b(card, module):
-    expected_map = {
-        0 : ('identifier', ('eb', None)),
-        1 : ('identifier', ('tb', None)),
-        2 : ('identifier', ('ec', None)),
-        3 : ('identifier', ('tc', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(errorr_settings.card_13b_identifier_map, card)

@@ -49,7 +49,7 @@ def analyze_acer_card_1(card, module):
     stmt_iter = env.get_statement_iterator(card)
     order_map = acer_settings.card_1_order_map
     for i in range(len(order_map)):
-        rule.analyze_statement_E(order_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -58,11 +58,10 @@ def analyze_acer_card_2(card, module):
     stmt_iter = env.get_statement_iterator(card)
     order_map = acer_settings.card_2_order_map
     for i in range(len(order_map)):
-        rule.analyze_statement_E(order_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
-    identifier_map = acer_settings.card_2_identifier_map
-    iopt = env.get_identifier_value('iopt', identifier_map, card)
-    nxtra = env.get_identifier_value('nxtra', identifier_map, card)
+    iopt = env.get_identifier_value('iopt', order_map, card)
+    nxtra = env.get_identifier_value('nxtra', order_map, card)
     return card, iopt, nxtra
 
 def analyze_acer_card_3(card, module):
@@ -70,7 +69,7 @@ def analyze_acer_card_3(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_3_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -89,8 +88,8 @@ def analyze_acer_card_4(nxtra, card, module):
         order_map[i*2] = ('iz', i, identifier_map['iz'])
         order_map[i*2+1] = ('aw', i, identifier_map['aw'])
     for i in range(nxtra):
-        rule.analyze_statement_E(order_map.get(i*2), env.next(stmt_iter), card, module)
-        rule.analyze_statement_E(order_map.get(i*2+1), env.next(stmt_iter), card, module)
+        rule.analyze_statement(order_map.get(i*2), env.next(stmt_iter), card, module)
+        rule.analyze_statement(order_map.get(i*2+1), env.next(stmt_iter), card, module)
     return card
 
 def analyze_acer_card_5(card, module):
@@ -101,7 +100,7 @@ def analyze_acer_card_5(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_5_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -113,7 +112,7 @@ def analyze_acer_card_6(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_6_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -125,7 +124,7 @@ def analyze_acer_card_7(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_7_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -137,7 +136,7 @@ def analyze_acer_card_8(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_8_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -149,7 +148,7 @@ def analyze_acer_card_8a(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_8a_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -161,7 +160,7 @@ def analyze_acer_card_9(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_9_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -173,7 +172,7 @@ def analyze_acer_card_10(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_10_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card
 
@@ -185,6 +184,6 @@ def analyze_acer_card_11(card, module):
     stmt_iter = env.get_statement_iterator(card)
     expected_map = acer_settings.card_11_order_map
     for i in range(len(expected_map)):
-        rule.analyze_statement_E(expected_map.get(i), env.next(stmt_iter), card, module)
+        rule.analyze_statement(expected_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card

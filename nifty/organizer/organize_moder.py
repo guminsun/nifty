@@ -1,6 +1,11 @@
 from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import SemanticError
+
+from nifty.environment import helpers as env
+
 import organizer_helpers as helper
+
+from nifty.settings import moder_settings
 
 ##############################################################################
 # Organize moder. Put together into an orderly, functional, structured whole.
@@ -35,19 +40,11 @@ def card_dummy(card):
     return card
 
 def organize_card_1(card, module):
-    expected_map = {
-        0 : ('identifier', ('nin', None)),
-        1 : ('identifier', ('nout', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(moder_settings.card_1_order_map, card)
 
 def organize_card_2(card, module):
-    # No need to organize card 2 since it only contains one value.
+    # No need to organize card 2 since it only contains one identifier.
     return card
 
 def organize_card_3(card, module):
-    expected_map = {
-        0 : ('identifier', ('nin', None)),
-        1 : ('identifier', ('matd', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(moder_settings.card_3_order_map, card)

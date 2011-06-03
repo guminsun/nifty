@@ -1,6 +1,8 @@
 from nifty.environment import helpers as env
 import analyzer_rules as rule
 
+from nifty.settings import viewr_settings
+
 ##############################################################################
 # Analyze viewr. Checks if viewr is somewhat semantically correct.
 
@@ -25,7 +27,8 @@ def analyze_viewr_card_list(module):
 def analyze_viewr_card_0(card, module):
     rule.card_must_be_defined('card_0', card, module, None)
     stmt_iter = env.get_statement_iterator(card)
-    rule.analyze_unit_number('infile', env.next(stmt_iter), card, module)
-    rule.analyze_unit_number('nps', env.next(stmt_iter), card, module)
+    order_map = viewr_settings.card_0_order_map
+    for i in range(len(order_map)):
+        rule.analyze_statement(order_map.get(i), env.next(stmt_iter), card, module)
     rule.no_statement_allowed(env.next(stmt_iter), card, module)
     return card

@@ -1,10 +1,8 @@
 import sys
-from copy import deepcopy
 
 from exceptions import semantic_error
-# Get the identifier map of valid identifier names. The map is used in the
-# functions 'get_identifier_name' and 'is_valid_name'.
-from settings import identifier_map
+
+from nifty.settings import settings
 
 ##############################################################################
 # Boolean helpers.
@@ -57,17 +55,6 @@ def is_string(node):
     '''
     return get_node_type(node) == 'string'
 
-def is_valid_name(name_to_validate, reserved_id_name):
-    '''
-        Return True if 'name_to_validate' is a valid, possible alternative,
-        name for 'reserved_id_name', else False.
-    '''
-    id_name_value = identifier_map.get(reserved_id_name, reserved_id_name)
-    if isinstance(id_name_value, list):
-        return name_to_validate in id_name_value
-    else:
-        return name_to_validate == reserved_id_name
-
 ##############################################################################
 # Getter helpers.
 
@@ -100,43 +87,29 @@ def get_cards(card_name, module_node):
             cards.append(c)
     return cards
 
-def get_identifier_name(id_node):
-    '''
-        Return name of the identifier 'id_node', if it is an valid name, else
-        report an error.
-    '''
-    valid_id_names = get_valid_id_names()
-    id_name = id_node.get('name')
-    if id_name in valid_id_names:
-        return id_name
-    else:
-        msg = '\'' + id_name + '\' is not a valid identifier name.'
-        semantic_error(msg, id_node)
+def get_default_value(name, order_map):
+    for k in order_map:
+        identifier = settings.expected_identifier(order_map.get(k))
+        if name in identifier.get('valid_name_list'):
+            return identifier.get('value').get('default_value')
+    return None
 
-def get_identifier_value(id_name, identifier_map, card_node):
-    # XXXXXXXXXXXX: Use order_map instead, such that it is possible to get
-    # specific values for arrays as well (compare array indices)
+def get_identifier_value(internal_name, order_map, card_node):
     if card_node is None:
         return None
     statement_list = card_node.get('statement_list')
     for statement in statement_list:
         name = statement.get('l_value').get('name')
-        internal_name = get_internal_name(name, identifier_map)
-        if internal_name == id_name:
+        if internal_name == get_internal_name(name, order_map):
             return statement.get('r_value').get('value')
     # Return default value if the identifier wasn't defined in card_node.
-    return identifier_map.get(id_name).get('value').get('default_value')
+    return get_default_value(internal_name, order_map)
 
-def get_internal_name(name, expected_map):
-    for internal_name in expected_map:
-        if name in expected_map.get(internal_name).get('valid_name_list'):
-            return internal_name
-    return None
-
-def get_internal_identifier_name(id_name):
-    for internal_name in identifier_map:
-        if id_name in identifier_map[internal_name]:
-            return internal_name
+def get_internal_name(name, order_map):
+    for k in order_map:
+        identifier = settings.expected_identifier(order_map.get(k))
+        if name in identifier.get('valid_name_list'):
+            return identifier.get('internal_name')
     return None
 
 def get_node_type(node):
@@ -144,9 +117,6 @@ def get_node_type(node):
         return None
     else:
         return node.get('node_type')
-
-def get_valid_id_names():
-    return [i for sub in identifier_map.values() for i in sub]
 
 ##############################################################################
 # Misc. helpers.
@@ -173,9 +143,3 @@ def next(iterator):
         return iterator.next()
     except StopIteration:
         return None
-
-def skip(n, iterator):
-    '''
-        Skips 'n' objects in 'iterator'.
-    '''
-    for i in range(n): next(iterator)

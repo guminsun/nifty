@@ -1,8 +1,13 @@
-from nifty.environment import helpers as env
 from nifty.environment.exceptions import OrganizeError
 from nifty.environment.exceptions import organize_error
 from nifty.environment.exceptions import SemanticError
+
+from nifty.environment import helpers as env
+
 import organizer_helpers as helper
+
+from nifty.settings import settings
+from nifty.settings import unresr_settings
 
 ##############################################################################
 # Organize unresr. Put together into an orderly, functional, structured whole.
@@ -43,25 +48,15 @@ def organize_card_1(card, module):
     # the analyzer is able to report any semantical errors.
     if not helper.is_expected_card('card_1', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('nendf', None)),
-        1 : ('identifier', ('nin', None)),
-        2 : ('identifier', ('nout', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(unresr_settings.card_1_order_map, card)
 
 def organize_card_2(card, module):
     if not helper.is_expected_card('card_2', card):
         return card, None, None
-    expected_map = {
-        0 : ('identifier', ('matd', None)),
-        1 : ('identifier', ('ntemp', None)),
-        2 : ('identifier', ('nsigz', None)),
-        3 : ('identifier', ('iprint', 0)),
-    }
-    card = helper.organize_card(expected_map, card)
-    ntemp = helper.get_identifier_value('ntemp', card)
-    nsigz = helper.get_identifier_value('nsigz', card)
+    order_map = unresr_settings.card_2_order_map
+    card = helper.organize_card(order_map, card)
+    ntemp = env.get_identifier_value('ntemp', order_map, card)
+    nsigz = env.get_identifier_value('nsigz', order_map, card)
     return card, ntemp, nsigz
 
 def organize_card_3(ntemp, card, module):
@@ -69,20 +64,22 @@ def organize_card_3(ntemp, card, module):
         return card
     if ntemp is None:
         organize_error()
-    expected_map = {}
+    identifier_map = unresr_settings.card_3_identifier_map
+    order_map = {}
     for i in range(ntemp):
-        expected_map[i] = ('array', ('ntemp', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('temp', i, identifier_map.get('temp'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_4(nsigz, card, module):
     if not helper.is_expected_card('card_4', card):
         return card
     if nsigz is None:
         organize_error()
-    expected_map = {}
+    identifier_map = unresr_settings.card_4_identifier_map
+    order_map = {}
     for i in range(nsigz):
-        expected_map[i] = ('array', ('sigz', None, i))
-    return helper.organize_card(expected_map, card)
+        order_map[i] = ('sigz', i, identifier_map.get('sigz'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_2_stop(card, module):
     # No need to organize the last card 2 since it only contains one

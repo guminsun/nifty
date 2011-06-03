@@ -2,6 +2,8 @@ from nifty.analyzer import analyzer_rules as rule
 from nifty.environment import helpers as env
 import organizer_helpers as helper
 
+from nifty.settings import acer_settings
+
 ##############################################################################
 # Organize acer. Put together into an orderly, functional, structured whole.
 #
@@ -73,128 +75,67 @@ def organize_card_1(card, module):
     # the analyzer is able to report any semantical errors.
     if not helper.is_expected_card('card_1', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('nendf', None)),
-        1 : ('identifier', ('npend', None)),
-        2 : ('identifier', ('ngend', None)),
-        3 : ('identifier', ('nace', None)),
-        4 : ('identifier', ('ndir', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    order_map = acer_settings.card_1_order_map
+    return helper.organize_card(order_map, card)
 
 def organize_card_2(card, module):
     if not helper.is_expected_card('card_2', card):
         return card, None, None
-    expected_map = {
-        0 : ('identifier', ('iopt', None)),
-        1 : ('identifier', ('iprint', 1)),
-        2 : ('identifier', ('ntype', 1)),
-        3 : ('identifier', ('suff', 0.00)),
-        4 : ('identifier', ('nxtra', 0)),
-    }
-    card = helper.organize_card(expected_map, card)
-    # The statement iterator is used to get the iopt and nxtra values which
-    # are used in organize_card_list/2 to determine which cards that are
-    # supposed to be defined.
-    stmt_iter = env.get_statement_iterator(card)
-    # First element in 'statement_list' is assumed to be the iopt node after
-    # sorting.
-    iopt = helper.get_value(env.next(stmt_iter))
-    # Fifth element in 'statement_list' is assumed to be the nxtra node after
-    # sorting.
-    env.skip(3, stmt_iter)
-    nxtra = helper.get_optional_value(0, env.next(stmt_iter))
+    order_map = acer_settings.card_2_order_map
+    card = helper.organize_card(order_map, card)
+    iopt = env.get_identifier_value('iopt', order_map, card)
+    nxtra = env.get_identifier_value('nxtra', order_map, card)
     return card, iopt, nxtra
 
 def organize_card_3(card, module):
-    # No need to organize card 3; it only contains one variable which has no
-    # default value.
+    # No need to organize card 3 since it only contains one identifier.
     return card
 
 def organize_card_4(nxtra, card, module):
     if not helper.is_expected_card('card_4', card):
         return card
-    expected_map = {}
-    order = 0
+    order_map = {}
+    identifier_map = acer_settings.card_4_identifier_map
     for i in range(nxtra):
-        expected_map[order] = ('array', ('iz', None, i))
-        order += 1
-        expected_map[order] = ('array', ('aw', None, i))
-        order += 1
-    return helper.organize_card(expected_map, card)
+        order_map[i*2] = ('iz', i, identifier_map.get('iz'))
+        order_map[i*2+1] = ('aw', i, identifier_map.get('aw'))
+    return helper.organize_card(order_map, card)
 
 def organize_card_5(card, module):
     if not helper.is_expected_card('card_5', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('matd', None)),
-        1 : ('identifier', ('tempd', 300)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_5_order_map, card)
 
 def organize_card_6(card, module):
     if not helper.is_expected_card('card_6', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('newfor', 1)),
-        1 : ('identifier', ('iopp', 1)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_6_order_map, card)
 
 def organize_card_7(card, module):
     if not helper.is_expected_card('card_7', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('thin01', None)),
-        1 : ('identifier', ('thin02', None)),
-        2 : ('identifier', ('thin03', None)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_7_order_map, card)
 
 def organize_card_8(card, module):
     if not helper.is_expected_card('card_8', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('matd', None)),
-        1 : ('identifier', ('tempd', 300)),
-        2 : ('identifier', ('tname', 'za')),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_8_order_map, card)
 
 def organize_card_8a(card, module):
     if not helper.is_expected_card('card_8a', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('iza01', None)),
-        1 : ('identifier', ('iza02', 0)),
-        2 : ('identifier', ('iza03', 0)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_8a_order_map, card)
 
 def organize_card_9(card, module):
     if not helper.is_expected_card('card_9', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('mti', None)),
-        1 : ('identifier', ('nbint', None)),
-        2 : ('identifier', ('mte', None)),
-        3 : ('identifier', ('ielas', None)),
-        4 : ('identifier', ('nmix', 1)),
-        5 : ('identifier', ('emax', 1000.0)),
-        6 : ('identifier', ('iwt', 1)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_9_order_map, card)
 
 def organize_card_10(card, module):
     if not helper.is_expected_card('card_10', card):
         return card
-    expected_map = {
-        0 : ('identifier', ('matd', None)),
-        1 : ('identifier', ('tempd', 300)),
-    }
-    return helper.organize_card(expected_map, card)
+    return helper.organize_card(acer_settings.card_10_order_map, card)
 
 def organize_card_11(card, module):
-    # No need to organize card 11; it only contains one variable which has no
-    # default value.
+    # No need to organize card 11 since it only contains one identifier.
     return card

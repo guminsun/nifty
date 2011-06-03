@@ -1,6 +1,7 @@
 import settings
 
 material_number = settings.material_number
+mt_number = settings.mt_number
 unit_number = settings.unit_number
 
 ##############################################################################
@@ -271,7 +272,7 @@ mfcov = 'mfcov'
 irespr = 'irespr'
 legord = 'legord'
 ifissp = 'ifissp'
-emean = 'emean'
+efmean = 'efmean'
 dap = 'dap'
 
 card_7_identifier_map = {
@@ -470,8 +471,7 @@ card_10_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            # XXX: MT range?
-            'slice_list' : None,
+            'slice_list' : mt_number,
         },
         'valid_name_list' : [mt1],
     },
@@ -508,8 +508,7 @@ card_11_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            # XXX: MT range?
-            'slice_list' : None,
+            'slice_list' : mt_number,
         },
         'valid_name_list' : [mtb],
     },
@@ -529,8 +528,7 @@ card_11_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            # XXX: MT range?
-            'slice_list' : None,
+            'slice_list' : mt_number,
         },
         'valid_name_list' : [mtc],
     },

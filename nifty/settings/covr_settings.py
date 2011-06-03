@@ -199,7 +199,7 @@ card_2b_identifier_map = {
 }
 
 card_2b_order_map = {
-    0 : (epmin, None, card_2b_identifier_map.get(epmin)),
+    0 : (matype, None, card_2b_identifier_map.get(matype)),
     1 : (ncase, None, card_2b_identifier_map.get(ncase)),
 }
 
@@ -275,7 +275,7 @@ card_4_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : 0,
-            # XXX: range
+            # XXX: Range not regular MT number. May be negative.
             'slice_list' : None,
         },
         'valid_name_list' : [mt],
@@ -286,7 +286,7 @@ card_4_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : 0,
-            # XXX: range
+            # XXX: Range not regular material number. May be negative.
             'slice_list' : None,
         },
         'valid_name_list' : [mat1],
@@ -297,7 +297,7 @@ card_4_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : 0,
-            # XXX: range
+            # XXX: Range not regular MT number. May be negative.
             'slice_list' : None,
         },
         'valid_name_list' : [mt1],
