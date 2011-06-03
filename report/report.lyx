@@ -168,7 +168,8 @@ Background
 
 \begin_layout Standard
 Usability of software systems is important.
- The usability of a software system is determined by its user interface.
+ The usability of a software system is determined, among other things, by
+ its user interface.
  The user interface of a software system should provide means of interaction
  between the users and the system such that the desired result can be produced
  in a easy, elegant, and efficient fashion.
@@ -202,9 +203,8 @@ key "key-3"
 
 \end_inset
 
- and while using the system it has been apparent that the non-interactive
- user interface used for specifying NJOY jobs is not as user friendly as
- one would like.
+, and it has been apparent that the non-interactive user interface used
+ for specifying NJOY jobs is not as user friendly as one would like.
 \end_layout
 
 \begin_layout Subsection
