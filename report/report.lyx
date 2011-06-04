@@ -5858,6 +5858,11 @@ nifty/
 
 \begin_layout Plain Layout
 
+		settings/
+\end_layout
+
+\begin_layout Plain Layout
+
 		tests/
 \end_layout
 
@@ -6199,6 +6204,37 @@ nifty
 
 \family typewriter
 bin/nifty -ao input.nif output
+\end_layout
+
+\begin_layout Subsection
+Settings
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+nifty/nifty/settings/
+\family default
+ directory as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand prettyref
+reference "fig:Appendix - Directory Structure of nifty"
+
+\end_inset
+
+ contains module specific settings.
+ Each module has its own settings file.
+ The analyzer and organizer phase utilizes the settings files when processing
+ a syntax tree.
+ The settings describes the expected identifiers and their expected order
+ within the cards in a module.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
