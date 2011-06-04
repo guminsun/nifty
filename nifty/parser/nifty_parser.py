@@ -173,7 +173,8 @@ def p_error(p):
 def parse(data):
     lexer = lex.lex(module=nifty_lexer)
     parser = yacc.yacc(debug=True)
-    # 'tracking' requires extra processing. Turn it off if parsing is slow.
+    # tracking is required for line numbers. Although, tracking requires extra
+    # processing. Turn it off if parsing is slow.
     return parser.parse(data, tracking=True)
 
 if __name__ == '__main__':
