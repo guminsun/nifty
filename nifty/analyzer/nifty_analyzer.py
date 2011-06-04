@@ -47,7 +47,7 @@ def analyze_module(module):
         'covr' : analyze_covr,
         #'dtfr' : analyze_dtfrr,
         'errorr' : analyze_errorr,
-        #'gaminr' : analyze_gaminr,
+        'gaminr' : analyze_gaminr,
         'gaspr' : analyze_gaspr,
         'groupr' : analyze_groupr,
         'heatr' : analyze_heatr,
