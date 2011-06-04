@@ -102,7 +102,7 @@ def next_card_list_index(previous_card_node, card_list):
 def identifier_must_be_unique(internal_name, order_map, statement_list):
     count = 0
     for statement in statement_list:
-        l_value, r_value = must_be_assignment(statement)
+        l_value = statement.get('l_value')
         if env.is_identifier(l_value):
             name = l_value.get('name')
             if internal_name == env.get_internal_name(name, order_map):
