@@ -19,7 +19,7 @@
 \font_tt_scale 100
 
 \graphics default
-\paperfontsize 12
+\paperfontsize 10
 \spacing single
 \use_hyperref false
 \papersize default
@@ -46,6 +46,23 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset External
+	template PDFPages
+	filename C:/Users/ceh/Desktop/front.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -59,37 +76,54 @@ thispagestyle{empty}
 \end_inset
 
 
-\end_layout
+\begin_inset space ~
+\end_inset
 
-\begin_layout Section*
-Abstract
-\end_layout
 
-\begin_layout Standard
-The NJOY Nuclear Data Processing System is a software system used for nuclear
- data management [1].
- In particular, it is used to convert Evaluated Nuclear Data Files (ENDF)
- [2] into different formats, as well as performing operations on the nuclear
- data.
 \end_layout
 
 \begin_layout Standard
-The input instructions which are used for specifying jobs to be run by NJOY
- are complex and hard to read compared to e.g.
- a high-level programming language.
- Working with a large and complex job easily becomes a daunting and error-prone
- task.
- Accordingly, there is a need for an improved input format.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-In this thesis, a new input format is proposed.
- In order to make the new input format useable with NJOY, a translator which
- is able to translate the new input format into the original NJOY input
- instructions has also been implemented.
+\begin_inset External
+	template PDFPages
+	filename C:/Users/ceh/Desktop/abstract.pdf
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset Newpage pagebreak
 \end_inset
 
@@ -184,18 +218,20 @@ key "key-1"
 \end_inset
 
  is a software system used for nuclear data management.
- In particular, it is used to convert Evaluated Nuclear Data Files (ENDF)
- 
+ In particular, it is used to convert evaluated nuclear data for materials
+ stored in Evaluated Nuclear Data Files (ENDF) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-2"
 
 \end_inset
 
- into different formats, as well as performing operations on the nuclear
- data.
- NJOY is widely used, and as such, it is important that it has a user friendly
- interface.
+ into different formats, as well as performing operations on the data.
+\end_layout
+
+\begin_layout Standard
+NJOY is widely used, and as such, it is important that the system has a
+ user friendly interface.
  NJOY is currently being used within the MACRO project 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -356,11 +392,7 @@ name "alg:NJOY Example 1"
 Without consulting the documentation, one might guess that line 4 and 11
  are some kind of descriptive titles, which is correct.
  However, it is not obvious that line 2 denotes input and output files (each
- number indicates a specific file) that the 
-\family typewriter
-acer
-\family default
- module will operate on.
+ number indicates a specific file) that the system will operate on.
  It is also hard to deduce that the first number on line 5 denotes the material
  to be processed, and that the second number denotes the desired temperature
  in kelvin.
@@ -464,8 +496,8 @@ key "key-6"
 \end_inset
 
 .
- A context-free grammar is a convenient, and natural method of specifying
- the syntax of a programming language.
+ A context-free grammar is a convenient method of specifying the syntax
+ of a programming language.
  For instance, the assignment (
 \shape italic
 declaration
@@ -535,7 +567,14 @@ key "key-5"
  Each phase inspects and transforms a representation of the source program
  to another.
  Phases such as lexical analysis, syntax analysis, and semantic analysis
- has been used throughout this work.
+ has been used throughout this work and is described in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:nifty"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -716,11 +755,11 @@ key "key-4"
 
 \end_inset
 
-, card 1, 2 and 3 in module 
+, card 1, 2 and 3 in the 
 \family typewriter
 acer
 \family default
- must always be defined, and they must be defined in sequential order.
+ module must always be defined, and they must be defined in sequential order.
  The translator should report an error if these rules are violated; such
  as when card 1 has not been defined or when card 3 has been defined prior
  to card 2.
@@ -761,6 +800,13 @@ hk
 \family default
  has been declared as an integer, or when the character string contains
  more than 70 characters.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1080,7 +1126,7 @@ name "alg:NJOY Input Format Grammar Definition"
 
 \end_inset
 
-The start symbol is 
+In NIF, the start symbol is 
 \family typewriter
 program
 \family default
@@ -1154,8 +1200,16 @@ material = 128, 9237;
 
 \begin_layout Standard
 is allowed even though it does not make sense.
- However, the syntax analysis in the parser enforces that the number of
- elements on both sides are the same.
+ The result is undefined.
+ The syntax analysis in the parser is supposed to enforce that the number
+ of elements on both sides of an assignment are the same.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -3747,6 +3801,13 @@ reference "sub:Methodology - Building the Translator"
  that has been implemented.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Translation Verification
 \end_layout
@@ -5104,8 +5165,7 @@ NIF
 \end_layout
 
 \begin_layout Standard
-It is possible to specify basic NJOY jobs in NIF with a syntax to make them
- easy to read and express.
+It is possible to specify basic NJOY jobs in NIF.
  The resulting NIF programs can be translated into NJOY input instructions,
  which can be run by the NJOY software system.
  Production use is although not advisable, since it has been challenging
@@ -5115,8 +5175,8 @@ It is possible to specify basic NJOY jobs in NIF with a syntax to make them
 \begin_layout Standard
 It has also been evident that analyzing the NJOY input instructions is not
  enough to design a new input format for the NJOY software system.
- Analyzing the ENDF formats and the source code for the NJOY software system
- is required in order to build a translator which can conduct a complete
+ Analyzing the ENDF libraries and the source code for the NJOY software
+ system is required in order to build a translator which can conduct a complete
  semantic analysis for a NJOY job.
 \end_layout
 
