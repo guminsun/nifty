@@ -597,6 +597,13 @@ r_value
  side of the assignment, respectively.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Building the Translator
 \begin_inset CommandInset label
@@ -1351,6 +1358,17 @@ The fourth phase is the semantic analysis which is implemented by the module
  implements a NJOY input instructions generator.
 \end_layout
 
+\begin_layout Standard
+A basic user manual for the translator is available in appendix 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:Appendix - User Manual"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 Reserved Keywords
 \end_layout
@@ -1368,6 +1386,13 @@ An important design choice is that the translator will enforce the use of
  analysis of the semantics in the organizer and analyzer modules.
  As a consequence, it also forces the user to write consistent and readable
  input files -- which has been the objective of this work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1586,16 +1611,15 @@ ding original NJOY test problem.
 Note that modified versions of the original NJOY test problems had to be
  used as the expected output when comparing the resulting output from the
  translator.
- The comments that the emitter appends to every card, as described in section
- 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Implementation, The Modules"
+ The comments that the emitter appends to every card had to be appended
+ to the expected output such that the comparison could be performed.
+\end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
 \end_inset
 
-, had to be appended to the expected output such that the comparison could
- be performed.
+
 \end_layout
 
 \begin_layout Subsection
@@ -5814,7 +5838,7 @@ arabic{table}}
 User Manual
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Appendix - Users Manual"
+name "sec:Appendix - User Manual"
 
 \end_inset
 
