@@ -251,7 +251,7 @@ Problem Description
 The NJOY input instructions 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-4"
+key "key-1,key-4"
 
 \end_inset
 
@@ -451,6 +451,15 @@ key "key-4"
 
 , was analyzed separately such that a general structure and common language
  features could be extracted and used for further analysis.
+ The general structure of the NJOY input instructions is briefly described
+ in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:NJOY Input Instructions"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -476,6 +485,99 @@ key "key-5"
 \end_inset
 
 , is described.
+\end_layout
+
+\begin_layout Subsubsection
+Introducing the NJOY Input Instructions 
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:NJOY Input Instructions"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As described in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1,key-4"
+
+\end_inset
+
+, NJOY is composed by a set of modules where each module performs a specific
+ task.
+ Each module has its separate input specification, which defines the modules
+ expected input instructions.
+\end_layout
+
+\begin_layout Standard
+The general structure of the input instructions is presented in algorithm
+ XXX.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+module_name
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Structure of the NJOY Input Instructions
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Structure of the NJOY Input Instructions"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -4467,7 +4569,7 @@ tp01
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.66
+2.87
 \end_layout
 
 \end_inset
@@ -4476,7 +4578,7 @@ tp01
 \begin_inset Text
 
 \begin_layout Plain Layout
-358.92
+345.22
 \end_layout
 
 \end_inset
@@ -4498,7 +4600,7 @@ tp02
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.49
+2.87
 \end_layout
 
 \end_inset
@@ -4507,7 +4609,7 @@ tp02
 \begin_inset Text
 
 \begin_layout Plain Layout
-381.62
+374.29
 \end_layout
 
 \end_inset
@@ -4529,7 +4631,7 @@ tp03
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.92
+2.81
 \end_layout
 
 \end_inset
@@ -4538,7 +4640,7 @@ tp03
 \begin_inset Text
 
 \begin_layout Plain Layout
-302.80
+292.49
 \end_layout
 
 \end_inset
@@ -4560,7 +4662,7 @@ tp04
 \begin_inset Text
 
 \begin_layout Plain Layout
-4.02
+2.79
 \end_layout
 
 \end_inset
@@ -4569,7 +4671,7 @@ tp04
 \begin_inset Text
 
 \begin_layout Plain Layout
-281.72
+281.89
 \end_layout
 
 \end_inset
@@ -4591,7 +4693,7 @@ tp05
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.37
+3.37
 \end_layout
 
 \end_inset
@@ -4600,7 +4702,7 @@ tp05
 \begin_inset Text
 
 \begin_layout Plain Layout
-254.14
+255.12
 \end_layout
 
 \end_inset
@@ -4622,7 +4724,7 @@ tp06
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.18
+3.05
 \end_layout
 
 \end_inset
@@ -4631,7 +4733,7 @@ tp06
 \begin_inset Text
 
 \begin_layout Plain Layout
-359.27
+346.87
 \end_layout
 
 \end_inset
@@ -4653,7 +4755,7 @@ tp07
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.04
+3.07
 \end_layout
 
 \end_inset
@@ -4662,7 +4764,7 @@ tp07
 \begin_inset Text
 
 \begin_layout Plain Layout
-278.44
+278.47
 \end_layout
 
 \end_inset
@@ -4684,7 +4786,7 @@ tp08
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.44
+2.75
 \end_layout
 
 \end_inset
@@ -4693,7 +4795,7 @@ tp08
 \begin_inset Text
 
 \begin_layout Plain Layout
-309.21
+294.17
 \end_layout
 
 \end_inset
@@ -4715,7 +4817,7 @@ tp10
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.78
+3.05
 \end_layout
 
 \end_inset
@@ -4724,7 +4826,7 @@ tp10
 \begin_inset Text
 
 \begin_layout Plain Layout
-288.20
+288.98
 \end_layout
 
 \end_inset
@@ -4746,7 +4848,7 @@ tp11
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.89
+2.84
 \end_layout
 
 \end_inset
@@ -4755,7 +4857,7 @@ tp11
 \begin_inset Text
 
 \begin_layout Plain Layout
-363.84
+373.76
 \end_layout
 
 \end_inset
@@ -4777,7 +4879,7 @@ tp12
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.96
+2.72
 \end_layout
 
 \end_inset
@@ -4786,7 +4888,7 @@ tp12
 \begin_inset Text
 
 \begin_layout Plain Layout
-291.66
+301.82
 \end_layout
 
 \end_inset
@@ -4808,7 +4910,7 @@ tp13
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.24
+3.19
 \end_layout
 
 \end_inset
@@ -4817,7 +4919,7 @@ tp13
 \begin_inset Text
 
 \begin_layout Plain Layout
-271.63
+280.76
 \end_layout
 
 \end_inset
@@ -4839,7 +4941,7 @@ tp14
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.62
+3.25
 \end_layout
 
 \end_inset
@@ -4848,7 +4950,7 @@ tp14
 \begin_inset Text
 
 \begin_layout Plain Layout
-242.39
+251.40
 \end_layout
 
 \end_inset
@@ -4870,7 +4972,7 @@ tp17
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.98
+2.95
 \end_layout
 
 \end_inset
@@ -4879,7 +4981,7 @@ tp17
 \begin_inset Text
 
 \begin_layout Plain Layout
-342.49
+350.35
 \end_layout
 
 \end_inset
@@ -4901,7 +5003,7 @@ Average Time:
 \begin_inset Text
 
 \begin_layout Plain Layout
-4.69
+2.97
 \end_layout
 
 \end_inset
@@ -4910,7 +5012,7 @@ Average Time:
 \begin_inset Text
 
 \begin_layout Plain Layout
-309.02
+308.26
 \end_layout
 
 \end_inset
@@ -5140,7 +5242,7 @@ reference "sub:Results - Translation Efficiency"
  revealed that the performance of the translator implementation is not a
  huge bottleneck, compared to the much greater wall times.
  The performance appeared to be good enough to fit the purpose of the translator.
- Hence, more elaborate testing of the efficiency was not conducted.
+ Therefore, more elaborate testing of the efficiency was not conducted.
 \end_layout
 
 \begin_layout Standard
