@@ -6060,8 +6060,8 @@ test
 bench
 \family default
  executable is a script used for testing the efficiency of the translator.
- The other executables runs their corresponding named phase in the translation
- process (and all the successive phases that they depend on).
+ The other executable scripts runs their corresponding named phase in the
+ translation process (and all the successive phases that they depend on).
 \end_layout
 
 \begin_layout Standard
