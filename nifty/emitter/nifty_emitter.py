@@ -1,3 +1,5 @@
+import string
+
 from nifty.environment import helpers as env
 
 ##############################################################################
@@ -11,52 +13,35 @@ def program_to_string(program):
     return module_list_to_string(module_list)
 
 def module_list_to_string(module_list):
-    string = str()
-    for module in module_list:
-        string += module_to_string(module)
-    return string
+    slist = [module_to_string(module) for module in module_list]
+    return ''.join(slist)
 
 def module_to_string(module):
     module_name = module.get('module_name')
-    string = module_name + newline()
     card_list = module.get('card_list')
-    string += card_list_to_string(card_list)
-    return string
+    s = '%s%s%s' % (module_name, newline(), card_list_to_string(card_list))
+    return s
 
 def card_list_to_string(card_list):
-    string = str()
-    for card in card_list:
-        string += card_to_string(card)
-    return string
+    slist = [card_to_string(card) for card in card_list]
+    return ''.join(slist)
 
 def card_to_string(card):
     statement_list = card.get('statement_list')
-    string = (statement_list_to_string(statement_list) + default() + space() +
-              card_comment(card) + newline())
-    return string
+    s = '%s%s%s%s%s' % (statement_list_to_string(statement_list), default(),
+                        space(), card_comment(card), newline())
+    return s
 
 def statement_list_to_string(statement_list):
-    string = str()
-    statement_list_length = len(statement_list)
-    for i in range(statement_list_length):
-        # Append a space to every statement except the last one.
-        if i < statement_list_length-1:
-            string += statement_to_string(statement_list[i]) + space()
-        else:
-            string += statement_to_string(statement_list[i])
-    return string
+    slist = [statement_to_string(statement) for statement in statement_list]
+    # Concatenate the statements with intervening occurences of spaces.
+    return string.join(slist, space())
 
 def statement_to_string(node):
-    if env.is_assignment(node):
-        return assignment_to_string(node)
-    else:
-        # Catch anything else, just in case.
-        print('--- emitter: XXX statement not implemented yet:',
-              env.get_node_type(node))
-        return node
+    # XXX: node is assumed to be an assignment node.
+    return assignment_to_string(node)
 
 def assignment_to_string(node):
-    l_value = node.get('l_value')
     r_value = node.get('r_value')
     return r_value_to_string(r_value)
 
@@ -91,15 +76,18 @@ def null_to_string(node):
 def string_to_string(node):
     value = node.get('value')
     # Format the string as a NJOY string, i.e. delimited by single quotes.
-    string = single_quote() + str(value) + single_quote()
-    return string
+    s = '%s%s%s' % (single_quote(), str(value), single_quote())
+    return s
 
 ##############################################################################
 # Helpers.
 
 def card_comment(card):
-    string = '### ' + card.get('card_name')
+    string = '%s%s' % (comment_prefix(), card.get('card_name'))
     return string
+
+def comment_prefix():
+    return '### '
 
 def default():
     return '/'
