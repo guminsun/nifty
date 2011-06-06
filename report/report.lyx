@@ -391,6 +391,7 @@ name "alg:NJOY Example 1"
 
 Without consulting the documentation, one might guess that line 4 and 11
  are some kind of descriptive titles, which is correct.
+ One might also guess that line 14 terminates the program.
  However, it is not obvious that line 2 denotes input and output files (each
  number indicates a specific file) that the system will operate on.
  It is also hard to deduce that the first number on line 5 denotes the material
@@ -508,76 +509,26 @@ key "key-1,key-4"
 
 , NJOY is composed by a set of modules where each module performs a specific
  task.
- Each module has its separate input specification, which defines the modules
- expected input instructions.
+ Each module has its separate input specification, which defines the expected
+ input instructions for the module.
 \end_layout
 
 \begin_layout Standard
-The general structure of the input instructions is presented in algorithm
- XXX.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset listings
-lstparams "basicstyle={\small\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize}"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-module_name
-\end_layout
-
-\begin_layout Plain Layout
-
+A NJOY job is an ordered sequence of modules.
+ The input instructions for a module is composed by an ordered sequence
+ of 
+\shape italic
+cards
+\shape default
+.
+ A 
+\shape italic
 card
-\end_layout
-
-\begin_layout Plain Layout
-
-card
-\end_layout
-
-\begin_layout Plain Layout
-
-card
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Structure of the NJOY Input Instructions
-\begin_inset CommandInset label
-LatexCommand label
-name "alg:Structure of the NJOY Input Instructions"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\shape default
+ is a line with an ordered sequence of values separated by spaces (or commas).
+ The expected values depends on the specific card.
+ There are three kinds of types that the values may be defined as: floating-poin
+t numbers, natural numbers, and character strings.
 \end_layout
 
 \begin_layout Subsection
@@ -902,13 +853,6 @@ hk
 \family default
  has been declared as an integer, or when the character string contains
  more than 70 characters.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -4693,7 +4637,7 @@ tp05
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.37
+3.10
 \end_layout
 
 \end_inset
@@ -4702,7 +4646,7 @@ tp05
 \begin_inset Text
 
 \begin_layout Plain Layout
-255.12
+255.14
 \end_layout
 
 \end_inset
@@ -5003,7 +4947,7 @@ Average Time:
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.97
+2.95
 \end_layout
 
 \end_inset
