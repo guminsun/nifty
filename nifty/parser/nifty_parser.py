@@ -29,7 +29,7 @@ def p_module_list(p):
     '''
     if len(p) == 3:
         p[0] = [p[1]] + p[2]
-    # Append 'stop' as the lsyntax_tree instruction to be executed.
+    # Append 'stop' as the last instruction to be executed.
     if p[0] is None:
         p[0] = [syntax_tree.make_stop(p.lineno(0))]
 
@@ -171,7 +171,7 @@ def p_error(p):
 # Driver.
 
 def parse(data):
-    lexer = lex.lex(module=nifty_lexer)
+    lexer = lex.lex(module=nifty_lexer, optimize=1)
     parser = yacc.yacc(debug=True)
     # tracking is required for line numbers. Although, tracking requires extra
     # processing. Turn it off if parsing is slow.
