@@ -206,7 +206,7 @@ Usability of software systems is important.
  its user interface.
  The user interface of a software system should provide means of interaction
  between the users and the system such that the desired result can be produced
- in a easy, elegant, and efficient fashion.
+ in an easy, elegant, and efficient fashion.
 \end_layout
 
 \begin_layout Standard
@@ -227,13 +227,13 @@ key "key-2"
 \end_inset
 
  into different formats, as well as performing operations on the data.
- (ENDF is a format used for storing nuclear data which has been produced
- through a evaluation process.)
+ ENDF is a file format used for storing nuclear data which has been produced
+ through an evaluation process.
 \end_layout
 
 \begin_layout Standard
-NJOY is widely used, and as such, it is important that the system has a
- user friendly interface.
+NJOY is widely used within nuclear data research, and as such, it is important
+ that the system has a user friendly interface.
  NJOY is currently being used within the MACRO project 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -241,8 +241,15 @@ key "key-3"
 
 \end_inset
 
-, and it has been apparent that the non-interactive user interface used
- for specifying NJOY jobs is not as user friendly as one would like.
+ at the Division of Applied Nuclear Physics, at the Department of Physics
+ and Astronomy at Uppsala University.
+ MACRO is a project that aims at linking reactor parameter uncertainties
+ to uncertainties in nuclear cross sections and nuclear model parameters.
+ This will be done using Monte Carlo-methods, and will require nuclear data
+ processing on a large scale.
+ It has been apparent to the researchers within the project that the non-interac
+tive user interface used for specifying NJOY jobs is not as user friendly
+ as one would like.
 \end_layout
 
 \begin_layout Subsection
@@ -448,7 +455,7 @@ The NJOY input instructions had to be understood in order to design the
  Each module in the NJOY software system, as described in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "key-4"
+key "key-1,key-4"
 
 \end_inset
 
@@ -516,7 +523,10 @@ key "key-1,key-4"
 \end_layout
 
 \begin_layout Standard
-A NJOY job is an ordered sequence of modules.
+An NJOY job is an ordered sequence of modules, where the order denotes the
+ execution order.
+ Module names are used to denote the start of a module and its specific
+ input instructions.
  The input instructions for a module is composed by an ordered sequence
  of 
 \shape italic
@@ -529,8 +539,165 @@ card
 \shape default
  is a line with an ordered sequence of values separated by spaces (or commas).
  The expected values depends on the specific card.
- There are three kinds of types that the values may be defined as: floating-poin
-t numbers, natural numbers, and character strings.
+ For an example, the first card in a module generally denotes input and
+ output files which the system will operate on.
+ There are three kinds of types that the values in a card may be defined
+ as: floating-point numbers, natural numbers (integers), and character strings.
+\end_layout
+
+\begin_layout Standard
+Algorithm 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "alg:General structure of an NJOY job"
+
+\end_inset
+
+ illustrates the general structure of an NJOY job.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily},breaklines=true,numbers=left,numberstyle={\footnotesize}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+module_name
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+module_name
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+card
+\end_layout
+
+\begin_layout Plain Layout
+
+stop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+General structure of an NJOY job
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:General structure of an NJOY job"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The module specified by the input instructions on lines 1 through 4 will
+ be executed first.
+ Any successive module definitions, lines 5 through 7, will be executed
+ next.
+ The module specified on lines 8 through 11 is the last module to be run
+ by NJOY.
+ An NJOY job is terminated by the 
+\family typewriter
+stop
+\family default
+ instruction as indicated by line 12.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Input and output files that the system operates on is expected to be defined
+ as integers in the first card of the modules.
+ NJOY expects input and output files (e.g.
+ ENDF libraries) to be named by a special convention.
+ The file names are expected to be prefixed with 
+\family typewriter
+tape
+\family default
+, and suffixed with the integer number that was specified in the card.
+ For example, if an input file was defined as the integer 20, then NJOY
+ expects a file named 
+\family typewriter
+tape20
+\family default
+ to be available.
+ This allows output files from one module to be the input files for another
+ module, which is how data flows from one module to another in an NJOY job.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -597,13 +764,6 @@ r_value
 \family default
  are other productions expressing the structure of the left and right hand
  side of the assignment, respectively.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -1255,9 +1415,9 @@ material = 128, 9237;
 
 \begin_layout Standard
 is allowed even though it does not make sense.
- The result is undefined.
- The syntax analysis in the parser is supposed to enforce that the number
- of elements on both sides of an assignment are the same.
+ This is not allowed.
+ The syntax analysis in the parser enforces that the number of elements
+ on both sides of an assignment are the same.
 \end_layout
 
 \begin_layout Standard
@@ -5239,7 +5399,7 @@ In this thesis, a new input format, NJOY Input Format (
 \family typewriter
 NIF
 \family default
-), has been proposed.
+), has been designed.
  A translator which is able to translate NIF into NJOY input instructions
  has been implemented.
 \end_layout
@@ -5257,7 +5417,7 @@ It has also been evident that analyzing the NJOY input instructions is not
  enough to design a new input format for the NJOY software system.
  Analyzing the ENDF libraries and the source code for the NJOY software
  system is required in order to build a translator which can conduct a complete
- semantic analysis for a NJOY job.
+ semantic analysis for an NJOY job.
 \end_layout
 
 \begin_layout Standard
