@@ -442,81 +442,28 @@ In order to make the new input format useable with NJOY, it has to be translated
 \end_layout
 
 \begin_layout Section
-Methodology
-\end_layout
-
-\begin_layout Subsection
-Introduction
+NJOY Input Instructions
 \end_layout
 
 \begin_layout Standard
-The NJOY input instructions had to be understood in order to design the
- new input format.
- Each module in the NJOY software system, as described in reference 
+The NJOY input instructions is described in reference 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-1,key-4"
-
-\end_inset
-
-, was analyzed separately such that a general structure and common language
- features could be extracted and used for further analysis.
- The general structure of the NJOY input instructions is briefly described
- in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:NJOY Input Instructions"
 
 \end_inset
 
 .
+ A brief summary of the general structure of the input instructions is provided
+ in the following section as a convenience for the reader.
+\end_layout
+
+\begin_layout Subsection
+General Structure
 \end_layout
 
 \begin_layout Standard
-As stated in reference 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-5"
-
-\end_inset
-
-, a translator (
-\shape italic
-compiler
-\shape default
-) is a program that can read a program in one language and translate it
- into an equivalent program in another language.
- In the following subsections, principles and techniques for constructing
- a translator presented in reference 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-5"
-
-\end_inset
-
-, is described.
-\end_layout
-
-\begin_layout Subsubsection
-Introducing the NJOY Input Instructions 
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:NJOY Input Instructions"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-As described in reference 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-1,key-4"
-
-\end_inset
-
-, NJOY is composed by a set of modules where each module performs a specific
+NJOY is composed by a set of modules where each module performs a specific
  task.
  Each module has its separate input specification, which defines the expected
  input instructions for the module.
@@ -525,8 +472,8 @@ key "key-1,key-4"
 \begin_layout Standard
 An NJOY job is an ordered sequence of modules, where the order denotes the
  execution order.
- Module names are used to denote the start of a module and its specific
- input instructions.
+ The name of a module is used to denote the start of the corresponding module
+ and its specific input instructions.
  The input instructions for a module is composed by an ordered sequence
  of 
 \shape italic
@@ -538,15 +485,9 @@ cards
 card
 \shape default
  is a line with an ordered sequence of values separated by spaces (or commas).
- The expected values depends on the specific card.
- For example, the first card in a module generally denotes input and output
- files which the system will operate on.
- There are three kinds of types that the values in a card may be defined
- as: floating-point numbers, natural numbers (integers), and character strings.
-\end_layout
-
-\begin_layout Standard
-Algorithm 
+ A card may be terminated with a slash character to denote the end of the
+ card, but it is not required.
+ Algorithm 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "alg:General structure of an NJOY job"
@@ -577,7 +518,14 @@ module_name
 
 \begin_layout Plain Layout
 
-card
+value value ...
+ value
+\end_layout
+
+\begin_layout Plain Layout
+
+value value ...
+ value
 \end_layout
 
 \begin_layout Plain Layout
@@ -587,7 +535,35 @@ card
 
 \begin_layout Plain Layout
 
-card
+value value ...
+ value
+\end_layout
+
+\begin_layout Plain Layout
+
+module_name
+\end_layout
+
+\begin_layout Plain Layout
+
+value value ...
+ value
+\end_layout
+
+\begin_layout Plain Layout
+
+value value/
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+value value ...
+ value
 \end_layout
 
 \begin_layout Plain Layout
@@ -610,7 +586,13 @@ module_name
 
 \begin_layout Plain Layout
 
-card
+value value ...
+ value
+\end_layout
+
+\begin_layout Plain Layout
+
+/
 \end_layout
 
 \begin_layout Plain Layout
@@ -620,7 +602,8 @@ card
 
 \begin_layout Plain Layout
 
-card
+value value ...
+ value
 \end_layout
 
 \begin_layout Plain Layout
@@ -658,17 +641,80 @@ name "alg:General structure of an NJOY job"
 \end_layout
 
 \begin_layout Standard
-The module specified by the input instructions on lines 1 through 4 will
- be executed first.
- Any successive module definitions, lines 5 through 7, will be executed
- next.
- The module specified on lines 8 through 11 is the last module to be run
- by NJOY.
+Line 1 denotes the start of the first module and its specific input instructions.
+ Line 2 denotes the first card for the module declared on line 1.
+ Line 3 through 5 denotes input instructions for successive cards that also
+ belongs to the module declared on line 1.
+ Line 6 through 10 denotes the declaration of another module and its correspondi
+ng cards.
+ Successive module definitions, lines 11 through 18, may follow.
+ Line 8 and 16 shows cards that has been terminated with the slash character,
+ denoting that no more values has been defined for the cards.
  An NJOY job is terminated by the 
 \family typewriter
 stop
 \family default
- instruction as indicated by line 12.
+ instruction as indicated by line 19.
+\end_layout
+
+\begin_layout Standard
+The expected cards in a module and the expected values within a card depends
+ on the specific input specification for the module.
+ The expected type of the values also depends on the input specification
+ for the card and module.
+ There are three kinds of types that the values in a card may be defined
+ as: floating-point numbers, natural numbers (integers), and character strings.
+ Character strings are generally required to be terminated by a slash character.
+\end_layout
+
+\begin_layout Standard
+A card may have default values.
+ A default value is a value that does not have to be defined.
+ If the value is not defined, then a default value will be set by NJOY.
+ Values that may be defaulted are always defined at the end of the card.
+ Hence, values that must be defined are always defined prior to values that
+ may be defaulted.
+ Default values will be used when a card is terminated by a slash character.
+ For example, according to reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+, card 3 in the 
+\family typewriter
+reconr
+\family default
+ module is composed by three values.
+ The last two values have default values.
+ Declaring the card as
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family typewriter
+value/
+\end_layout
+
+\begin_layout Standard
+will set the first value to 
+\family typewriter
+value
+\family default
+, while the last two values will be set to their corresponding default values.
+\end_layout
+
+\begin_layout Standard
+To conclude, the NJOY input instructions are powerful.
+ It is possible to construct complex NJOY jobs by declaring a long chain
+ of modules with their specific input instructions.
+ Or, an NJOY job may be as simple as a single 
+\family typewriter
+stop
+\family default
+ instruction, which just terminates the job.
 \end_layout
 
 \begin_layout Standard
@@ -698,6 +744,60 @@ tape20
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Methodology
+\end_layout
+
+\begin_layout Subsection
+Introduction
+\end_layout
+
+\begin_layout Standard
+The NJOY input instructions had to be understood in order to design the
+ new input format.
+ Each module in the NJOY software system, as described in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1,key-4"
+
+\end_inset
+
+, was analyzed separately such that a general structure and common language
+ features could be extracted and used for further analysis.
+\end_layout
+
+\begin_layout Standard
+As stated in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+, a translator (
+\shape italic
+compiler
+\shape default
+) is a program that can read a program in one language and translate it
+ into an equivalent program in another language.
+ In the following subsections, principles and techniques for constructing
+ a translator presented in reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+, is described.
 \end_layout
 
 \begin_layout Subsection
