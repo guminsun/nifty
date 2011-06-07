@@ -4,6 +4,7 @@
 *.swp
 
 /*.nif
+lextab.py
 parsetab.py
 
 build/
