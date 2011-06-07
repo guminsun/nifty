@@ -5020,6 +5020,14 @@ name "tab:Bench Table"
 \end_layout
 
 \begin_layout Standard
+The average wall time for a single run for the test problems is 
+\begin_inset Formula $308.26/10000\thickapprox0.031$
+\end_inset
+
+ seconds.
+\end_layout
+
+\begin_layout Standard
 The repeated runs were conducted on a multi-user system equipped with three
  Dual Core AMD Opteron Processor 280 at 2.4GHz each, and a total of 3.6GB
  RAM.
