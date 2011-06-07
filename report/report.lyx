@@ -48,7 +48,7 @@
 \begin_layout Standard
 \begin_inset External
 	template PDFPages
-	filename C:/Documents and Settings/hessman/Desktop/front.pdf
+	filename C:/Users/ceh/Desktop/front.pdf
 
 \end_inset
 
@@ -92,7 +92,7 @@ thispagestyle{empty}
 \begin_layout Standard
 \begin_inset External
 	template PDFPages
-	filename C:/Documents and Settings/hessman/Desktop/abstract.pdf
+	filename C:/Users/ceh/Desktop/abstract.pdf
 
 \end_inset
 
@@ -539,8 +539,8 @@ card
 \shape default
  is a line with an ordered sequence of values separated by spaces (or commas).
  The expected values depends on the specific card.
- For an example, the first card in a module generally denotes input and
- output files which the system will operate on.
+ For example, the first card in a module generally denotes input and output
+ files which the system will operate on.
  There are three kinds of types that the values in a card may be defined
  as: floating-point numbers, natural numbers (integers), and character strings.
 \end_layout
@@ -1458,7 +1458,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
