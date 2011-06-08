@@ -48,7 +48,7 @@
 \begin_layout Standard
 \begin_inset External
 	template PDFPages
-	filename C:/Users/ceh/Desktop/front.pdf
+	filename C:/Documents and Settings/hessman/Desktop/front.pdf
 
 \end_inset
 
@@ -92,7 +92,7 @@ thispagestyle{empty}
 \begin_layout Standard
 \begin_inset External
 	template PDFPages
-	filename C:/Users/ceh/Desktop/abstract.pdf
+	filename C:/Documents and Settings/hessman/Desktop/abstract.pdf
 
 \end_inset
 
@@ -455,11 +455,25 @@ key "key-1,key-4"
 
 .
  A brief summary of the general structure of the input instructions is provided
- in the following section as a convenience for the reader.
+ in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:2.1 General Structure"
+
+\end_inset
+
+ as a convenience for the reader.
 \end_layout
 
 \begin_layout Subsection
 General Structure
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:2.1 General Structure"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -648,7 +662,7 @@ Line 1 denotes the start of the first module and its specific input instructions
  Line 6 through 10 denotes the declaration of another module and its correspondi
 ng cards.
  Successive module definitions, lines 11 through 18, may follow.
- Line 8 and 16 shows cards that has been terminated with the slash character,
+ Line 8 and 16 shows cards that have been terminated with the slash character,
  denoting that no more values has been defined for the cards.
  An NJOY job is terminated by the 
 \family typewriter
@@ -661,7 +675,7 @@ stop
 The expected cards in a module and the expected values within a card depends
  on the specific input specification for the module.
  The expected type of the values also depends on the input specification
- for the card and module.
+ for the specific card and module.
  There are three kinds of types that the values in a card may be defined
  as: floating-point numbers, natural numbers (integers), and character strings.
  Character strings are generally required to be terminated by a slash character.
@@ -669,11 +683,12 @@ The expected cards in a module and the expected values within a card depends
 
 \begin_layout Standard
 A card may have default values.
- A default value is a value that does not have to be defined.
+ A default value is a value that does not have to be defined in an NJOY
+ job.
  If the value is not defined, then a default value will be set by NJOY.
  Values that may be defaulted are always defined at the end of the card.
- Hence, values that must be defined are always defined prior to values that
- may be defaulted.
+ Hence, the values in a card are organized such that values that must be
+ defined are always defined prior to values that may be defaulted.
  Default values will be used when a card is terminated by a slash character.
  For example, according to reference 
 \begin_inset CommandInset citation
@@ -703,18 +718,8 @@ will set the first value to
 \family typewriter
 value
 \family default
-, while the last two values will be set to their corresponding default values.
-\end_layout
-
-\begin_layout Standard
-To conclude, the NJOY input instructions are powerful.
- It is possible to construct complex NJOY jobs by declaring a long chain
- of modules with their specific input instructions.
- Or, an NJOY job may be as simple as a single 
-\family typewriter
-stop
-\family default
- instruction, which just terminates the job.
+ while the last two values will be set to their default values internally
+ by NJOY since no more values were defined in the card.
 \end_layout
 
 \begin_layout Standard
@@ -722,10 +727,12 @@ stop
 status collapsed
 
 \begin_layout Plain Layout
-Input and output files that the system operates on is expected to be defined
- as integers in the first card of the modules.
- NJOY expects input and output files (e.g.
- ENDF libraries) to be named by a special convention.
+For example, the first card in a module is generally used to denote input
+ and output files (e.g.
+ ENDF libraries) to the module.
+ Input and output files that the system operates on are expected to be defined
+ as integer values.
+ NJOY also expects input and output files to be named by a special convention.
  The file names are expected to be prefixed with 
 \family typewriter
 tape
@@ -737,13 +744,25 @@ tape
 tape20
 \family default
  to be available.
- This allows output files from one module to be the input files for another
- module, which is how data flows from one module to another in an NJOY job.
+ This allows output files from one module to be used as the input files
+ for another module, which is how data flows from one module to another
+ in an NJOY job.
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+To conclude, the NJOY input instructions are powerful.
+ It is possible to construct a complex NJOY job by declaring a long chain
+ of modules with their specific input instructions.
+ Or, an NJOY job may be as simple as a single 
+\family typewriter
+stop
+\family default
+ instruction, which just terminates the job.
 \end_layout
 
 \begin_layout Standard
@@ -1558,7 +1577,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Users/ceh/Desktop/nifty.eps
+	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
 
 \end_inset
 
@@ -1570,7 +1589,11 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Translation process in nifty
+Translation process in 
+\family typewriter
+nifty
+\family default
+
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Translation process in nifty"
