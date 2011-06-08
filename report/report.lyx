@@ -1536,10 +1536,7 @@ key "key-8"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The translator was written in the Python programming language 
+ The translator was written in the Python programming language 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-9"
