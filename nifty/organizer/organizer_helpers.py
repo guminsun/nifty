@@ -47,7 +47,12 @@ def organize_statement_list(order_map, statement_list):
             # If the identifier is an expected one, insert it on the expected
             # index in the new statement list.
             index = get_expected_index(internal_name, array_index, order_map)
-            new_statement_list[index] = statement
+            # Catch None values, when e.g. an expected array identifier has
+            # been declared as a regular identifier.
+            try:
+                new_statement_list[index] = statement
+            except TypeError:
+                organize_error()
         else:
             organize_error()
     # Trim new_statement_list by removing trailing None's.
