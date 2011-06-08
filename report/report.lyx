@@ -2117,24 +2117,6 @@ material
 temp
 \family default
  holds the float 300.0.
-\end_layout
-
-\begin_layout Standard
-Note that the number of elements on the left hand side of an assignment
- does not have to be equal to the number of elements on the right hand side.
- According to the grammar, an assignment such as
-\end_layout
-
-\begin_layout Standard
-\align center
-
-\family typewriter
-material = 128, 9237;
-\end_layout
-
-\begin_layout Standard
-is allowed even though it does not make sense.
- This is not allowed.
  The syntax analysis in the parser enforces that the number of elements
  on both sides of an assignment are the same.
 \end_layout
