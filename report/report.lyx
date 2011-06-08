@@ -48,7 +48,7 @@
 \begin_layout Standard
 \begin_inset External
 	template PDFPages
-	filename C:/Documents and Settings/hessman/Desktop/front.pdf
+	filename C:/Users/ceh/Desktop/front.pdf
 
 \end_inset
 
@@ -92,7 +92,7 @@ thispagestyle{empty}
 \begin_layout Standard
 \begin_inset External
 	template PDFPages
-	filename C:/Documents and Settings/hessman/Desktop/abstract.pdf
+	filename C:/Users/ceh/Desktop/abstract.pdf
 
 \end_inset
 
@@ -2177,7 +2177,7 @@ status open
 \paragraph_spacing single
 \align center
 \begin_inset Graphics
-	filename C:/Documents and Settings/hessman/Desktop/nifty.eps
+	filename C:/Users/ceh/Desktop/nifty.eps
 
 \end_inset
 
@@ -6093,15 +6093,9 @@ reference "sub:Results - Translation Efficiency"
 \end_inset
 
  was conducted in a simple fashion.
- The resulting process runtimes presented in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:Results - Translation Efficiency"
-
-\end_inset
-
- revealed that the performance of the translator implementation is not a
- huge bottleneck, compared to the much greater wall times.
+ The resulting process runtimes revealed that the performance of the translator
+ implementation is not a huge bottleneck, compared to the much greater wall
+ times.
  The performance appeared to be good enough to fit the purpose of the translator.
  Therefore, more elaborate testing of the efficiency was not conducted.
 \end_layout
