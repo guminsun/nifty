@@ -263,9 +263,8 @@ card_5_identifier_map = {
     },
 }
 
-card_5_order_map = {
-    0 : (hpart, None, card_5_identifier_map.get(hpart)),
-}
+# Number of hpart values is defined by npart in card 3?
+card_5_order_map = {}
 
 ##############################################################################
 # matxsr card 6:
@@ -311,9 +310,8 @@ card_7_identifier_map = {
     },
 }
 
-card_7_order_map = {
-    0 : (htype, None, card_7_identifier_map.get(htype)),
-}
+# Number of htype values is defined by ntype in card 3?
+card_7_order_map = {}
 
 ##############################################################################
 # matxsr card 8:
@@ -336,9 +334,8 @@ card_8_identifier_map = {
     },
 }
 
-card_8_order_map = {
-    0 : (jinp, None, card_8_identifier_map.get(jinp)),
-}
+# Number of jinp values is defined by ntype in card 3?
+card_8_order_map = {}
 
 ##############################################################################
 # matxsr card 9:
@@ -361,9 +358,8 @@ card_9_identifier_map = {
     },
 }
 
-card_9_order_map = {
-    0 : (joutp, None, card_9_identifier_map.get(joutp)),
-}
+# Number of joutp values is defined by ntype in card 3?
+card_9_order_map = {}
 
 ##############################################################################
 # matxsr card 10:
