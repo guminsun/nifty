@@ -1423,10 +1423,6 @@ key "key-5"
 Designing the New Input Format
 \end_layout
 
-\begin_layout Subsubsection
-Syntax Definition
-\end_layout
-
 \begin_layout Standard
 The syntax definition of the new input format was specified in a notation
  called context-free grammar 
@@ -1510,12 +1506,26 @@ key "key-5"
  Phases such as lexical analysis, syntax analysis, and semantic analysis
  has been used throughout this work and is described in section 
 \begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:nifty"
+LatexCommand ref
+reference "sub:Lexical Analysis"
 
 \end_inset
 
-.
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Syntax Analysis"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Semantic Analysis"
+
+\end_inset
+
+ respectively.
 \end_layout
 
 \begin_layout Standard
@@ -1548,6 +1558,13 @@ key "key-9"
 
 \begin_layout Subsubsection
 Lexical Analysis
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Lexical Analysis"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1631,6 +1648,13 @@ key "key-12"
 
 \begin_layout Subsubsection
 Syntax Analysis
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Syntax Analysis"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1667,6 +1691,13 @@ parser
 
 \begin_layout Subsubsection
 Semantic Analysis
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Semantic Analysis"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2948,7 +2979,8 @@ key "key-4"
 
 \end_inset
 
- (the identifier names are hardwired in the translator).
+, but the identifier names are interchangeable in the translator (the identifier
+ names are hardwired in the translator).
  Line 30 and 31 shows how comments are expressed in NIF.
  Line 30 illustrates the structure of multiline comments while line 31 illustrat
 es the structure of single line comments.
@@ -5935,6 +5967,23 @@ NIF
 \end_layout
 
 \begin_layout Standard
+As indicated by the examples listed in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:NJOY Input Format Examples"
+
+\end_inset
+
+, a typical NIF program is vertically long compared to the compact notation
+ of the NJOY input instructions.
+ NIF programs can of course be specified in a compact form as well, e.g.
+ on a single line, but this is not the intended usage of NIF.
+ The purpose of NIF is to make NJOY jobs readable.
+ The readability would be limited if the jobs were expressed on a single
+ line.
+\end_layout
+
+\begin_layout Standard
 The proposed grammar does not differ much from the original NJOY input instructi
 ons since it basically is an annotated version of them.
  The NIF grammar could have been expanded to include more complex programming
@@ -5957,23 +6006,6 @@ key "key-4"
  can be used to specify NJOY jobs in NIF.
 \end_layout
 
-\begin_layout Standard
-As indicated by the examples listed in section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sub:NJOY Input Format Examples"
-
-\end_inset
-
-, a typical NIF program is vertically long compared to the compact notation
- of the NJOY input instructions.
- NIF programs can of course be specified in a compact form as well, e.g.
- on a single line, but this is not the intended usage of NIF.
- The purpose of NIF is to make NJOY jobs readable.
- The readability would be limited if the jobs were expressed on a single
- line.
-\end_layout
-
 \begin_layout Subsection
 NJOY Input Format Translator (
 \family typewriter
@@ -5983,15 +6015,13 @@ nifty
 \end_layout
 
 \begin_layout Standard
-An organizer and analyzer has not been provided for all modules in the NJOY
- software system due to time constraints of this thesis.
+The translator is able to translate NIF programs into functional NJOY input
+ instructions, but an organizer and analyzer has not been provided for all
+ modules in the NJOY software system due to time constraints of this thesis.
  As such, the important semantic analysis of the translator is incomplete.
  However, much of the needed functionality and structure is provided by
  the existing implementation such that both the organizer and the analyzer
  should be easy to complete.
- Even though the organizer and analyzer phase has not been implemented for
- all NJOY modules in the translator, NIF programs which include these modules
- can still be translated into functional NJOY input instructions.
 \end_layout
 
 \begin_layout Standard
