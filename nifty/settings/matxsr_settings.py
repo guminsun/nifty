@@ -176,7 +176,7 @@ card_3_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : [slice(0, float('inf')],
+            'slice_list' : [slice(0, float('inf'))],
         },
         'valid_name_list' : [npart],
     },
@@ -186,7 +186,7 @@ card_3_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : [slice(0, float('inf')],
+            'slice_list' : [slice(0, float('inf'))],
         },
         'valid_name_list' : [ntype],
     },
@@ -196,7 +196,7 @@ card_3_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : [slice(0, float('inf')],
+            'slice_list' : [slice(0, float('inf'))],
         },
         'valid_name_list' : [nholl],
     },
@@ -206,7 +206,7 @@ card_3_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : [slice(0, float('inf')],
+            'slice_list' : [slice(0, float('inf'))],
         },
         'valid_name_list' : [nmat],
     },
@@ -281,7 +281,7 @@ card_6_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : [slice(0, float('inf')],
+            'slice_list' : [slice(0, float('inf'))],
         },
         'valid_name_list' : [ngrp],
     },
@@ -298,7 +298,7 @@ card_6_order_map = {
 # map to add alternative identifier names.
 htype = 'htype'
 
-card_8_identifier_map = {
+card_7_identifier_map = {
     htype : {
         'internal_name' : htype,
         'is_optional' : False,
@@ -391,7 +391,7 @@ card_10_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : material,
+            'slice_list' : material_number,
         },
         'valid_name_list' : [matno],
     },
@@ -401,7 +401,7 @@ card_10_identifier_map = {
         'value' : {
             'node_type' : 'integer',
             'default_value' : None,
-            'slice_list' : material,
+            'slice_list' : material_number,
         },
         'valid_name_list' : [matgg],
     },
