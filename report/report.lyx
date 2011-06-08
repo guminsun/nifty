@@ -2367,9 +2367,9 @@ key "key-4"
 If any statements have been provided out of order in a card, and the organizer
  is able to arrange the statements, a new syntax tree is returned where
  the statements have been ordered in the expected sequence.
- If the organizer somehow fails, it will return the original syntax tree
- as produced by the parser and pass it on to the next phase in the translation
- process.
+ If the organizer somehow fails to organize the syntax tree, it will return
+ the original syntax tree as produced by the parser and pass it on to the
+ next phase in the translation process.
 \end_layout
 
 \begin_layout Paragraph
