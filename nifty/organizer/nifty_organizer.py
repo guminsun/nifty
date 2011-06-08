@@ -14,7 +14,7 @@ from organize_gaspr import organize_gaspr
 from organize_groupr import organize_groupr
 from organize_heatr import organize_heatr
 #from organize_leapr import organize_leapr
-#from organize_matxsr import organize_matxsr
+from organize_matxsr import organize_matxsr
 #from organize_mixr import organize_mixr
 from organize_moder import organize_moder
 from organize_plotr import organize_plotr
@@ -68,7 +68,7 @@ def organize_module(module):
         'groupr' : organize_groupr,
         'heatr' : organize_heatr,
         #'leapr' : organize_leapr,
-        #'matxsr' : organize_matxsr,
+        'matxsr' : organize_matxsr,
         #'mixr' : organize_mixr,
         'moder' : organize_moder,
         'plotr' : organize_plotr,
