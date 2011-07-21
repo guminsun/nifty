@@ -1,0 +1,81 @@
+#! /usr/bin/env python
+
+import os, sys
+from optparse import OptionParser
+
+nifty_exe_dir = os.path.dirname(__file__)    # bin/nifty
+nifty_top = os.path.split(nifty_exe_dir)[0]  # ../
+nifty_dir = os.path.join(nifty_top, 'nifty') # ../nifty/
+
+if os.path.isdir(nifty_dir):
+    sys.path.insert(0, nifty_top)
+
+from nifty.environment.exceptions import LexicalError
+from nifty.environment.exceptions import SemanticError
+from nifty.environment.exceptions import SyntaxError
+
+from nifty.analyzer.nifty_analyzer import analyze
+from nifty.emitter.nifty_emitter import emit
+from nifty.organizer.nifty_organizer import organize
+from nifty.parser.nifty_parser import parse
+
+def main():
+    usage = '%prog [options] [input_file] [output_file]'
+    arg_parser = OptionParser(usage)
+    arg_parser.add_option(
+        '-a',
+        action='store_false',
+        default=True,
+        dest='run_analyzer',
+        help='don\'t analyze the input',
+    )
+    arg_parser.add_option(
+        '-o',
+        action='store_false',
+        default=True,
+        dest='run_organizer',
+        help='don\'t organize the input',
+    )
+    (options, args) = arg_parser.parse_args()
+
+    if len(args) == 0:
+        input_stream = sys.stdin
+        output_stream = sys.stdout
+    elif len(args) == 1:
+        input_stream = open(args[0])
+        output_stream = sys.stdout
+    elif len(args) == 2:
+        input_stream = open(args[0])
+        output_stream = open(args[1], 'w')
+    else:
+        arg_parser.error('incorrect number of arguments')
+
+    ast = ''
+
+    try:
+        ast = parse(input_stream.read())
+    except LexicalError, lexical_error:
+        output_stream.write(eval(str(lexical_error)) + '\n')
+        sys.exit('lexical_error')
+    except SyntaxError, syntax_error:
+        output_stream.write(eval(str(syntax_error)) + '\n')
+        sys.exit('syntax_error')
+
+    if options.run_organizer:
+        ast = organize(ast)
+
+    if options.run_analyzer:
+        try:
+            ast = analyze(ast)
+        except SemanticError, semantic_error:
+            output_stream.write(eval(str(semantic_error)) + '\n')
+            sys.exit('semantic_error')
+
+    # XXX: Catch emitter errors?
+    instructions = emit(ast)
+
+    print >>output_stream, instructions
+
+if __name__ == '__main__':
+    import profile
+    profile.run('main()')
