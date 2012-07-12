@@ -1,6 +1,11 @@
 NJOY Input Format Translator
 ============================
 
+License
+-------
+Public domain.
+
+
 Abstract
 --------
 The NJOY Nuclear Data Processing System is a software system used for nuclear data management [1]. In particular, it is used to convert evaluated nuclear data for materials stored in Evaluated Nuclear Data Files (ENDF) [2] into different formats, as well as performing operations on the data.
